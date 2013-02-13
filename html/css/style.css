@@ -23,6 +23,10 @@
 		letter-spacing: -1px;
         color: #555;
 		font-weight: bold; }
+    .bold-header span {
+        font-weight: normal;
+        font-size: 23px;
+    }
 	nav ul {
 		float: left;  }
 	nav ul li {
