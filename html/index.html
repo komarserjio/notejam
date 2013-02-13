@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Your Page Title Here :)</title>
+	<title>Notejam</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="css/base.css">
 	<link rel="stylesheet" href="css/skeleton.css">
 	<link rel="stylesheet" href="css/layout.css">
+	<link rel="stylesheet" href="css/tables.css">
 	<link rel="stylesheet" href="css/style.css">
 
 	<!--[if lt IE 9]>
@@ -37,9 +38,12 @@
 </head>
 <body>
 	<div class="container">
-        <div class="three columns sidebar">
-            <nav>
+        <div class="sixteen columns">
+            <h1 class="bold-header">notejam</h1>
+        </div>
+        <div class="three columns">
             <h3 id="logo">Pads</h3>
+            <nav>
                 <ul>
                     <li><a href="#whatAndWhy">Business</a></li>
                     <li><a href="#grid">Personal</a></li>
@@ -49,7 +53,27 @@
                 </ul>
             </nav>
         </div>
-        <div class="twelve columns offset-by-one"></div>
+        <div class="thirteen columns">
+            <h4 class="bold-header">All notes</h4>
+            <table>
+                <tr>
+                	<th>Note</th>
+                	<th class="date">Last modified</th>
+                </tr>
+            	<tr>
+            		<td><a href="#">Note 1</a></td>
+            		<td class="hidden-text date">Feb 17 2013</td>
+            	</tr>
+            	<tr>
+            		<td><a href="#">Note 1</a></td>
+            		<td class="hidden-text date">Feb 17 2013</td>
+            	</tr>
+            	<tr>
+            		<td><a href="#">Note 1</a></td>
+            		<td class="hidden-text date">Feb 17 2013</td>
+            	</tr>
+            </table>
+        </div>
 	</div><!-- container -->
 </body>
 </html>

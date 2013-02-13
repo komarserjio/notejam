@@ -15,12 +15,13 @@
 
 	/* Doc nav */
 	nav {
-		position: fixed;
+        position: fixed;
 		width: 160px; }
-	#logo {
+	#logo, .bold-header {
 		margin-bottom: 20px;
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		letter-spacing: -1px;
+        color: #555;
 		font-weight: bold; }
 	nav ul {
 		float: left;  }
@@ -134,6 +135,15 @@
 }
 .carbonad-image {
 	margin-top: 0 !important;
+}
+
+.hidden-text {
+    font-size: 12px;
+    color: #999;
+}
+
+td.date, th.date {
+    text-align: right;
 }
 
 
