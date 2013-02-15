@@ -15,7 +15,6 @@
 
 	/* Doc nav */
 	nav {
-        position: fixed;
 		width: 160px; }
 	#logo, .bold-header {
 		margin-bottom: 20px;
@@ -148,6 +147,14 @@
 
 td.date, th.date {
     text-align: right;
+}
+
+form.note input, form.note textarea {
+    width: 100%;
+}
+
+form.note textarea {
+    height: 250px;
 }
 
 
