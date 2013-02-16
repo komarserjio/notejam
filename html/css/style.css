@@ -11,13 +11,13 @@
 /* Documentation Styles
 ================================================== */
 	div.container {
-		padding-top: 60px; }
+		padding-top: 40px; }
 
 	/* Doc nav */
 	nav {
 		width: 160px; }
 	#logo, .bold-header {
-		margin-bottom: 20px;
+		margin-bottom: 30px;
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 		letter-spacing: -1px;
         color: #555;
@@ -155,6 +155,18 @@ form.note input, form.note textarea {
 
 form.note textarea {
     height: 250px;
+}
+
+div.content-area {
+    min-height: 600px;
+}
+
+hr.footer {
+    margin-bottom: 10px;
+}
+
+div.footer {
+   margin-bottom: 10px; 
 }
 
 
