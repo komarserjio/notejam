@@ -169,6 +169,9 @@ div.footer {
    margin-bottom: 10px; 
 }
 
+form.sign-in {
+    margin: 50px 0 0 0;
+}
 
 	/* Mobile */
 	@media only screen and (max-width: 767px) {
