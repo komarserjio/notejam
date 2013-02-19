@@ -173,6 +173,30 @@ form.sign-in {
     margin: 50px 0 0 0;
 }
 
+.sort_arrow {
+    text-decoration: none;
+}
+
+.sort_arrow:hover {
+    text-decoration: none;
+    color: red;
+}
+
+div.sign-in-out-block {
+    position: absolute;
+    right: 0;
+    top: 8px;
+    font-size: 12px;
+}
+
+div.sign-in-out-block a {
+    /*text-decoration: none;*/
+}
+
+table.notes {
+    margin: 0 0 20px 0;
+}
+
 	/* Mobile */
 	@media only screen and (max-width: 767px) {
 		header h1 { font-size: 34px; line-height: 37px; }
