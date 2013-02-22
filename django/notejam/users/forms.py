@@ -1,4 +1,9 @@
+from django import forms
 
 
-class SignupForm(object):
+class SignupForm(forms.Form):
+    pass
+
+
+class SigninForm(forms.Form):
     pass

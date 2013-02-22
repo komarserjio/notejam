@@ -1,14 +1,19 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView
 from notes.models import Note
 
 
-class NoteCreate(CreateView):
+class NoteCreateView(CreateView):
     model = Note
 
 
-class NoteUpdate(UpdateView):
+class NoteUpdateView(UpdateView):
     model = Note
 
 
-class NoteDelete(DeleteView):
+class NoteDeleteView(DeleteView):
+    model = Note
+
+
+class NoteListView(ListView):
     model = Note

@@ -1,5 +1,10 @@
-# Create your views here.
+from django.views.generic.edit import FormMixin
+from django.views.generic.edit import CreateView
 
 
-def signin(self, request):
+class SignupView(CreateView):
+    pass
+
+
+class SigninView(FormMixin):
     pass
