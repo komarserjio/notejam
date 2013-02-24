@@ -1,6 +1,9 @@
-https://dropbox.com/u/6314564/html/index.html
-https://dropbox.com/u/6314564/html/create.html
-https://dropbox.com/u/6314564/html/view.html
-https://dropbox.com/u/6314564/html/share-view.html
-https://dropbox.com/u/6314564/html/signin.html
-https://dropbox.com/u/6314564/html/signup.html
+from django import forms
+
+from notes.models import Note
+
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        exclude = ('created_at', 'updated_at')
