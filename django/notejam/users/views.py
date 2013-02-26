@@ -12,3 +12,7 @@ class SigninView(FormView):
 
 class ForgotPasswordView(FormView):
     pass
+
+
+class SettingsView(FormView):
+    pass
