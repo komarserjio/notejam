@@ -118,6 +118,7 @@ INSTALLED_APPS = (
     #'django.contrib.admin',
     'notes',
     'pads',
+    'users',
     'public',  # app to store static files
 )
 

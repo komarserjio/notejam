@@ -52,6 +52,7 @@
                 {% endblock %}
             </h1>
         </div>
+        {% block left_bar %}
         <div class="three columns">
             <h4 id="logo">My pads</h4>
             <!-- pad template tag -->
@@ -68,8 +69,9 @@
             </nav>
             <!-- end of pad template tag -->
         </div>
-        <div class="thirteen columns content-area">
-            {% block content %}
+        {% endblock %}
+        {% block content %}
+            <div class="thirteen columns content-area">
                 <table class="notes">
                     <tr>
                         <th>Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
@@ -109,8 +111,8 @@
                     </tr>
                 </table>
                 <button>Create a note</button>
-            {% endblock %}
-        </div>
+            </div>
+        {% endblock %}
         <hr class="footer" />
         <footer>
             <div class="footer">2013, notejam project</div>
