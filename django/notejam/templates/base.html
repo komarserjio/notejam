@@ -8,7 +8,8 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Notejam</title>
+	<title>{% block title %}Notejam{% endblock %}</title>
+            
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -18,6 +19,7 @@
 
 	<!-- CSS
   ================================================== -->
+    
 	<link rel="stylesheet" href="/static/css/base.css">
 	<link rel="stylesheet" href="/static/css/skeleton.css">
 	<link rel="stylesheet" href="/static/css/layout.css">
@@ -34,7 +36,7 @@
 	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
 	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
+    {% block extrahead %}{% endblock %}
 </head>
 <body>
 	<div class="container">
@@ -45,11 +47,14 @@
         </div>
         <div class="sixteen columns">
             <h1 class="bold-header">notejam 
-                <span>8 notes</span>
+                {% block breacrumbs %}
+                    <span>8 notes</span>
+                {% endblock %}
             </h1>
         </div>
         <div class="three columns">
             <h4 id="logo">My pads</h4>
+            <!-- pad template tag -->
             <nav>
                 <ul>
                     <li><a href="#whatAndWhy">Business</a></li>
@@ -61,47 +66,50 @@
                 <hr />
                 <a href="#">Add pad</a>
             </nav>
+            <!-- end of pad template tag -->
         </div>
         <div class="thirteen columns content-area">
-            <table class="notes">
-                <tr>
-                	<th>Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
-                	<th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
-                </tr>
-            	<tr>
-            		<td><a href="#">My sport activites</a></td>
-            		<td class="hidden-text date">Today at 10:51</td>
-            	</tr>
-            	<tr>
-            		<td><a href="#">February reports</a></td>
-            		<td class="hidden-text date">Yesterday</td>
-            	</tr>
-            	<tr>
-                    <td><a href="#">Budget plan</a></a></td>
-            		<td class="hidden-text date">Feb 10 2013</td>
-            	</tr>
-            	<tr>
-                    <td><a href="#">Visit Agenda for all customers</a></a></td>
-            		<td class="hidden-text date">Feb 02 2013</td>
-            	</tr>
-            	<tr>
-                    <td><a href="#">Gifts</a></a></td>
-            		<td class="hidden-text date">Jan 29 2013</td>
-            	</tr>
-            	<tr>
-                    <td><a href="#">Calendar events</a></a></td>
-            		<td class="hidden-text date">Jan 29 2013</td>
-            	</tr>
-            	<tr>
-                    <td><a href="#">TV series</a></a></td>
-            		<td class="hidden-text date">Dec 01 2012</td>
-            	</tr>
-            	<tr>
-                    <td><a href="#">Daily post</a></a></td>
-            		<td class="hidden-text date">Nov 28 2012</td>
-            	</tr>
-            </table>
-            <button>Create a note</button>
+            {% block content %}
+                <table class="notes">
+                    <tr>
+                        <th>Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+                        <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+                    </tr>
+                    <tr>
+                        <td><a href="#">My sport activites</a></td>
+                        <td class="hidden-text date">Today at 10:51</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">February reports</a></td>
+                        <td class="hidden-text date">Yesterday</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Budget plan</a></a></td>
+                        <td class="hidden-text date">Feb 10 2013</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Visit Agenda for all customers</a></a></td>
+                        <td class="hidden-text date">Feb 02 2013</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Gifts</a></a></td>
+                        <td class="hidden-text date">Jan 29 2013</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Calendar events</a></a></td>
+                        <td class="hidden-text date">Jan 29 2013</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">TV series</a></a></td>
+                        <td class="hidden-text date">Dec 01 2012</td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Daily post</a></a></td>
+                        <td class="hidden-text date">Nov 28 2012</td>
+                    </tr>
+                </table>
+                <button>Create a note</button>
+            {% endblock %}
         </div>
         <hr class="footer" />
         <footer>

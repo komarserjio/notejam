@@ -3,7 +3,7 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-PROJECT_DIR = os.path.dirname(__file__)
+PROJECT_DIR = "%s/../" % os.path.dirname(__file__)
 
 ADMINS = (
     ('Sergey Komar', 'komarserjio@gmail.com'),
@@ -105,9 +105,7 @@ ROOT_URLCONF = 'notejam.urls'
 WSGI_APPLICATION = 'notejam.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_DIR, 'templates/'),
 )
 
 INSTALLED_APPS = (
@@ -119,7 +117,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     #'django.contrib.admin',
     'notes',
-    'pads'
+    'pads',
+    'public',  # app to store static files
 )
 
 # A sample logging configuration. The only tangible logging
