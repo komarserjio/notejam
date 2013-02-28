@@ -9,9 +9,15 @@ class SignupForm(forms.ModelForm):
 
     class Meta:
         model = User
+        fields = ('email',)
 
-    def save(self, *args, **kwargs):
-        pass
+    def save(self, force_insert=False, force_update=False, commit=True):
+        m = super(SignupForm, self).save(commit=False)
+        # username hack
+        m.username = m.email
+        if commit:
+            m.save()
+        return m
 
 
 class SigninForm(forms.Form):

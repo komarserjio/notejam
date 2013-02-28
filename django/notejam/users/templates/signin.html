@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block left_bar %}{% endblock %}
+
+{% block content %}
+<div class="thirteen columns content-area">
+    <form class="offset-by-six sign-in">
+        <label for="regularInput">Email</label>
+        {{ form.email }}
+        <label for="regularInput">Password</label>
+        {{ form.password }}
+        <button type="submit">Sign In</button>
+        <p><a href="#">Forgot password?</a></p>
+    </form>
+</div>
+{% endblock %}

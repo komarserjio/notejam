@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
-from users.views import SignupView
+from users.views import SignupView, SigninView
 
 
 # Uncomment the next two lines to enable the admin:
@@ -10,7 +10,10 @@ from users.views import SignupView
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', TemplateView.as_view(template_name="base.html"), name='home'),
+
+    # users' urls
     url(r'^signup/', SignupView.as_view(), name='signup'),
+    url(r'^signin/', SigninView.as_view(), name='signin'),
     # url(r'^notejam/', include('notejam.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

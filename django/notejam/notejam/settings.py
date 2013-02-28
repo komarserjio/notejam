@@ -3,7 +3,7 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-PROJECT_DIR = "%s/../" % os.path.dirname(__file__)
+PROJECT_DIR = "{}/../".format(os.path.dirname(__file__))
 
 ADMINS = (
     ('Sergey Komar', 'komarserjio@gmail.com'),
@@ -100,6 +100,8 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'notejam.urls'
+
+APPEND_SLASH = True
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'notejam.wsgi.application'
