@@ -12,9 +12,6 @@ class SignupView(CreateView):
     success_url = reverse_lazy('signin')
     # @TODO use 'template_name'
 
-    #def form_invalid(self, form):
-        #pass
-
 
 class SigninView(FormView):
     template_name = "signin.html"

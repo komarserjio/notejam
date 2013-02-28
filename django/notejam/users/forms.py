@@ -12,12 +12,30 @@ class SignupForm(forms.ModelForm):
         fields = ('email',)
 
     def save(self, force_insert=False, force_update=False, commit=True):
-        m = super(SignupForm, self).save(commit=False)
+        user = super(SignupForm, self).save(commit=False)
         # username hack
-        m.username = m.email
+        user.username = user.email
         if commit:
-            m.save()
-        return m
+            user.save()
+        return user
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        try:
+            User.objects.get(email=email)
+            raise forms.ValidationError(
+                'User with this email is already signed up'
+            )
+        except User.DoesNotExist:
+            return email
+
+    def clean_repeat_password(self):
+        password = self.cleaned_data.get('password', None)
+        repeat_password = self.cleaned_data.get('repeat_password', None)
+
+        if password != repeat_password:
+            raise forms.ValidationError("Your passwords do not match")
 
 
 class SigninForm(forms.Form):
