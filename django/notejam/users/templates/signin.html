@@ -4,6 +4,7 @@
 
 {% block content %}
 <div class="thirteen columns content-area">
+    {{ fail_message }}
     <form class="offset-by-six sign-in" method="POST">
         {% csrf_token %}
         <label for="regularInput">Email</label>
