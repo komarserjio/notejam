@@ -4,11 +4,14 @@
 
 {% block content %}
 <div class="thirteen columns content-area">
-    <form class="offset-by-six sign-in">
+    <form class="offset-by-six sign-in" method="POST">
+        {% csrf_token %}
         <label for="regularInput">Email</label>
         {{ form.email }}
+        {{ form.email.errors }}
         <label for="regularInput">Password</label>
         {{ form.password }}
+        {{ form.password.errors }}
         <button type="submit">Sign In</button>
         <p><a href="#">Forgot password?</a></p>
     </form>

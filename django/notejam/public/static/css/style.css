@@ -197,6 +197,10 @@ table.notes {
     margin: 0 0 20px 0;
 }
 
+ul.errorlist {
+    margin: -18px 0 0 0;
+}
+
 ul.errorlist li {
     color: red;
 }
