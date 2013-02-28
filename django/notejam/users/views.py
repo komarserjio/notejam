@@ -18,6 +18,11 @@ class SigninView(FormView):
     form_class = SigninForm
     success_url = reverse_lazy('home')
 
+    def form_valid(self, form):
+        import pdb
+        pdb.set_trace()
+        pass
+
 
 class ForgotPasswordView(FormView):
     pass
