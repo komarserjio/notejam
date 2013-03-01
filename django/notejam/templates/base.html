@@ -42,7 +42,11 @@
 	<div class="container">
         <div class="sixteen columns">
             <div class="sign-in-out-block">
-                komarserjio@gmail.com:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
+                {% if request.user.is_authenticated %}
+                    {{ request.user.email}}:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{% url signout %}">Sign out</a>
+                {% else %}
+                    <a href="{% url signup %}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{% url signin %}">Sign in</a>
+                {% endif %}
             </div>
         </div>
         <div class="sixteen columns">

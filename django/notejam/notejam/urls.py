@@ -14,6 +14,8 @@ urlpatterns = patterns('',
     # users' urls
     url(r'^signup/', SignupView.as_view(), name='signup'),
     url(r'^signin/', SigninView.as_view(), name='signin'),
+    url(r'^signout/$', 'django.contrib.auth.views.logout',
+        {'next_page': '/'}, name='signout')
     # url(r'^notejam/', include('notejam.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
