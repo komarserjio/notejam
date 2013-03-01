@@ -132,7 +132,8 @@ INSTALLED_APPS = (
     'notes',
     'pads',
     'users',
-    'public',  # app to store static files
+    'public',  # app to store static files,
+    'south',
 )
 
 AUTHENTICATION_BACKENDS = (
