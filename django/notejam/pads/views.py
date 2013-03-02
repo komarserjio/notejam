@@ -9,18 +9,10 @@ class PadCreateView(CreateView):
     form_class = PadForm
     success_url = reverse_lazy('home')
 
-    def get_initial(self):
-        return {
-            'user': self.request.user
-        }
-
     def form_valid(self, form):
         pad = form.save(commit=False)
         pad.user = self.request.user
         pad.save()
-
-    def __unicode__(self):
-        return self.name
 
 
 class PadUpdateView(UpdateView):
