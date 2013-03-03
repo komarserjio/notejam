@@ -15,7 +15,7 @@ def do_get_pads(parser, token):
         )
     if as_ != 'as':
         raise template.TemplateSyntaxError(
-            "Fomat is: %r as VARNAME" % tag_name
+            "Format is: %r as VARNAME" % tag_name
         )
     return GetPadsNode(var_name)
 
@@ -26,5 +26,6 @@ class GetPadsNode(template.Node):
 
     def render(self, context):
         context[self.var_name] = Pad.objects.filter(user=context['user'])
+        return ''
 
 register.tag('get_pads', do_get_pads)

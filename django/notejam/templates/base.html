@@ -1,3 +1,4 @@
+{% load pad_tags %}
 <!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
@@ -62,11 +63,10 @@
             <!-- pad template tag -->
             <nav>
                 <ul>
-                    <li><a href="#whatAndWhy">Business</a></li>
-                    <li><a href="#grid">Personal</a></li>
-                    <li><a href="#typography">Sport</a></li>
-                    <li><a href="#buttons">Diary</a></li>
-                    <li><a href="#forms">Drafts</a></li>
+                    {% get_pads as my_pads %}
+                    {% for pad in my_pads %}
+                        <li><a href="#">{{ pad.name }}</a></li>
+                    {% endfor %}
                 </ul>
                 <hr />
                 <a href="#">Add pad</a>
