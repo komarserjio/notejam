@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}<span>{{note.name}}</span>{%endblock%}
+{% block content %}
+<div class="thirteen columns content-area">
+    <p class="hidden-text">Last edited at {{ note.updated_at }}</p>
+    <div class="note">
+        {{ note.text }}
+    </div>
+    <button type="button">Edit</button>
+    <a href="#">Share settings</a>
+</div>
+{% endblock %}

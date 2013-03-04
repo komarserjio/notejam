@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="thirteen columns content-area">
+    <table class="notes">
+        <tr>
+            <th>Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+            <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+        </tr>
+        {% for note in notes %}
+        <tr>
+            <td><a href="#">{{ note.name }}</a></td>
+            <td class="hidden-text date">Today at 10:51</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button>Create a note</button>
+</div>
+</div>
+{% endblock %}
+
