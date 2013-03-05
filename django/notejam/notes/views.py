@@ -22,6 +22,8 @@ class NoteCreateView(CreateView):
 
 class NoteUpdateView(UpdateView):
     model = Note
+    form_class = NoteForm
+    success_url = reverse_lazy('home')
 
 
 class NoteDeleteView(DeleteView):
