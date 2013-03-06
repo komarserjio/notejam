@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 
+{% block breadcrumbs %} <span>{{ notes.count }} notes</span> {% endblock %}
 {% block content %}
 <div class="thirteen columns content-area">
     <table class="notes">
         <tr>
-            <th>Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
-            <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+            <th>Note <a href="/?order=name" class="sort_arrow" >&darr;</a><a href="/?order=-name" class="sort_arrow" >&uarr;</a></th>
+            <th class="date">Last modified <a href="/?order=updated_at" class="sort_arrow" >&darr;</a><a href="/?order=-updated_at" class="sort_arrow" >&uarr;</a></th>
         </tr>
         {% for note in notes %}
         <tr>
@@ -15,7 +16,6 @@
         {% endfor %}
     </table>
     <button>Create a note</button>
-</div>
 </div>
 {% endblock %}
 

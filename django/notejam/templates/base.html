@@ -65,7 +65,7 @@
                 <ul>
                     {% get_pads as my_pads %}
                     {% for pad in my_pads %}
-                        <li><a href="#">{{ pad.name }}</a></li>
+                        <li><a href="{% url view_pad_notes pk=pad.id %}">{{ pad.name }}</a></li>
                     {% endfor %}
                 </ul>
                 <hr />

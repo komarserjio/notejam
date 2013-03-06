@@ -33,20 +33,13 @@ class NoteDeleteView(DeleteView):
 class NoteDetailView(DetailView):
     model = Note
 
-    def get_context_data(self, **kwargs):
-        context = super(NoteDetailView, self).get_context_data(**kwargs)
-        context['note'] = self.get_object()
-        return context
-
 
 class NoteListView(ListView):
     model = Note
     context_object_name = 'notes'
+    paginate_by = 10
+    order_by = '-updated_at'
 
     def get_queryset(self):
-        return Note.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super(NoteListView, self).get_context_data(**kwargs)
-        context['count'] = Note.objects.all().count()
-        return context
+        order_by = self.request.GET.get('order', self.order_by)
+        return Note.objects.filter().order_by(order_by)

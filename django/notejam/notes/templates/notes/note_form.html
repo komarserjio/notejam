@@ -6,10 +6,13 @@
         {% csrf_token %}
         <label for="regularInput">Name</label>
         {{ form.name }}
+        {{ form.name.errors }}
         <label for="regularTextarea">Note</label>
         {{ form.text }}
+        {{ form.text.errors }}
         <label for="selectList">Select Pad</label>
         {{ form.pad }}
+        {{ form.pad.errors }}
         <button type="submit">Save</button>
     </form>
 </div>

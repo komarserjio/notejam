@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, include, url
-from django.views.generic import TemplateView
 from users.views import SignupView, SigninView
-from pads.views import PadCreateView
+from pads.views import PadCreateView, PadNotesListView
 from notes.views import (NoteCreateView, NoteListView,
 NoteDetailView, NoteUpdateView)
 
@@ -23,6 +22,8 @@ urlpatterns = patterns('',
 
     # pad views
     url(r'^pads/create/$', PadCreateView.as_view(), name='create_pad'),
+    url(r'^pads/(?P<pk>\d+)/$', PadNotesListView.as_view(),
+        name='view_pad_notes'),
     #url(r'^pads/(?P<pk>\d+)/$', NoteListView.as_view(),
         #name='pad_notes'),
 
