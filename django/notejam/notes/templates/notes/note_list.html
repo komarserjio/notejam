@@ -10,7 +10,7 @@
         </tr>
         {% for note in notes %}
         <tr>
-            <td><a href="{% url edit_note pk=note.id %}">{{ note.name }}</a></td>
+            <td><a href="{% url view_note pk=note.id %}">{{ note.name }}</a></td>
             <td class="hidden-text date">Today at 10:51</td>
         </tr>
         {% endfor %}
