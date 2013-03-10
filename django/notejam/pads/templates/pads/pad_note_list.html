@@ -4,19 +4,23 @@
 
 {% block content %}
 <div class="thirteen columns content-area">
-    <table class="notes">
-        <tr>
-            <th>Note 
-                <a href="{% url view_pad_notes pk=pad.id %}?order=name" class="sort_arrow" >&darr;</a><a href="{% url view_pad_notes pk=pad.id %}?order=-name" class="sort_arrow" >&uarr;</a></th>
-            <th class="date">Last modified <a href="{% url view_pad_notes pk=pad.id %}?order=updated_at" class="sort_arrow" >&darr;</a><a href="{% url view_pad_notes pk=pad.id %}?order=-updated_at" class="sort_arrow" >&uarr;</a></th>
-        </tr>
-        {% for note in notes %}
-            <tr>
-                <td><a href="{% url view_note pk=note.id %}">{{ note.name }}</a></td>
-                <td class="hidden-text date">Today at 10:51</td>
-            </tr>
-        {% endfor %}
-    </table>
+        {% if notes %}
+            <table class="notes">
+                <tr>
+                    <th>Note 
+                        <a href="{% url view_pad_notes pk=pad.id %}?order=name" class="sort_arrow" >&darr;</a><a href="{% url view_pad_notes pk=pad.id %}?order=-name" class="sort_arrow" >&uarr;</a></th>
+                    <th class="date">Last modified <a href="{% url view_pad_notes pk=pad.id %}?order=updated_at" class="sort_arrow" >&darr;</a><a href="{% url view_pad_notes pk=pad.id %}?order=-updated_at" class="sort_arrow" >&uarr;</a></th>
+                </tr>
+                {% for note in notes %}
+                <tr>
+                    <td><a href="{% url view_note pk=note.id %}">{{ note.name }}</a></td>
+                    <td class="hidden-text date">Today at 10:51</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p class="empty">You don't have any notes in this pad</p>
+        {% endif %}
     <a href="{% url create_note %}" class="button">Create a note</a>
 </div>
 {% endblock %}
