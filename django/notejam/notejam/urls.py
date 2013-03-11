@@ -23,16 +23,19 @@ urlpatterns = patterns('',
     # url(r'^notejam/', include('notejam.foo.urls')),
 
     # pad views
-    url(r'^pads/create/$', PadCreateView.as_view(), name='create_pad'),
-    url(r'^pads/(?P<pk>\d+)/$', PadNotesListView.as_view(),
+    url(r'^pads/create/$', login_required(PadCreateView.as_view()),
+        name='create_pad'),
+    url(r'^pads/(?P<pk>\d+)/$', login_required(PadNotesListView.as_view()),
         name='view_pad_notes'),
     #url(r'^pads/(?P<pk>\d+)/$', NoteListView.as_view(),
         #name='pad_notes'),
 
     # note views
-    url(r'^notes/create/$', NoteCreateView.as_view(), name='create_note'),
-    url(r'^notes/(?P<pk>\d+)/$', NoteDetailView.as_view(), name='view_note'),
-    url(r'^notes/(?P<pk>\d+)/edit/$', NoteUpdateView.as_view(),
+    url(r'^notes/create/$', login_required(NoteCreateView.as_view()),
+        name='create_note'),
+    url(r'^notes/(?P<pk>\d+)/$', login_required(NoteDetailView.as_view()),
+        name='view_note'),
+    url(r'^notes/(?P<pk>\d+)/edit/$', login_required(NoteUpdateView.as_view()),
         name='edit_note'),
     url(r'^$', login_required(NoteListView.as_view()), name='home'),
 
