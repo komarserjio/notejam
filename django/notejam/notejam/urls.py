@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.auth.decorators import login_required
+
 from users.views import SignupView, SigninView
 from pads.views import PadCreateView, PadNotesListView
 from notes.views import (NoteCreateView, NoteListView,
@@ -32,7 +34,7 @@ urlpatterns = patterns('',
     url(r'^notes/(?P<pk>\d+)/$', NoteDetailView.as_view(), name='view_note'),
     url(r'^notes/(?P<pk>\d+)/edit/$', NoteUpdateView.as_view(),
         name='edit_note'),
-    url(r'^$', NoteListView.as_view(), name='home'),
+    url(r'^$', login_required(NoteListView.as_view()), name='home'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
