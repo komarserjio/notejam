@@ -1,19 +1,13 @@
-{% extends "base.html" %}
-
-{% block content %}
-<div class="thirteen columns content-area">
-    <form class="note" method="POST">
-        {% csrf_token %}
-        <label for="regularInput">Name</label>
-        {{ form.name }}
-        {{ form.name.errors }}
-        <label for="regularTextarea">Note</label>
-        {{ form.text }}
-        {{ form.text.errors }}
-        <label for="selectList">Select Pad</label>
-        {{ form.pad }}
-        {{ form.pad.errors }}
-        <button type="submit">Save</button>
-    </form>
-</div>
-{% endblock %}
+<form class="note" method="POST">
+    {% csrf_token %}
+    <label for="regularInput">Name</label>
+    {{ form.name }}
+    {{ form.name.errors }}
+    <label for="regularTextarea">Note</label>
+    {{ form.text }}
+    {{ form.text.errors }}
+    <label for="selectList">Select Pad</label>
+    {{ form.pad }}
+    {{ form.pad.errors }}
+    <button type="submit">Save</button>
+</form>

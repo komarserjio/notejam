@@ -202,6 +202,10 @@ p.empty {
     font-style: italic;
 }
 
+div.note {
+    margin: 0 0 10px 0;
+}
+
 ul.errorlist {
     margin: -18px 0 0 0;
 }

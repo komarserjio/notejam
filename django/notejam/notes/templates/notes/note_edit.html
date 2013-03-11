@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}<span>Edit {{ note.name }}</span>{% endblock %}
+{% block content %}
+    <div class="thirteen columns content-area">
+        {% include "notes/note_form.html" %}
+    </div>
+{% endblock %}
+
+

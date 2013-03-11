@@ -21,7 +21,7 @@
         {% else %}
             <p class="empty">You don't have any notes in this pad</p>
         {% endif %}
-    <a href="{% url create_note %}" class="button">Create a note</a>
+        <a href="{% url create_note %}?pad={{ pad.id }}" class="button">Create a note</a>
 </div>
 {% endblock %}
 
