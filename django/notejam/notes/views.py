@@ -11,7 +11,7 @@ from notes.forms import NoteForm
 class NoteCreateView(CreateView):
     model = Note
     form_class = NoteForm
-    success_url = reverse_lazy('home')
+    template_name_suffix = '_create'
 
     def get_initial(self):
         return {'pad': self.request.GET.get('pad', None)}
@@ -35,6 +35,7 @@ class NoteUpdateView(UpdateView):
     model = Note
     form_class = NoteForm
     success_url = reverse_lazy('home')
+    template_name_suffix = '_edit'
 
 
 class NoteDeleteView(DeleteView):
