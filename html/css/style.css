@@ -149,6 +149,10 @@ td.date, th.date {
     text-align: right;
 }
 
+td.date {
+    font-style: italic;
+}
+
 form.note input, form.note textarea {
     width: 100%;
 }
@@ -197,9 +201,36 @@ table.notes {
     margin: 0 0 20px 0;
 }
 
+table.notes th.note {
+    width: 72%;
+}
+
+table.notes td.pad {
+    color: grey;
+}
+
+table.notes td.pad a {
+    color: grey;
+    text-decoration: underline;
+    font-style: normal;
+}
+
+
+table.notes td.pad a:hover {
+    color: black;
+}
+
 p.empty {
     color: grey;
     font-style: italic;
+}
+
+ul.errorlist {
+    margin: -18px 0 0 0;
+}
+
+ul.errorlist li {
+    color: red;
 }
 
 	/* Mobile */
