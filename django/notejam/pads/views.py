@@ -58,3 +58,4 @@ class PadNotesListView(ListView):
 
 class PadDeleteView(DeleteView):
     model = Pad
+    success_url = reverse_lazy("home")

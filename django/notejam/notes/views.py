@@ -41,6 +41,14 @@ class NoteUpdateView(UpdateView):
 class NoteDeleteView(DeleteView):
     model = Note
 
+    def get_success_url(self):
+        if self.object.pad is not None:
+            return reverse_lazy(
+                'view_pad_notes', kwargs={'pk': self.object.pad.id}
+            )
+        else:
+            return reverse_lazy('home')
+
 
 class NoteDetailView(DetailView):
     model = Note

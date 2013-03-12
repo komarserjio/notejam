@@ -231,6 +231,10 @@ a.delete-note {
     color: red;
 }
 
+.red {
+    color: red;
+}
+
 div.note {
     margin: 0 0 10px 0;
 }
