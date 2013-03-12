@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 
 from users.views import SignupView, SigninView
-from pads.views import PadCreateView, PadNotesListView
+from pads.views import PadCreateView, PadNotesListView, PadUpdateView
 from notes.views import (NoteCreateView, NoteListView,
 NoteDetailView, NoteUpdateView)
 
@@ -27,6 +27,8 @@ urlpatterns = patterns('',
         name='create_pad'),
     url(r'^pads/(?P<pk>\d+)/$', login_required(PadNotesListView.as_view()),
         name='view_pad_notes'),
+    url(r'^pads/(?P<pk>\d+)/edit/$', login_required(PadUpdateView.as_view()),
+        name='edit_pad'),
     #url(r'^pads/(?P<pk>\d+)/$', NoteListView.as_view(),
         #name='pad_notes'),
 
