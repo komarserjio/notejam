@@ -145,6 +145,10 @@
     color: #999;
 }
 
+td.date {
+    font-style: italic;
+}
+
 td.date, th.date {
     text-align: right;
 }
@@ -195,6 +199,25 @@ div.sign-in-out-block a {
 
 table.notes {
     margin: 0 0 20px 0;
+}
+
+table.notes th.note {
+    width: 72%;
+}
+
+table.notes td.pad {
+    color: grey;
+}
+
+table.notes td.pad a {
+    color: grey;
+    text-decoration: underline;
+    font-style: normal;
+}
+
+
+table.notes td.pad a:hover {
+    color: black;
 }
 
 p.empty {
