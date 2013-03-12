@@ -231,6 +231,10 @@ a.delete-note {
     color: red;
 }
 
+.red {
+    color: red;
+}
+
 ul.errorlist {
     margin: -18px 0 0 0;
 }
