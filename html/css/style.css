@@ -225,6 +225,12 @@ p.empty {
     font-style: italic;
 }
 
+a.delete-note {
+    float: right;
+    font-size: 12px;
+    color: red;
+}
+
 ul.errorlist {
     margin: -18px 0 0 0;
 }
