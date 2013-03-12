@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}<span>Edit {{ pad.name }}</span>{% endblock %}
+{% block content %}
+<div class="thirteen columns content-area">
+    {% include "pads/pad_form.html" %}
+</div>
+{% endblock %}
+
+
