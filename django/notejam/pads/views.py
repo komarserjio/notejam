@@ -23,7 +23,7 @@ class PadCreateView(CreateView):
         return redirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse_lazy("view_pad_notes", self.object.pk)
+        return reverse_lazy("view_pad_notes", kwargs={'pk': self.object.pk})
 
 
 class PadUpdateView(UpdateView):
