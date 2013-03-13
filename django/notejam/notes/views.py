@@ -37,6 +37,10 @@ class NoteUpdateView(UpdateView):
     success_url = reverse_lazy('home')
     template_name_suffix = '_edit'
 
+    def get_queryset(self):
+        qs = super(NoteUpdateView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
     def get_success_url(self):
         if self.object.pad is not None:
             return reverse_lazy(
@@ -48,6 +52,10 @@ class NoteUpdateView(UpdateView):
 
 class NoteDeleteView(DeleteView):
     model = Note
+
+    def get_queryset(self):
+        qs = super(NoteDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user)
 
     def get_success_url(self):
         if self.object.pad is not None:
@@ -61,6 +69,10 @@ class NoteDeleteView(DeleteView):
 class NoteDetailView(DetailView):
     model = Note
 
+    def get_queryset(self):
+        qs = super(NoteDetailView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
 
 class NoteListView(ListView):
     model = Note
@@ -68,5 +80,6 @@ class NoteListView(ListView):
     order_by = '-updated_at'
 
     def get_queryset(self):
+        qs = super(NoteListView, self).get_queryset()
         order_by = self.request.GET.get('order', self.order_by)
-        return Note.objects.filter().order_by(order_by)
+        return qs.filter(user=self.request.user).order_by(order_by)

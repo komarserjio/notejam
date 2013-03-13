@@ -32,6 +32,10 @@ class PadUpdateView(UpdateView):
     success_url = reverse_lazy('home')
     template_name_suffix = '_update'
 
+    def get_queryset(self):
+        qs = super(PadUpdateView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
     def get_success_url(self):
         return reverse_lazy("view_pad_notes", kwargs={'pk': self.object.pk})
 
@@ -48,7 +52,9 @@ class PadNotesListView(ListView):
         return self.get_pad().note_set.all().order_by(order_by)
 
     def get_pad(self):
-        return get_object_or_404(Pad, pk=int(self.kwargs.get('pk')))
+        return get_object_or_404(
+            Pad, pk=int(self.kwargs.get('pk')), user=self.request.user
+        )
 
     def get_context_data(self, **kwargs):
         context = super(PadNotesListView, self).get_context_data(**kwargs)
@@ -59,3 +65,7 @@ class PadNotesListView(ListView):
 class PadDeleteView(DeleteView):
     model = Pad
     success_url = reverse_lazy("home")
+
+    def get_queryset(self):
+        qs = super(PadDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user)
