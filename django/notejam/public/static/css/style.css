@@ -231,7 +231,7 @@ a.delete-note {
     color: red;
 }
 
-.red {
+a.red, .red {
     color: red;
 }
 
