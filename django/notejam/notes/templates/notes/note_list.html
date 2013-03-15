@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load date_tags %}
 
 {% block breadcrumbs %} <span>All notes ({{ notes.count }})</span> {% endblock %}
 {% block content %}
@@ -20,7 +21,7 @@
                                 No pad
                             {% endif %}
                         </td>
-                        <td class="hidden-text date">Today at 10:51</td>
+                        <td class="hidden-text date">{{ note.updated_at|smart_date }}</td>
                     </tr>
                 {% endfor %}
             </table>
