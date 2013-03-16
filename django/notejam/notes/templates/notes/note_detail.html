@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% load date_tags %}
 
-{% block breadcrumbs %}<span>{{note.name}}</span>{%endblock%}
+{% block breadcrumbs %}
+<span>
+    {% if note.pad %}
+        <a href="{% url view_pad_notes pk=note.pad.id %}">{{ note.pad.name }}</a> &raquo;
+    {% endif %}
+    {{note.name}}
+</span>
+{%endblock%}
 {% block content %}
 <div class="thirteen columns content-area">
     <p class="hidden-text">Last edited {{ note.updated_at|smart_date }}</p>
