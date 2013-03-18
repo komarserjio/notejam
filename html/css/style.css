@@ -243,6 +243,16 @@ ul.errorlist li {
     color: red;
 }
 
+.alert-success {
+    color: #468847;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    padding: 5px 8px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
 	/* Mobile */
 	@media only screen and (max-width: 767px) {
 		header h1 { font-size: 34px; line-height: 37px; }
