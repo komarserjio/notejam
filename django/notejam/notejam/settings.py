@@ -144,6 +144,10 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_URL = '/signin/'
 LOGOUT_URL = '/signout/'
 
+# development email file-based backend
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/tmp'
+
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.

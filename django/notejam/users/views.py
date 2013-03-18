@@ -1,13 +1,19 @@
+import md5
+from datetime import datetime
+
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView
 
 from users.forms import SignupForm, SigninForm, ForgotPasswordForm
+
 
 
 class SignupView(CreateView):
@@ -48,10 +54,35 @@ class ForgotPasswordView(FormView):
     form_class = ForgotPasswordForm
     template_name = 'forgot_password.html'
     success_url = reverse_lazy('signin')
-    success_message = 'Check your inbox'
+    success_message = 'New password is sent in your email inbox'
 
     def form_valid(self, form):
+        m = md5.new()
+        m.update(
+            "{email}{secret}{date}".format(
+                email=form.cleaned_data['email'],
+                secret=settings.SECRET_KEY,
+                date=str(datetime.today())
+            )
+        )
+        new_password = m.hexdigest()[:8]
+
+        user = User.objects.get(email=form.cleaned_data['email'])
+        user.set_password(new_password)
+        user.save()
+
+        send_mail(
+            'Notejam password reset',
+            'Hi, {}. Your new password is {}.'.format(
+                 form.cleaned_data['email'],
+                 new_password
+            ),
+            'from@notejamapp.com',
+            [form.cleaned_data['email']],
+            fail_silently=False
+        )
         messages.success(self.request, self.success_message)
+
         return super(ForgotPasswordView, self).form_valid(form)
 
 
