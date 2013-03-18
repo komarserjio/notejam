@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView
 
-from users.forms import SignupForm, SigninForm
+from users.forms import SignupForm, SigninForm, ForgotPasswordForm
 
 
 class SignupView(CreateView):
@@ -44,7 +44,14 @@ class SigninView(FormView):
 
 
 class ForgotPasswordView(FormView):
-    pass
+    form_class = ForgotPasswordForm
+    template_name = 'forgot_password.html'
+    success_url = reverse_lazy('signin')
+    success_message = 'Check your inbox'
+
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return super(ForgotPasswordView, self).form_valid(form)
 
 
 class AccountSettingsView(FormView):

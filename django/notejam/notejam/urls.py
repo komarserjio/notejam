@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 
-from users.views import SignupView, SigninView, AccountSettingsView
+from users.views import (SignupView, SigninView, AccountSettingsView,
+ForgotPasswordView)
 from pads.views import (PadCreateView, PadNotesListView, PadUpdateView,
 PadDeleteView)
 from notes.views import (NoteCreateView, NoteListView, NoteDeleteView,
@@ -21,6 +22,8 @@ urlpatterns = patterns('',
     url(r'^signin/', SigninView.as_view(), name='signin'),
     url(r'^account/', login_required(AccountSettingsView.as_view()),
         name='account_settings'),
+    url(r'^forgot-password/', ForgotPasswordView.as_view(),
+        name='forgot_password'),
     url(r'^signout/$', 'django.contrib.auth.views.logout',
         {'next_page': '/'}, name='signout'),
     # url(r'^notejam/', include('notejam.foo.urls')),

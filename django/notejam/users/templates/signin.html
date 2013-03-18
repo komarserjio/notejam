@@ -3,6 +3,7 @@
 {% block left_bar %}{% endblock %}
 {% block breadcrumbs %}<span>Sign In</span>{% endblock %}
 
+{% block content_class %}sixteen columns content-area{% endblock %}
 {% block content %}
 <form class="offset-by-six sign-in" method="POST">
     <p class="red">{{ fail_message }}</p>
@@ -14,6 +15,6 @@
     {{ form.password }}
     {{ form.password.errors }}
     <button type="submit">Sign In</button>
-    <p><a href="#">Forgot password?</a></p>
+    <p><a href="{% url forgot_password %}">Forgot password?</a></p>
 </form>
 {% endblock %}
