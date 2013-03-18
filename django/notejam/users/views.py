@@ -18,8 +18,13 @@ from users.forms import SignupForm, SigninForm, ForgotPasswordForm
 class SignupView(CreateView):
     model = User
     form_class = SignupForm
-    success_url = reverse_lazy('signin')
     template_name = "signup.html"
+    success_url = reverse_lazy('signin')
+    success_message = "Account is created. Now you can sign in."
+
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return super(SignupView, self).form_valid(form)
 
 
 class SigninView(FormView):
