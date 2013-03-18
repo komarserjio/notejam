@@ -15,12 +15,11 @@ from django.views.generic.edit import CreateView
 from users.forms import SignupForm, SigninForm, ForgotPasswordForm
 
 
-
 class SignupView(CreateView):
     model = User
     form_class = SignupForm
     success_url = reverse_lazy('signin')
-    # @TODO use 'template_name'
+    template_name = "signup.html"
 
 
 class SigninView(FormView):
