@@ -79,6 +79,13 @@
         </div>
         {% endblock %}
         <div class="{% block content_class %}thirteen columns content-area{% endblock %}">
+            {% if messages %}
+                <div class="alert-area">
+                    {% for message in messages %}
+                        <div class="alert-success">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             {% block content %}
             {% endblock %}
         </div>
