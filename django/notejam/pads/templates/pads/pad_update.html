@@ -2,10 +2,8 @@
 
 {% block breadcrumbs %}<span>Edit {{ pad.name }}</span>{% endblock %}
 {% block content %}
-<div class="thirteen columns content-area">
     {% include "pads/pad_form.html" %}
     <a class="red" href="{% url delete_pad pk=pad.id %}">Delete pad</a>
-</div>
 {% endblock %}
 
 

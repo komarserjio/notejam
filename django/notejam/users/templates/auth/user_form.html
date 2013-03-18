@@ -4,19 +4,17 @@
 {% block breadcrumbs %}<span>Sign Up</span>{% endblock %}
 
 {% block content %}
-    <div class="thirteen columns content-area">
-        <form class="offset-by-six sign-in" method="post">
-            {% csrf_token %}
-            <label for="regularInput">Email</label>
-            {{ form.email }}
-            {{ form.email.errors }}
-            <label for="regularInput">Password</label>
-            {{ form.password }}
-            {{ form.password.errors }}
-            <label for="regularInput">Confirm password</label>
-            {{ form.repeat_password }}
-            {{ form.repeat_password.errors }}
-            <button type="submit">Sign Up</button>
-        </form>
-    </div>
+    <form class="offset-by-six sign-in" method="post">
+        {% csrf_token %}
+        <label for="regularInput">Email</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+        <label for="regularInput">Password</label>
+        {{ form.password }}
+        {{ form.password.errors }}
+        <label for="regularInput">Confirm password</label>
+        {{ form.repeat_password }}
+        {{ form.repeat_password.errors }}
+        <button type="submit">Sign Up</button>
+    </form>
 {% endblock %}
