@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}<span>Change password</span>{% endblock %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <label for="regularInput">Old password</label>
+    {{ form.old_password }}
+    {{ form.old_password.errors }}
+    <label for="regularInput">New password</label>
+    {{ form.new_password1 }}
+    {{ form.new_password1.errors }}
+    <label for="regularInput">Confirm new password</label>
+    {{ form.new_password2 }}
+    {{ form.new_password2.errors }}
+    <button type="submit">Save</button>
+</form>
+{% endblock %}

@@ -44,3 +44,15 @@ class SignupForm(forms.ModelForm):
 class SigninForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput())
+
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField()
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            User.objects.get(email=email)
+            return email
+        except User.DoesNotExist:
+            raise forms.ValidationError("No user with given email")

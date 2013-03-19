@@ -44,7 +44,7 @@
         <div class="sixteen columns">
             <div class="sign-in-out-block">
                 {% if request.user.is_authenticated %}
-                    {{ request.user.email}}:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{% url signout %}">Sign out</a>
+                    {{ request.user.email}}:&nbsp; <a href="{% url account_settings %}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{% url signout %}">Sign out</a>
                 {% else %}
                     <a href="{% url signup %}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{% url signin %}">Sign in</a>
                 {% endif %}
@@ -62,61 +62,33 @@
             <h4 id="logo">My pads</h4>
             <!-- pad template tag -->
             <nav>
-                <ul>
-                    {% get_pads as my_pads %}
-                    {% for pad in my_pads %}
-                        <li><a href="{% url view_pad_notes pk=pad.id %}">{{ pad.name }}</a></li>
-                    {% endfor %}
-                </ul>
+                {% get_pads as my_pads %}
+                {% if my_pads.count > 0 %}
+                    <ul>
+                        {% for pad in my_pads %}
+                            <li><a href="{% url view_pad_notes pk=pad.id %}">{{ pad.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="empty">No pads yet</p>
+                {% endif %}
                 <hr />
                 <a href="{% url create_pad %}">Add pad</a>
             </nav>
             <!-- end of pad template tag -->
         </div>
         {% endblock %}
-        {% block content %}
-            <div class="thirteen columns content-area">
-                <table class="notes">
-                    <tr>
-                        <th>Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
-                        <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
-                    </tr>
-                    <tr>
-                        <td><a href="#">My sport activites</a></td>
-                        <td class="hidden-text date">Today at 10:51</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">February reports</a></td>
-                        <td class="hidden-text date">Yesterday</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">Budget plan</a></a></td>
-                        <td class="hidden-text date">Feb 10 2013</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">Visit Agenda for all customers</a></a></td>
-                        <td class="hidden-text date">Feb 02 2013</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">Gifts</a></a></td>
-                        <td class="hidden-text date">Jan 29 2013</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">Calendar events</a></a></td>
-                        <td class="hidden-text date">Jan 29 2013</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">TV series</a></a></td>
-                        <td class="hidden-text date">Dec 01 2012</td>
-                    </tr>
-                    <tr>
-                        <td><a href="#">Daily post</a></a></td>
-                        <td class="hidden-text date">Nov 28 2012</td>
-                    </tr>
-                </table>
-                <button>Create a note</button>
-            </div>
-        {% endblock %}
+        <div class="{% block content_class %}thirteen columns content-area{% endblock %}">
+            {% if messages %}
+                <div class="alert-area">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+        </div>
         <hr class="footer" />
         <footer>
             <div class="footer">2013, notejam project</div>
