@@ -1,0 +1,45 @@
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table th, table td {
+	padding: 10px 10px 9px;
+	font-size: 13px;
+	line-height: 18px;
+	text-align: left;
+}
+
+table td {
+	vertical-align: top;
+	border-top: solid 1px #ddd;
+}
+
+table th {
+	padding-top: 9px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+table.condensed th, table.condensed td {
+	padding: 5px 5px 4px;
+}
+
+table.bordered {
+	border-collapse: separate;
+	border: solid 1px #ddd;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+table.bordered th + th,
+table.bordered th + td,
+table.bordered td + td {
+	border-left: solid 1px #ddd;
+}
+
+.zebra-striped tbody tr:nth-child(odd) td,
+.zebra-striped tbody tr:nth-child(odd) th {
+	background: #f5f5f5;
+}

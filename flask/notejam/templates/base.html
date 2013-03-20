@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+	<title>{% block title %}Notejam{% endblock %}</title>
+            
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+    
+	<link rel="stylesheet" href="/static/css/base.css">
+	<link rel="stylesheet" href="/static/css/skeleton.css">
+	<link rel="stylesheet" href="/static/css/layout.css">
+	<link rel="stylesheet" href="/static/css/tables.css">
+	<link rel="stylesheet" href="/static/css/style.css">
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    {% block extrahead %}{% endblock %}
+</head>
+<body>
+	<div class="container">
+        <div class="sixteen columns">
+            <div class="sign-in-out-block">
+            </div>
+        </div>
+        <div class="sixteen columns">
+            <h1 class="bold-header">notejam 
+                {% block breadcrumbs %}
+                    <span>8 notes</span>
+                {% endblock %}
+            </h1>
+        </div>
+        {% block left_bar %}
+        {% endblock %}
+        <div class="{% block content_class %}thirteen columns content-area{% endblock %}">
+            {% if messages %}
+                <div class="alert-area">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% block content %}
+                content here
+            {% endblock %}
+        </div>
+        <hr class="footer" />
+        <footer>
+            <div class="footer">2013, notejam project</div>
+        </footer>
+	</div><!-- container -->
+    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+</body>
+</html>
+
