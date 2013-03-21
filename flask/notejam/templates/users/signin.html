@@ -1,22 +1,27 @@
 {% extends "base.html" %}
 
+{% block content_class %}sixteen columns content-area{% endblock %}
 {% block content %}
 <form method="POST" class="offset-by-six sign-in">
     {{ form.hidden_tag() }}
     <label for="regularInput">Email</label>
     {{ form.email }}
-    <ul class="errorlist">
-        {% for error in form.errors.email %}
-            <li>{{ error }}</li>
-        {% endfor %}
-    </ul>
+    {% if form.errors.email %}
+        <ul class="errorlist">
+            {% for error in form.errors.email %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <label for="regularInput">Password</label>
     {{ form.password }}
-    <ul class="errorlist">
-        {% for error in form.errors.password %}
-            <li>{{ error }}</li>
-        {% endfor %}
-    </ul>
+    {% if form.errors.password %}
+        <ul class="errorlist">
+            {% for error in form.errors.password %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <button type="submit">Sign In</button>
     <p><a href="#">Forgot password?</a></p>
 </form>

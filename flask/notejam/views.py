@@ -13,5 +13,5 @@ def index():
 def signin():
     form = SigninForm()
     if request.method == 'POST' and form.validate():
-        flash('OK')
+        flash('OK', 'success')
     return render_template('users/signin.html', form=form)

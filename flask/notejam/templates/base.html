@@ -54,13 +54,15 @@
         {% block left_bar %}
         {% endblock %}
         <div class="{% block content_class %}thirteen columns content-area{% endblock %}">
-            {% if messages %}
-                <div class="alert-area">
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-                    {% endfor %}
-                </div>
-            {% endif %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="alert-area">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
             {% block content %}
                 content here
             {% endblock %}
