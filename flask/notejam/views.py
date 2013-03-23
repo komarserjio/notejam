@@ -1,7 +1,8 @@
-from flask import render_template, flash, request
+from flask import render_template, flash, request, redirect, url_for
 
-from notejam import app
+from notejam import app, db
 from notejam.forms import SigninForm, SignupForm
+from notejam.models import User
 
 
 @app.route('/')
@@ -21,6 +22,9 @@ def signin():
 def signup():
     form = SignupForm()
     if request.method == 'POST' and form.validate():
-        # create user logic
-        pass
+        user = User(email=form.email.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Account is created. Now you can sign in.', 'success')
+        return redirect(url_for('signin'))
     return render_template('users/signup.html', form=form)

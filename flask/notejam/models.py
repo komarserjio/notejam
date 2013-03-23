@@ -9,9 +9,6 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(36))
 
-    def __init__(self, email):
-        self.email = email
-
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
