@@ -24,3 +24,28 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return '<User %r>' % self.email
+
+
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship('User', backref=db.backref('notes', lazy='dynamic'))
+
+    pad_id = db.Column(db.Integer, db.ForeignKey('pad.id'))
+    pad = db.relationship('Pad', backref=db.backref('pads', lazy='dynamic'))
+
+    def __repr__(self):
+        return '<Note %r>' % self.name
+
+
+class Pad(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship('User', backref=db.backref('pads', lazy='dynamic'))
+
+    def __repr__(self):
+        return '<Pad %r>' % self.name
