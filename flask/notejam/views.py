@@ -50,3 +50,8 @@ def signup():
         flash('Account is created. Now you can sign in.', 'success')
         return redirect(url_for('signin'))
     return render_template('users/signup.html', form=form)
+
+
+@app.route('/settings/')
+def account_settings():
+    pass

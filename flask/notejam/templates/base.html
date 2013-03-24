@@ -42,12 +42,17 @@
 	<div class="container">
         <div class="sixteen columns">
             <div class="sign-in-out-block">
+                {% if current_user.is_authenticated() %}
+                    {{ current_user.email}}:&nbsp; <a href="{{ url_for('account_settings') }}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('signout') }}">Sign out</a>
+                {% else %}
+                    <a href="{{ url_for('signup') }}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('signin') }}">Sign in</a>
+                {% endif %}
             </div>
         </div>
         <div class="sixteen columns">
             <h1 class="bold-header">notejam 
                 {% block breadcrumbs %}
-                    <span>8 notes</span>
+                    <span>Notes</span>
                 {% endblock %}
             </h1>
         </div>
