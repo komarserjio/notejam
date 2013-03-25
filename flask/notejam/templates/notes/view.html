@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}
+<span>
+    {% if note.pad %}
+        <a href="{{ url_for('pad_notes', pad_id=note.pad.id) }}">{{ note.pad.name }}</a> &raquo;
+    {% endif %}
+    {{note.name}}
+</span>
+{%endblock%}
+{% block content %}
+    <p class="hidden-text">Last edited at {{ note.updated_at|smart_date }}</p>
+    <div class="note">
+        Text here
+    </div>
+    <a href="{{ url_for('update_note', note_id=note.id) }}" class="button">Edit</a>
+    <a href="{{ url_for('delete_note', note_id=note.id) }}" class="delete-note">Delete it</a>
+{% endblock %}
+

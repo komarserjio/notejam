@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block breadcrumbs %}<span>{{ pad.name }} ({{ pad.notes.count() }})</span>{%endblock%}
+
+{% block content %}
+    {% if pad.notes.all() %}
+        <table class="notes">
+            <tr>
+                <th>Note 
+                    <a href="{{ url_for('pad_notes', pad_id=pad.id) }}?order=name" class="sort_arrow" >&darr;</a><a href="{{ url_for('pad_notes', pad_id=pad.id) }}?order=-name" class="sort_arrow" >&uarr;</a></th>
+                <th class="date">Last modified <a href="{{ url_for('pad_notes', pad_id=pad.id) }}?order=updated_at" class="sort_arrow" >&darr;</a><a href="{{ url_for('pad_notes', pad_id=pad.id) }}?order=-updated_at" class="sort_arrow" >&uarr;</a></th>
+            </tr>
+            {% for note in pad.notes %}
+            <tr>
+                <td><a href="{{ url_for('view_note', note_id=note.id) }}">{{ note.name }}</a></td>
+                <td class="hidden-text date">{{ note.updated_at|smart_date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p class="empty">You don't have any notes in this pad</p>
+    {% endif %}
+    <a href="{{ url_for('create_note') }}?pad={{ pad.id }}" class="button">Create a note</a>&nbsp;
+    <a href="{{ url_for('update_pad', pad_id=pad.id) }}">Pad settings</a>
+{% endblock %}
+
+
+
+

@@ -4,8 +4,9 @@
 {% block content %}
     <p>Are you sure you want to delete {{ note.name }}?</p>
     <form method="POST">
-        {% csrf_token %}
+        {{ form.hidden_tag() }}
         <button class="red">Yes, delete I want to delete it</button>&nbsp;
-        <a href="{% url view_note pk=note.id %}">Cancel</a>
+        <a href="{{ url_for('view_note', note_id=note.id) }}">Cancel</a>
     </form>
 {% endblock %}
+

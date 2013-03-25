@@ -1,10 +1,12 @@
-from flask import render_template, flash, request, redirect, url_for
+from datetime import date
+
+from flask import render_template, flash, request, redirect, url_for, abort
 from flask.ext.login import (login_user, login_required, logout_user,
 current_user)
 
 from notejam import app, db, login_manager
-from notejam.forms import SigninForm, SignupForm
-from notejam.models import User
+from notejam.models import User, Note, Pad
+from notejam.forms import SigninForm, SignupForm, NoteForm, PadForm, DeleteForm
 
 
 @login_manager.user_loader
@@ -15,7 +17,118 @@ def load_user(user_id):
 @app.route('/')
 @login_required
 def index():
-    return render_template('base.html')
+    notes = Note.query.filter_by(user=current_user).all()
+    return render_template('notes/list.html', notes=notes)
+
+
+@app.route('/notes/create/', methods=['GET', 'POST'])
+@login_required
+def create_note():
+    note_form = NoteForm(user=current_user, pad=request.args.get('pad'))
+    if note_form.validate_on_submit():
+        note = Note(
+            name=note_form.name.data,
+            text=note_form.text.data,
+            pad_id=note_form.pad.data,
+            user=current_user
+        )
+        db.session.add(note)
+        db.session.commit()
+        flash('Note is successfully created', 'success')
+        return redirect(_get_note_success_url(note))
+    return render_template('notes/create.html', form=note_form)
+
+
+@app.route('/notes/<int:note_id>/edit/', methods=['GET', 'POST'])
+@login_required
+def update_note(note_id):
+    note = _get_user_object_or_404(Note, note_id, current_user)
+    note_form = NoteForm(user=current_user, obj=note)
+    if note.pad:
+        note_form.pad.data = note.pad.id  # XXX
+    if note_form.validate_on_submit():
+        note.name = note_form.name.data
+        note.text = note_form.text.data
+        note.pad_id = note_form.pad.data
+
+        db.session.commit()
+        flash('Note is successfully updated', 'success')
+        return redirect(_get_note_success_url(note))
+    return render_template('notes/update.html', form=note_form)
+
+
+@app.route('/notes/<int:note_id>/')
+@login_required
+def view_note(note_id):
+    note = _get_user_object_or_404(Note, note_id, current_user)
+    return render_template('notes/view.html', note=note)
+
+
+@app.route('/notes/<int:note_id>/delete/', methods=['GET', 'POST'])
+@login_required
+def delete_note(note_id):
+    note = _get_user_object_or_404(Note, note_id, current_user)
+    delete_form = DeleteForm()
+    if request.method == 'POST':
+        if note.pad:
+            pad = note.pad
+        db.session.delete(note)
+        db.session.commit()
+        flash('Note is successfully deleted', 'success')
+        if pad:
+            return redirect(url_for('pad_notes', pad_id=pad.id))
+        else:
+            return redirect(url_for('index'))
+    return render_template('notes/delete.html', note=note, form=delete_form)
+
+
+@app.route('/pads/create/', methods=['GET', 'POST'])
+@login_required
+def create_pad():
+    pad_form = PadForm()
+    if pad_form.validate_on_submit():
+        pad = Pad(
+            name=pad_form.name.data,
+            user=current_user
+        )
+        db.session.add(pad)
+        db.session.commit()
+        flash('Pad is successfully created', 'success')
+        return redirect(url_for('index'))
+    return render_template('pads/create.html', form=pad_form)
+
+
+@app.route('/pads/<int:pad_id>/edit/', methods=['GET', 'POST'])
+@login_required
+def update_pad(pad_id):
+    pad = _get_user_object_or_404(Pad, pad_id, current_user)
+    pad_form = PadForm(obj=pad)
+    if pad_form.validate_on_submit():
+        pad.name = pad_form.name.data
+        db.session.commit()
+        flash('Pad is successfully updated', 'success')
+        return redirect(url_for('pad_notes', pad_id=pad.id))
+    return render_template('pads/update.html', form=pad_form, pad=pad)
+
+
+@app.route('/pads/<int:pad_id>/')
+@login_required
+def pad_notes(pad_id):
+    pad = _get_user_object_or_404(Pad, pad_id, current_user)
+    return render_template('pads/note_list.html', pad=pad)
+
+
+@app.route('/pads/<int:pad_id>/delete/', methods=['GET', 'POST'])
+@login_required
+def delete_pad(pad_id):
+    pad = _get_user_object_or_404(Pad, pad_id, current_user)
+    delete_form = DeleteForm()
+    if request.method == 'POST':
+        db.session.delete(pad)
+        db.session.commit()
+        flash('Note is successfully deleted', 'success')
+        return redirect(url_for('index'))
+    return render_template('pads/delete.html', pad=pad, form=delete_form)
 
 
 # @TODO use macro for form fields in template
@@ -43,7 +156,7 @@ def signout():
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
-    if request.method == 'POST' and form.validate():
+    if form.validate_on_submit():
         user = User(email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
@@ -58,7 +171,38 @@ def account_settings():
     pass
 
 
-# context processors
+# context processors and filters
 @app.context_processor
 def inject_user_pads():
-    return dict(pads=current_user.pads)
+    ''' inject list of user pads in template context '''
+    if not current_user.is_anonymous():
+        return dict(pads=current_user.pads.all())
+    return dict(pads=[])
+
+
+@app.template_filter('smart_date')
+def smart_date_filter(updated_at):
+    delta = updated_at.date() - date.today()
+    if delta.days == 0:
+        return 'Today at {}'.format(updated_at.strftime("%H:%M"))
+    elif delta.days == -1:
+        return 'Yesterday at {}'.format(updated_at.strftime("%H:%M"))
+    elif -7 < delta.days < -1:
+        return '{} days ago'.format(abs(delta.days))
+    else:
+        return updated_at.date()
+
+
+# helper functions
+def _get_note_success_url(note):
+    ''' get note success redirect url depends on note's pad '''
+    if note.pad is None:
+        return url_for('index')
+    else:
+        return url_for('pad_notes', pad_id=note.pad.id)
+
+
+def _get_user_object_or_404(model, object_id, user, code=404):
+    ''' get an object by id and owner user or raise an abort '''
+    result = model.query.filter_by(id=object_id, user=user).first()
+    return result or abort(code)

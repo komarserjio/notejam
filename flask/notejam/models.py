@@ -1,3 +1,5 @@
+import datetime
+
 from werkzeug.security import (generate_password_hash,
 check_password_hash)
 from flask.ext.login import UserMixin
@@ -29,12 +31,22 @@ class User(db.Model, UserMixin):
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
+    text = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now)
+    updated_at = db.Column(
+        db.DateTime,
+        default=datetime.datetime.now,
+        onupdate=datetime.datetime.now
+    )
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref=db.backref('notes', lazy='dynamic'))
 
     pad_id = db.Column(db.Integer, db.ForeignKey('pad.id'))
-    pad = db.relationship('Pad', backref=db.backref('pads', lazy='dynamic'))
+    pad = db.relationship(
+        'Pad',
+        backref=db.backref('notes', lazy='dynamic', cascade='all')
+    )
 
     def __repr__(self):
         return '<Note %r>' % self.name
@@ -45,7 +57,10 @@ class Pad(db.Model):
     name = db.Column(db.String(100))
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    user = db.relationship('User', backref=db.backref('pads', lazy='dynamic'))
+    user = db.relationship(
+        'User',
+        backref=db.backref('pads', lazy='dynamic', cascade='all')
+    )
 
     def __repr__(self):
         return '<Pad %r>' % self.name

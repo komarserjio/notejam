@@ -1,0 +1,15 @@
+<form method="POST" class="pad">
+    {{ form.hidden_tag() }}
+    <label for="regularInput">Name</label>
+    {{ form.name }}
+    {% if form.errors.name %}
+        <ul class="errorlist">
+            {% for error in form.errors.name %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <button type="submit">Save</button>
+</form>
+
+
