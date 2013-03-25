@@ -57,6 +57,24 @@
             </h1>
         </div>
         {% block left_bar %}
+            <div class="three columns">
+                <h4 id="logo">My pads</h4>
+                <!-- pad template tag -->
+                <nav>
+                    {% if pads.count > 0 %}
+                        <ul>
+                            {% for pad in pads %}
+                                <li><a href="">{{ pad.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="empty">No pads yet</p>
+                    {% endif %}
+                    <hr />
+                    <a href="">Add pad</a>
+                </nav>
+                <!-- end of pad template tag -->
+            </div>
         {% endblock %}
         <div class="{% block content_class %}thirteen columns content-area{% endblock %}">
             {% with messages = get_flashed_messages(with_categories=true) %}

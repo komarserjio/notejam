@@ -1,5 +1,6 @@
 from flask import render_template, flash, request, redirect, url_for
-from flask.ext.login import login_user, login_required, logout_user
+from flask.ext.login import (login_user, login_required, logout_user,
+current_user)
 
 from notejam import app, db, login_manager
 from notejam.forms import SigninForm, SignupForm
@@ -55,3 +56,9 @@ def signup():
 @app.route('/settings/')
 def account_settings():
     pass
+
+
+# context processors
+@app.context_processor
+def inject_user_pads():
+    return dict(pads=current_user.pads)
