@@ -1,0 +1,12 @@
+Chameleon==2.11
+Mako==0.7.3
+MarkupSafe==0.15
+PasteDeploy==1.5.0
+WebOb==1.2.3
+pyramid==1.4
+repoze.lru==0.6
+translationstring==1.1
+venusian==1.0a7
+wsgiref==0.1.2
+zope.deprecation==4.0.2
+zope.interface==4.0.5
