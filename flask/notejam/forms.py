@@ -72,3 +72,13 @@ class ChangePasswordForm(Form):
             raise ValidationError(
                 'Incorrect old password'
             )
+
+
+class ForgotPasswordForm(Form):
+    email = TextField('email', validators=[Required(), Email()])
+
+    def validate_email(self, field):
+        if not User.query.filter_by(email=field.data).count():
+            raise ValidationError(
+                'No user with given email found'
+            )

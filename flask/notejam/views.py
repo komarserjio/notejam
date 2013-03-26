@@ -1,13 +1,15 @@
 from datetime import date
+import md5
 
 from flask import render_template, flash, request, redirect, url_for, abort
 from flask.ext.login import (login_user, login_required, logout_user,
 current_user)
+from flask.ext.mail import Message
 
-from notejam import app, db, login_manager
+from notejam import app, db, login_manager, mail
 from notejam.models import User, Note, Pad
 from notejam.forms import (SigninForm, SignupForm, NoteForm, PadForm,
-DeleteForm, ChangePasswordForm)
+DeleteForm, ChangePasswordForm, ForgotPasswordForm)
 
 
 @login_manager.user_loader
@@ -175,6 +177,7 @@ def signup():
 
 
 @app.route('/settings/', methods=['GET', 'POST'])
+@login_required
 def account_settings():
     form = ChangePasswordForm(user=current_user)
     if form.validate_on_submit():
@@ -183,6 +186,28 @@ def account_settings():
         flash("You've successfully changed the password", 'success')
         return redirect(url_for('index'))
     return render_template('users/settings.html', form=form)
+
+
+@app.route('/forgot-password/', methods=['GET', 'POST'])
+def forgot_password():
+    form = ForgotPasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        new_password = _generate_password(user)
+        user.set_password(new_password)
+
+        message = Message(
+            subject="Notejam password",
+            body="Your new password is {}".format(new_password),
+            sender="from@notejamapp.com",
+            recipients=[user.email]
+        )
+        mail.send(message)
+
+        db.session.commit()
+        flash("Find new password in your inbox", 'success')
+        return redirect(url_for('index'))
+    return render_template('users/forgot_password.html', form=form)
 
 
 # context processors and filters
@@ -207,7 +232,7 @@ def smart_date_filter(updated_at):
         return updated_at.date()
 
 
-# helper functions
+# helper functions, @TODO move to helpers.py?
 def _get_note_success_url(note):
     ''' get note success redirect url depends on note's pad '''
     if note.pad is None:
@@ -230,3 +255,17 @@ def _get_order_by(param='-updated_at'):
         'updated_at': Note.updated_at.asc(),
         '-updated_at': Note.updated_at.desc(),
     }.get(param, Note.updated_at.desc())
+
+
+def _generate_password(user):
+    return '123456'
+    ''' generate new user password '''
+    m = md5.new()
+    m.update(
+        "{email}{secret}{date}".format(
+            email=user.email,
+            secret=app.secret_key,
+            date=str(date.today())
+        )
+    )
+    return m.hexdigest()[:8]
