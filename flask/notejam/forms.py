@@ -6,15 +6,15 @@ from notejam.models import User, Pad
 
 
 class SigninForm(Form):
-    email = TextField('email', validators=[Required(), Email()])
-    password = PasswordField('password', validators=[Required()])
+    email = TextField('Email', validators=[Required(), Email()])
+    password = PasswordField('Password', validators=[Required()])
 
 
 class SignupForm(Form):
-    email = TextField('email', validators=[Required(), Email()])
-    password = PasswordField('password', validators=[Required()])
+    email = TextField('Email', validators=[Required(), Email()])
+    password = PasswordField('Password', validators=[Required()])
     repeat_password = PasswordField(
-        'repeat_password',
+        'Repeat Password',
         validators=[
             Required(), EqualTo(
                 'password', message="Your passwords doesn't match"
@@ -30,9 +30,9 @@ class SignupForm(Form):
 
 
 class NoteForm(Form):
-    name = TextField('name', validators=[Required()])
-    text = TextAreaField('text', validators=[Required()])
-    pad = SelectField('pad', choices=[], coerce=int)
+    name = TextField('Name', validators=[Required()])
+    text = TextAreaField('Note', validators=[Required()])
+    pad = SelectField('Pad', choices=[], coerce=int)
 
     # @TODO use wtforms.ext.sqlalchemy.fields.QuerySelectField
     def __init__(self, user=None, **kwargs):
@@ -43,7 +43,7 @@ class NoteForm(Form):
 
 
 class PadForm(Form):
-    name = TextField('name', validators=[Required()])
+    name = TextField('Name', validators=[Required()])
 
 
 # dummy form
@@ -52,10 +52,10 @@ class DeleteForm(Form):
 
 
 class ChangePasswordForm(Form):
-    old_password = PasswordField('old_password', validators=[Required()])
-    new_password = PasswordField('new_password', validators=[Required()])
+    old_password = PasswordField('Old Password', validators=[Required()])
+    new_password = PasswordField('New Password', validators=[Required()])
     repeat_new_password = PasswordField(
-        'repeat_new_password',
+        'Repeat New Password',
         validators=[
             Required(), EqualTo(
                 'new_password', message="Your passwords don't match"
@@ -75,7 +75,7 @@ class ChangePasswordForm(Form):
 
 
 class ForgotPasswordForm(Form):
-    email = TextField('email', validators=[Required(), Email()])
+    email = TextField('Email', validators=[Required(), Email()])
 
     def validate_email(self, field):
         if not User.query.filter_by(email=field.data).count():

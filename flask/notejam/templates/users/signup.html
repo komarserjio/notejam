@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "_helpers.html" import render_field %}
 
 {% block breadcrumbs %}<span>Sign Up</span>{% endblock %}
 
@@ -7,33 +8,9 @@
 {% block content %}
 <form method="POST" class="offset-by-six sign-in">
     {{ form.hidden_tag() }}
-    <label for="regularInput">Email</label>
-    {{ form.email }}
-    {% if form.errors.email %}
-        <ul class="errorlist">
-            {% for error in form.errors.email %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <label for="regularInput">Password</label>
-    {{ form.password }}
-    {% if form.errors.password %}
-        <ul class="errorlist">
-            {% for error in form.errors.password %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <label for="regularInput">Repeat Password</label>
-    {{ form.repeat_password }}
-    {% if form.errors.repeat_password %}
-        <ul class="errorlist">
-            {% for error in form.errors.repeat_password %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.repeat_password) }}
     <button type="submit">Sign Up</button>
 </form>
 {% endblock %}
