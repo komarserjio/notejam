@@ -46,5 +46,29 @@ class PadForm(Form):
     name = TextField('name', validators=[Required()])
 
 
+# dummy form
 class DeleteForm(Form):
     pass
+
+
+class ChangePasswordForm(Form):
+    old_password = PasswordField('old_password', validators=[Required()])
+    new_password = PasswordField('new_password', validators=[Required()])
+    repeat_new_password = PasswordField(
+        'repeat_new_password',
+        validators=[
+            Required(), EqualTo(
+                'new_password', message="Your passwords don't match"
+            )
+        ]
+    )
+
+    def __init__(self, **kwargs):
+        super(ChangePasswordForm, self).__init__(**kwargs)
+        self.user = kwargs['user']
+
+    def validate_old_password(self, field):
+        if not self.user.check_password(field.data):
+            raise ValidationError(
+                'Incorrect old password'
+            )

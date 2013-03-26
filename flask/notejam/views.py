@@ -6,7 +6,8 @@ current_user)
 
 from notejam import app, db, login_manager
 from notejam.models import User, Note, Pad
-from notejam.forms import SigninForm, SignupForm, NoteForm, PadForm, DeleteForm
+from notejam.forms import (SigninForm, SignupForm, NoteForm, PadForm,
+DeleteForm, ChangePasswordForm)
 
 
 @login_manager.user_loader
@@ -173,9 +174,15 @@ def signup():
     return render_template('users/signup.html', form=form)
 
 
-@app.route('/settings/')
+@app.route('/settings/', methods=['GET', 'POST'])
 def account_settings():
-    pass
+    form = ChangePasswordForm(user=current_user)
+    if form.validate_on_submit():
+        current_user.set_password(form.new_password.data)
+        db.session.commit()
+        flash("You've successfully changed the password", 'success')
+        return redirect(url_for('index'))
+    return render_template('users/settings.html', form=form)
 
 
 # context processors and filters
