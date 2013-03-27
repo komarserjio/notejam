@@ -17,12 +17,14 @@ DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
 
-class MyModel(Base):
+class QueryMixin(object):
+    @classmethod
+    def query(cls):
+        return DBSession.query(cls)
+
+
+class MyModel(Base, QueryMixin):
     __tablename__ = 'models'
     id = Column(Integer, primary_key=True)
     name = Column(Text, unique=True)
     value = Column(Text)
-
-    def __init__(self, name, value):
-        self.name = name
-        self.value = value
