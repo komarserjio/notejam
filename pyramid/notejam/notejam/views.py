@@ -32,3 +32,31 @@ might be caused by one of the following things:
 After you fix the problem, please restart the Pyramid application to
 try it again.
 """
+
+
+def notes(request):
+    pass
+
+
+def create_note(request):
+    pass
+
+
+def update_note(request):
+    pass
+
+
+def delete_note(request):
+    pass
+
+
+def create_pad(request):
+    pass
+
+
+def update_pad(request):
+    pass
+
+
+def delete_pad(request):
+    pass
