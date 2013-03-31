@@ -34,6 +34,22 @@ try it again.
 """
 
 
+def signin(request):
+    pass
+
+
+def signup(request):
+    pass
+
+
+def account_settings(request):
+    pass
+
+
+def forgot_password(request):
+    pass
+
+
 def notes(request):
     pass
 
