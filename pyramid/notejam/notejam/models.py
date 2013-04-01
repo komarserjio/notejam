@@ -28,3 +28,15 @@ class MyModel(Base, QueryMixin):
     id = Column(Integer, primary_key=True)
     name = Column(Text, unique=True)
     value = Column(Text)
+
+
+class User(object):
+    pass
+
+
+class Pad(object):
+    pass
+
+
+class Note(object):
+    pass
