@@ -3,10 +3,7 @@ from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
 
-from .models import (
-    DBSession,
-    MyModel,
-    )
+from .models import (DBSession, MyModel)
 
 
 @view_config(route_name='home', renderer='templates/base.pt')
@@ -18,7 +15,7 @@ def my_view(request):
     return {'one': one, 'project': 'notejam'}
 
 
-@view_config(route_name='signin', renderer='templates/signin.pt')
+@view_config(route_name='signin', renderer='templates/users/signin.pt')
 def signin(request):
     return {}
 
