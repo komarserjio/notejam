@@ -4,8 +4,18 @@
       metal:use-macro="load: ../base.pt">
 
 <tal:block metal:fill-slot="content">
-    content here
+    <form class="offset-by-six sign-in">
+        <label for="regularInput">Email</label>
+        <input type="text" id="regularInput">
+        <label for="regularInput">Password</label>
+        <input type="password" id="regularInput">
+        <button type="submit">Sign In</button>
+        <p><a href="#">Forgot password?</a></p>
+    </form>
 </tal:block>
+
+<tal:block metal:fill-slot="pads"></tal:block>
+
 
 </html>
 

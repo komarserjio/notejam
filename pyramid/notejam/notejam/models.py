@@ -10,20 +10,20 @@ DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
 
-class QueryBase(Base):
-    @classmethod
-    def query(cls):
-        return DBSession.query(cls)
+#class QueryBase(Base):
+    #@classmethod
+    #def query(cls):
+        #return DBSession.query(cls)
 
 
-class MyModel(QueryBase):
+class MyModel(Base):
     __tablename__ = 'models'
     id = Column(Integer, primary_key=True)
     name = Column(Text, unique=True)
     value = Column(Text)
 
 
-class User(QueryBase):
+class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     email = Column(String(120), unique=True)

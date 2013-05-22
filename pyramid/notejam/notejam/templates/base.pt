@@ -2,7 +2,7 @@
 <!--[if lt IE 7 ]><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" lang="en" metal:define-macro="base"> <!--<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" lang="en" metal:define-macro="base" tal:define="global contentclass 'thirteen'"> <!--<![endif]-->
 <head>
 
 	<!-- Basic Page Needs
@@ -48,21 +48,23 @@
                 <span>8 notes</span>
             </h1>
         </div>
-        <div class="three columns">
-            <h4 id="logo">My pads</h4>
-            <nav>
-                <ul>
-                    <li><a href="#whatAndWhy">Business</a></li>
-                    <li><a href="#grid">Personal</a></li>
-                    <li><a href="#typography">Sport</a></li>
-                    <li><a href="#buttons">Diary</a></li>
-                    <li><a href="#forms">Drafts</a></li>
-                </ul>
-                <hr />
-                <a href="#">Add pad</a>
-            </nav>
+        <div metal:define-slot="pads">
+            <div class="three columns">
+                <h4 id="logo">My pads</h4>
+                <nav>
+                    <ul>
+                        <li><a href="#whatAndWhy">Business</a></li>
+                        <li><a href="#grid">Personal</a></li>
+                        <li><a href="#typography">Sport</a></li>
+                        <li><a href="#buttons">Diary</a></li>
+                        <li><a href="#forms">Drafts</a></li>
+                    </ul>
+                    <hr />
+                    <a href="#">Add pad</a>
+                </nav>
+            </div>
         </div>
-        <div class="thirteen columns content-area">
+        <div class="${contentclass} columns content-area">
             <div class="alert-area">
                 <div class="alert alert-success">Note is sucessfully saved</div>
             </div>
