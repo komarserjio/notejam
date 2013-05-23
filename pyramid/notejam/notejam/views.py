@@ -2,6 +2,7 @@ from pyramid.response import Response
 from pyramid.view import view_config
 
 from pyramid_simpleform import Form
+from pyramid_simpleform.renderers import FormRenderer
 
 from sqlalchemy.exc import DBAPIError
 
@@ -20,16 +21,24 @@ def my_view(request):
 
 @view_config(route_name='signin', renderer='templates/users/signin.pt')
 def signin(request):
-    return {}
-
-
-def signup(request):
-    form = Form(request, schema=UserSchema)
+    form = Form(request, schema=UserSchema())
     if form.validate():
         user = form.bind(User())
         # persist user
         # redirect to signin page
+    return dict(renderer=FormRenderer(form))
 
+
+@view_config(route_name='signup', renderer='templates/users/signup.pt')
+def signup(request):
+    form = Form(request, schema=UserSchema())
+    if form.validate():
+        user = form.bind(User())
+        ## persist user
+        ## redirect to signin page
+    return dict(renderer=FormRenderer(form))
+
+    
 
 def account_settings(request):
     pass

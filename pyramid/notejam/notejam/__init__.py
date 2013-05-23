@@ -18,5 +18,6 @@ def main(global_config, **settings):
     # routes
     config.add_route('home', '/')
     config.add_route('signin', '/signin/')
+    config.add_route('signup', '/signup/')
     config.scan()
     return config.make_wsgi_app()
