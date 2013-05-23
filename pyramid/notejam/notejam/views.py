@@ -1,9 +1,12 @@
 from pyramid.response import Response
 from pyramid.view import view_config
 
+from pyramid_simpleform import Form
+
 from sqlalchemy.exc import DBAPIError
 
-from .models import (DBSession, MyModel)
+from models import DBSession, MyModel, User
+from forms import UserSchema
 
 
 @view_config(route_name='home', renderer='templates/base.pt')
@@ -21,7 +24,11 @@ def signin(request):
 
 
 def signup(request):
-    pass
+    form = Form(request, schema=UserSchema)
+    if form.validate():
+        user = form.bind(User())
+        # persist user
+        # redirect to signin page
 
 
 def account_settings(request):
