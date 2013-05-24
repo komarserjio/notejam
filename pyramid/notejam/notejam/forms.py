@@ -11,3 +11,11 @@ class SignupSchema(Schema):
     passwords_match = [
         validators.FieldsMatch('password', 'confirm_password')
     ]
+
+
+class SigninSchema(Schema):
+    allow_extra_fields = True
+    filter_extra_fields = True
+
+    email = validators.Email(not_empty=True)
+    password = validators.UnicodeString(min=6)

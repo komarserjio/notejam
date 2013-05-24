@@ -1,5 +1,6 @@
 from pyramid.response import Response
-from pyramid.view import view_config
+from pyramid.view import view_config, forbidden_view_config
+from pyramid.security import remember, forget
 
 from pyramid.httpexceptions import (
     HTTPMovedPermanently,
@@ -13,7 +14,7 @@ from pyramid_simpleform.renderers import FormRenderer
 from sqlalchemy.exc import DBAPIError
 
 from models import DBSession, MyModel, User
-from forms import SignupSchema
+from forms import SignupSchema, SigninSchema
 
 
 @view_config(route_name='home', renderer='templates/base.pt')
@@ -26,12 +27,13 @@ def my_view(request):
 
 
 @view_config(route_name='signin', renderer='templates/users/signin.pt')
+@forbidden_view_config(renderer='templates/users/signin.pt')
 def signin(request):
-    form = Form(request, schema=SignupSchema())
+    form = Form(request, schema=SigninSchema())
     if form.validate():
-        user = form.bind(User())
-        # persist user
-        # redirect to signin page
+        if DBSession.query(User).filter(User.email == form.data['email']).first():
+            headers = remember(request, form.data['email'])
+            return HTTPFound(location='/', headers=headers)
     return dict(renderer=FormRenderer(form))
 
 

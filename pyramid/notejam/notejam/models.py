@@ -30,7 +30,7 @@ class User(Base):
     password = Column(String(36))
 
     def __repr__(self):
-        return '<User: %s>'.format(self.email)
+        return '<User: {}>'.format(self.email)
 
 
 class Pad(object):
