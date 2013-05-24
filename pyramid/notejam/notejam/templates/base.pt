@@ -65,8 +65,10 @@
             </div>
         </div>
         <div class="${contentclass} columns content-area">
-            <div class="alert-area">
-                <div class="alert alert-success">Note is sucessfully saved</div>
+            <div class="alert-area" tal:condition="request.session.peek_flash()">
+                <div tal:repeat="message request.session.pop_flash()" class="alert alert-success">
+                    ${message}
+                </div>
             </div>
             <tal:block metal:define-slot="content">
             </tal:block>

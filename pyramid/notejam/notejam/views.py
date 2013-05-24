@@ -1,13 +1,19 @@
 from pyramid.response import Response
 from pyramid.view import view_config
 
+from pyramid.httpexceptions import (
+    HTTPMovedPermanently,
+    HTTPFound,
+    HTTPNotFound,
+    )
+
 from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
 
 from sqlalchemy.exc import DBAPIError
 
 from models import DBSession, MyModel, User
-from forms import UserSchema
+from forms import SignupSchema
 
 
 @view_config(route_name='home', renderer='templates/base.pt')
@@ -21,7 +27,7 @@ def my_view(request):
 
 @view_config(route_name='signin', renderer='templates/users/signin.pt')
 def signin(request):
-    form = Form(request, schema=UserSchema())
+    form = Form(request, schema=SignupSchema())
     if form.validate():
         user = form.bind(User())
         # persist user
@@ -31,14 +37,14 @@ def signin(request):
 
 @view_config(route_name='signup', renderer='templates/users/signup.pt')
 def signup(request):
-    form = Form(request, schema=UserSchema())
+    form = Form(request, schema=SignupSchema())
     if form.validate():
         user = form.bind(User())
-        ## persist user
-        ## redirect to signin page
+        DBSession.add(user)
+        request.session.flash(u'Now you can sign in')
+        return HTTPFound(location=request.route_url('signin'))
     return dict(renderer=FormRenderer(form))
 
-    
 
 def account_settings(request):
     pass

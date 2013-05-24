@@ -1,4 +1,8 @@
 from pyramid.config import Configurator
+from pyramid.authentication import SessionAuthenticationPolicy
+from pyramid.authorization import ACLAuthorizationPolicy
+from pyramid.session import UnencryptedCookieSessionFactoryConfig
+
 from sqlalchemy import engine_from_config
 
 from .models import (
@@ -12,8 +16,21 @@ def main(global_config, **settings):
     """
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
+
+    session_factory = UnencryptedCookieSessionFactoryConfig(
+        settings['session.secret']
+        )
+
+    authn_policy = SessionAuthenticationPolicy()
+    authz_policy = ACLAuthorizationPolicy()
+
     Base.metadata.bind = engine
-    config = Configurator(settings=settings)
+    config = Configurator(
+        settings=settings,
+        authentication_policy=authn_policy,
+        authorization_policy=authz_policy,
+        session_factory=session_factory
+    )
     config.add_static_view('static', 'static', cache_max_age=3600)
     # routes
     config.add_route('home', '/')

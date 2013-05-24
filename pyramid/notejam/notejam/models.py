@@ -29,6 +29,9 @@ class User(Base):
     email = Column(String(120), unique=True)
     password = Column(String(36))
 
+    def __repr__(self):
+        return '<User: %s>'.format(self.email)
+
 
 class Pad(object):
     pass
