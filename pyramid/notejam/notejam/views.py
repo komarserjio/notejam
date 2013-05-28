@@ -31,9 +31,13 @@ def my_view(request):
 def signin(request):
     form = Form(request, schema=SigninSchema())
     if form.validate():
-        if DBSession.query(User).filter(User.email == form.data['email']).first():
-            headers = remember(request, form.data['email'])
-            return HTTPFound(location='/', headers=headers)
+        query = DBSession.query(User).filter(User.email == form.data['email'])
+        if query.count():
+            user = query.first()
+            # weak initial implementation
+            if user.password == form.data['password']:
+                headers = remember(request, user.email)
+                return HTTPFound(location='/', headers=headers)
     return dict(renderer=FormRenderer(form))
 
 
