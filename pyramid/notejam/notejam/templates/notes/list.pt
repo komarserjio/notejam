@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="load: ../base.pt">
+
+<tal:block metal:fill-slot="content">
+    <table class="notes">
+        <tr>
+            <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+            <th>Pad</th>
+            <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+        </tr>
+        <tr>
+            <td><a href="#">Daily post</a></td>
+            <td class="pad"><a href="#">Pad</a></td>
+            <td class="hidden-text date">Nov 28 2012</td>
+        </tr>
+    </table>
+    <a href="#" class="button">Create a note</a>
+
+</tal:block>
+
+</html>
+
+
+

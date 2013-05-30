@@ -1,6 +1,6 @@
 from pyramid.response import Response
 from pyramid.view import view_config, forbidden_view_config
-from pyramid.security import remember, forget
+from pyramid.security import remember, forget, authenticated_userid
 
 from pyramid.httpexceptions import (
     HTTPMovedPermanently,
@@ -52,6 +52,12 @@ def signup(request):
     return dict(renderer=FormRenderer(form))
 
 
+@view_config(route_name='signout')
+def signout(request):
+    headers = forget(request)
+    return HTTPFound(location=request.route_url('signin'), headers=headers)
+
+
 def account_settings(request):
     pass
 
@@ -60,8 +66,10 @@ def forgot_password(request):
     pass
 
 
+@view_config(route_name='notes', renderer='templates/notes/list.pt',
+             permission='login_required')
 def notes(request):
-    pass
+    return dict()
 
 
 def create_note(request):

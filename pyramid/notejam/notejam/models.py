@@ -6,6 +6,12 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
+from pyramid.security import (
+    Everyone,
+    Authenticated,
+    Allow,
+    )
+
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
 
@@ -39,3 +45,13 @@ class Pad(object):
 
 class Note(object):
     pass
+
+
+# acl configuration
+class RootFactory(object):
+    __acl__ = [
+        (Allow, Authenticated, 'login_required')
+    ]
+
+    def __init__(self, request):
+        pass  # pragma: no cover
