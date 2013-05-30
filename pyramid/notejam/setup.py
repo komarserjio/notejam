@@ -15,6 +15,7 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'pyramid_simpleform',
+    'cryptacular',
     ]
 
 setup(name='notejam',

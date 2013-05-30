@@ -65,8 +65,13 @@
             </div>
         </div>
         <div class="${contentclass} columns content-area">
-            <div class="alert-area" tal:condition="request.session.peek_flash()">
-                <div tal:repeat="message request.session.pop_flash()" class="alert alert-success">
+            <div class="alert-area" tal:condition="request.session.peek_flash('success')">
+                <div tal:repeat="message request.session.pop_flash('success')" class="alert alert-success">
+                    ${message}
+                </div>
+            </div>
+            <div class="alert-area" tal:condition="request.session.peek_flash('error')">
+                <div tal:repeat="message request.session.pop_flash('error')" class="alert alert-error">
                     ${message}
                 </div>
             </div>

@@ -35,8 +35,7 @@ def main(global_config, **settings):
     )
     config.add_static_view('static', 'static', cache_max_age=3600)
     # routes
-    config.add_route('home', '/')
-    config.add_route('notes', '/notes/')
+    config.add_route('notes', '/')
     config.add_route('signin', '/signin/')
     config.add_route('signout', '/signout/')
     config.add_route('signup', '/signup/')

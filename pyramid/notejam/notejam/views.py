@@ -1,6 +1,5 @@
-from pyramid.response import Response
 from pyramid.view import view_config, forbidden_view_config
-from pyramid.security import remember, forget, authenticated_userid
+from pyramid.security import remember, forget
 
 from pyramid.httpexceptions import (
     HTTPMovedPermanently,
@@ -11,19 +10,8 @@ from pyramid.httpexceptions import (
 from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
 
-from sqlalchemy.exc import DBAPIError
-
-from models import DBSession, MyModel, User
+from models import DBSession, User
 from forms import SignupSchema, SigninSchema
-
-
-@view_config(route_name='home', renderer='templates/base.pt')
-def my_view(request):
-    try:
-        one = DBSession.query(MyModel).filter(MyModel.name == 'one').first()
-    except DBAPIError:
-        return Response('text', content_type='text/plain', status_int=500)
-    return {'one': one, 'project': 'notejam'}
 
 
 @view_config(route_name='signin', renderer='templates/users/signin.pt')
@@ -34,10 +22,13 @@ def signin(request):
         query = DBSession.query(User).filter(User.email == form.data['email'])
         if query.count():
             user = query.first()
-            # weak initial implementation
-            if user.password == form.data['password']:
+            if user.check_password(form.data['password']):
                 headers = remember(request, user.email)
                 return HTTPFound(location='/', headers=headers)
+            else:
+                request.session.flash(u'Wrong email or password', 'error')
+        else:
+            request.session.flash(u'Wrong email or password', 'error')
     return dict(renderer=FormRenderer(form))
 
 
@@ -47,7 +38,7 @@ def signup(request):
     if form.validate():
         user = form.bind(User())
         DBSession.add(user)
-        request.session.flash(u'Now you can sign in')
+        request.session.flash(u'Now you can sign in', 'success')
         return HTTPFound(location=request.route_url('signin'))
     return dict(renderer=FormRenderer(form))
 
