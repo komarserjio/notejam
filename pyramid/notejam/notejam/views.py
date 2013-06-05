@@ -1,5 +1,5 @@
 from pyramid.view import view_config, forbidden_view_config
-from pyramid.security import remember, forget
+from pyramid.security import remember, forget, authenticated_userid
 
 from pyramid.httpexceptions import (
     HTTPMovedPermanently,
@@ -29,7 +29,10 @@ def signin(request):
                 request.session.flash(u'Wrong email or password', 'error')
         else:
             request.session.flash(u'Wrong email or password', 'error')
-    return dict(renderer=FormRenderer(form))
+    return dict(
+        renderer=FormRenderer(form),
+        logged_in=authenticated_userid(request)
+    )
 
 
 @view_config(route_name='signup', renderer='templates/users/signup.pt')
@@ -60,7 +63,9 @@ def forgot_password(request):
 @view_config(route_name='notes', renderer='templates/notes/list.pt',
              permission='login_required')
 def notes(request):
-    return dict()
+    return dict(
+        logged_in=authenticated_userid(request)
+    )
 
 
 def create_note(request):

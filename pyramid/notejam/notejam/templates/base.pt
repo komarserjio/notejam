@@ -39,8 +39,9 @@
 <body>
 	<div class="container">
         <div class="sixteen columns">
-            <div class="sign-in-out-block">
-                komarserjio@gmail.com:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
+            <div class="sign-in-out-block" tal:switch="logged_in">
+                <div tal:case="True">komarserjio@gmail.com:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a></div>
+                <div tal:case="None"><a href="#">Sign in</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign up</a></div>
             </div>
         </div>
         <div class="sixteen columns">
