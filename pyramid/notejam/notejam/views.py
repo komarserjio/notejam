@@ -63,9 +63,7 @@ def forgot_password(request):
 @view_config(route_name='notes', renderer='templates/notes/list.pt',
              permission='login_required')
 def notes(request):
-    return dict(
-        logged_in=authenticated_userid(request)
-    )
+    return _response_dict(request)
 
 
 def create_note(request):
@@ -90,3 +88,7 @@ def update_pad(request):
 
 def delete_pad(request):
     pass
+
+
+def _response_dict(request, *args, **kwargs):
+    return dict(logged_in=authenticated_userid(request), **kwargs)
