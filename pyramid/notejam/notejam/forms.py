@@ -23,3 +23,8 @@ class SigninSchema(Schema):
 
 class PadSchema(Schema):
     name = validators.UnicodeString(not_empty=True)
+
+
+class NoteSchema(Schema):
+    name = validators.UnicodeString(not_empty=True)
+    text = validators.UnicodeString(not_empty=True)

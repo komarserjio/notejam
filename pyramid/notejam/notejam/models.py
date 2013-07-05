@@ -68,8 +68,26 @@ class Pad(Base):
         return '<Pad %r>' % self.name
 
 
-class Note(object):
-    pass
+class Note(Base):
+    __tablename__ = 'notes'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+    text = Column(Text())
+
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relation(
+        'User',
+        backref=backref('notes', lazy='dynamic', cascade='all')
+    )
+
+    pad_id = Column(Integer, ForeignKey('pads.id'))
+    pad = relation(
+        'Pad',
+        backref=backref('notes', lazy='dynamic', cascade='all')
+    )
+
+    def __repr__(self):
+        return '<Note %r>' % self.name
 
 
 # acl configuration

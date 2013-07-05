@@ -6,8 +6,8 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
 
-from models import DBSession, User, Pad
-from forms import SignupSchema, SigninSchema, PadSchema
+from models import DBSession, User, Pad, Note
+from forms import SignupSchema, SigninSchema, PadSchema, NoteSchema
 
 
 @view_config(route_name='signin', renderer='templates/users/signin.pt')
@@ -62,8 +62,16 @@ def notes(request):
     return _response_dict(request)
 
 
+@view_config(route_name='create_note', renderer='templates/notes/create.pt',
+             permission='login_required')
 def create_note(request):
-    pass
+    form = Form(request, schema=NoteSchema())
+    if form.validate():
+        note = form.bind(Note())
+        DBSession.add(note)
+        request.session.flash(u'Note is successfully created', 'success')
+        return HTTPFound(location=request.route_url('notes'))
+    return _response_dict(request, renderer=FormRenderer(form))
 
 
 def update_note(request):
