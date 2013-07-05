@@ -19,3 +19,7 @@ class SigninSchema(Schema):
 
     email = validators.Email(not_empty=True)
     password = validators.UnicodeString(min=6)
+
+
+class PadSchema(Schema):
+    name = validators.UnicodeString(not_empty=True)

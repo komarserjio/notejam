@@ -1,17 +1,13 @@
 from pyramid.view import view_config, forbidden_view_config
 from pyramid.security import remember, forget, authenticated_userid
 
-from pyramid.httpexceptions import (
-    HTTPMovedPermanently,
-    HTTPFound,
-    HTTPNotFound,
-    )
+from pyramid.httpexceptions import HTTPFound
 
 from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
 
-from models import DBSession, User
-from forms import SignupSchema, SigninSchema
+from models import DBSession, User, Pad
+from forms import SignupSchema, SigninSchema, PadSchema
 
 
 @view_config(route_name='signin', renderer='templates/users/signin.pt')
@@ -78,8 +74,16 @@ def delete_note(request):
     pass
 
 
+@view_config(route_name='create_pad', renderer='templates/pads/create.pt',
+             permission='login_required')
 def create_pad(request):
-    pass
+    form = Form(request, schema=PadSchema())
+    if form.validate():
+        pad = form.bind(Pad())
+        DBSession.add(pad)
+        request.session.flash(u'Pad is successfully created', 'success')
+        return HTTPFound(location=request.route_url('notes'))
+    return _response_dict(request, renderer=FormRenderer(form))
 
 
 def update_pad(request):
@@ -91,4 +95,8 @@ def delete_pad(request):
 
 
 def _response_dict(request, *args, **kwargs):
-    return dict(logged_in=authenticated_userid(request), **kwargs)
+    return dict(
+        logged_in=authenticated_userid(request),
+        pads=DBSession.query(Pad).all(),
+        **kwargs
+    )

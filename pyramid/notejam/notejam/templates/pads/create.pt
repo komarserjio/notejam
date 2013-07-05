@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="load: ../base.pt">
+
+<tal:block metal:fill-slot="content">
+    <form class="pad" method="POST">
+        <label for="regularInput">Name</label>
+        ${renderer.text("name", size=30)}
+        ${renderer.errorlist("name")}
+        <button type="submit">Save</button>
+    </form>
+</tal:block>
+
+</html>

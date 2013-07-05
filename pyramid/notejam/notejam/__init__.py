@@ -36,8 +36,12 @@ def main(global_config, **settings):
     config.add_static_view('static', 'static', cache_max_age=3600)
     # routes
     config.add_route('notes', '/')
+
     config.add_route('signin', '/signin/')
     config.add_route('signout', '/signout/')
     config.add_route('signup', '/signup/')
+
+    config.add_route('create_pad', '/pads/create/')
+    config.add_route('view_pad_notes', '/pads/{pad_id}/')
     config.scan()
     return config.make_wsgi_app()
