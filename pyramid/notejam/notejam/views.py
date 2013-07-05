@@ -29,9 +29,9 @@ def signin(request):
                 request.session.flash(u'Wrong email or password', 'error')
         else:
             request.session.flash(u'Wrong email or password', 'error')
-    return dict(
+    return _response_dict(
+        request,
         renderer=FormRenderer(form),
-        logged_in=authenticated_userid(request)
     )
 
 
@@ -43,7 +43,7 @@ def signup(request):
         DBSession.add(user)
         request.session.flash(u'Now you can sign in', 'success')
         return HTTPFound(location=request.route_url('signin'))
-    return dict(renderer=FormRenderer(form))
+    return _response_dict(request, renderer=FormRenderer(form))
 
 
 @view_config(route_name='signout')

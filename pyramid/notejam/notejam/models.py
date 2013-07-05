@@ -1,10 +1,10 @@
 import cryptacular.bcrypt
 
-from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import Column, Integer, String, Text, ForeignKey
 
 from sqlalchemy.ext.declarative import declarative_base
 
-from sqlalchemy.orm import scoped_session, sessionmaker, synonym
+from sqlalchemy.orm import scoped_session, sessionmaker, synonym, relation, backref
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
@@ -53,8 +53,19 @@ class User(Base):
         return crypt.check(self.password, password)
 
 
-class Pad(object):
-    pass
+class Pad(Base):
+    __tablename__ = 'pads'
+    id = Column(Integer, primary_key=True)
+    name = Column(String(100))
+
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relation(
+        'User',
+        backref=backref('pads', lazy='dynamic', cascade='all')
+    )
+
+    def __repr__(self):
+        return '<Pad %r>' % self.name
 
 
 class Note(object):
