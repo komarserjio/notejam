@@ -68,6 +68,9 @@ def create_note(request):
     form = Form(request, schema=NoteSchema())
     if form.validate():
         note = form.bind(Note())
+        note.user = DBSession.query(User).filter(
+            User.email == authenticated_userid(request)
+        ).first()
         DBSession.add(note)
         request.session.flash(u'Note is successfully created', 'success')
         return HTTPFound(location=request.route_url('notes'))
@@ -91,6 +94,9 @@ def create_pad(request):
     form = Form(request, schema=PadSchema())
     if form.validate():
         pad = form.bind(Pad())
+        pad.user = DBSession.query(User).filter(
+            User.email == authenticated_userid(request)
+        ).first()
         DBSession.add(pad)
         request.session.flash(u'Pad is successfully created', 'success')
         return HTTPFound(location=request.route_url('notes'))

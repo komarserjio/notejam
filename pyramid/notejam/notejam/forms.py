@@ -22,10 +22,14 @@ class SigninSchema(Schema):
 
 
 class PadSchema(Schema):
+    allow_extra_fields = True
+
     name = validators.UnicodeString(not_empty=True)
 
 
 class NoteSchema(Schema):
+    allow_extra_fields = True
+
     name = validators.UnicodeString(not_empty=True)
     text = validators.UnicodeString(not_empty=True)
     pad_id = validators.Int()

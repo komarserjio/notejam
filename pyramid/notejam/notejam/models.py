@@ -4,15 +4,12 @@ from sqlalchemy import Column, Integer, String, Text, ForeignKey
 
 from sqlalchemy.ext.declarative import declarative_base
 
-from sqlalchemy.orm import scoped_session, sessionmaker, synonym, relation, backref
+from sqlalchemy.orm import (scoped_session, sessionmaker, synonym, relation,
+backref)
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
-from pyramid.security import (
-    Everyone,
-    Authenticated,
-    Allow,
-    )
+from pyramid.security import Authenticated, Allow
 
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
