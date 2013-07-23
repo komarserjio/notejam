@@ -28,3 +28,4 @@ class PadSchema(Schema):
 class NoteSchema(Schema):
     name = validators.UnicodeString(not_empty=True)
     text = validators.UnicodeString(not_empty=True)
+    pad_id = validators.Int()

@@ -12,10 +12,7 @@
         ${renderer.textarea("text")}
         ${renderer.errorlist("text")}
         <label for="selectList">Select Pad</label>
-        <select id="selectList">
-            <option value="Option 1">Business</option>
-            <option value="Option 2">Personal</option>
-        </select>
+        ${renderer.select("pad_id", [(p.id, p.name) for p in pads])}
         <button type="submit">Save</button>
     </form>
 </tal:block>

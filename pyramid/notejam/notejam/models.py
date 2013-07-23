@@ -67,6 +67,9 @@ class Pad(Base):
     def __repr__(self):
         return '<Pad %r>' % self.name
 
+    def __str__(self):
+        return self.name
+
 
 class Note(Base):
     __tablename__ = 'notes'
@@ -88,6 +91,9 @@ class Note(Base):
 
     def __repr__(self):
         return '<Note %r>' % self.name
+
+    def __str__(self):
+        return self.name
 
 
 # acl configuration

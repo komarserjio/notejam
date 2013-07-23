@@ -71,7 +71,10 @@ def create_note(request):
         DBSession.add(note)
         request.session.flash(u'Note is successfully created', 'success')
         return HTTPFound(location=request.route_url('notes'))
-    return _response_dict(request, renderer=FormRenderer(form))
+    return _response_dict(
+        request,
+        renderer=FormRenderer(form)
+    )
 
 
 def update_note(request):
