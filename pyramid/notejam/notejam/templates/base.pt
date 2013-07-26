@@ -46,7 +46,8 @@
         </div>
         <div class="sixteen columns">
             <h1 class="bold-header">notejam 
-                <span>8 notes</span>
+                <tal:block metal:define-slot="current_page">
+                </tal:block>
             </h1>
         </div>
         <div metal:define-slot="pads">

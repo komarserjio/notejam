@@ -3,6 +3,10 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="load: ../base.pt">
 
+<tal:block metal:fill-slot="current_page">
+    <span>Sign In</span>
+</tal:block>
+
 <tal:block metal:fill-slot="content">
     <form class="offset-by-six sign-in" method="POST">
         <label for="regularInput">Email</label>

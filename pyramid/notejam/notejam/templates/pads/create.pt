@@ -3,6 +3,10 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="load: ../base.pt">
 
+<tal:block metal:fill-slot="current_page">
+    <span>Create a pad</span>
+</tal:block>
+
 <tal:block metal:fill-slot="content">
     <form class="pad" method="POST">
         <label for="regularInput">Name</label>

@@ -3,6 +3,10 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="load: ../base.pt">
 
+<tal:block metal:fill-slot="current_page">
+    <span>Create a note</span>
+</tal:block>
+
 <tal:block metal:fill-slot="content">
     <form class="note" method="POST">
         <label for="regularInput">Name</label>
@@ -18,7 +22,3 @@
 </tal:block>
 
 </html>
-
-
-
-

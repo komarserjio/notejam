@@ -3,6 +3,10 @@
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="load: ../base.pt">
 
+<tal:block metal:fill-slot="current_page">
+    <span>${len(notes)} notes</span>
+</tal:block>
+
 <tal:block metal:fill-slot="content">
     <table class="notes" tal:condition="notes">
         <tr>
