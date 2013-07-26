@@ -1,6 +1,7 @@
+import datetime
 import cryptacular.bcrypt
 
-from sqlalchemy import Column, Integer, String, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -17,14 +18,16 @@ Base = declarative_base()
 crypt = cryptacular.bcrypt.BCRYPTPasswordManager()
 
 
-#class QueryBase(Base):
-    #@classmethod
-    #def query(cls):
-        #return DBSession.query(cls)
-
-
 def hash_password(password):
     return unicode(crypt.encode(password))
+
+
+class TimestampMixin(object):
+    created_at = Column(DateTime, default=datetime.datetime.now())
+    updated_at = Column(
+        DateTime, default=datetime.datetime.now(),
+        onupdate=datetime.datetime.now()
+    )
 
 
 class User(Base):
@@ -50,7 +53,7 @@ class User(Base):
         return crypt.check(self.password, password)
 
 
-class Pad(Base):
+class Pad(TimestampMixin, Base):
     __tablename__ = 'pads'
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
@@ -68,7 +71,7 @@ class Pad(Base):
         return self.name
 
 
-class Note(Base):
+class Note(TimestampMixin, Base):
     __tablename__ = 'notes'
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
