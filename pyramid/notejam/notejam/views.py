@@ -59,7 +59,10 @@ def forgot_password(request):
 @view_config(route_name='notes', renderer='templates/notes/list.pt',
              permission='login_required')
 def notes(request):
-    return _response_dict(request)
+    notes = DBSession.query(Note).filter(
+        Note.user == get_current_user(request)
+    )
+    return _response_dict(request, notes=notes)
 
 
 @view_config(route_name='create_note', renderer='templates/notes/create.pt',
@@ -68,9 +71,7 @@ def create_note(request):
     form = Form(request, schema=NoteSchema())
     if form.validate():
         note = form.bind(Note())
-        note.user = DBSession.query(User).filter(
-            User.email == authenticated_userid(request)
-        ).first()
+        note.user = get_current_user(request)
         DBSession.add(note)
         request.session.flash(u'Note is successfully created', 'success')
         return HTTPFound(location=request.route_url('notes'))
@@ -94,9 +95,7 @@ def create_pad(request):
     form = Form(request, schema=PadSchema())
     if form.validate():
         pad = form.bind(Pad())
-        pad.user = DBSession.query(User).filter(
-            User.email == authenticated_userid(request)
-        ).first()
+        pad.user = get_current_user(request)
         DBSession.add(pad)
         request.session.flash(u'Pad is successfully created', 'success')
         return HTTPFound(location=request.route_url('notes'))
@@ -111,9 +110,16 @@ def delete_pad(request):
     pass
 
 
+#helper functions
 def _response_dict(request, *args, **kwargs):
     return dict(
         logged_in=authenticated_userid(request),
         pads=DBSession.query(Pad).all(),
         **kwargs
     )
+
+
+def get_current_user(request):
+    return DBSession.query(User).filter(
+        User.email == authenticated_userid(request)
+    ).first()
