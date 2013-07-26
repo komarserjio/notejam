@@ -17,6 +17,6 @@
         </tr>
     </table>
     <p class="empty" tal:condition="not notes">You don't have any notes</p>
-    <a href="#" class="button">Create a note</a>
+    <a href="${request.route_url('create_note')}" class="button">Create a note</a>
 </tal:block>
 </html>
