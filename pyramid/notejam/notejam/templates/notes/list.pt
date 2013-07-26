@@ -4,7 +4,7 @@
       metal:use-macro="load: ../base.pt">
 
 <tal:block metal:fill-slot="content">
-    <table class="notes">
+    <table class="notes" tal:condition="notes">
         <tr>
             <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
             <th>Pad</th>
@@ -16,8 +16,7 @@
             <td class="hidden-text date">${note.created_at.strftime('%d.%m.%Y')}</td>
         </tr>
     </table>
+    <p class="empty" tal:condition="not notes">You don't have any notes</p>
     <a href="#" class="button">Create a note</a>
-
 </tal:block>
-
 </html>

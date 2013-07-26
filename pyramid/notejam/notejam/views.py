@@ -61,7 +61,7 @@ def forgot_password(request):
 def notes(request):
     notes = DBSession.query(Note).filter(
         Note.user == get_current_user(request)
-    )
+    ).all()
     return _response_dict(request, notes=notes)
 
 
