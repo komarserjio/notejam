@@ -10,10 +10,10 @@
             <th>Pad</th>
             <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
         </tr>
-        <tr>
-            <td><a href="#">Daily post</a></td>
-            <td class="pad"><a href="#">Pad</a></td>
-            <td class="hidden-text date">Nov 28 2012</td>
+        <tr tal:repeat="note notes">
+            <td><a href="#">${note.name}</a></td>
+            <td class="pad"><a href="#">${note.pad.name}</a></td>
+            <td class="hidden-text date">${note.created_at.strftime('%d.%m.%Y')}</td>
         </tr>
     </table>
     <a href="#" class="button">Create a note</a>
@@ -21,6 +21,3 @@
 </tal:block>
 
 </html>
-
-
-
