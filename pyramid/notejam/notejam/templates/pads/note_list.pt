@@ -4,23 +4,24 @@
       metal:use-macro="load: ../base.pt">
 
 <tal:block metal:fill-slot="current_page">
-    <span>All notes (${notes.count()})</span>
+    <span>${pad} (${pad.notes.count()})</span>
 </tal:block>
 
 <tal:block metal:fill-slot="content">
-    <table class="notes" tal:condition="notes">
+    <table class="notes" tal:condition="pad.notes.all()">
         <tr>
             <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
             <th>Pad</th>
             <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
         </tr>
-        <tr tal:repeat="note notes">
+        <tr tal:repeat="note pad.notes">
             <td><a href="#">${note.name}</a></td>
             <td class="pad"><a href="#">${note.pad.name}</a></td>
             <td class="hidden-text date">${note.created_at.strftime('%d.%m.%Y')}</td>
         </tr>
     </table>
-    <p class="empty" tal:condition="not notes">You don't have any notes</p>
+    <p class="empty" tal:condition="not pad.notes.all()">You don't have any notes in this pad</p>
     <a href="${request.route_url('create_note')}" class="button">Create a note</a>
 </tal:block>
 </html>
+

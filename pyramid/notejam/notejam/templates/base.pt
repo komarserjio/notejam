@@ -55,7 +55,7 @@
                 <h4 id="logo">My pads</h4>
                 <nav>
                     <ul tal:condition="pads">
-                        <li tal:repeat="pad pads"><a href="${request.route_url('view_pad_notes', pad_id=pad.id)}">${pad.name}</a></li>
+                        <li tal:repeat="pad pads"><a href="${request.route_url('pad_notes', pad_id=pad.id)}">${pad.name}</a></li>
                     </ul>
                     <p class="empty" tal:condition="not pads">No pads yet</p>
                     <hr />

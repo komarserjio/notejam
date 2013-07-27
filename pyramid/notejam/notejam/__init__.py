@@ -43,6 +43,6 @@ def main(global_config, **settings):
     config.add_route('signup', '/signup/')
 
     config.add_route('create_pad', '/pads/create/')
-    config.add_route('view_pad_notes', '/pads/{pad_id}/')
+    config.add_route('pad_notes', '/pads/{pad_id}/')
     config.scan()
     return config.make_wsgi_app()
