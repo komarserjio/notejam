@@ -37,6 +37,7 @@ def main(global_config, **settings):
     # routes
     config.add_route('notes', '/')
     config.add_route('create_note', '/notes/create/')
+    config.add_route('view_note', '/notes/{note_id}/')
 
     config.add_route('signin', '/signin/')
     config.add_route('signout', '/signout/')

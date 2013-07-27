@@ -65,6 +65,14 @@ def notes(request):
     return _response_dict(request, notes=notes)
 
 
+@view_config(route_name='view_note', renderer='templates/notes/view.pt',
+             permission='login_required')
+def view_note(request):
+    note_id = request.matchdict['note_id']
+    note = DBSession.query(Note).filter(Note.id == note_id).first()
+    return _response_dict(request, note=note)
+
+
 @view_config(route_name='pad_notes', renderer='templates/pads/note_list.pt',
              permission='login_required')
 def pad_notes(request):

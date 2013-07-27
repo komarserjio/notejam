@@ -15,7 +15,7 @@
             <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
         </tr>
         <tr tal:repeat="note pad.notes">
-            <td><a href="#">${note.name}</a></td>
+            <td><a href="${request.route_url('view_note', note_id=note.id)}">${note.name}</a></td>
             <td class="pad"><a href="#">${note.pad.name}</a></td>
             <td class="hidden-text date">${note.created_at.strftime('%d.%m.%Y')}</td>
         </tr>
