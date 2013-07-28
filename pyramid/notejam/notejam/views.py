@@ -1,4 +1,6 @@
 from pyramid.view import view_config, forbidden_view_config
+from pyramid.renderers import get_renderer
+
 from pyramid.security import remember, forget, authenticated_userid
 
 from pyramid.httpexceptions import HTTPFound
@@ -131,6 +133,7 @@ def _response_dict(request, *args, **kwargs):
     return dict(
         logged_in=authenticated_userid(request),
         pads=DBSession.query(Pad).all(),
+        snippets=get_renderer('templates/snippets.pt').implementation(),
         **kwargs
     )
 

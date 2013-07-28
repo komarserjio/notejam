@@ -8,17 +8,8 @@
 </tal:block>
 
 <tal:block metal:fill-slot="content">
-    <form class="note" method="POST">
-        <label for="regularInput">Name</label>
-        ${renderer.text("name", size=30)}
-        ${renderer.errorlist("name")}
-        <label for="regularTextarea">Note</label>
-        ${renderer.textarea("text")}
-        ${renderer.errorlist("text")}
-        <label for="selectList">Select Pad</label>
-        ${renderer.select("pad_id", [(p.id, p.name) for p in pads], request.params.get("pad"))}
-        <button type="submit">Save</button>
-    </form>
+    <form action="#" metal:use-macro="snippets.macros['note_form']"></form>
 </tal:block>
+
 
 </html>
