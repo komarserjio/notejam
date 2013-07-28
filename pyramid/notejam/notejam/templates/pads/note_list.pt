@@ -21,7 +21,7 @@
         </tr>
     </table>
     <p class="empty" tal:condition="not pad.notes.all()">You don't have any notes in this pad</p>
-    <a href="${request.route_url('create_note')}" class="button">Create a note</a>
+    <a href="${request.route_url('create_note')}?pad=${pad.id}" class="button">Create a note</a>
 </tal:block>
 </html>
 
