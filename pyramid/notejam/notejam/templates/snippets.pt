@@ -20,3 +20,16 @@
     ${renderer.errorlist("name")}
     <button type="submit">Save</button>
 </form>
+
+<div metal:define-macro="alert_area">
+    <div class="alert-area" tal:condition="request.session.peek_flash('success')">
+        <div tal:repeat="message request.session.pop_flash('success')" class="alert alert-success">
+            ${message}
+        </div>
+    </div>
+    <div class="alert-area" tal:condition="request.session.peek_flash('error')">
+        <div tal:repeat="message request.session.pop_flash('error')" class="alert alert-error">
+            ${message}
+        </div>
+    </div>
+</div>

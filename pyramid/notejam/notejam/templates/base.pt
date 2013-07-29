@@ -63,20 +63,8 @@
                 </nav>
             </div>
         </div>
-        <div class="${contentclass} columns content-area">
-            <div class="alert-area" tal:condition="request.session.peek_flash('success')">
-                <div tal:repeat="message request.session.pop_flash('success')" class="alert alert-success">
-                    ${message}
-                </div>
-            </div>
-            <div class="alert-area" tal:condition="request.session.peek_flash('error')">
-                <div tal:repeat="message request.session.pop_flash('error')" class="alert alert-error">
-                    ${message}
-                </div>
-            </div>
-            <tal:block metal:define-slot="content">
-            </tal:block>
-        </div>
+        <tal:block metal:define-slot="base_layout">
+        </tal:block>
         <hr class="footer" />
         <footer>
             <div class="footer">2013, notejam project</div>
@@ -85,5 +73,3 @@
     <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 </body>
 </html>
-
-
