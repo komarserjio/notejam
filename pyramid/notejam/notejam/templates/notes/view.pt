@@ -12,7 +12,7 @@
     <div class="note">
         ${note.text}
     </div>
-    <a href="" class="button">Edit</a>
+    <a href="${request.route_url('update_note', note_id=note.id)}" class="button">Edit</a>
     <a href="" class="delete-note">Delete it</a>
 </tal:block>
 
