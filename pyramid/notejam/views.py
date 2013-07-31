@@ -133,8 +133,21 @@ def create_pad(request):
     return _response_dict(request, renderer=FormRenderer(form))
 
 
+@view_config(route_name='update_pad', renderer='templates/pads/edit.pt',
+             permission='login_required')
 def update_pad(request):
-    pass
+    pad_id = request.matchdict['pad_id']
+    pad = DBSession.query(Pad).filter(Pad.id == pad_id).first()
+    form = Form(request, schema=PadSchema(), obj=pad)
+    if form.validate():
+        pad = form.bind(pad)
+        pad.user = get_current_user(request)
+        DBSession.add(pad)
+        request.session.flash(u'Pad is successfully updated', 'success')
+        return HTTPFound(
+            location=request.route_url('pad_notes', pad_id=pad.id)
+        )
+    return _response_dict(request, renderer=FormRenderer(form))
 
 
 def delete_pad(request):
