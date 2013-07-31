@@ -122,8 +122,16 @@ def update_note(request):
     )
 
 
+@view_config(route_name='delete_note', renderer='templates/notes/delete.pt',
+             permission='login_required')
 def delete_note(request):
-    pass
+    note_id = request.matchdict['note_id']
+    note = DBSession.query(Note).filter(Note.id == note_id).first()
+    if request.method == 'POST':
+        DBSession.delete(note)
+        request.session.flash(u'Note is successfully deleted', 'success')
+        return HTTPFound(location=request.route_url('notes'))
+    return _response_dict(request, note=note)
 
 
 @view_config(route_name='create_pad', renderer='templates/pads/create.pt',
