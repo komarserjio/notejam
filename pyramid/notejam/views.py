@@ -109,7 +109,13 @@ def update_note(request):
         note = form.bind(note)
         DBSession.add(note)
         request.session.flash(u'Note is successfully updated', 'success')
-        return HTTPFound(location=request.route_url('notes'))
+
+        # build redirect url
+        location = request.route_url('notes')
+        if note.pad is not None:
+            location = request.route_url('pad_notes', pad_id=note.pad.id)
+
+        return HTTPFound(location=location)
     return _response_dict(
         request,
         renderer=FormRenderer(form)
