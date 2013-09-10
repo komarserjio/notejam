@@ -16,7 +16,8 @@
         </tr>
         <tr tal:repeat="note notes">
             <td><a href="${request.route_url('view_note', note_id=note.id)}">${note.name}</a></td>
-            <td class="pad"><a href="${request.route_url('pad_notes', pad_id=note.pad.id)}">${note.pad.name}</a></td>
+            <td tal:condition="note.pad" class="pad"><a href="${request.route_url('pad_notes', pad_id=note.pad.id)}">${note.pad.name}</a></td>
+            <td tal:condition="not note.pad" class="pad">No pad</td>
             <td class="hidden-text date">${note.created_at.strftime('%d.%m.%Y')}</td>
         </tr>
     </table>
