@@ -48,5 +48,6 @@ def main(global_config, **settings):
     config.add_route('create_pad', '/pads/create/')
     config.add_route('pad_notes', '/pads/{pad_id}/')
     config.add_route('update_pad', '/pads/{pad_id}/edit/')
+    config.add_route('delete_pad', '/pads/{pad_id}/delete/')
     config.scan()
     return config.make_wsgi_app()

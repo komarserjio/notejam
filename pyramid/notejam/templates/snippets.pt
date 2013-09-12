@@ -19,6 +19,7 @@
     ${renderer.text("name", size=30)}
     ${renderer.errorlist("name")}
     <button type="submit">Save</button>
+    <a href="${request.route_url('delete_pad', pad_id=pad.id)}" class="delete-note">Delete it</a>
 </form>
 
 <div metal:define-macro="alert_area">

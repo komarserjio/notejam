@@ -161,11 +161,19 @@ def update_pad(request):
         return HTTPFound(
             location=request.route_url('pad_notes', pad_id=pad.id)
         )
-    return _response_dict(request, renderer=FormRenderer(form))
+    return _response_dict(request, renderer=FormRenderer(form), pad=pad)
 
 
+@view_config(route_name='delete_pad', renderer='templates/pads/delete.pt',
+             permission='login_required')
 def delete_pad(request):
-    pass
+    pad_id = request.matchdict['pad_id']
+    pad = DBSession.query(Pad).filter(Pad.id == pad_id).first()
+    if request.method == 'POST':
+        DBSession.delete(pad)
+        request.session.flash(u'Pad is successfully deleted', 'success')
+        return HTTPFound(location=request.route_url('notes'))
+    return _response_dict(request, pad=pad)
 
 
 #helper functions
