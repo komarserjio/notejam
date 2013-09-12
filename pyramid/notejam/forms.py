@@ -4,11 +4,19 @@ from models import DBSession, User
 
 
 class UniqueEmail(FancyValidator):
-
     def to_python(self, value, state):
         if DBSession.query(User).filter(User.email == value).count():
             raise Invalid(
                 'That email already exists', value, state
+            )
+        return value
+
+
+class EmailExists(FancyValidator):
+    def to_python(self, value, state):
+        if not DBSession.query(User).filter(User.email == value).count():
+            raise Invalid(
+                'That email doesnt exist', value, state
             )
         return value
 
@@ -45,3 +53,9 @@ class NoteSchema(Schema):
     name = validators.UnicodeString(not_empty=True)
     text = validators.UnicodeString(not_empty=True)
     pad_id = validators.Int()
+
+
+class ForgotPasswordSchema(Schema):
+    allow_extra_fields = False
+
+    email = All(validators.Email(not_empty=True), EmailExists())

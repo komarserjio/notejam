@@ -9,7 +9,8 @@ from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
 
 from models import DBSession, User, Pad, Note
-from forms import SignupSchema, SigninSchema, PadSchema, NoteSchema
+from forms import (SignupSchema, SigninSchema, PadSchema,
+NoteSchema, ForgotPasswordSchema)
 
 
 @view_config(route_name='signin', renderer='templates/users/signin.pt')
@@ -54,8 +55,16 @@ def account_settings(request):
     pass
 
 
+@view_config(route_name='forgot_password',
+             renderer='templates/users/forgot_password.pt')
 def forgot_password(request):
-    pass
+    form = Form(request, ForgotPasswordSchema())
+    if form.validate():
+        request.session.flash(u'Check your inbox', 'success')
+        return HTTPFound(location=request.route_url('signin'))
+    return _response_dict(
+        request, renderer=FormRenderer(form)
+    )
 
 
 @view_config(route_name='notes', renderer='templates/notes/list.pt',

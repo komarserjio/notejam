@@ -44,6 +44,7 @@ def main(global_config, **settings):
     config.add_route('signin', '/signin/')
     config.add_route('signout', '/signout/')
     config.add_route('signup', '/signup/')
+    config.add_route('forgot_password', '/forgot-password/')
 
     config.add_route('create_pad', '/pads/create/')
     config.add_route('pad_notes', '/pads/{pad_id}/')
