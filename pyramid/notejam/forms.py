@@ -1,11 +1,23 @@
-from formencode import Schema, validators
+from formencode import Schema, validators, FancyValidator, All, Invalid
+
+from models import DBSession, User
+
+
+class UniqueEmail(FancyValidator):
+
+    def to_python(self, value, state):
+        if DBSession.query(User).filter(User.email == value).count():
+            raise Invalid(
+                'That email already exists', value, state
+            )
+        return value
 
 
 class SignupSchema(Schema):
     allow_extra_fields = True
     filter_extra_fields = True
 
-    email = validators.Email(not_empty=True)
+    email = All(validators.Email(not_empty=True), UniqueEmail())
     password = validators.UnicodeString(min=6)
     confirm_password = validators.UnicodeString(min=6)
     passwords_match = [
