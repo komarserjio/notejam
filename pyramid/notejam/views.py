@@ -63,7 +63,7 @@ def forgot_password(request):
 def notes(request):
     notes = DBSession.query(Note).filter(
         Note.user == get_current_user(request)
-    ).all()
+    ).order_by(_get_order_by(request.params.get('order'))).all()
     return _response_dict(request, notes=notes)
 
 
@@ -190,3 +190,13 @@ def get_current_user(request):
     return DBSession.query(User).filter(
         User.email == authenticated_userid(request)
     ).first()
+
+
+def _get_order_by(param='-updated_at'):
+    ''' get model order param by string description '''
+    return {
+        'name': Note.name.asc(),
+        '-name': Note.name.desc(),
+        'updated_at': Note.updated_at.asc(),
+        '-updated_at': Note.updated_at.desc(),
+    }.get(param, Note.updated_at.desc())

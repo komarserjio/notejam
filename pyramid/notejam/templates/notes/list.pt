@@ -10,9 +10,9 @@
 <tal:block metal:fill-slot="content">
     <table class="notes" tal:condition="notes">
         <tr>
-            <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+            <th class="note">Note <a href="/?order=name" class="sort_arrow" >&darr;</a><a href="/?order=-name" class="sort_arrow" >&uarr;</a></th>
             <th>Pad</th>
-            <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+            <th class="date">Last modified <a href="/?order=updated_at" class="sort_arrow" >&darr;</a><a href="/?order=-updated_at" class="sort_arrow" >&uarr;</a></th>
         </tr>
         <tr tal:repeat="note notes">
             <td><a href="${request.route_url('view_note', note_id=note.id)}">${note.name}</a></td>
