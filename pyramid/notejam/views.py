@@ -8,15 +8,14 @@ from pyramid.security import remember, forget, authenticated_userid
 
 from pyramid.httpexceptions import HTTPFound
 
-from pyramid_simpleform import Form
+from pyramid_simpleform import Form, State
 from pyramid_simpleform.renderers import FormRenderer
 from pyramid_mailer import get_mailer
 from pyramid_mailer.message import Message
 
-
 from models import DBSession, User, Pad, Note
 from forms import (SignupSchema, SigninSchema, PadSchema,
-NoteSchema, ForgotPasswordSchema)
+NoteSchema, ForgotPasswordSchema, ChangePasswordSchema)
 
 
 @view_config(route_name='signin', renderer='templates/users/signin.pt')
@@ -57,8 +56,23 @@ def signout(request):
     return HTTPFound(location=request.route_url('signin'), headers=headers)
 
 
-def account_settings(request):
-    pass
+@view_config(route_name='settings',
+             renderer='templates/users/settings.pt')
+def settings(request):
+    user = get_current_user(request)
+    form = Form(
+        request, ChangePasswordSchema(),
+        state=State(user=user)
+    )
+    if form.validate():
+        user.password = form.data['password']
+        DBSession.add(user)
+
+        request.session.flash(u'Password was successfully changed', 'success')
+        return HTTPFound(location=request.route_url('settings'))
+    return _response_dict(
+        request, renderer=FormRenderer(form)
+    )
 
 
 @view_config(route_name='forgot_password',
@@ -226,7 +240,6 @@ def _get_order_by(param='-updated_at'):
 
 
 def _generate_password(request, user):
-    return '123456'
     ''' generate new user password '''
     m = md5.new()
     m.update(

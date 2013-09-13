@@ -1,4 +1,4 @@
-from formencode import Schema, validators, FancyValidator, All, Invalid, Any
+from formencode import Schema, validators, FancyValidator, All, Invalid
 
 from models import DBSession, User
 
@@ -17,6 +17,15 @@ class EmailExists(FancyValidator):
         if not DBSession.query(User).filter(User.email == value).count():
             raise Invalid(
                 'That email doesnt exist', value, state
+            )
+        return value
+
+
+class PasswordCorrect(FancyValidator):
+    def to_python(self, value, state):
+        if not state.user.check_password(value):
+            raise Invalid(
+                'Current password is not correct', value, state
             )
         return value
 
@@ -59,3 +68,14 @@ class ForgotPasswordSchema(Schema):
     allow_extra_fields = False
 
     email = All(EmailExists(), validators.Email(not_empty=True))
+
+
+class ChangePasswordSchema(Schema):
+    allow_extra_fields = False
+
+    old_password = All(PasswordCorrect(), validators.UnicodeString(min=6))
+    password = validators.UnicodeString(min=6)
+    confirm_password = validators.UnicodeString(min=6)
+    passwords_match = [
+        validators.FieldsMatch('password', 'confirm_password')
+    ]
