@@ -4,20 +4,24 @@
       metal:use-macro="load: ../wide_layout.pt">
 
 <tal:block metal:fill-slot="current_page">
-    <span>Sign In</span>
+    <span>Account Settings</span>
 </tal:block>
 
 <tal:block metal:fill-slot="content">
     <form class="offset-by-six sign-in" method="POST">
-        <label for="regularInput">Email</label>
-        ${renderer.text("email", size=30)}
-        ${renderer.errorlist("email")}
-        <label for="regularInput">Password</label>
+        <label for="regularInput">Current Password</label>
+        ${renderer.password("old_password")}
+        ${renderer.errorlist("old_password")}
+        <label for="regularInput">New Password</label>
         ${renderer.password("password")}
         ${renderer.errorlist("password")}
-        <button type="submit">Sign In</button>
-        <p><a href="${request.route_url('forgot_password')}">Forgot password?</a></p>
+        <label for="regularInput">Confirm New Password</label>
+        ${renderer.password("confirm_password")}
+        ${renderer.errorlist("confirm_password")}
+        <button type="submit">Save</button>
     </form>
 </tal:block>
 
 </html>
+
+

@@ -41,7 +41,7 @@
         <div class="sixteen columns">
             <div class="sign-in-out-block" tal:switch="type(logged_in) is unicode">
                 <div tal:case="False"><a href="${request.route_url('signin')}">Sign in</a>&nbsp;&nbsp;&nbsp;<a href="${request.route_url('signup')}">Sign up</a></div>
-                <div tal:case="True">${logged_in}:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="${request.route_url('signout')}">Sign out</a></div>
+                <div tal:case="True">${logged_in}:&nbsp; <a href="${request.route_url('settings')}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="${request.route_url('signout')}">Sign out</a></div>
             </div>
         </div>
         <div class="sixteen columns">

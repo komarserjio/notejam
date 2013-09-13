@@ -181,7 +181,7 @@ def create_pad(request):
         DBSession.add(pad)
         request.session.flash(u'Pad is successfully created', 'success')
         return HTTPFound(location=request.route_url('notes'))
-    return _response_dict(request, renderer=FormRenderer(form))
+    return _response_dict(request, renderer=FormRenderer(form), pad=False)
 
 
 @view_config(route_name='update_pad', renderer='templates/pads/edit.pt',
