@@ -1,3 +1,6 @@
+import md5
+from datetime import date
+
 from pyramid.view import view_config, forbidden_view_config
 from pyramid.renderers import get_renderer
 
@@ -7,6 +10,9 @@ from pyramid.httpexceptions import HTTPFound
 
 from pyramid_simpleform import Form
 from pyramid_simpleform.renderers import FormRenderer
+from pyramid_mailer import get_mailer
+from pyramid_mailer.message import Message
+
 
 from models import DBSession, User, Pad, Note
 from forms import (SignupSchema, SigninSchema, PadSchema,
@@ -60,6 +66,14 @@ def account_settings(request):
 def forgot_password(request):
     form = Form(request, ForgotPasswordSchema())
     if form.validate():
+        user = (DBSession.query(User).filter(User.email == form.data['email'])
+                                     .first())
+        password = _generate_password(request, user)
+        user.password = password
+        DBSession.add(user)
+
+        send_new_password(request, user, password)
+
         request.session.flash(u'Check your inbox', 'success')
         return HTTPFound(location=request.route_url('signin'))
     return _response_dict(
@@ -209,3 +223,28 @@ def _get_order_by(param='-updated_at'):
         'updated_at': Note.updated_at.asc(),
         '-updated_at': Note.updated_at.desc(),
     }.get(param, Note.updated_at.desc())
+
+
+def _generate_password(request, user):
+    return '123456'
+    ''' generate new user password '''
+    m = md5.new()
+    m.update(
+        "{email}{secret}{date}".format(
+            email=user.email,
+            secret=request.registry['session.secret'],
+            date=str(date.today())
+        )
+    )
+    return m.hexdigest()[:8]
+
+
+def send_new_password(request, user, password):
+    mailer = get_mailer(request)
+    message = Message(
+        subject="Password Recovery",
+        sender="noreply@notejamapp.com",
+        recipients=[user.email],
+        body="Your new password is: {}".format(password)
+    )
+    mailer.send_immediately(message, fail_silently=True)

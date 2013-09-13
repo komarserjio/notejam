@@ -1,4 +1,4 @@
-from formencode import Schema, validators, FancyValidator, All, Invalid
+from formencode import Schema, validators, FancyValidator, All, Invalid, Any
 
 from models import DBSession, User
 
@@ -25,7 +25,7 @@ class SignupSchema(Schema):
     allow_extra_fields = True
     filter_extra_fields = True
 
-    email = All(validators.Email(not_empty=True), UniqueEmail())
+    email = All(UniqueEmail(), validators.Email(not_empty=True))
     password = validators.UnicodeString(min=6)
     confirm_password = validators.UnicodeString(min=6)
     passwords_match = [
@@ -58,4 +58,4 @@ class NoteSchema(Schema):
 class ForgotPasswordSchema(Schema):
     allow_extra_fields = False
 
-    email = All(validators.Email(not_empty=True), EmailExists())
+    email = All(EmailExists(), validators.Email(not_empty=True))
