@@ -1,3 +1,0 @@
-Notejam: Django implementation
-
-Requirements:
