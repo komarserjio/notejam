@@ -10,23 +10,24 @@ Installation and running
 Cloning
 -------
 
-Clone the repo::
-    git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
+Clone the repo:
+.. code-block:: bash
+    $ git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
 
 Install environment
 -------------------
-Using `virtualenv <http://www.virtualenv.org/>` is strongly advised.
+Using `virtualenv`_ is strongly advised.
 
-Go to the django dir::
+Install dependencies:
+.. code-block:: bash
     $ cd YOUR_PROJECT_DIR/django/
-
-Install dependencies::
     $ pip install -r requirements.txt
 
 Running
 -------
 
-Start django web server::
+Start django web server:
+.. code-block:: bash
     $ cd YOUR_PROJECT_DIR/django/notejam/
     $ ./manage.py runserver
 
@@ -35,6 +36,9 @@ Go to http://127.0.0.1:8000/
 Running unit tests
 ------------------
 
-Run unit tests::
+Run unit tests:
+.. code-block:: bash
     $ cd YOUR_PROJECT_DIR/django/notejam/
     $ ./manage.py test
+
+.. _virtualenv: http://www.virtualenv.org 
