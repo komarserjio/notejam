@@ -13,20 +13,48 @@ Idea is very similar to well known https://github.com/tastejs/todomvc
 Supported frameworks
 ====================
 
-* Python
-    * Django
-    * Flask
-    * Pyramid
+**Python** 
 
-* PHP
-    * Symfony
-    * Zend
 
-* Ruby
-    * Ruby on Rails
+* Django
+* Flask
+* Pyramid
 
-* Javascript
-    * express.js
+**PHP**
+
+
+* Symfony
+* Zend
+
+**Ruby**
+
+
+* Ruby on Rails
+
+**Javascript**
+
+
+* express.js
+
+=====================
+Currently in progress
+=====================
+
+**PHP**
+
+
+* Yii
+
+**Ruby**
+
+
+* Padrino
+
+**Python** 
+
+
+* web.py
+
 
 
 =========
@@ -39,4 +67,12 @@ Demo version is available at http://notejamapp.com
 Contribution
 ============
 
-Contribution is very welcome.
+Contribution is very welcome!
+
+**Do you want improve one of the existing implementations?**
+
+Each implementation has its own README which contains details how to contribute to specific implementation.
+
+**Do you want to add new framework?**
+
+Read contribution guide.
