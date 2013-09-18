@@ -4,6 +4,27 @@ Contribution guide
 
 At first play with live demo at http://notejamapp.com.
 
+=========================
+Pull requests and commits
+=========================
+
+Always prepend your commit with framework name.
+Examples of good commit messages:
+
+``Django: Implemented signout functionality``
+``Symfony: Fixed broken pad tests``
+
+If you contribute into on of the existing application please 
+please send your pull requests to specific branch
+(e.g. ``django`` branch for Django framework, ``rubyonrails`` for Ruby on Rails)
+
+If you develop new application submit your code code in the ``master`` branch.
+
+==========
+Code style
+==========
+
+
 ========================
 Application requirements
 ========================
@@ -44,8 +65,9 @@ All layouts are located in the `html` folder.
 I18N
 ----
 
-Application shouls support internationalization.
-All source texts are available in the language files. Feel free to convert to any format.
+Application should support internationalization.
+All source texts are available in the language files. 
+Feel free to convert to any format that suits your framework.
 
 ----------
 Unit tests
