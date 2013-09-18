@@ -19,7 +19,92 @@ class NoteTest(TestCase):
             reverse('create_note'), {'name': 'pad', 'text': 'pad text'})
         self.assertEquals(1, Note.objects.count())
 
-    def test_create_fail_required_name(self):
+    def test_create_fail_required_fields(self):
         response = self.client.post(reverse('create_note'), {})
         self.assertEquals(
             set(['name', 'text']), set(response.context['form'].errors.keys()))
+
+    def test_edit_success(self):
+        note_data = {
+            'name': 'note name',
+            'text': 'note text'
+        }
+        note = Note.objects.create(user=self.user, **note_data)
+
+        note_data['name'] = 'new name'
+        response = self.client.post(
+            reverse('edit_note', args=(note.id,)), note_data)
+        self.assertRedirects(response, reverse('home'))
+        self.assertEquals(note_data['name'], Note.objects.get(id=note.id).name)
+
+    def test_another_user_cant_edit(self):
+        user_data = {
+            'email': 'another_user@example.com',
+            'password': 'another_secure_password'
+        }
+        create_user(user_data)
+
+        note_data = {
+            'name': 'note name',
+            'text': 'note text'
+        }
+        note = Note.objects.create(user=self.user, **note_data)
+
+        client = Client()
+        client.login(**user_data)
+        response = client.post(reverse('edit_note', args=(note.id,)), {})
+        self.assertEquals(404, response.status_code)
+
+    def test_view_success(self):
+        note_data = {
+            'name': 'note name',
+            'text': 'note text'
+        }
+        note = Note.objects.create(user=self.user, **note_data)
+        response = self.client.get(reverse('view_note', args=(note.id,)), {})
+        self.assertEquals(note, response.context['note'])
+
+    def test_another_user_cant_view(self):
+        user_data = {
+            'email': 'another_user@example.com',
+            'password': 'another_secure_password'
+        }
+        create_user(user_data)
+
+        note_data = {
+            'name': 'note name',
+            'text': 'note text'
+        }
+        note = Note.objects.create(user=self.user, **note_data)
+
+        client = Client()
+        client.login(**user_data)
+        response = client.get(reverse('view_note', args=(note.id,)), {})
+        self.assertEquals(404, response.status_code)
+
+    def test_delete_success(self):
+        note_data = {
+            'name': 'note name',
+            'text': 'note text'
+        }
+        note = Note.objects.create(user=self.user, **note_data)
+        self.client.post(reverse('delete_note', args=(note.id,)), {})
+        self.assertEquals(0, Note.objects.count())
+
+    def test_another_user_cant_delete(self):
+        user_data = {
+            'email': 'another_user@example.com',
+            'password': 'another_secure_password'
+        }
+        create_user(user_data)
+
+        note_data = {
+            'name': 'note name',
+            'text': 'note text'
+        }
+        note = Note.objects.create(user=self.user, **note_data)
+
+        client = Client()
+        client.login(**user_data)
+        response = client.get(reverse('view_note', args=(note.id,)), {})
+        self.assertEquals(404, response.status_code)
