@@ -69,10 +69,10 @@ Contribution
 
 Contribution is very welcome!
 
-**Do you want improve one of the existing implementations?**
+**Do you want improve one of the existing applications?**
 
-Each implementation has its own README which contains details how to contribute to specific implementation.
+Each application has its own README which contains detailed explanation.
 
-**Do you want to add new framework?**
+**Do you want to add new application?**
 
 Read contribution guide.

@@ -2,27 +2,30 @@
 Contribution guide
 ******************
 
-At first play with live demo at http://notejamapp.com.
-
 =========================
 Pull requests and commits
 =========================
 
-Always prepend your commit with framework name.
-Examples of good commit messages:
+Always prepend commit message with framework name.
+
+Examples of **good** commit messages:
 
 ``Django: Implemented signout functionality``
 ``Symfony: Fixed broken pad tests``
 
 If you contribute into on of the existing application please 
-please send your pull requests to specific branch
+send your pull requests in the specific branch
 (e.g. ``django`` branch for Django framework, ``rubyonrails`` for Ruby on Rails)
 
-If you develop new application submit your code code in the ``master`` branch.
+If you develop new application submit your code in the ``master`` branch.
 
 ==========
 Code style
 ==========
+
+Please follow code style guidelines and best practices for your programming language and framework.
+Specify guidelines in a README file in a code style section.
+Example: ...
 
 
 ========================
@@ -32,9 +35,13 @@ Application requirements
 Notejam is web application that allows user to sign up/in/out and create/view/edit/delete notes. 
 Notes are grouped by pads.
 
+Live demo at http://notejamapp.com.
+
 ---------------------
 Pages to be implement
 ---------------------
+
+All layouts are sliced and located in the `html` folder.
 
 **User pages**
 
@@ -55,11 +62,7 @@ Pages to be implement
 * GET /notes/create/ - Show Create note form
 * POST /notes/create/ - Create note
 
--------
-Layouts
--------
 
-All layouts are located in the `html` folder.
 
 ----
 I18N
@@ -88,3 +91,7 @@ Signup:
 Notes:
 
 * successfull create note
+
+Pads:
+
+* successfull create pad
