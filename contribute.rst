@@ -25,7 +25,6 @@ Code style
 
 Please follow code style guidelines and best practices for your programming language and framework.
 Specify guidelines in a README file in a code style section.
-Example: ...
 
 
 ========================
@@ -45,23 +44,39 @@ All layouts are sliced and located in the `html` folder.
 
 **User pages**
 
-* GET /signup/ - Show Sign Up form
-* POST /signup/ - Sign Up
-* GET /signin/ - Show Sign In form
-* POST /signin/ - Sign In
-* GET /signout/ - Sign out
-* GET /forgot-password/ - Show Forgot password form
-* POST /forgot-password/ - Forgot Password request
-* GET /settings/ - Show user settings form
-* POST /settings/ - Change user settings
+* ``GET /signup/`` - Show Sign Up form
+* ``POST /signup/`` - Sign Up
+* ``GET /signin/`` - Show Sign In form
+* ``POST /signin/`` - Sign In
+* ``GET /signout/`` - Sign out
+* ``GET /forgot-password/`` - Show Forgot password form
+* ``POST /forgot-password/`` - Forgot Password request
+* ``GET /settings/`` - Show user settings form
+* ``POST /settings/`` - Change user settings
 
 
-**Notes pages**
+**Note pages**
 
 
-* GET /notes/create/ - Show Create note form
-* POST /notes/create/ - Create note
+* ``GET /notes/create/`` - Show Create note form
+* ``POST /notes/create/`` - Create note
+* ``GET /notes/<note_id>/`` - View note
+* ``GET /notes/<note_id>/edit/`` - Show Edit note form
+* ``POST /notes/<note_id>/edit/`` - Edit note
+* ``GET /notes/<note_id>/delete/`` - Show confirmation delete page
+* ``POST /notes/<note_id>/delete/`` - Delete note
 
+
+**Pad pages**
+
+
+* ``GET /pads/create/`` - Show Create note form
+* ``POST /pads/create/`` - Create note
+* ``GET /pads/<pad_id>/`` - View pad notes
+* ``GET /pads/<pad_id>/edit/`` - Show Edit pad form
+* ``POST /pads/<pad_id>/edit/`` - Edit pad
+* ``GET /pads/<pad_id>/delete/`` - Show confirmation delete page
+* ``POST /pads/<pad_id>/delete/`` - Delete pad
 
 
 ----
