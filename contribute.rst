@@ -85,7 +85,7 @@ I18N
 
 Application should support internationalization.
 All source texts are available in the language files. 
-Feel free to convert to any format that suits your framework.
+Feel free to convert to any format that suits your application.
 
 ----------
 Unit tests
@@ -95,18 +95,26 @@ Unit tests are very desirable.
 
 **Recommended test cases**
 
-Signup:
+Sign Up:
 
-* successfull signup
-* failed signup because required fields are missing
-* failed signup because email is invalid
-* failed signup because email exists
-* failed signup because passwords do not match
+* successfull sign up
+* failed sign up because required fields are missing
+* failed sign up because email is invalid
+* failed sign up because email exists
+* failed sign up because passwords do not match
+
+Sign In:
+
+* successfull sign in
+* failed sign in becaure required fields are missing
+* failed sign in becaure credentials are wrong
 
 Notes:
 
 * successfull create note
+* failed note creation because required fields are missing
 
 Pads:
 
 * successfull create pad
+* failed pad creation because required fields are missing
