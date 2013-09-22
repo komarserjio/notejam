@@ -8,10 +8,26 @@ Pull requests and commits
 
 Always prepend commit message with framework name.
 
-Examples of **good** commit messages:
+**Good** commit messages:
 
-``Django: Implemented signout functionality``
-``Symfony: Fixed broken pad tests``
+.. code-block::
+
+    Django: Implemented signout functionality
+
+.. code-block::
+
+    Symfony: Fixed broken pad tests
+
+**Bad** commit messages:
+
+.. code-block::
+
+    Implemented signout functionality in django
+
+.. code-block::
+
+    Fixed broken symfony pad tests
+    
 
 If you contribute into on of the existing application please 
 send your pull requests in the specific branch
