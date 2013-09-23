@@ -129,8 +129,12 @@ Notes:
 
 * successfull create note
 * failed note creation because required fields are missing
+* successfull edit note
+* failed note edition because required fields are missing
 
 Pads:
 
 * successfull create pad
 * failed pad creation because required fields are missing
+* successfull edit pad
+* failed pad edition because required fields are missing
