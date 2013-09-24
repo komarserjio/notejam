@@ -113,28 +113,38 @@ Unit tests are very desirable.
 
 Sign Up:
 
-* successfull sign up
-* failed sign up because required fields are missing
-* failed sign up because email is invalid
-* failed sign up because email exists
-* failed sign up because passwords do not match
+* user can successfully sign up
+* user can't sign up if required fields are missing
+* user can't sign up if email is invalid
+* user can't sign up if email already exists
+* user can't sign up if passwords do not match
 
 Sign In:
 
-* successfull sign in
-* failed sign in becaure required fields are missing
-* failed sign in becaure credentials are wrong
+* user can successfully sign in
+* user can't sign in if required fields are missing
+* user can't sign in if credentials are wrong
 
 Notes:
 
-* successfull create note
-* failed note creation because required fields are missing
-* successfull edit note
-* failed note edition because required fields are missing
+* note can be successfully created
+* note can't be created if required fields are missing
+* note can be edited by its owner
+* note can't be edited if required fields are missing
+* note can't be edited by not an owner
+* note can be viewed by its owner
+* note can't be viewed by not an owner
+* note can be deleted by its owner
+* note can't be deleted by not an owner
 
 Pads:
 
-* successfull create pad
-* failed pad creation because required fields are missing
-* successfull edit pad
-* failed pad edition because required fields are missing
+* pad can be successfully created
+* pad can't be created if required fields are missing
+* pad can be edited by its owner
+* pad can't be edited if required fields are missing
+* pad can't be edited by not an owner
+* pad can be viewed by its owner
+* pad can't be viewed by not an owner
+* pad can be deleted by its owner
+* pad can't be deleted by not an owner
