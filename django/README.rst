@@ -54,4 +54,18 @@ Run unit tests:
     $ cd YOUR_PROJECT_DIR/django/notejam/
     $ ./manage.py test
 
+
+
+============
+Contribution
+============
+
+Please send your pull requests in the ``django`` branch, not ``master``.
+
+All ways prepend your commits with a framework name:
+
+.. code-block:: bash
+
+    Django: Implemented sign in functionality
+
 .. _virtualenv: http://www.virtualenv.org 
