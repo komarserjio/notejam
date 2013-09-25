@@ -62,10 +62,14 @@ Contribution
 
 Please send your pull requests in the ``django`` branch, not ``master``.
 
-All ways prepend your commits with a framework name:
+Always prepend your commits with a framework name:
 
 .. code-block:: bash
 
     Django: Implemented sign in functionality
+
+Post issues into project github tracker. 
+
+Read contribution guide for details.
 
 .. _virtualenv: http://www.virtualenv.org 
