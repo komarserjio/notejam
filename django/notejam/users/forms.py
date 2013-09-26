@@ -13,7 +13,6 @@ class SignupForm(forms.ModelForm):
 
     def save(self, force_insert=False, force_update=False, commit=True):
         user = super(SignupForm, self).save(commit=False)
-
         # username hack (we don't need username, but django requires it)
         user.username = user.email
 
@@ -25,17 +24,16 @@ class SignupForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
 
-        try:
-            User.objects.get(email=email)
+        if User.objects.filter(email=email).count():
             raise forms.ValidationError(
                 'User with this email is already signed up'
             )
-        except User.DoesNotExist:
-            return email
+
+        return email
 
     def clean_repeat_password(self):
-        password = self.cleaned_data.get('password', None)
-        repeat_password = self.cleaned_data.get('repeat_password', None)
+        password = self.cleaned_data.get('password')
+        repeat_password = self.cleaned_data.get('repeat_password')
 
         if password != repeat_password:
             raise forms.ValidationError("Your passwords do not match")
