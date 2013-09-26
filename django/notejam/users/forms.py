@@ -13,7 +13,7 @@ class SignupForm(forms.ModelForm):
 
     def save(self, force_insert=False, force_update=False, commit=True):
         user = super(SignupForm, self).save(commit=False)
-        # username hack (we don't need username, but django requires it)
+        # username hack (we don't need username, but django requires it ?)
         user.username = user.email
 
         user.set_password(self.cleaned_data['password'])
