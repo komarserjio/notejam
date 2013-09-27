@@ -44,6 +44,13 @@ class SignupTestCase(NotejamBaseTestCase):
         self.assertRedirects(response, url_for('signin'))
         self.assertEquals(1, User.query.count())
 
+    def test_signup_fail_required_fields(self):
+        self.client.post(url_for("signup"), data={})
+        self.assertEquals(
+            set(self._get_user_data().keys()),
+            set(self.get_context_variable('form').errors.keys())
+        )
+
 
 class SigninTestCase(TestCase):
     pass

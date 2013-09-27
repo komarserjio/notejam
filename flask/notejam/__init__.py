@@ -3,7 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.mail import Mail
 
-
+# @TODO use application factory approach
 app = Flask(__name__)
 app.config.from_object('notejam.config')
 
