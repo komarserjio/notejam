@@ -41,7 +41,7 @@ Start django web server:
     $ cd YOUR_PROJECT_DIR/django/notejam/
     $ ./manage.py runserver
 
-Go to http://127.0.0.1:8000/ in your browser
+Go to http://127.0.0.1:8000/ in your browser.
 
 ------------------
 Running unit tests
