@@ -27,6 +27,13 @@ class NotejamBaseTestCase(TestCase):
         test_app.config['CSRF_ENABLED'] = False
         return test_app
 
+    def create_user(self, email, password):
+        user = User(email=email)
+        user.set_password(password)
+        db.session.add(user)
+        db.session.commit()
+        return user
+
 
 class SignupTestCase(NotejamBaseTestCase):
     def _get_user_data(self, **kwargs):
@@ -49,6 +56,30 @@ class SignupTestCase(NotejamBaseTestCase):
         self.assertEquals(
             set(self._get_user_data().keys()),
             set(self.get_context_variable('form').errors.keys())
+        )
+
+    def test_signup_fail_invalid_email(self):
+        data = self._get_user_data()
+        self.create_user(data['email'], data['password'])
+
+        self.client.post(url_for("signup"), data=self._get_user_data())
+        self.assertEquals(
+            ['email'], self.get_context_variable('form').errors.keys())
+
+    def test_signup_fail_email_exists(self):
+        data = self._get_user_data()
+        data['email'] = 'invalid email'
+
+        self.client.post(url_for("signup"), data=data)
+        self.assertEquals(
+            ['email'], self.get_context_variable('form').errors.keys())
+
+    def test_signup_fail_passwords_dont_match(self):
+        invalid_data = self._get_user_data(password='another pass')
+        self.client.post(url_for('signup'), data=invalid_data)
+        self.assertEquals(
+            ['repeat_password'],
+            self.get_context_variable('form').errors.keys()
         )
 
 

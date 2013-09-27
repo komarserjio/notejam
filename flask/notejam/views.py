@@ -162,7 +162,6 @@ def signout():
     return redirect(url_for('signin'))
 
 
-# @TODO use macro for form fields in template
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
