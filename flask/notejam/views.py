@@ -152,7 +152,7 @@ def signin():
             flash('You are signed in!', 'success')
             return redirect(url_for('index'))
         else:
-            flash('Wrong credentials.', 'error')
+            flash('Wrong email or password', 'error')
     return render_template('users/signin.html', form=form)
 
 

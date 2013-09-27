@@ -1,0 +1,61 @@
+import os
+import tempfile
+import unittest
+
+from flask import url_for
+from flask.ext.testing import TestCase
+
+from notejam import app, db
+from notejam.models import User
+
+
+class NotejamBaseTestCase(TestCase):
+    def setUp(self):
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+        os.close(self.fd)
+        os.unlink(self.db)
+
+    def create_app(self):
+        self.fd, self.db = tempfile.mkstemp()
+        test_app = app
+        test_app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + self.db
+        test_app.config['TESTING'] = True
+        test_app.config['CSRF_ENABLED'] = False
+        return test_app
+
+
+class SignupTestCase(NotejamBaseTestCase):
+    def _get_user_data(self, **kwargs):
+        user_data = {
+            'email': 'email@example.com',
+            'password': 'secure_password',
+            'repeat_password': 'secure_password'
+        }
+        user_data.update(**kwargs)
+        return user_data
+
+    def test_signup_success(self):
+        response = self.client.post(
+            url_for("signup"), data=self._get_user_data())
+        self.assertRedirects(response, url_for('signin'))
+        self.assertEquals(1, User.query.count())
+
+
+class SigninTestCase(TestCase):
+    pass
+
+
+class PadTestCase(TestCase):
+    pass
+
+
+class NoteTestCase(TestCase):
+    pass
+
+
+if __name__ == '__main__':
+    unittest.main()

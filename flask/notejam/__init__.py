@@ -3,6 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.mail import Mail
 
+
 app = Flask(__name__)
 app.config.from_object('notejam.config')
 
@@ -14,6 +15,5 @@ login_manager.setup_app(app)
 
 mail = Mail()
 mail.init_app(app)
-
 
 from notejam import views
