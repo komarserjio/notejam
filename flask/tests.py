@@ -58,7 +58,7 @@ class SignupTestCase(NotejamBaseTestCase):
             set(self.get_context_variable('form').errors.keys())
         )
 
-    def test_signup_fail_invalid_email(self):
+    def test_signup_fail_email_exists(self):
         data = self._get_user_data()
         self.create_user(data['email'], data['password'])
 
@@ -66,7 +66,7 @@ class SignupTestCase(NotejamBaseTestCase):
         self.assertEquals(
             ['email'], self.get_context_variable('form').errors.keys())
 
-    def test_signup_fail_email_exists(self):
+    def test_signup_fail_invalid_email(self):
         data = self._get_user_data()
         data['email'] = 'invalid email'
 
@@ -83,8 +83,41 @@ class SignupTestCase(NotejamBaseTestCase):
         )
 
 
-class SigninTestCase(TestCase):
-    pass
+class SigninTestCase(NotejamBaseTestCase):
+    def _get_user_data(self, **kwargs):
+        user_data = {
+                'email': 'email@example.com',
+                'password': 'secure_password'
+                }
+        user_data.update(**kwargs)
+        return user_data
+
+    def test_signin_success(self):
+        data = self._get_user_data()
+        self.create_user(data['email'], data['password'])
+
+        response = self.client.post(url_for('signin'), data=data)
+        self.assertRedirects(response, url_for('index'))
+
+    def test_signin_fail(self):
+        response = self.client.post(
+            url_for('signin'), data=self._get_user_data())
+        self.assertIn('Wrong email or password', response.data)
+
+    def test_signin_fail_required_fields(self):
+        self.client.post(url_for("signin"), data={})
+        self.assertEquals(
+            set(self._get_user_data().keys()),
+            set(self.get_context_variable('form').errors.keys())
+        )
+
+    def test_signup_fail_invalid_email(self):
+        data = self._get_user_data()
+        data['email'] = 'invalid email'
+
+        self.client.post(url_for("signin"), data=data)
+        self.assertEquals(
+            ['email'], self.get_context_variable('form').errors.keys())
 
 
 class PadTestCase(TestCase):
