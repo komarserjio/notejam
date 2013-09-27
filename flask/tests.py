@@ -2,11 +2,13 @@ import os
 import tempfile
 import unittest
 
+from contextlib import contextmanager
+
 from flask import url_for
 from flask.ext.testing import TestCase
 
 from notejam import app, db
-from notejam.models import User
+from notejam.models import User, Pad
 
 
 class NotejamBaseTestCase(TestCase):
@@ -27,7 +29,7 @@ class NotejamBaseTestCase(TestCase):
         test_app.config['CSRF_ENABLED'] = False
         return test_app
 
-    def create_user(self, email, password):
+    def _create_user(self, email, password):
         user = User(email=email)
         user.set_password(password)
         db.session.add(user)
@@ -60,7 +62,7 @@ class SignupTestCase(NotejamBaseTestCase):
 
     def test_signup_fail_email_exists(self):
         data = self._get_user_data()
-        self.create_user(data['email'], data['password'])
+        self._create_user(data['email'], data['password'])
 
         self.client.post(url_for("signup"), data=self._get_user_data())
         self.assertEquals(
@@ -94,7 +96,7 @@ class SigninTestCase(NotejamBaseTestCase):
 
     def test_signin_success(self):
         data = self._get_user_data()
-        self.create_user(data['email'], data['password'])
+        self._create_user(data['email'], data['password'])
 
         response = self.client.post(url_for('signin'), data=data)
         self.assertRedirects(response, url_for('index'))
@@ -120,13 +122,50 @@ class SigninTestCase(NotejamBaseTestCase):
             ['email'], self.get_context_variable('form').errors.keys())
 
 
-class PadTestCase(TestCase):
-    pass
+class PadTestCase(NotejamBaseTestCase):
+
+    def _create_pad(self, pad_name, user):
+        pad = Pad(name=pad_name, user=user)
+        db.session.add(pad)
+        db.session.commit()
+        return pad
+
+    def test_create_success(self):
+        user = self._create_user('email@example.com', 'password')
+        with signed_in_user(user) as c:
+            response = c.post(url_for('create_pad'), data={'name': 'pad'})
+            self.assertRedirects(response, '/')
+            self.assertEquals(1, Pad.query.count())
+
+    def test_create_fail_required_name(self):
+        user = self._create_user('email@example.com', 'password')
+        with signed_in_user(user) as c:
+            c.post(url_for('create_pad'), data={})
+            self.assertEquals(
+                ['name'], self.get_context_variable('form').errors.keys())
+
+    def test_edit_success(self):
+        user = self._create_user('email@example.com', 'password')
+        pad = self._create_pad('pad name', user)
+        with signed_in_user(user) as c:
+            new_name = 'new pad name'
+            response = c.post(
+                url_for('update_pad', pad_id=pad.id), data={'name': new_name})
+            self.assertRedirects(response, url_for('pad_notes', pad_id=pad.id))
+            self.assertEquals(new_name, Pad.query.get(pad.id).name)
 
 
 class NoteTestCase(TestCase):
     pass
 
+
+@contextmanager
+def signed_in_user(user):
+    with app.test_client() as c:
+        with c.session_transaction() as sess:
+            sess['user_id'] = user.id
+            sess['_fresh'] = True
+        yield c
 
 if __name__ == '__main__':
     unittest.main()
