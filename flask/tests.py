@@ -179,7 +179,7 @@ class PadTestCase(NotejamBaseTestCase):
             self.assertEquals(
                 ['name'], self.get_context_variable('form').errors.keys())
 
-    def test_another_use_cant_edit(self):
+    def test_edit_fail_anothers_user(self):
         user = self.create_user(email='email@example.com', password='password')
         pad = self.create_pad(name='pad', user=user)
         another_user = self.create_user(
@@ -199,7 +199,7 @@ class PadTestCase(NotejamBaseTestCase):
             self.assertRedirects(response, url_for('index'))
             self.assertEquals(0, Pad.query.count())
 
-    def test_another_user_cant_delete(self):
+    def test_delete_fail_anothers_user(self):
         user = self.create_user(email='email@example.com', password='password')
         pad = self.create_pad(name='pad', user=user)
         another_user = self.create_user(
@@ -234,6 +234,39 @@ class NoteTestCase(NotejamBaseTestCase):
                 set(self._get_note_data().keys()),
                 set(self.get_context_variable('form').errors.keys())
             )
+
+    def test_create_fail_anothers_pad(self):
+        user = self.create_user(email='email@example.com', password='password')
+        another_user = self.create_user(
+            email='another@example.com', password='password')
+        pad = self.create_pad(name='pad', user=another_user)
+        with signed_in_user(user) as c:
+            c.post(
+                url_for('create_note'), data=self._get_note_data(pad=pad.id))
+            self.assertEquals(
+                ['pad'], self.get_context_variable('form').errors.keys()
+            )
+
+    def test_create_fail_anonymous_user(self):
+        pass
+
+    def test_edit_success(self):
+        pass
+
+    def test_edit_fail_required_fields(self):
+        pass
+
+    def test_edit_fail_anothers_pad(self):
+        pass
+
+    def test_edit_fail_anothers_user(self):
+        pass
+
+    def test_delete_success(self):
+        pass
+
+    def test_delete_fail_anothers_user(self):
+        pass
 
 
 @contextmanager

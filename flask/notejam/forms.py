@@ -17,7 +17,7 @@ class SignupForm(Form):
         'Repeat Password',
         validators=[
             Required(), EqualTo(
-                'password', message="Your passwords doesn't match"
+                'password', message="Your passwords do not match"
             )
         ]
     )
