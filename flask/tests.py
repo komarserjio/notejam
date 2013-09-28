@@ -1,6 +1,7 @@
 import os
 import tempfile
 import unittest
+import urllib
 
 from contextlib import contextmanager
 
@@ -144,6 +145,16 @@ class PadTestCase(NotejamBaseTestCase):
             self.assertEquals(
                 ['name'], self.get_context_variable('form').errors.keys())
 
+    def test_create_fail_anonymous_user(self):
+        response = self.client.post(
+            url_for('create_pad'), data={'name': 'pad'})
+        self.assertRedirects(
+            response,
+            "{signin}?next={redirect_to}".format(
+                signin=url_for('signin'), redirect_to=urllib.quote(
+                    url_for('create_pad'), ''))
+        )
+
     def test_edit_success(self):
         user = self._create_user('email@example.com', 'password')
         pad = self._create_pad('pad name', user)
@@ -153,6 +164,42 @@ class PadTestCase(NotejamBaseTestCase):
                 url_for('update_pad', pad_id=pad.id), data={'name': new_name})
             self.assertRedirects(response, url_for('pad_notes', pad_id=pad.id))
             self.assertEquals(new_name, Pad.query.get(pad.id).name)
+
+    def test_edit_fail_required_name(self):
+        user = self._create_user('email@example.com', 'password')
+        pad = self._create_pad('pad name', user)
+        with signed_in_user(user) as c:
+            c.post(url_for('update_pad', pad_id=pad.id), data={'name': ''})
+            self.assertEquals(
+                ['name'], self.get_context_variable('form').errors.keys())
+
+    def test_another_use_cant_edit(self):
+        user = self._create_user('email@example.com', 'password')
+        pad = self._create_pad('pad name', user)
+        another_user = self._create_user('another@example.com', 'password')
+        with signed_in_user(another_user) as c:
+            new_name = 'new pad name'
+            response = c.post(
+                url_for('update_pad', pad_id=pad.id), data={'name': new_name})
+            self.assertEquals(404, response.status_code)
+
+    def test_delete_success(self):
+        user = self._create_user('email@example.com', 'password')
+        pad = self._create_pad('pad name', user)
+        with signed_in_user(user) as c:
+            response = c.post(
+                url_for('delete_pad', pad_id=pad.id))
+            self.assertRedirects(response, url_for('index'))
+            self.assertEquals(0, Pad.query.count())
+
+    def test_another_user_cant_delete(self):
+        user = self._create_user('email@example.com', 'password')
+        pad = self._create_pad('pad name', user)
+        another_user = self._create_user('another@example.com', 'password')
+        with signed_in_user(another_user) as c:
+            response = c.post(
+                url_for('delete_pad', pad_id=pad.id))
+            self.assertEquals(404, response.status_code)
 
 
 class NoteTestCase(TestCase):
