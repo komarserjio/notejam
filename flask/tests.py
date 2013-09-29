@@ -248,19 +248,51 @@ class NoteTestCase(NotejamBaseTestCase):
             )
 
     def test_create_fail_anonymous_user(self):
-        pass
+        response = self.client.post(
+            url_for('create_note'), data=self._get_note_data())
+        self.assertRedirects(
+            response,
+            "{signin}?next={redirect_to}".format(
+                signin=url_for('signin'), redirect_to=urllib.quote(
+                    url_for('create_note'), ''))
+        )
 
     def test_edit_success(self):
-        pass
+        user = self.create_user(email='email@example.com', password='password')
+        note_data = {'name': 'note', 'text': 'text', 'user': user}
+        note = self.create_note(**note_data)
+        with signed_in_user(user) as c:
+            new_name = 'new pad name'
+            c.post(
+                url_for('update_note', note_id=note.id),
+                data=self._get_note_data(name=new_name)
+            )
+            self.assertEquals(new_name, Note.query.get(note.id).name)
 
     def test_edit_fail_required_fields(self):
-        pass
-
-    def test_edit_fail_anothers_pad(self):
-        pass
+        user = self.create_user(email='email@example.com', password='password')
+        note_data = {'name': 'note', 'text': 'text', 'user': user}
+        note = self.create_note(**note_data)
+        with signed_in_user(user) as c:
+            c.post(
+                url_for('update_note', note_id=note.id),
+                data={'pad': '', 'name': '', 'text': ''}
+            )
+            self.assertEquals(
+                set(self._get_note_data().keys()),
+                set(self.get_context_variable('form').errors.keys())
+            )
 
     def test_edit_fail_anothers_user(self):
-        pass
+        user = self.create_user(email='email@example.com', password='password')
+        note_data = {'name': 'note', 'text': 'text', 'user': user}
+        note = self.create_note(**note_data)
+        another_user = self.create_user(
+            email='another@example.com', password='password')
+        with signed_in_user(another_user) as c:
+            response = c.post(
+                url_for('update_note', note_id=note.id), data={})
+            self.assertEquals(404, response.status_code)
 
     def test_delete_success(self):
         pass
