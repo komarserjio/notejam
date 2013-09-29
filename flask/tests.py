@@ -295,10 +295,23 @@ class NoteTestCase(NotejamBaseTestCase):
             self.assertEquals(404, response.status_code)
 
     def test_delete_success(self):
-        pass
+        user = self.create_user(email='email@example.com', password='password')
+        note = self.create_note(name='note', text='text', user=user)
+        with signed_in_user(user) as c:
+            response = c.post(
+                url_for('delete_note', note_id=note.id))
+            self.assertRedirects(response, url_for('index'))
+            self.assertEquals(0, Note.query.count())
 
     def test_delete_fail_anothers_user(self):
-        pass
+        user = self.create_user(email='email@example.com', password='password')
+        note = self.create_note(name='note', text='text', user=user)
+        another_user = self.create_user(
+            email='another@example.com', password='password')
+        with signed_in_user(another_user) as c:
+            response = c.post(
+                url_for('delete_note', note_id=note.id))
+            self.assertEquals(404, response.status_code)
 
 
 @contextmanager
