@@ -4,6 +4,8 @@ Notejam: Flask application
 
 Notejam application implemented using `Flask`_ microframework.
 
+Flask version: 0.9
+
 Flask extension used:
 
 * Flask-Login
