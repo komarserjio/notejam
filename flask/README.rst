@@ -49,7 +49,7 @@ Start flask web server:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/flask/
-    $ ./runserver.py
+    $ python runserver.py
 
 Go to http://127.0.0.1:5000/ in your browser
 
