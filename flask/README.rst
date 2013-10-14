@@ -64,5 +64,18 @@ Run unit tests:
     $ cd YOUR_PROJECT_DIR/flask/
     $ python tests.py
 
+============
+Contribution
+============
+
+Please send your pull requests in the ``flask`` branch, not ``master``.
+
+Always prepend your commits with a framework name:
+
+.. code-block:: bash
+
+    Flask: Implemented sign in functionality
+
+
 .. _virtualenv: http://www.virtualenv.org 
 .. _Flask: http://flask.pocoo.org/
