@@ -316,6 +316,13 @@ class NoteTestCase(NotejamBaseTestCase):
 
 @contextmanager
 def signed_in_user(user):
+    '''
+    Signed in user context
+    Usage:
+        user = get_user()
+        with signed_in_user(user) as c:
+            response = c.get(...)
+    '''
     with app.test_client() as c:
         with c.session_transaction() as sess:
             sess['user_id'] = user.id
