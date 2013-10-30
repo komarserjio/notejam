@@ -36,7 +36,7 @@ Install dependencies:
 Launching
 ---------
 
-Start flask web server:
+Start pyramid web server:
 
 .. code-block:: bash
 
@@ -53,7 +53,7 @@ Run unit tests:
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/flask/
+    $ cd YOUR_PROJECT_DIR/pyramid/
     $ python setup.py test
 
 ============
