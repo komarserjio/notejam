@@ -6,7 +6,7 @@ from pyramid.renderers import get_renderer
 
 from pyramid.security import remember, forget, authenticated_userid
 
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
 from pyramid_simpleform import Form, State
 from pyramid_simpleform.renderers import FormRenderer
@@ -108,7 +108,12 @@ def notes(request):
              permission='login_required')
 def view_note(request):
     note_id = request.matchdict['note_id']
-    note = DBSession.query(Note).filter(Note.id == note_id).first()
+    note = DBSession.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == get_current_user(request).id
+    ).first()
+    if not note:
+        raise HTTPNotFound('Requested note not found')
     return _response_dict(request, note=note)
 
 
