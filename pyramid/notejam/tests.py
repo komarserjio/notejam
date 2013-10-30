@@ -92,8 +92,11 @@ class SignupTestCase(BaseTestCase):
     def test_signup_fail_passwords_dont_match(self):
         invalid_data = self._get_user_data(password='another pass')
         response = self.testapp.post("/signup/", invalid_data)
-        import ipdb
-        ipdb.set_trace()
+
+        self.assertEquals(
+            set(['confirm_password']),
+            set(self.get_form_error_fields(response))
+        )
 
 
 def create_user(**user_data):

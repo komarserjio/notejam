@@ -37,7 +37,7 @@ class SignupSchema(Schema):
     email = All(UniqueEmail(), validators.Email(not_empty=True))
     password = validators.UnicodeString(min=6)
     confirm_password = validators.UnicodeString(min=6)
-    passwords_match = [
+    chained_validators = [
         validators.FieldsMatch('password', 'confirm_password')
     ]
 
