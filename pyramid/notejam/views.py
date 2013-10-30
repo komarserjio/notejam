@@ -117,7 +117,10 @@ def view_note(request):
 def pad_notes(request):
     pad_id = request.matchdict['pad_id']
     pad = DBSession.query(Pad).filter(Pad.id == pad_id).first()
-    return _response_dict(request, pad=pad)
+    pad_notes = pad.notes.order_by(
+        _get_order_by(request.params.get('order'))
+    ).all()
+    return _response_dict(request, pad=pad, pad_notes=pad_notes)
 
 
 @view_config(route_name='create_note', renderer='templates/notes/create.pt',
