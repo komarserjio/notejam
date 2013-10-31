@@ -6,7 +6,7 @@ from pyramid.renderers import get_renderer
 
 from pyramid.security import remember, forget, authenticated_userid
 
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
 from pyramid_simpleform import Form, State
 from pyramid_simpleform.renderers import FormRenderer
@@ -108,7 +108,10 @@ def notes(request):
              permission='login_required')
 def view_note(request):
     note_id = request.matchdict['note_id']
-    note = DBSession.query(Note).filter(Note.id == note_id).first()
+    note = DBSession.query(Note).filter(
+        Note.id == note_id,
+        Note.user_id == get_current_user(request).id
+    ).first() or raise_404(text='Note not found')
     return _response_dict(request, note=note)
 
 
@@ -116,17 +119,25 @@ def view_note(request):
              permission='login_required')
 def pad_notes(request):
     pad_id = request.matchdict['pad_id']
-    pad = DBSession.query(Pad).filter(Pad.id == pad_id).first()
-    return _response_dict(request, pad=pad)
+    pad = DBSession.query(Pad).filter(
+        Pad.id == pad_id,
+        Pad.user_id == get_current_user(request).id
+    ).first() or raise_404(text='Pad not found')
+    pad_notes = pad.notes.order_by(
+        _get_order_by(request.params.get('order'))
+    ).all()
+    return _response_dict(request, pad=pad, pad_notes=pad_notes)
 
 
 @view_config(route_name='create_note', renderer='templates/notes/create.pt',
              permission='login_required')
 def create_note(request):
-    form = Form(request, schema=NoteSchema())
+    user = get_current_user(request)
+    form = Form(
+        request, schema=NoteSchema(), state=State(user=user))
     if form.validate():
         note = form.bind(Note())
-        note.user = get_current_user(request)
+        note.user = user
         DBSession.add(note)
         request.session.flash(u'Note is successfully created', 'success')
         return HTTPFound(location=request.route_url('notes'))
@@ -188,7 +199,10 @@ def create_pad(request):
              permission='login_required')
 def update_pad(request):
     pad_id = request.matchdict['pad_id']
-    pad = DBSession.query(Pad).filter(Pad.id == pad_id).first()
+    pad = DBSession.query(Pad).filter(
+        Pad.id == pad_id,
+        Pad.user_id == get_current_user(request).id
+    ).first() or raise_404(text='Pad not found')
     form = Form(request, schema=PadSchema(), obj=pad)
     if form.validate():
         pad = form.bind(pad)
@@ -205,7 +219,10 @@ def update_pad(request):
              permission='login_required')
 def delete_pad(request):
     pad_id = request.matchdict['pad_id']
-    pad = DBSession.query(Pad).filter(Pad.id == pad_id).first()
+    pad = DBSession.query(Pad).filter(
+        Pad.id == pad_id,
+        Pad.user_id == get_current_user(request).id
+    ).first() or raise_404(text='Pad not found')
     if request.method == 'POST':
         DBSession.delete(pad)
         request.session.flash(u'Pad is successfully deleted', 'success')
@@ -261,3 +278,7 @@ def send_new_password(request, user, password):
         body="Your new password is: {}".format(password)
     )
     mailer.send_immediately(message, fail_silently=True)
+
+
+def raise_404(text='Requested object not found'):
+    raise HTTPNotFound(text)

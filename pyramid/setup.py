@@ -16,6 +16,7 @@ requires = [
     'waitress',
     'pyramid_simpleform',
     'cryptacular',
+    'WebTest',
     ]
 
 setup(name='notejam',
