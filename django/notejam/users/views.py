@@ -31,7 +31,7 @@ class SigninView(FormView):
     template_name = "signin.html"
     form_class = SigninForm
     success_url = reverse_lazy('home')
-    error_message = "Wrong password or email"
+    error_message = "Wrong email or password"
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()

@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 
 
 class EmailModelBackend(object):
-    ''' Custom backend to be able to authenticate using email '''
+    ''' Custom backend to be able to use email for authentication '''
     def authenticate(self, email=None, password=None):
         try:
             user = User.objects.get(email=email)

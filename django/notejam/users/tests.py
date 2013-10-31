@@ -68,7 +68,7 @@ class SignInTest(TestCase):
 
     def test_signin_fail(self):
         response = self.client.post(reverse('signin'), self._get_user_data())
-        self.assertContains(response, 'Wrong password or email')
+        self.assertContains(response, 'Wrong email or password')
 
     def test_signin_fail_required_fields(self):
         response = self.client.post(reverse('signin'), {})
