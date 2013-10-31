@@ -30,6 +30,16 @@ class PasswordCorrect(FancyValidator):
         return value
 
 
+class OneOfPad(FancyValidator):
+    def to_python(self, value, state):
+        value = int(value)
+        if value != 0 and value not in [p.id for p in state.user.pads.all()]:
+            raise Invalid(
+                'Selected pad is not correct', value, state
+            )
+        return value
+
+
 class SignupSchema(Schema):
     allow_extra_fields = True
     filter_extra_fields = True
@@ -61,7 +71,7 @@ class NoteSchema(Schema):
 
     name = validators.UnicodeString(not_empty=True)
     text = validators.UnicodeString(not_empty=True)
-    pad_id = validators.Int()
+    pad_id = OneOfPad()
 
 
 class ForgotPasswordSchema(Schema):
