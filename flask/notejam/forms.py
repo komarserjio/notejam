@@ -17,7 +17,7 @@ class SignupForm(Form):
         'Repeat Password',
         validators=[
             Required(), EqualTo(
-                'password', message="Your passwords doesn't match"
+                'password', message="Your passwords do not match"
             )
         ]
     )
@@ -34,7 +34,7 @@ class NoteForm(Form):
     text = TextAreaField('Note', validators=[Required()])
     pad = SelectField('Pad', choices=[], coerce=int)
 
-    # @TODO use wtforms.ext.sqlalchemy.fields.QuerySelectField
+    # @TODO use wtforms.ext.sqlalchemy.fields.QuerySelectField?
     def __init__(self, user=None, **kwargs):
         super(NoteForm, self).__init__(**kwargs)
         self.pad.choices = [(0, '---------')] + [

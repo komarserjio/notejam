@@ -50,8 +50,6 @@ def create_note():
 def update_note(note_id):
     note = _get_user_object_or_404(Note, note_id, current_user)
     note_form = NoteForm(user=current_user, obj=note)
-    if note.pad:
-        note_form.pad.data = note.pad.id  # XXX
     if note_form.validate_on_submit():
         note.name = note_form.name.data
         note.text = note_form.text.data
@@ -60,6 +58,8 @@ def update_note(note_id):
         db.session.commit()
         flash('Note is successfully updated', 'success')
         return redirect(_get_note_success_url(note))
+    if note.pad:
+        note_form.pad.data = note.pad.id  # XXX ?
     return render_template('notes/update.html', form=note_form)
 
 
@@ -76,13 +76,11 @@ def delete_note(note_id):
     note = _get_user_object_or_404(Note, note_id, current_user)
     delete_form = DeleteForm()
     if request.method == 'POST':
-        if note.pad:
-            pad = note.pad
         db.session.delete(note)
         db.session.commit()
         flash('Note is successfully deleted', 'success')
-        if pad:
-            return redirect(url_for('pad_notes', pad_id=pad.id))
+        if note.pad:
+            return redirect(url_for('pad_notes', pad_id=note.pad.id))
         else:
             return redirect(url_for('index'))
     return render_template('notes/delete.html', note=note, form=delete_form)
@@ -152,7 +150,7 @@ def signin():
             flash('You are signed in!', 'success')
             return redirect(url_for('index'))
         else:
-            flash('Wrong credentials.', 'error')
+            flash('Wrong email or password', 'error')
     return render_template('users/signin.html', form=form)
 
 
@@ -162,7 +160,6 @@ def signout():
     return redirect(url_for('signin'))
 
 
-# @TODO use macro for form fields in template
 @app.route('/signup/', methods=['GET', 'POST'])
 def signup():
     form = SignupForm()
