@@ -12,6 +12,7 @@ class BaseTestCase(unittest.TestCase):
     def setUp(self):
         self.config = testing.setUp()
 
+        # @TODO change this
         from . import main
         settings = {'sqlalchemy.url': 'sqlite://', 'session.secret': 'secret'}
         app = main({}, **settings)
@@ -64,6 +65,7 @@ class SignupTestCase(BaseTestCase):
         return user_data
 
     def test_signup_success(self):
+        # TODO how to get url from the route config?
         self.testapp.post("/signup/", self._get_user_data(), status=302)
 
     def test_signup_fail_required_fields(self):
@@ -75,7 +77,7 @@ class SignupTestCase(BaseTestCase):
 
     def test_signup_fail_email_exists(self):
         data = self._get_user_data()
-        create_user(email=data['email'], password=data['password'])
+        create_object(User, email=data['email'], password=data['password'])
 
         response = self.testapp.post("/signup/", self._get_user_data())
         self.assertEquals(
@@ -111,7 +113,7 @@ class SigninTestCase(BaseTestCase):
 
     def test_signin_success(self):
         data = self._get_user_data()
-        create_user(**data)
+        create_object(User, **data)
 
         self.testapp.post("/signin/", data, status=302)
 
@@ -139,7 +141,7 @@ class PadTestCase(BaseTestCase):
 
     def test_create_success(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        create_user(**user_data)
+        create_object(User, **user_data)
         self.signin(**user_data)
 
         self.testapp.post('/pads/create/', {'name': 'pad'}, status=302)
@@ -147,7 +149,7 @@ class PadTestCase(BaseTestCase):
 
     def test_create_fail_required_name(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        create_user(**user_data)
+        create_object(User, **user_data)
         self.signin(**user_data)
 
         response = self.testapp.post('/pads/create/', {})
@@ -161,10 +163,10 @@ class PadTestCase(BaseTestCase):
 
     def test_edit_success(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        user = create_user(**user_data)
+        user = create_object(User, **user_data)
         self.signin(**user_data)
 
-        pad = create_pad(name='pad', user=user)
+        pad = create_object(name='pad', user=user)
         new_name = 'new pad name'
         self.testapp.post(
             '/pads/{}/edit/'.format(pad.id), {'name': new_name}, status=302)
@@ -172,7 +174,7 @@ class PadTestCase(BaseTestCase):
 
     def test_edit_fail_required_name(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        create_user(**user_data)
+        create_object(User, **user_data)
         self.signin(**user_data)
 
         response = self.testapp.post('/pads/create/', {})
@@ -181,12 +183,12 @@ class PadTestCase(BaseTestCase):
 
     def test_edit_fail_anothers_user(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        user = create_user(**user_data)
-        pad = create_pad('pad', user)
+        user = create_object(User, **user_data)
+        pad = create_object(Pad, name='pad', user=user)
         another_user_data = {
             'email': 'another@example.com', 'password': 'password'
         }
-        create_user(**another_user_data)
+        create_object(User, **another_user_data)
         self.signin(email='another@example.com', password='password')
         response = self.testapp.post(
             '/pads/{}/edit/'.format(pad.id),
@@ -195,8 +197,8 @@ class PadTestCase(BaseTestCase):
 
     def test_delete_success(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        user = create_user(**user_data)
-        pad = create_pad('pad', user)
+        user = create_object(User, **user_data)
+        pad = create_object(Pad, name='pad', user=user)
         self.signin(**user_data)
         self.testapp.post(
             '/pads/{}/delete/'.format(pad.id),
@@ -205,12 +207,12 @@ class PadTestCase(BaseTestCase):
 
     def test_delete_fail_anothers_user(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        user = create_user(**user_data)
-        pad = create_pad('pad', user)
+        user = create_object(User, **user_data)
+        pad = create_object(Pad, name='pad', user=user)
         another_user_data = {
             'email': 'another@example.com', 'password': 'password'
         }
-        create_user(**another_user_data)
+        create_object(User, **another_user_data)
         self.signin(email='another@example.com', password='password')
         response = self.testapp.post(
             '/pads/{}/delete/'.format(pad.id), {}, expect_errors=True)
@@ -227,14 +229,14 @@ class NoteTestCase(BaseTestCase):
 
     def test_create_success(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        create_user(**user_data)
+        create_object(User, **user_data)
         self.signin(**user_data)
         self.testapp.post('/notes/create/', self._get_note_data(), status=302)
         self.assertEquals(1, DBSession.query(Note).count())
 
     def test_create_fail_required_fields(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        create_user(**user_data)
+        create_object(User, **user_data)
         self.signin(**user_data)
         response = self.testapp.post('/notes/create/', {})
         self.assertEquals(
@@ -244,10 +246,10 @@ class NoteTestCase(BaseTestCase):
 
     def test_create_fail_anothers_user_pad(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        create_user(**user_data)
-        another_user = create_user(
-            email='another@example.com', password='password')
-        another_user_pad = create_pad('pad', another_user)
+        create_object(User, **user_data)
+        another_user = create_object(
+            User, email='another@example.com', password='password')
+        another_user_pad = create_object(Pad, name='pad', user=another_user)
         self.signin(**user_data)
         response = self.testapp.post(
             '/notes/create/', self._get_note_data(pad_id=another_user_pad.id))
@@ -260,10 +262,10 @@ class NoteTestCase(BaseTestCase):
 
     def test_edit_success(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        user = create_user(**user_data)
+        user = create_object(User, **user_data)
         self.signin(**user_data)
 
-        note = create_note(name='note', text='text', user=user)
+        note = create_object(Note, name='note', text='text', user=user)
         new_name = 'new note name'
         self.testapp.post(
             '/notes/{}/edit/'.format(note.id),
@@ -273,10 +275,10 @@ class NoteTestCase(BaseTestCase):
 
     def test_edit_fail_required_fields(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        user = create_user(**user_data)
+        user = create_object(User, **user_data)
         self.signin(**user_data)
 
-        note = create_note(name='note', text='text', user=user)
+        note = create_object(Note, name='note', text='text', user=user)
         response = self.testapp.post(
             '/notes/{}/edit/'.format(note.id), {}
         )
@@ -287,12 +289,12 @@ class NoteTestCase(BaseTestCase):
 
     def test_edit_fail_anothers_user(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        user = create_user(**user_data)
-        note = create_note(name='note', text='text', user=user)
+        user = create_object(User, **user_data)
+        note = create_object(Note, name='note', text='text', user=user)
         another_user_data = {
             'email': 'another@example.com', 'password': 'password'
         }
-        create_user(**another_user_data)
+        create_object(User, **another_user_data)
         self.signin(email='another@example.com', password='password')
         response = self.testapp.post(
             '/pads/{}/edit/'.format(note.id),
@@ -302,8 +304,8 @@ class NoteTestCase(BaseTestCase):
 
     def test_delete_success(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        user = create_user(**user_data)
-        note = create_note(name='note', text='text', user=user)
+        user = create_object(User, **user_data)
+        note = create_object(Note, name='note', text='text', user=user)
         self.signin(**user_data)
         self.testapp.post(
             '/notes/{}/delete/'.format(note.id),
@@ -312,34 +314,20 @@ class NoteTestCase(BaseTestCase):
 
     def test_delete_fail_anothers_user(self):
         user_data = {'email': 'email@example.com', 'password': 'password'}
-        user = create_user(**user_data)
-        note = create_note(name='note', text='text', user=user)
+        user = create_object(User, **user_data)
+        note = create_object(Note, name='note', text='text', user=user)
         another_user_data = {
             'email': 'another@example.com', 'password': 'password'
         }
-        create_user(**another_user_data)
+        create_object(User, **another_user_data)
         self.signin(email='another@example.com', password='password')
         response = self.testapp.post(
             '/pads/{}/delete/'.format(note.id), {}, expect_errors=True)
         self.assertEquals(response.status_code, 404)
 
 
-def create_user(**user_data):
-    user = User(**user_data)
-    DBSession.add(user)
+def create_object(object_class, **object_data):
+    obj = object_class(**object_data)
+    DBSession.add(obj)
     DBSession.flush()
-    return user
-
-
-def create_pad(name, user):
-    pad = Pad(name=name, user=user)
-    DBSession.add(pad)
-    DBSession.flush()
-    return pad
-
-
-def create_note(**note_data):
-    note = Note(**note_data)
-    DBSession.add(note)
-    DBSession.flush()
-    return note
+    return obj
