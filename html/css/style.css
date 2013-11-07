@@ -26,6 +26,10 @@
         font-weight: normal;
         font-size: 23px;
     }
+    .bold-header a.header {
+        text-decoration: none;
+        color: inherit;
+    }
 	nav ul {
 		float: left;  }
 	nav ul li {
