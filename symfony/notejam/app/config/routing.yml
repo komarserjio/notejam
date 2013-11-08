@@ -1,0 +1,4 @@
+notejam_user:
+    resource: "@NotejamUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
