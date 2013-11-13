@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block left_bar %}{% endblock %}
+{% block body %}
+    {{ form_start(form, {'attr': {'class': 'offset-by-six sign-in'}}) }}
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}
+
+        {{ form_label(form.plainPassword.password) }}
+        {{ form_widget(form.plainPassword.password) }}
+        {{ form_errors(form.plainPassword.password) }}
+
+        {{ form_label(form.plainPassword.confirm) }}
+        {{ form_widget(form.plainPassword.confirm) }}
+        {{ form_errors(form.plainPassword.confirm) }}
+    {{ form_end(form) }}
+{% endblock %}
+

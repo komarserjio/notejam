@@ -29,14 +29,6 @@
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
     {% endblock %}
-
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
 </head>
 <body>
 	<div class="container">
@@ -47,9 +39,12 @@
         </div>
         <div class="sixteen columns">
             <h1 class="bold-header">notejam 
-                <span>8 notes</span>
+                {% block breadcrumbs %}
+                    <span>8 notes</span>
+                {% endblock %} 
             </h1>
         </div>
+        {% block left_bar %}
         <div class="three columns">
             <h4 id="logo">My pads</h4>
             <nav>
@@ -64,7 +59,8 @@
                 <a href="#">Add pad</a>
             </nav>
         </div>
-        <div class="thirteen columns content-area">
+        {% endblock %}
+        <div class="{% block content_class %}thirteen columns content-area{% endblock %}">
             {% block body %}{% endblock %}
         </div>
         <hr class="footer" />
