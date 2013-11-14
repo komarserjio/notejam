@@ -26,6 +26,10 @@ class UserController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $user = $form->getData();
+                $factory = $this->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($user);
+                $password = $encoder->encodePassword('123123', $user->getSalt());
+                $user->setPassword($password);
                 $em->persist($user);
                 $em->flush();
 
