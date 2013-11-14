@@ -21,8 +21,16 @@ class UserController extends Controller
         $userType = new UserType();
         $form = $this->createForm(new UserType(), $user);
 
-        if ($form->getMethod() == 'POST') {
-            // code...
+        if ($request->getMethod() == 'POST') {
+            $em = $this->getDoctrine()->getEntityManager();
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $user = $form->getData();
+                $em->persist($user);
+                $em->flush();
+
+                // flash message
+            }
         }
         return $this->render(
             'NotejamUserBundle:User:signup.html.twig',

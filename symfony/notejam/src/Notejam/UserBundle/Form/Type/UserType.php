@@ -15,6 +15,10 @@ class UserType extends AbstractType
            'first_name'  => 'password',
            'second_name' => 'confirm',
            'type'        => 'password',
+           'invalid_message' => 'The password fields do not match.',
+        ));
+        $builder->add('save', 'submit', array(
+            'attr' => array('type' => 'submit') 
         ));
     }
 

@@ -3,57 +3,110 @@ namespace Notejam\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity
  * @UniqueEntity(fields="email", message="Email already taken")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
-     * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @ORM\Column(type="string", length=25, unique=true)
      */
-    protected $email;
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @Assert\Length(max = 4096)
+     * @ORM\Column(type="string", length=32)
      */
-    protected $plainPassword;
+    private $salt;
 
-    public function getId()
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=60, unique=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->isActive = true;
+        $this->salt = md5(uniqid(null, true));
     }
 
-    public function getEmail()
+    /**
+     * @inheritDoc
+     */
+    public function getUsername()
     {
-        return $this->email;
+        return $this->username;
     }
 
-    public function setEmail($email)
+    /**
+     * @inheritDoc
+     */
+    public function getSalt()
     {
-        $this->email = $email;
+        return $this->salt;
     }
 
-    public function getPlainPassword()
+    /**
+     * @inheritDoc
+     */
+    public function getPassword()
     {
-        return $this->plainPassword;
+        return $this->password;
     }
 
-    public function setPlainPassword($password)
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
     {
-        $this->plainPassword = $password;
+        return array('ROLE_USER');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+        ) = unserialize($serialized);
     }
 }
