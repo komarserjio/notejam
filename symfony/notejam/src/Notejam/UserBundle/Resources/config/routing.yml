@@ -10,6 +10,10 @@ notejam_signup:
     pattern:  /signup
     defaults: { _controller: NotejamUserBundle:User:signup }
 
+notejam_settings:
+    pattern:  /settings
+    defaults: { _controller: NotejamUserBundle:User:settings }
+
 login:
     pattern: /signin
     defaults: { _controller: NotejamUserBundle:Security:login }

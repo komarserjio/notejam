@@ -54,6 +54,8 @@ class UserController extends Controller
 
     public function settingsAction()
     {
-        // code...
+        return $this->render(
+            'NotejamUserBundle:User:settings.html.twig'
+        );
     }
 }
