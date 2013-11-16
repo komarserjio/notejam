@@ -61,6 +61,15 @@
         </div>
         {% endblock %}
         <div class="{% block content_class %}thirteen columns content-area{% endblock %}">
+            <div class="alert-area">
+            {% for label, flashes in app.session.flashbag.all %}
+                {% for flash in flashes %}
+                    <div class="alert alert-{{ label }}">
+                        {{ flash }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            </div>
             {% block body %}{% endblock %}
         </div>
         <hr class="footer" />
