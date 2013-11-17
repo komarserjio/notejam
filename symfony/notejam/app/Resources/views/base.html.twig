@@ -34,7 +34,11 @@
 	<div class="container">
         <div class="sixteen columns">
             <div class="sign-in-out-block">
-                komarserjio@gmail.com:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
+                {% if app.user %}
+                    {{ app.user.email }}:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
+                {% else %}
+                    <a href="#">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign in</a>
+                {% endif %}
             </div>
         </div>
         <div class="sixteen columns">
