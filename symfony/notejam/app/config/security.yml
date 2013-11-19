@@ -19,9 +19,12 @@ security:
             form_login:
                 login_path: /signin
                 check_path: /login_check
+                username_parameter: form[email]
+                password_parameter: form[password]
+                default_target_path: /settings
                 remember_me: true
             logout:
-                path: /logout
+                path: /signout
                 target: /
             remember_me:
                 key: MiPassphrase
