@@ -10,6 +10,9 @@ signin:
     pattern: /signin
     defaults: { _controller: NotejamUserBundle:User:signin }
 
+signout:
+    pattern: /signout
+
 settings:
     pattern:  /settings
     defaults: { _controller: NotejamUserBundle:User:settings }
@@ -17,5 +20,3 @@ settings:
 login_check:
     pattern: /login_check
  
-logout:
-    pattern: /logout

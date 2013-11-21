@@ -25,7 +25,7 @@ security:
                 remember_me: true
             logout:
                 path: /signout
-                target: /
+                target: /signin
             remember_me:
                 key: MiPassphrase
                 lifetime: 1800
