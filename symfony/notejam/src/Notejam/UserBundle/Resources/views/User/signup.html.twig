@@ -9,7 +9,7 @@
 
         {{ form_label(form.password.password) }}
         {{ form_widget(form.password.password) }}
-        {{ form_errors(form.password.password) }}
+        {{ form_errors(form.password.password , {'attr': {'class': 'errorlist'}}) }}
 
         {{ form_label(form.password.confirm) }}
         {{ form_widget(form.password.confirm) }}

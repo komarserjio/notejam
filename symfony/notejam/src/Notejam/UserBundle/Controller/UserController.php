@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 use Notejam\UserBundle\Entity\User;
 use Notejam\UserBundle\Form\Type\UserType;
+use Notejam\UserBundle\Form\Type\ChangePasswordType;
 
 
 class UserController extends Controller
@@ -85,10 +86,33 @@ class UserController extends Controller
         // code...
     }
 
-    public function settingsAction()
+    public function settingsAction(Request $request)
     {
+        $form = $this->createForm(new ChangePasswordType());
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $passwordData = $form->getData();
+                $user = $this->get('security.context')->getToken()->getUser();
+                $factory = $this->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($user);
+                $password = $encoder->encodePassword(
+                    $passwordData['new_password'], $user->getSalt());
+                $user->setPassword($password);
+
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($user);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    'Password successfully changed'
+                );
+            }
+        }
         return $this->render(
-            'NotejamUserBundle:User:settings.html.twig'
+            'NotejamUserBundle:User:settings.html.twig',
+            array('form' => $form->createView())
         );
     }
 }

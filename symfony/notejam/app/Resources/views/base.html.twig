@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Notejam</title>
+    <title>{% block title %}Notejam{% endblock %}</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -35,16 +35,16 @@
         <div class="sixteen columns">
             <div class="sign-in-out-block">
                 {% if app.user %}
-                    {{ app.user.email }}:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{{ path('signout') }}">Sign out</a>
+                    {{ app.user.email }}:&nbsp; <a href="{{ path('settings') }}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{{ path('signout') }}">Sign out</a>
                 {% else %}
-                    <a href="#">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign in</a>
+                    <a href="{{ path('signup')}}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign in</a>
                 {% endif %}
             </div>
         </div>
         <div class="sixteen columns">
             <h1 class="bold-header">notejam 
                 {% block breadcrumbs %}
-                    <span>8 notes</span>
+                    <span>Notes</span>
                 {% endblock %} 
             </h1>
         </div>
