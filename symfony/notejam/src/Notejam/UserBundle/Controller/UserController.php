@@ -81,9 +81,25 @@ class UserController extends Controller
         );
     }
 
-    public function forgotPasswordAction()
+    public function forgotPasswordAction(Request $request)
     {
-        // code...
+        $form = $this->createFormBuilder()
+                     ->add('email', 'email')
+                     ->add('save', 'submit')
+                     ->getForm();
+
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $data = $form->getData();
+                // ...
+            }
+        }
+
+        return $this->render(
+            'NotejamUserBundle:User:forgot-password.html.twig', 
+            array('form' => $form->createView())
+        );
     }
 
     public function settingsAction(Request $request)

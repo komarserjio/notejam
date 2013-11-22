@@ -17,6 +17,10 @@ settings:
     pattern:  /settings
     defaults: { _controller: NotejamUserBundle:User:settings }
 
+forgot_password:
+    pattern:  /forgot-password
+    defaults: { _controller: NotejamUserBundle:User:forgotPassword }
+
 login_check:
     pattern: /login_check
  
