@@ -92,7 +92,16 @@ class UserController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $data = $form->getData();
-                // ...
+                // get user
+                $user = $this->get('security.context')->getToken()->getUser();
+                // generate new password
+                $newPassword = '123123';
+                // update and save user
+                $user->setPassword($newPassword);
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($user);
+                $em->flush();
+                // send new password
             }
         }
 
