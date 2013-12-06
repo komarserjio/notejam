@@ -101,7 +101,14 @@ class UserController extends Controller
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($user);
                 $em->flush();
+
                 // send new password
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Notejam password')
+                    ->setFrom('noreply@notejamapp.com')
+                    ->setTo($user->email)
+                    ->setBody("Your new password is {$newPassword}");
+                $this->get('mailer')->send($message);
             }
         }
 
