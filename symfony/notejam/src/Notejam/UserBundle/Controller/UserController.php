@@ -92,23 +92,40 @@ class UserController extends Controller
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $data = $form->getData();
-                // get user
-                $user = $this->get('security.context')->getToken()->getUser();
-                // generate new password
-                $newPassword = '123123';
-                // update and save user
-                $user->setPassword($newPassword);
-                $em = $this->getDoctrine()->getEntityManager();
-                $em->persist($user);
-                $em->flush();
+                $repository = $this->getDoctrine()
+                                   ->getRepository('NotejamUserBundle:User');
+                $user = $repository->findOneByEmail($data['email']);
+                if ($user) {
+                    // silly way to generate password
+                    $newPassword = substr(
+                        md5(time() . $user->getSalt()), 0, 8);
+                    $factory = $this->get('security.encoder_factory');
+                    $encoder = $factory->getEncoder($user);
+                    $password = $encoder->encodePassword(
+                        $newPassword, $user->getSalt());
+                    $user->setPassword($password);
 
-                // send new password
-                $message = \Swift_Message::newInstance()
-                    ->setSubject('Notejam password')
-                    ->setFrom('noreply@notejamapp.com')
-                    ->setTo($user->email)
-                    ->setBody("Your new password is {$newPassword}");
-                $this->get('mailer')->send($message);
+                    $em = $this->getDoctrine()->getEntityManager();
+                    $em->persist($user);
+                    $em->flush();
+
+                    $message = \Swift_Message::newInstance()
+                        ->setSubject('Notejam password')
+                        ->setFrom('noreply@notejamapp.com')
+                        ->setTo($user->getEmail())
+                        ->setBody("Your new password is {$newPassword}");
+                    $this->get('mailer')->send($message);
+
+                    $this->get('session')->getFlashBag()->add(
+                        'success',
+                        'New password sent to your inbox'
+                    );
+                } else {
+                    $this->get('session')->getFlashBag()->add(
+                        'error',
+                        "User with given email doesn't exist"
+                    );
+                }
             }
         }
 
