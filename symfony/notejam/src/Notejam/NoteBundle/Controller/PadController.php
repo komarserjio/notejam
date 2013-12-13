@@ -11,11 +11,6 @@ class PadController extends Controller
         return $this->render('NotejamNoteBundle:Pad:index.html.twig', array('name' => $name));
     }
 
-    public function viewAction() 
-    {
-        // code...
-    }
-
     public function createAction() 
     {
         // code...

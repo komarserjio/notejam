@@ -34,5 +34,9 @@ security:
             security: true
             anonymous: true
     access_control:
+        - { path: /signin, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /signup, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /settings, roles: ROLE_USER }
-        - { path: /, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /notes, roles: ROLE_USER }
+        - { path: /pads, roles: ROLE_USER }
+        - { path: /, roles: ROLE_USER }

@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class NoteController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('NotejamNoteBundle:Note:index.html.twig', array('name' => $name));
+        return $this->render('NotejamNoteBundle:Note:index.html.twig');
     }
 
     public function viewAction() 
