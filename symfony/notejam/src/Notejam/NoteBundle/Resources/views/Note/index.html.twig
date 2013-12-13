@@ -1,1 +1,52 @@
-all notes page
+{% extends 'base.html.twig' %}
+{% block breadcrumbs %}<span>All notes</span>{% endblock %}
+{% block body %}
+<table class="notes">
+    <tr>
+        <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+        <th>Pad</th>
+        <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+    </tr>
+    <tr>
+        <td><a href="#">My sport activites</a></td>
+        <td class="pad">No pad</td>
+        <td class="hidden-text date">Today at 10:51</td>
+    </tr>
+    <tr>
+        <td><a href="#">February reports</a></td>
+        <td class="pad"><a href="#">Pad</a></td>
+        <td class="hidden-text date">Yesterday</td>
+    </tr>
+    <tr>
+        <td><a href="#">Budget plan</a></a></td>
+        <td class="pad"><a href="#">Pad</a></td>
+        <td class="hidden-text date">Feb 10 2013</td>
+    </tr>
+    <tr>
+        <td><a href="#">Visit Agenda for all customers</a></a></td>
+        <td class="pad"><a href="#">Pad</a></td>
+        <td class="hidden-text date">Feb 02 2013</td>
+    </tr>
+    <tr>
+        <td><a href="#">Gifts</a></a></td>
+        <td class="pad"><a href="#">Pad</a></td>
+        <td class="hidden-text date">Jan 29 2013</td>
+    </tr>
+    <tr>
+        <td><a href="#">Calendar events</a></a></td>
+        <td class="pad"><a href="#">Pad</a></td>
+        <td class="hidden-text date">Jan 29 2013</td>
+    </tr>
+    <tr>
+        <td><a href="#">TV series</a></a></td>
+        <td class="pad"><a href="#">Pad</a></td>
+        <td class="hidden-text date">Dec 01 2012</td>
+    </tr>
+    <tr>
+        <td><a href="#">Daily post</a></a></td>
+        <td class="pad"><a href="#">Pad</a></td>
+        <td class="hidden-text date">Nov 28 2012</td>
+    </tr>
+</table>
+<a href="#" class="button">Create a note</a>
+{% endblock %}
