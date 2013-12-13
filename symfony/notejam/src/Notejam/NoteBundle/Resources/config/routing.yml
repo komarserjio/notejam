@@ -1,0 +1,3 @@
+_mainpage:
+    pattern:  /
+    defaults: { _controller: NotejamNoteBundle:Note:index }

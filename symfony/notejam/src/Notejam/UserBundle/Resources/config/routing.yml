@@ -1,0 +1,26 @@
+homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: NotejamUserBundle:User:index }
+
+signup:
+    pattern:  /signup
+    defaults: { _controller: NotejamUserBundle:User:signup }
+
+signin:
+    pattern: /signin
+    defaults: { _controller: NotejamUserBundle:User:signin }
+
+signout:
+    pattern: /signout
+
+settings:
+    pattern:  /settings
+    defaults: { _controller: NotejamUserBundle:User:settings }
+
+forgot_password:
+    pattern:  /forgot-password
+    defaults: { _controller: NotejamUserBundle:User:forgotPassword }
+
+login_check:
+    pattern: /login_check
+ 
