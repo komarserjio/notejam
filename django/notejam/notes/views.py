@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
 from django.views.generic import ListView
 
-from notes.models import Note
+from notes.models import Note, Pad
 from notes.forms import NoteForm
 
 
@@ -15,6 +15,14 @@ class NoteCreateView(CreateView):
 
     def get_initial(self):
         return {'pad': self.request.GET.get('pad', None)}
+
+    def get_form(self, form_class):
+        form = super(NoteCreateView, self).get_form(self.get_form_class())
+        # limit pad choice
+        form.fields['pad'].queryset = Pad.objects.filter(
+            user=self.request.user
+        )
+        return form
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
