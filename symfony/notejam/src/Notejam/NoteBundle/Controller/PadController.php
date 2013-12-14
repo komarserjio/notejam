@@ -8,12 +8,12 @@ class PadController extends Controller
 {
     public function indexAction($name)
     {
-        return $this->render('NotejamNoteBundle:Pad:index.html.twig', array('name' => $name));
+        return $this->render('NotejamNoteBundle:Pad:index.html.twig');
     }
 
     public function createAction() 
     {
-        // code...
+        return $this->render('NotejamNoteBundle:Pad:create.html.twig');
     }
 
     public function editAction() 

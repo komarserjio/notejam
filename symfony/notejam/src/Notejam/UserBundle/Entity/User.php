@@ -40,10 +40,17 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\Notejam\NoteBundle\Entity\Pad", mappedBy="user")
+     */
+    protected $pads;
+
     public function __construct()
     {
         $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
+
+        $this->pads = new ArrayCollection();
     }
 
     /**
