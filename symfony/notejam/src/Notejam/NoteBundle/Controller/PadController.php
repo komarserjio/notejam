@@ -3,6 +3,8 @@
 namespace Notejam\NoteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Notejam\NoteBundle\Entity\Pad;
+use Notejam\NoteBundle\Form\Type\PadType;
 
 class PadController extends Controller
 {
@@ -13,7 +15,11 @@ class PadController extends Controller
 
     public function createAction() 
     {
-        return $this->render('NotejamNoteBundle:Pad:create.html.twig');
+        $form = $this->createForm(new PadType(), new Pad());
+        return $this->render(
+            'NotejamNoteBundle:Pad:create.html.twig',
+            array('form' => $form->createView())
+        );
     }
 
     public function editAction() 
