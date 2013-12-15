@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block breadcrumbs %}<span>Edit paad</span>{% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
+
+        {{ form_widget(form.save) }}
+    {{ form_end(form) }}
+{% endblock %}

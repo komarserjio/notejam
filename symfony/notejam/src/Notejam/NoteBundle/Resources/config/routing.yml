@@ -5,3 +5,7 @@ homepage:
 create_pad:
     pattern:  /pads/create
     defaults: { _controller: NotejamNoteBundle:Pad:create }
+
+edit_pad:
+    pattern:  /pads/{id}/edit
+    defaults: { _controller: NotejamNoteBundle:Pad:edit }

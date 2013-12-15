@@ -46,9 +46,34 @@ class PadController extends Controller
         );
     }
 
-    public function editAction() 
+    public function editAction($id, Request $request) 
     {
-        // code...
+        $user = $this->get('security.context')->getToken()->getUser();
+        $pad = $this->getDoctrine()
+                    ->getRepository('NotejamNoteBundle:Pad')
+                    ->findOneBy(array('id' => $id, 
+                                      'user' => $user));
+
+        $form = $this->createForm(new PadType(), $pad);
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($form->getData());
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    'Pad was successfully updated'
+                );
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+        }
+
+        return $this->render(
+            'NotejamNoteBundle:Pad:edit.html.twig',
+            array('form' => $form->createView())
+        );
     }
 
     public function deleteAction() 
