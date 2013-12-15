@@ -207,4 +207,13 @@ class User implements UserInterface, \Serializable
     {
         return $this->isActive;
     }
+
+    /**
+     * Get user pads
+     *
+     * @return Pads
+     */
+    public function getPads() {
+        return $this->pads;
+    }
 }

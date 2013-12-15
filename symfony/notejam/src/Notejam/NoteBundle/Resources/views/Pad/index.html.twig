@@ -1,0 +1,12 @@
+<div class="three columns">
+    <h4 id="logo">My pads</h4>
+    <nav>
+        <ul>
+            {% for pad in pads %}
+                <li><a href="#">{{ pad.name }}</a></li>
+            {% endfor %}
+        </ul>
+        <hr />
+        <a href="{{ path('create_pad') }}">Add pad</a>
+    </nav>
+</div>

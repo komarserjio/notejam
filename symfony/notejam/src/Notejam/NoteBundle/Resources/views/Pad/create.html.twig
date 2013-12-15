@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block breadcrumbs %}<span>Create a pad</span>{% endblock %}
 {% block body %}
-    <form class="pad">
-        <label for="regularInput">Name</label>
-        <input type="text" class="six" id="regularInput">
-        <button type="submit">Save</button>
-    </form>
+    {{ form_start(form) }}
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        {{ form_errors(form.name) }}
 
+        {{ form_widget(form.save) }}
+    {{ form_end(form) }}
 {% endblock %}

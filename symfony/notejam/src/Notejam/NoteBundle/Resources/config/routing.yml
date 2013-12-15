@@ -1,7 +1,7 @@
-_mainpage:
+homepage:
     pattern:  /
     defaults: { _controller: NotejamNoteBundle:Note:index }
 
-_create_pad:
+create_pad:
     pattern:  /pads/create
     defaults: { _controller: NotejamNoteBundle:Pad:create }
