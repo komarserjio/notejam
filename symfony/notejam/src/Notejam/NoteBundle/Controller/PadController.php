@@ -76,9 +76,28 @@ class PadController extends Controller
         );
     }
 
-    public function deleteAction() 
+    public function deleteAction($id, Request $request) 
     {
-        // code...
+        $user = $this->get('security.context')->getToken()->getUser();
+        $pad = $this->getDoctrine()
+                    ->getRepository('NotejamNoteBundle:Pad')
+                    ->findOneBy(array('id' => $id, 
+                                      'user' => $user));
+        if ($request->getMethod() == 'POST') {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->remove($pad);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Pad was successfully deleted'
+            );
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+        return $this->render(
+            'NotejamNoteBundle:Pad:delete.html.twig',
+            array('pad' => $pad)
+        );
     }
 }
 

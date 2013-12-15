@@ -9,3 +9,7 @@ create_pad:
 edit_pad:
     pattern:  /pads/{id}/edit
     defaults: { _controller: NotejamNoteBundle:Pad:edit }
+
+delete_pad:
+    pattern:  /pads/{id}/delete
+    defaults: { _controller: NotejamNoteBundle:Pad:delete }
