@@ -21,14 +21,13 @@ class NoteController extends Controller
 
     public function createAction(Request $request) 
     {
-        $form = $this->createForm(new NoteType(), new Note());
+        $user = $this->get('security.context')->getToken()->getUser();
+        $form = $this->createForm(new NoteType($user), new Note());
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $note = $form->getData();
-                $note->setUser(
-                    $this->get('security.context')->getToken()->getUser()
-                );
+                $note->setUser($user);
 
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($note);

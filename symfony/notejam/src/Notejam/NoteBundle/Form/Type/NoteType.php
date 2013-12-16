@@ -8,10 +8,21 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class NoteType extends AbstractType
 {
+    public function __construct($user)
+    {
+      $this->user = $user;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text');
         $builder->add('text', 'textarea');
+        $builder->add('pad', 'entity', array(
+            'class' => 'NotejamNoteBundle:Pad', 
+            'choices' => $this->user->getPads(),
+            'empty_value' => '----------',
+            'required' => false
+        ));
         $builder->add('save', 'submit', array(
             'attr' => array('type' => 'submit') 
         ));
@@ -29,6 +40,3 @@ class NoteType extends AbstractType
         return 'note';
     }
 }
-
-
-

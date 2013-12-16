@@ -96,4 +96,13 @@ class Pad
         $this->user = $user;
         return $this; 
     }
+
+    /**
+     * Get name
+     *
+     * @return sring
+     */
+    public function __toString() {
+        return $this->getName();
+    }
 }
