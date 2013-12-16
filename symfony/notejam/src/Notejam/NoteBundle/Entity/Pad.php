@@ -36,6 +36,11 @@ class Pad
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\Notejam\NoteBundle\Entity\Note", mappedBy="pad")
+     */
+    protected $notes;
+
 
     /**
      * Get id
@@ -70,7 +75,7 @@ class Pad
     }
 
     /**
-     * Get name
+     * Get user
      *
      * @return User
      */

@@ -46,6 +46,11 @@ class User implements UserInterface, \Serializable
      */
     protected $pads;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\Notejam\NoteBundle\Entity\Note", mappedBy="user")
+     */
+    protected $notes;
+
     public function __construct()
     {
         $this->isActive = true;
