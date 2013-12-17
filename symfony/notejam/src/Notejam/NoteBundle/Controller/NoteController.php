@@ -46,9 +46,33 @@ class NoteController extends Controller
         );
     }
 
-    public function editAction() 
+    public function editAction($id, Request $request) 
     {
-        // code...
+        $user = $this->get('security.context')->getToken()->getUser();
+        $note = $this->getDoctrine()
+                    ->getRepository('NotejamNoteBundle:Note')
+                    ->findOneBy(array('id' => $id, 
+                                      'user' => $user));
+
+        $form = $this->createForm(new NoteType($user), $note);
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($form->getData());
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    'Note was successfully updated'
+                );
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+        }
+        return $this->render(
+            'NotejamNoteBundle:Note:edit.html.twig',
+            array('form' => $form->createView(), 'note' => $note)
+        );
     }
 
     public function deleteAction() 
