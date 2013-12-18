@@ -22,3 +22,7 @@ create_note:
 edit_note:
     pattern:  /notes/{id}/edit
     defaults: { _controller: NotejamNoteBundle:Note:edit }
+
+delete_note:
+    pattern:  /notes/{id}/delete
+    defaults: { _controller: NotejamNoteBundle:Note:delete }

@@ -75,8 +75,27 @@ class NoteController extends Controller
         );
     }
 
-    public function deleteAction() 
+    public function deleteAction($id, Request $request)
     {
-        // code...
+        $user = $this->get('security.context')->getToken()->getUser();
+        $note = $this->getDoctrine()
+                    ->getRepository('NotejamNoteBundle:Note')
+                    ->findOneBy(array('id' => $id, 
+                                      'user' => $user));
+        if ($request->getMethod() == 'POST') {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->remove($note);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Note was successfully deleted'
+            );
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+        return $this->render(
+            'NotejamNoteBundle:Note:delete.html.twig',
+            array('note' => $note)
+        );
     }
 }
