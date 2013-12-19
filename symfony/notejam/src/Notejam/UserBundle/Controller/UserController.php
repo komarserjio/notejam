@@ -57,7 +57,7 @@ class UserController extends Controller
         $form = $this->createFormBuilder(new User())
                      ->setAction($this->generateUrl('login_check'))
                      ->add('email', 'text')
-                     ->add('password', 'text')
+                     ->add('password', 'password')
                      ->add('save', 'submit')
                      ->getForm();
  
