@@ -11,7 +11,13 @@ class NoteController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('NotejamNoteBundle:Note:index.html.twig');
+        $user = $this->get('security.context')->getToken()->getUser();
+        $notes = $this->getDoctrine()
+                      ->getRepository('NotejamNoteBundle:Note')
+                      ->findBy(array('user' => $user));
+        return $this->render('NotejamNoteBundle:Note:index.html.twig', array(
+            'notes' => $notes
+        ));
     }
 
     public function viewAction() 
