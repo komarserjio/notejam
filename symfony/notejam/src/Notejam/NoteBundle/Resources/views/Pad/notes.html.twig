@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
-{% block breadcrumbs %}<span>All notes ({{ notes|length }})</span>{% endblock %}
+{% block breadcrumbs %}<span>{{ pad.name }} ({{ notes|length}} notes)</span>{% endblock %}
 {% block body %}
 <table class="notes">
     <tr>
-        <th class="note">Note <a href="" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+        <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
         <th>Pad</th>
         <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
     </tr>
@@ -23,3 +23,4 @@
 </table>
 <a href="#" class="button">Create a note</a>
 {% endblock %}
+

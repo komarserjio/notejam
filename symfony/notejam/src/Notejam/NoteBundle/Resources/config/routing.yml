@@ -2,6 +2,10 @@ homepage:
     pattern:  /
     defaults: { _controller: NotejamNoteBundle:Note:index }
 
+pad_notes:
+    pattern:  /pads/{id}
+    defaults: { _controller: NotejamNoteBundle:Pad:notes }
+
 create_pad:
     pattern:  /pads/create
     defaults: { _controller: NotejamNoteBundle:Pad:create }

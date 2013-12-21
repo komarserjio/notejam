@@ -18,6 +18,34 @@ class PadController extends Controller
         );
     }
 
+    public function notesAction($id, Request $request) 
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $orderBy = $request->query->get('order', 'name');
+
+        $pad = $this->getDoctrine()
+                    ->getRepository('NotejamNoteBundle:Pad')
+                    ->findOneBy(array('id' => $id, 
+                                      'user' => $user));
+
+        $notes = $this->getDoctrine()
+                      ->getRepository('NotejamNoteBundle:Note')
+                      ->findBy(array('pad' => $id),
+                               $this->_buildOrderBy($orderBy));
+
+        return $this->render('NotejamNoteBundle:Pad:notes.html.twig', array(
+            'notes' => $notes, 'pad' => $pad
+        ));
+    }
+
+    private function _buildOrderBy($orderBy = 'name') 
+    {
+        return array(
+            'name' => array('name' => 'ASC'),
+            '-name' => array('name' => 'DESC')
+        )[$orderBy];
+    }
+
     public function createAction(Request $request) 
     {
         $form = $this->createForm(new PadType(), new Pad());

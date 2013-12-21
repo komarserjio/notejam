@@ -9,15 +9,25 @@ use Notejam\NoteBundle\Form\Type\NoteType;
 
 class NoteController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $orderBy = $request->query->get('order', 'name');
         $user = $this->get('security.context')->getToken()->getUser();
         $notes = $this->getDoctrine()
                       ->getRepository('NotejamNoteBundle:Note')
-                      ->findBy(array('user' => $user));
+                      ->findBy(array('user' => $user),
+                               $this->_buildOrderBy($orderBy));
         return $this->render('NotejamNoteBundle:Note:index.html.twig', array(
             'notes' => $notes
         ));
+    }
+
+    private function _buildOrderBy($orderBy = 'name') 
+    {
+        return array(
+            'name' => array('name' => 'ASC'),
+            '-name' => array('name' => 'DESC')
+        )[$orderBy];
     }
 
     public function viewAction() 

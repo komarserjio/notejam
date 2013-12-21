@@ -100,9 +100,18 @@ class Pad
     /**
      * Get name
      *
-     * @return sring
+     * @return string
      */
     public function __toString() {
         return $this->getName();
+    }
+
+    /**
+     * Get notes
+     *
+     * @return Notes
+     */
+    public function getNotes() {
+        return $this->notes;
     }
 }
