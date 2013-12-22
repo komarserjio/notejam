@@ -21,6 +21,6 @@
         </tr>
     {% endfor %}
 </table>
-<a href="#" class="button">Create a note</a>
+<a href="{{ path('create_note') }}?pad={{ pad.id }}" class="button">Create a note</a>
 {% endblock %}
 
