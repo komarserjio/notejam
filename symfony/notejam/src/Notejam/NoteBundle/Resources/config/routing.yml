@@ -1,3 +1,32 @@
-_mainpage:
+homepage:
     pattern:  /
     defaults: { _controller: NotejamNoteBundle:Note:index }
+
+pad_notes:
+    pattern:  /pads/{id}
+    defaults: { _controller: NotejamNoteBundle:Pad:notes }
+
+create_pad:
+    pattern:  /pads/create
+    defaults: { _controller: NotejamNoteBundle:Pad:create }
+
+edit_pad:
+    pattern:  /pads/{id}/edit
+    defaults: { _controller: NotejamNoteBundle:Pad:edit }
+
+delete_pad:
+    pattern:  /pads/{id}/delete
+    defaults: { _controller: NotejamNoteBundle:Pad:delete }
+
+
+create_note:
+    pattern:  /notes/create
+    defaults: { _controller: NotejamNoteBundle:Note:create }
+
+edit_note:
+    pattern:  /notes/{id}/edit
+    defaults: { _controller: NotejamNoteBundle:Note:edit }
+
+delete_note:
+    pattern:  /notes/{id}/delete
+    defaults: { _controller: NotejamNoteBundle:Note:delete }

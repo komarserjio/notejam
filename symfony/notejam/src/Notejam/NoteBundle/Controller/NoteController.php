@@ -3,12 +3,31 @@
 namespace Notejam\NoteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Notejam\NoteBundle\Entity\Note;
+use Notejam\NoteBundle\Form\Type\NoteType;
 
 class NoteController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->render('NotejamNoteBundle:Note:index.html.twig');
+        $orderBy = $request->query->get('order', 'name');
+        $user = $this->get('security.context')->getToken()->getUser();
+        $notes = $this->getDoctrine()
+                      ->getRepository('NotejamNoteBundle:Note')
+                      ->findBy(array('user' => $user),
+                               $this->_buildOrderBy($orderBy));
+        return $this->render('NotejamNoteBundle:Note:index.html.twig', array(
+            'notes' => $notes
+        ));
+    }
+
+    private function _buildOrderBy($orderBy = 'name') 
+    {
+        return array(
+            'name' => array('name' => 'ASC'),
+            '-name' => array('name' => 'DESC')
+        )[$orderBy];
     }
 
     public function viewAction() 
@@ -16,18 +35,83 @@ class NoteController extends Controller
         // code...
     }
 
-    public function createAction() 
+    public function createAction(Request $request) 
     {
-        // code...
+        $user = $this->get('security.context')->getToken()->getUser();
+        $form = $this->createForm(new NoteType($user), new Note());
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $note = $form->getData();
+                $note->setUser($user);
+
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($note);
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    'Note was successfully created'
+                );
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+        }
+        return $this->render(
+            'NotejamNoteBundle:Note:create.html.twig',
+            array('form' => $form->createView())
+        );
     }
 
-    public function editAction() 
+    public function editAction($id, Request $request) 
     {
-        // code...
+        $user = $this->get('security.context')->getToken()->getUser();
+        $note = $this->getDoctrine()
+                    ->getRepository('NotejamNoteBundle:Note')
+                    ->findOneBy(array('id' => $id, 
+                                      'user' => $user));
+
+        $form = $this->createForm(new NoteType($user), $note);
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($form->getData());
+                $em->flush();
+
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    'Note was successfully updated'
+                );
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+        }
+        return $this->render(
+            'NotejamNoteBundle:Note:edit.html.twig',
+            array('form' => $form->createView(), 'note' => $note)
+        );
     }
 
-    public function deleteAction() 
+    public function deleteAction($id, Request $request)
     {
-        // code...
+        $user = $this->get('security.context')->getToken()->getUser();
+        $note = $this->getDoctrine()
+                    ->getRepository('NotejamNoteBundle:Note')
+                    ->findOneBy(array('id' => $id, 
+                                      'user' => $user));
+        if ($request->getMethod() == 'POST') {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->remove($note);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'Note was successfully deleted'
+            );
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+        return $this->render(
+            'NotejamNoteBundle:Note:delete.html.twig',
+            array('note' => $note)
+        );
     }
 }

@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block breadcrumbs %}<span>Delete {{ note.name }}?</span>{% endblock %}
+{% block body %}
+    <p>Are you sure you want to delete {{ note.name }}?</p>
+    <form method="POST">
+        <button class="red">Yes, delete I want to delete it</button>&nbsp;
+        <a href="{{ path('homepage') }}">Cancel</a>
+    </form>
+{% endblock %}
+

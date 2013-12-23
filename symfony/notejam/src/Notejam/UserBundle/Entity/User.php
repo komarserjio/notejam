@@ -2,6 +2,7 @@
 namespace Notejam\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection; 
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -40,10 +41,22 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @ORM\OneToMany(targetEntity="\Notejam\NoteBundle\Entity\Pad", mappedBy="user")
+     */
+    protected $pads;
+
+    /**
+     * @ORM\OneToMany(targetEntity="\Notejam\NoteBundle\Entity\Note", mappedBy="user")
+     */
+    protected $notes;
+
     public function __construct()
     {
         $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
+
+        $this->pads = new ArrayCollection();
     }
 
     /**
@@ -198,5 +211,14 @@ class User implements UserInterface, \Serializable
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Get user pads
+     *
+     * @return Pads
+     */
+    public function getPads() {
+        return $this->pads;
     }
 }
