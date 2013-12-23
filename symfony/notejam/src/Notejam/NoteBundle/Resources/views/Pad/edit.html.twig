@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block breadcrumbs %}<span>Edit pad</span>{% endblock %}
+{% block breadcrumbs %}<span>Edit {{ pad.name }}</span>{% endblock %}
 {% block body %}
     {{ form_start(form) }}
         {{ form_label(form.name) }}

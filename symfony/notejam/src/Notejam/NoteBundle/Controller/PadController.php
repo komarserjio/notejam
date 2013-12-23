@@ -100,7 +100,7 @@ class PadController extends Controller
 
         return $this->render(
             'NotejamNoteBundle:Pad:edit.html.twig',
-            array('form' => $form->createView())
+            array('form' => $form->createView(), 'pad' => $pad)
         );
     }
 
