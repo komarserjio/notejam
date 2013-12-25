@@ -5,9 +5,6 @@
     <div class="note">
         {{ note.text }}
     </div>
-    <button type="button">Edit</button>
-    <a href="#" class="delete-note">Delete it</a>
+    <a href="{{ path('edit_note', {'id': note.id})  }}" class="button">Edit</a>
+    <a href="{{ path('delete_note', {'id': note.id})  }}" class="delete-note">Delete it</a>
 {% endblock %}
-
-
-
