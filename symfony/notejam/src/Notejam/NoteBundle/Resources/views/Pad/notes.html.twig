@@ -3,7 +3,7 @@
 {% block body %}
 <table class="notes">
     <tr>
-        <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+        <th class="note">Note <a href="{{ path('pad_notes', {'id': pad.id})}}?order=-name" class="sort_arrow" >&uarr;</a><a href="{{ path('pad_notes', {'id': pad.id})}}?order=name" class="sort_arrow" >&darr;</a></th>
         <th>Pad</th>
         <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
     </tr>
