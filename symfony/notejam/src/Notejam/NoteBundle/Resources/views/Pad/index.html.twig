@@ -3,7 +3,7 @@
     <nav>
         <ul>
             {% for pad in pads %}
-                <li><a href="#">{{ pad.name }}</a></li>
+                <li><a href="{{ path('pad_notes', {'id': pad.id})}}">{{ pad.name }}</a></li>
             {% endfor %}
         </ul>
         <hr />

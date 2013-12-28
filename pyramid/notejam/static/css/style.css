@@ -145,12 +145,12 @@
     color: #999;
 }
 
-td.date {
-    font-style: italic;
-}
-
 td.date, th.date {
     text-align: right;
+}
+
+td.date {
+    font-style: italic;
 }
 
 form.note input, form.note textarea {
@@ -231,20 +231,48 @@ a.delete-note {
     color: red;
 }
 
-a.red, .red {
+.red {
     color: red;
 }
-
-div.note {
-    margin: 0 0 10px 0;
-}
-
 
 ul.errorlist {
     margin: -18px 0 0 0;
 }
 
 ul.errorlist li {
+    color: red;
+}
+
+.alert-area {
+    text-align: center;
+}
+
+.alert {
+    padding: 5px 8px;
+    margin: 0 0 12px 0;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.alert-success {
+    color: #468847;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+}
+
+.alert-error {
+    color: #b94a48;
+    background-color: #f2dede;
+    border: 1px solid #eed3d7;
+}
+
+/* Pyramid specific styles */
+ul.error {
+    margin: -18px 0 0 0;
+}
+
+ul.error li {
     color: red;
 }
 

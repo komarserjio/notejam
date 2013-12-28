@@ -2,14 +2,10 @@
 
 {% block breadcrumbs %}<span>Delete {{ note.name }}</span>{% endblock %}
 {% block content %}
-    <div class="thirteen columns content-area">
-        <p>Are you sure you want to delete {{ note.name }}?</p>
-        <form method="POST">
-            {% csrf_token %}
-            <button class="red">Yes, delete I want to delete it</button>&nbsp;
-            <a href="{% url view_note pk=note.id %}">Cancel</a>
-        </form>
-    </div>
+    <p>Are you sure you want to delete {{ note.name }}?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button class="red">Yes, delete I want to delete it</button>&nbsp;
+        <a href="{% url view_note pk=note.id %}">Cancel</a>
+    </form>
 {% endblock %}
-
-

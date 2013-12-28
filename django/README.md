@@ -1,1 +1,0 @@
-Notejam: Django implementation

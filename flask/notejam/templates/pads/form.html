@@ -1,0 +1,8 @@
+{% from "_helpers.html" import render_field %}
+
+<form method="POST" class="pad">
+    {{ form.hidden_tag() }}
+    {{ render_field(form.name) }}
+</form>
+
+

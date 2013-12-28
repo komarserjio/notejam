@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="load: ../narrow_layout.pt">
+
+<tal:block metal:fill-slot="current_page">
+    <span>Delete pad</span>
+</tal:block>
+
+<tal:block metal:fill-slot="content">
+    <p>Are you sure you want to delete ${pad.name}?</p>
+    <form method="POST">
+        <button class="red">Yes, delete I want to delete it</button>&nbsp;
+        <a href="${request.route_url('update_pad', pad_id=pad.id)}">Cancel</a>
+    </form>
+</tal:block>
+
+</html>
+
+

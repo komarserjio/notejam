@@ -66,9 +66,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_DIR, 'static_files/'),
 )
 
 # List of finder classes that know how to find static files in
@@ -132,7 +130,6 @@ INSTALLED_APPS = (
     'pads',
     'notes',
     'users',
-    'public',  # app to store static files,
     'south',
 )
 
@@ -143,6 +140,10 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = '/signin/'
 LOGOUT_URL = '/signout/'
+
+# development email file-based backend
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = '/tmp'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -172,3 +173,11 @@ LOGGING = {
         },
     }
 }
+
+# custom test runner
+TEST_RUNNER = 'notejam.tests.AdvancedTestSuiteRunner'
+
+# exclude non app tests
+TEST_EXCLUDE = (
+    'django',
+)

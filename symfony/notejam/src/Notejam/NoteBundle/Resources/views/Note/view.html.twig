@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block breadcrumbs %}<span>{{ note.name }}</span>{% endblock %}
+{% block body %}
+    <p class="hidden-text">Last edited at 10:32</p>
+    <div class="note">
+        {{ note.text }}
+    </div>
+    <a href="{{ path('edit_note', {'id': note.id})  }}" class="button">Edit</a>
+    <a href="{{ path('delete_note', {'id': note.id})  }}" class="delete-note">Delete it</a>
+{% endblock %}

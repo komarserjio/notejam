@@ -26,6 +26,10 @@
         font-weight: normal;
         font-size: 23px;
     }
+    .bold-header a.header {
+        text-decoration: none;
+        color: inherit;
+    }
 	nav ul {
 		float: left;  }
 	nav ul li {
@@ -241,6 +245,30 @@ ul.errorlist {
 
 ul.errorlist li {
     color: red;
+}
+
+.alert-area {
+    text-align: center;
+}
+
+.alert {
+    padding: 5px 8px;
+    margin: 0 0 12px 0;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.alert-success {
+    color: #468847;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+}
+
+.alert-error {
+    color: #b94a48;
+    background-color: #f2dede;
+    border: 1px solid #eed3d7;
 }
 
 	/* Mobile */
