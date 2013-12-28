@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Note
 {
@@ -34,6 +35,13 @@ class Note
      * @ORM\Column(name="text", type="text")
      */
     private $text;
+
+    /**
+     * @var datetime
+     *
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    private $updated_at;
 
     /**
      * @var User
@@ -152,6 +160,16 @@ class Note
     {
         $this->pad = $pad;
         return $this; 
+    }
+
+    /**
+     * Update timestamp
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAt() {
+        $this->updated_at = new \DateTime('now');
     }
 
     /**
