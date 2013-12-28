@@ -18,7 +18,11 @@
         "sensio/distribution-bundle": "2.3.*",
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
+        "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
     },
     "scripts": {
         "post-install-cmd": [
