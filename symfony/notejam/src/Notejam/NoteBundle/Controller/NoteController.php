@@ -26,7 +26,9 @@ class NoteController extends Controller
     {
         return array(
             'name' => array('name' => 'ASC'),
-            '-name' => array('name' => 'DESC')
+            '-name' => array('name' => 'DESC'),
+            'updated_at' => array('updated_at' => 'ASC'),
+            '-updated_at' => array('updated_at' => 'DESC')
         )[$orderBy];
     }
 

@@ -19,9 +19,6 @@ delete_pad:
     defaults: { _controller: NotejamNoteBundle:Pad:delete }
 
 
-view_note:
-    pattern:  /notes/{id}
-    defaults: { _controller: NotejamNoteBundle:Note:view }
 
 create_note:
     pattern:  /notes/create
@@ -31,7 +28,10 @@ edit_note:
     pattern:  /notes/{id}/edit
     defaults: { _controller: NotejamNoteBundle:Note:edit }
 
-
 delete_note:
     pattern:  /notes/{id}/delete
     defaults: { _controller: NotejamNoteBundle:Note:delete }
+
+view_note:
+    pattern:  /notes/{id}
+    defaults: { _controller: NotejamNoteBundle:Note:view }

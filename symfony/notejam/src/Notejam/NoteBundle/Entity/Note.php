@@ -168,14 +168,25 @@ class Note
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function setUpdatedAt() {
+    public function setUpdatedAt() 
+    {
         $this->updated_at = new \DateTime('now');
+    }
+
+    /**
+     * Get last update time
+     * 
+     * @return string formatted date
+     */
+    public function getUpdatedAt() 
+    {
+        return $this->updated_at->format('d M. Y');
     }
 
     /**
      * Get name
      *
-     * @return sring
+     * @return string
      */
     public function __toString() {
         return $this->getName();
