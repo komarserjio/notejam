@@ -9,11 +9,11 @@ use Notejam\NoteBundle\Form\Type\PadType;
 
 class PadController extends Controller
 {
-    public function indexAction()
+    public function listAction()
     {
         $user = $this->get('security.context')->getToken()->getUser();
         return $this->render(
-            'NotejamNoteBundle:Pad:index.html.twig', 
+            'NotejamNoteBundle:Pad:list.html.twig', 
             array('pads' => $user->getPads())
         );
     }

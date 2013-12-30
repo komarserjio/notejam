@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
-{% block breadcrumbs %}<span>{{ pad.name }} ({{ notes|length}} notes)</span>{% endblock %}
+{% block breadcrumbs %}<span>All notes ({{ notes|length }})</span>{% endblock %}
 {% block body %}
 {% if notes|length %}
     <table class="notes">
         <tr>
-            <th class="note">Note <a href="{{ path('pad_notes', {'id': pad.id})}}?order=-name" class="sort_arrow" >&uarr;</a><a href="{{ path('pad_notes', {'id': pad.id})}}?order=name" class="sort_arrow" >&darr;</a></th>
+            <th class="note">Note <a href="{{ path ('homepage') }}?order=-name" class="sort_arrow" >&uarr;</a><a href="{{ path ('homepage') }}?order=name" class="sort_arrow" >&darr;</a></th>
             <th>Pad</th>
             <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
         </tr>
@@ -13,12 +13,12 @@
                 <td><a href="{{ path('view_note', {'id': note.id})  }}">{{ note.name }}</a></td>
                 <td class="pad">
                     {% if note.pad %}
-                        <a href="#">{{ note.pad }}</a>
+                        <a href="{{ path('view_note', {'id': note.id})  }}">{{ note.pad }}</a>
                     {% else %}
                         No pad
                     {% endif %}
                 </td>
-                <td class="hidden-text date">Today at 10:51</td>
+                <td class="hidden-text date">{{ note.getUpdatedAt }}</td>
             </tr>
         {% endfor %}
     </table>
@@ -26,6 +26,5 @@
     <p class="empty">You don't have any notes</p>
 {% endif %}
 
-<a href="{{ path('create_note') }}?pad={{ pad.id }}" class="button">Create a note</a>
+<a href="{{ path('create_note') }}" class="button">Create a note</a>
 {% endblock %}
-
