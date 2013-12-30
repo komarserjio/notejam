@@ -221,4 +221,8 @@ class User implements UserInterface, \Serializable
     public function getPads() {
         return $this->pads;
     }
+
+    public function getNotes() {
+        return $this->notes;
+    }
 }

@@ -1,11 +1,15 @@
 <div class="three columns">
     <h4 id="logo">My pads</h4>
     <nav>
-        <ul>
-            {% for pad in pads %}
-                <li><a href="{{ path('pad_notes', {'id': pad.id})}}">{{ pad.name }}</a></li>
-            {% endfor %}
-        </ul>
+        {% if pads %}
+            <ul>
+                {% for pad in pads %}
+                    <li><a href="{{ path('pad_notes', {'id': pad.id})}}">{{ pad.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty">No pads yet</p>
+        {% endif %}
         <hr />
         <a href="{{ path('create_pad') }}">Add pad</a>
     </nav>
