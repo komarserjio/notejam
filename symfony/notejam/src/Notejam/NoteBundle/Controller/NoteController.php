@@ -46,15 +46,22 @@ class NoteController extends Controller
 
     public function createAction(Request $request) 
     {
+        $em = $this->getDoctrine()->getEntityManager();
+        $pad = $this->getDoctrine()
+                    ->getRepository('NotejamNoteBundle:Pad')
+                    ->findOneBy(array('id' => $request->query->get('pad')));
+
         $user = $this->get('security.context')->getToken()->getUser();
-        $form = $this->createForm(new NoteType($user), new Note());
+        $note = new Note();
+        $note->setPad($pad);
+
+        $form = $this->createForm(new NoteType($user), $note);
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $note = $form->getData();
                 $note->setUser($user);
 
-                $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($note);
                 $em->flush();
 

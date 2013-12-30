@@ -13,7 +13,7 @@
                 <td><a href="{{ path('view_note', {'id': note.id})  }}">{{ note.name }}</a></td>
                 <td class="pad">
                     {% if note.pad %}
-                        <a href="{{ path('view_note', {'id': note.id})  }}">{{ note.pad }}</a>
+                        <a href="{{ path('pad_notes', {'id': note.pad.id})  }}">{{ note.pad }}</a>
                     {% else %}
                         No pad
                     {% endif %}
