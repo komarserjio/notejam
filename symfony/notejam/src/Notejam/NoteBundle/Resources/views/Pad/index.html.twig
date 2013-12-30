@@ -1,7 +1,7 @@
 <div class="three columns">
     <h4 id="logo">My pads</h4>
     <nav>
-        {% if pads %}
+        {% if pads.count %}
             <ul>
                 {% for pad in pads %}
                     <li><a href="{{ path('pad_notes', {'id': pad.id})}}">{{ pad.name }}</a></li>
