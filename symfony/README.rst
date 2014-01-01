@@ -24,7 +24,7 @@ Clone the repo:
 Install environment
 -------------------
 
-TODO
+Install composer
 
 ------
 Launch
