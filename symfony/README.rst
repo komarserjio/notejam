@@ -26,6 +26,18 @@ Install environment
 
 Install composer
 
+.. code-block:: bash
+
+    $ curl -s https://getcomposer.org/installer | php
+
+Install dependencies
+
+.. code-block:: bash
+
+    $ php composer.phar install
+
+
+
 ------
 Launch
 ------
