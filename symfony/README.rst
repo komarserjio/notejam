@@ -68,6 +68,8 @@ Run unit tests:
 Contribution
 ============
 
+Are you symfony guru? You are welcomve to contribute to improve the implementation.
+
 Please send your pull requests in the ``symfony`` branch, not ``master``.
 
 Always prepend your commits with a framework name:
