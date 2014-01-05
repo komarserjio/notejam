@@ -222,6 +222,11 @@ class User implements UserInterface, \Serializable
         return $this->pads;
     }
 
+    /**
+     * Get user notes
+     *
+     * @return Notes
+     */
     public function getNotes() {
         return $this->notes;
     }
