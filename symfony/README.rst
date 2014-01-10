@@ -51,11 +51,11 @@ Start built-in symfony web server:
 
 Go to http://localhost:8000/ in your browser.
 
-------------------
-Running unit tests
-------------------
+-------------
+Running tests
+-------------
 
-Run unit tests:
+Run tests:
 
 .. code-block:: bash
 
