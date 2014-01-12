@@ -41,4 +41,3 @@ security:
         - { path: /notes, roles: ROLE_USER }
         - { path: /pads, roles: ROLE_USER }
         - { path: /, roles: ROLE_USER }
-        # for dev needs
