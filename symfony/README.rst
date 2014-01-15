@@ -60,7 +60,7 @@ Run tests:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/symfony/notejam/
-    $ phpunit
+    $ ./bin/phpunit src/Notejam/
 
 
 
