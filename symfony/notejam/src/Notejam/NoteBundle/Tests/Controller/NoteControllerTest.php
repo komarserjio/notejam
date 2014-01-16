@@ -33,5 +33,8 @@ class NoteControllerTest extends WebTestCase
     public function testViewNoteSuccess()
     {
     }
+
+    public function testViewNoteFailAnotherUser() {
+    }
 }
 
