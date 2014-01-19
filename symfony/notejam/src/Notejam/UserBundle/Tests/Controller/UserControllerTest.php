@@ -10,15 +10,19 @@ class UserControllerTest extends WebTestCase
     {
     }
 
-    public function testSignupErrorInvalidEmail() 
+    public function testSignupFailInvalidEmail() 
     {
     }
 
-    public function testSignupErrorPasswords() 
+    public function testSignupFailEmailAlreadyExists() 
     {
     }
 
-    public function testSignupErrorRequiredFields() 
+    public function testSignupFailPasswordsDoNotMatch() 
+    {
+    }
+
+    public function testSignupFailRequiredFields() 
     {
     }
 
