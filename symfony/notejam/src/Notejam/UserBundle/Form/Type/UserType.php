@@ -17,9 +17,7 @@ class UserType extends AbstractType
            'type'        => 'password',
            'invalid_message' => 'The password fields do not match.',
         ));
-        $builder->add('save', 'submit', array(
-            'attr' => array('type' => 'submit') 
-        ));
+        $builder->add('save', 'submit');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -8,6 +8,13 @@ class UserControllerTest extends WebTestCase
 {
     public function testSignupSuccess() 
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/signup');
+        $form = $crawler->filter('button')->form();
+        $form['user[email]'] = 'test@example.com';
+        $form['user[password][password]'] = 'test@example.com';
+        $form['user[password][confirm]'] = 'test@example.com';
+        $crawler = $client->submit($form);
     }
 
     public function testSignupFailInvalidEmail() 
