@@ -8,12 +8,17 @@ class UserControllerTest extends WebTestCase
 {
     public function setUp() {
         $this->loadFixtures(array());
+        static::$kernel = static::createKernel(array('environment' => 'test'));
+        static::$kernel->boot();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager() ;
+        
     }
 
     public function testSignupSuccess() 
     {
         $client = static::createClient();
-        $this->loadFixtures(array());
         $crawler = $client->request('GET', '/signup');
         $form = $crawler->filter('button')->form();
         $form['user[email]'] = 'test1@example.com';
@@ -21,6 +26,9 @@ class UserControllerTest extends WebTestCase
         $form['user[password][confirm]'] = 'test@example.com';
         $crawler = $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect());
+        $this->assertCount(
+            1, $this->em->getRepository('NotejamUserBundle:User')->findAll()
+        );
     }
 
     public function testSignupFailInvalidEmail() 
