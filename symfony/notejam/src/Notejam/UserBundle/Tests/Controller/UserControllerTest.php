@@ -45,6 +45,11 @@ class UserControllerTest extends WebTestCase
 
     public function testSignupFailRequiredFields() 
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/signup');
+        $form = $crawler->filter('button')->form();
+        $crawler = $client->submit($form);
+        $this->assertEquals(3, $crawler->filter('ul.errorlist > li')->count());
     }
 
     public function testSigninSuccess() 
