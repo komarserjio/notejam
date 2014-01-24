@@ -33,6 +33,14 @@ class UserControllerTest extends WebTestCase
 
     public function testSignupFailInvalidEmail() 
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/signup');
+        $form = $crawler->filter('button')->form();
+        $form['user[email]'] = 'invalid email';
+        $form['user[password][password]'] = 'password';
+        $form['user[password][confirm]'] = 'password';
+        $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('ul.errorlist > li')->count());
     }
 
     public function testSignupFailEmailAlreadyExists() 
