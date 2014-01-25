@@ -41,6 +41,9 @@ class UserControllerTest extends WebTestCase
         $form['user[password][confirm]'] = 'password';
         $crawler = $client->submit($form);
         $this->assertEquals(1, $crawler->filter('ul.errorlist > li')->count());
+        $this->assertEquals(
+            'Email is invalid', $crawler->filter('ul.errorlist > li')->text()
+        );
     }
 
     public function testSignupFailEmailAlreadyExists() 
