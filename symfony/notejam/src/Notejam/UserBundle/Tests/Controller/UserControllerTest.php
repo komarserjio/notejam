@@ -21,7 +21,7 @@ class UserControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request('GET', '/signup');
         $form = $crawler->filter('button')->form();
-        $form['user[email]'] = 'test1@example.com';
+        $form['user[email]'] = 'test@example.com';
         $form['user[password][password]'] = 'test@example.com';
         $form['user[password][confirm]'] = 'test@example.com';
         $crawler = $client->submit($form);
@@ -52,6 +52,18 @@ class UserControllerTest extends WebTestCase
 
     public function testSignupFailPasswordsDoNotMatch() 
     {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/signup');
+        $form = $crawler->filter('button')->form();
+        $form['user[email]'] = 'test@example.com';
+        $form['user[password][password]'] = 'password1';
+        $form['user[password][confirm]'] = 'password2';
+        $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('ul.errorlist > li')->count());
+        $this->assertEquals(
+            'The password fields do not match.', 
+            $crawler->filter('ul.errorlist > li')->text()
+        );
     }
 
     public function testSignupFailRequiredFields() 
