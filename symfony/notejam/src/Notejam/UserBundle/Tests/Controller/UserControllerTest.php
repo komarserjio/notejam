@@ -2,7 +2,7 @@
 namespace Notejam\NoteBundle\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
-
+use Notejam\UserBundle\Entity\User;
 
 class UserControllerTest extends WebTestCase
 {
@@ -48,6 +48,24 @@ class UserControllerTest extends WebTestCase
 
     public function testSignupFailEmailAlreadyExists() 
     {
+        $email = 'test@example.com';
+        $user = new User();
+        $user->setEmail($email)
+             ->setPassword('123123');
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/signup');
+        $form = $crawler->filter('button')->form();
+        $form['user[email]'] = $email;
+        $form['user[password][password]'] = 'password';
+        $form['user[password][confirm]'] = 'password';
+        $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('ul.errorlist > li')->count());
+        $this->assertEquals(
+            'Email already taken', $crawler->filter('ul.errorlist > li')->text()
+        );
     }
 
     public function testSignupFailPasswordsDoNotMatch() 
