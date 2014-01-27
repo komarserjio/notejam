@@ -5,6 +5,8 @@ namespace Notejam\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
 
 class UserType extends AbstractType
 {
@@ -15,11 +17,12 @@ class UserType extends AbstractType
            'first_name'  => 'password',
            'second_name' => 'confirm',
            'type'        => 'password',
+           'second_options' => array(
+               'constraints' => array(new NotBlank()),
+           ),
            'invalid_message' => 'The password fields do not match.',
         ));
-        $builder->add('save', 'submit', array(
-            'attr' => array('type' => 'submit') 
-        ));
+        $builder->add('save', 'submit');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -28,11 +28,16 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank()
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message = "Email is invalid"
+     * )
      */
     private $email;
 

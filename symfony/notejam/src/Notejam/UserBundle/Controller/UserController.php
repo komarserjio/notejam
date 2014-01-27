@@ -22,7 +22,7 @@ class UserController extends Controller
         $form = $this->createForm(new UserType(), new User());
 
         if ($request->getMethod() == 'POST') {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $user = $form->getData();
@@ -105,7 +105,7 @@ class UserController extends Controller
                         $newPassword, $user->getSalt());
                     $user->setPassword($password);
 
-                    $em = $this->getDoctrine()->getEntityManager();
+                    $em = $this->getDoctrine()->getManager();
                     $em->persist($user);
                     $em->flush();
 
@@ -149,7 +149,7 @@ class UserController extends Controller
                     $passwordData['new_password'], $user->getSalt());
                 $user->setPassword($password);
 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
 

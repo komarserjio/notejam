@@ -22,7 +22,9 @@
         "incenteev/composer-parameter-handler": "~2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "3.7.*",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "liip/functional-test-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
