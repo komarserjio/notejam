@@ -64,7 +64,8 @@ class UserControllerTest extends WebTestCase
         $crawler = $client->submit($form);
         $this->assertEquals(1, $crawler->filter('ul.errorlist > li')->count());
         $this->assertEquals(
-            'Email already taken', $crawler->filter('ul.errorlist > li')->text()
+            'Email already taken', 
+            $crawler->filter('ul.errorlist > li')->text()
         );
     }
 
