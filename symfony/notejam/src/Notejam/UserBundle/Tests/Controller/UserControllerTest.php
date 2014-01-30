@@ -8,6 +8,7 @@ class UserControllerTest extends WebTestCase
 {
     public function setUp() {
         $this->loadFixtures(array());
+        // init kernel to init entity manager
         static::$kernel = static::createKernel(array('environment' => 'test'));
         static::$kernel->boot();
         $this->em = static::$kernel->getContainer()
