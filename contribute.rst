@@ -47,16 +47,16 @@ Specify guidelines in a README file in a code style section.
 Application requirements
 ========================
 
-Notejam is web application that allows user to sign up/in/out and create/view/edit/delete notes. 
-Notes are grouped by pads.
+Notejam is a web application which allows user to sign up/in/out and 
+create/view/edit/delete notes and pads.
 
-Live demo at http://notejamapp.com.
+Live demo at (TBD).
 
 ---------------------
 Pages to be implement
 ---------------------
 
-All layouts are sliced and located in the `html` folder.
+All html layouts are available in the `html` folder.
 
 **User pages**
 
@@ -99,15 +99,13 @@ All layouts are sliced and located in the `html` folder.
 I18N
 ----
 
-Application should support internationalization.
-All source texts are available in the language files. 
-Feel free to convert to any format that suits your application.
+Not supported yet
 
-----------
-Unit tests
-----------
+---------------------
+Functional/unit tests
+---------------------
 
-Unit tests are very desirable.
+Any kind of tests are very desirable.
 
 **Recommended test cases**
 
