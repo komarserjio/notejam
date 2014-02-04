@@ -30,3 +30,7 @@ Start django web server:
     $ rails server
 
 Go to http://127.0.0.1:3000/ in your browser.
+
+
+Run tests
+_---------
