@@ -32,5 +32,13 @@ Start django web server:
 Go to http://127.0.0.1:3000/ in your browser.
 
 
+---------
 Run tests
-_---------
+---------
+
+Start unit/functional tests:
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/rubyonrails/notejam/
+    $ rake test
