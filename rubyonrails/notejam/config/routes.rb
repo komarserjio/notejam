@@ -1,4 +1,8 @@
 Notejam::Application.routes.draw do
+  get "pad/edit"
+  get "pad/delete"
+  get "pad/create"
+  get "pad/list"
   get "note/list"
   get "note/edit"
   get "note/delete"
