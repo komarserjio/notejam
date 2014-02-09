@@ -10,4 +10,7 @@ class UserController < ApplicationController
 
   def signout
   end
+
+  def change_password
+  end
 end
