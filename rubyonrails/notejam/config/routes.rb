@@ -1,8 +1,16 @@
 Notejam::Application.routes.draw do
-  get "pad/edit"
-  get "pad/delete"
-  get "pad/create"
-  get "pad/list"
+  # You can have the root of your site routed with "root"
+  root 'note#list'
+
+  get "pads/:id/edit" => "pad#edit", as: :edit_pad
+  post "pads/:id/edit" => "pad#edit"
+  
+  get "pad/:id/delete" => "pad#delete", as: :delete_pad
+  post "pad/:id/delete" => "pad#delete"
+
+  get "pads/create" => "pad#create", as: :create_pad
+  post "pads/create" => "pad#create"
+
   get "note/list"
   get "note/edit"
   get "note/delete"
@@ -12,8 +20,6 @@ Notejam::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
