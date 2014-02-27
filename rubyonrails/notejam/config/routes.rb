@@ -11,7 +11,15 @@ Notejam::Application.routes.draw do
   get "pads/create" => "pad#create", as: :create_pad
   post "pads/create" => "pad#create"
 
-  get "note/list"
+  get "notes/create" => "note#create", as: :create_note
+  post "notes/create" => "note#create"
+
+  get "notes/:id/edit" => "note#edit", as: :edit_note
+  post "notes/:id/edit"
+
+  get "notes/:id/delete" => "note#delete", as: :delete
+  post "notes/:id/delete"
+
   get "note/edit"
   get "note/delete"
   get "note/create"
