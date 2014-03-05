@@ -1,12 +1,15 @@
 <?php
 namespace Notejam\NoteBundle\Tests\Controller;
 
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Notejam\UserBundle\Entity\User;
 
 class UserControllerTest extends WebTestCase
 {
-    public function setUp() {
+    public function setUp() 
+    {
         $this->loadFixtures(array());
         // init kernel to init entity manager
         static::$kernel = static::createKernel(array('environment' => 'test'));
@@ -15,6 +18,23 @@ class UserControllerTest extends WebTestCase
             ->get('doctrine')
             ->getManager() ;
         
+    }
+    
+    private function signIn($username, $password)
+    {
+        $client = static::createClient();
+        $session = $this->client->getContainer()->get('session');
+
+        $firewall = 'main';
+        $token = new UsernamePasswordToken(
+            $username, $password, $firewall, array('ROLE_USER')
+        );
+        $session->set('_security_'.$firewall, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $client->getCookieJar()->set($cookie);
+        return $client;
     }
 
     public function testSignupSuccess() 
