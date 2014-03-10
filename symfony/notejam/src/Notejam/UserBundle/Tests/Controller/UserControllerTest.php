@@ -121,6 +121,14 @@ class UserControllerTest extends WebTestCase
 
     public function testSigninFail() 
     {
+        $client = static::createClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', '/signin');
+        $form = $crawler->filter('button')->form();
+        $form['form[email]'] = 'test@example.com';
+        $form['form[password]'] = 'password1';
+        $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('div.alert-error')->count());
     }
 
     public function testSigninErrorRequiredFields() 
