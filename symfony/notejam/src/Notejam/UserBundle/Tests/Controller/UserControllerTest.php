@@ -19,8 +19,18 @@ class UserControllerTest extends WebTestCase
             ->getManager() ;
         
     }
+
+    private function _createUser($email, $password) {
+        $user = new User();
+        $user->setEmail($email)
+             ->setPassword($password);
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return $user;
+    }
     
-    private function signIn($username, $password)
+    private function _signIn($username, $password)
     {
         $client = static::createClient();
         $session = $this->client->getContainer()->get('session');
@@ -70,11 +80,7 @@ class UserControllerTest extends WebTestCase
     public function testSignupFailEmailAlreadyExists() 
     {
         $email = 'test@example.com';
-        $user = new User();
-        $user->setEmail($email)
-             ->setPassword('123123');
-        $this->em->persist($user);
-        $this->em->flush();
+        $user = $this->_createUser($email, '123123');
 
         $client = static::createClient();
         $crawler = $client->request('GET', '/signup');
