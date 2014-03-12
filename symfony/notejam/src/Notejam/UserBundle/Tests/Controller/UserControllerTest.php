@@ -22,8 +22,15 @@ class UserControllerTest extends WebTestCase
 
     private function _createUser($email, $password) {
         $user = new User();
+
+        $encoder = static::$kernel->getContainer()
+            ->get('security.encoder_factory')
+            ->getEncoder($user);
+
+        $password = $encoder->encodePassword($password, $user->getSalt());
         $user->setEmail($email)
              ->setPassword($password);
+
         $this->em->persist($user);
         $this->em->flush();
 
@@ -123,6 +130,21 @@ class UserControllerTest extends WebTestCase
 
     public function testSigninSuccess() 
     {
+        $email = 'test@example.com';
+        $password = '123123';
+        $user = $this->_createUser($email, $password);
+
+        $client = static::createClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', '/signin');
+        $form = $crawler->filter('button')->form();
+        $form['form[email]'] = $email;
+        $form['form[password]'] = $password;
+        $crawler = $client->submit($form);
+
+        $this->assertRegExp(
+            '/Sign out/', $client->getResponse()->getContent()
+        );
     }
 
     public function testSigninFail() 
