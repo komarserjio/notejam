@@ -5,6 +5,7 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Notejam\UserBundle\Entity\User;
+use Notejam\NoteBundle\Entity\Pad;
 
 class PadControllerTest extends WebTestCase
 {
@@ -34,6 +35,17 @@ class PadControllerTest extends WebTestCase
         $this->em->flush();
 
         return $user;
+    }
+
+    private function _createPad($name, $user) {
+        $pad = new Pad();
+        $pad->setName($name);
+        $pad->setUser($user);
+
+        $this->em->persist($pad);
+        $this->em->flush();
+
+        return $pad;
     }
 
     private function _signIn($user)
@@ -100,8 +112,17 @@ class PadControllerTest extends WebTestCase
     {
     }
 
-    public function testViewPadSuccess()
+    public function testViewPadNotesSuccess()
     {
+        $email = 'test@example.com';
+        $password = '123123';
+        $user = $this->_createUser($email, $password);
+
+        $pad = $this->_createPad('test pad', $user);
+        $client = $this->_signIn($user);
+        $client->followRedirects();
+        $crawler = $client->request('GET', "/pads/{$pad->getId()}");
+        $this->assertTrue($client->getResponse()->isSuccessful());
     }
 }
 
