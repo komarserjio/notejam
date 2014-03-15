@@ -12,6 +12,7 @@ class PadController extends Controller
     public function listAction()
     {
         $user = $this->get('security.context')->getToken()->getUser();
+        var_dump($user->getId());
         return $this->render(
             'NotejamNoteBundle:Pad:list.html.twig', 
             array('pads' => $user->getPads())
@@ -57,7 +58,7 @@ class PadController extends Controller
                     $this->get('security.context')->getToken()->getUser()
                 );
 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($pad);
                 $em->flush();
 
