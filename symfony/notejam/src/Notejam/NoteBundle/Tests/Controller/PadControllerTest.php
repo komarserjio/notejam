@@ -60,14 +60,28 @@ class PadControllerTest extends WebTestCase
         $user = $this->_createUser($email, $password);
 
         $client = $this->_signIn($user);
+        $client->followRedirects();
         $crawler = $client->request('GET', '/pads/create');
         $form = $crawler->filter('button')->form();
+        $form['pad[name]'] = 'Pad';
         $crawler = $client->submit($form);
-        $this->assertEquals(1, $crawler->filter('ul.errorlist > li')->count());
+        $this->assertEquals(1, $crawler->filter('nav > ul > li')->count());
+        $this->assertCount(
+            1, $this->em->getRepository('NotejamNoteBundle:Pad')->findAll()
+        );
     }
 
     public function testCreatePadErrorRequiredFields() 
     {
+        $email = 'test@example.com';
+        $password = '123123';
+        $user = $this->_createUser($email, $password);
+
+        $client = $this->_signIn($user);
+        $crawler = $client->request('GET', '/pads/create');
+        $form = $crawler->filter('button')->form();
+        $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('ul.errorlist > li')->count());
     }
 
     public function testEditPadSuccess() 
