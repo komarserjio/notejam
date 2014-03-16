@@ -125,6 +125,17 @@ class PadControllerTest extends WebTestCase
 
     public function testEditPadErrorRequiredFields() 
     {
+        $email = 'test@example.com';
+        $password = '123123';
+        $user = $this->_createUser($email, $password);
+        $pad = $this->_createPad('initial pad', $user);
+
+        $client = $this->_signIn($user);
+        $crawler = $client->request('GET', "/pads/{$pad->getId()}/edit");
+        $form = $crawler->filter('button')->form();
+        $form['pad[name]'] = "";
+        $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('ul.errorlist > li')->count());
     }
 
     public function testDeletePadSuccess()
