@@ -140,10 +140,32 @@ class PadControllerTest extends WebTestCase
 
     public function testDeletePadSuccess()
     {
+        $email = 'test@example.com';
+        $password = '123123';
+        $user = $this->_createUser($email, $password);
+        $pad = $this->_createPad('test pad', $user);
+
+        $client = $this->_signIn($user);
+        $crawler = $client->request('GET', "/pads/{$pad->getId()}/delete");
+        $form = $crawler->filter('button')->form();
+        $crawler = $client->submit($form);
+
+        $this->assertCount(
+            0, $this->getEm()->getRepository('NotejamNoteBundle:Pad')->findAll()
+        );
     }
 
     public function testDeletePadErrorAnotherUser()
     {
+        $email = 'test@example.com';
+        $password = '123123';
+        $user = $this->_createUser($email, $password);
+        $pad = $this->_createPad('test pad', $user);
+
+        $anotherUser = $this->_createUser('test2@example.com', $password);
+        $client = $this->_signIn($anotherUser);
+        $crawler = $client->request('GET', "/pads/{$pad->getId()}/delete");
+        $this->assertTrue($client->getResponse()->isNotFound());
     }
 
     public function testViewPadNotesSuccess()

@@ -28,6 +28,9 @@ class PadController extends Controller
                     ->getRepository('NotejamNoteBundle:Pad')
                     ->findOneBy(array('id' => $id, 
                                       'user' => $user));
+        if (!$pad) {
+            throw $this->createNotFoundException('The pad does not exist');
+        }
 
         $notes = $this->getDoctrine()
                       ->getRepository('NotejamNoteBundle:Note')
@@ -82,6 +85,9 @@ class PadController extends Controller
                     ->getRepository('NotejamNoteBundle:Pad')
                     ->findOneBy(array('id' => $id, 
                                       'user' => $user));
+        if (!$pad) {
+            throw $this->createNotFoundException('The pad does not exist');
+        }
 
         $form = $this->createForm(new PadType(), $pad);
         if ($request->getMethod() == 'POST') {
@@ -112,8 +118,11 @@ class PadController extends Controller
                     ->getRepository('NotejamNoteBundle:Pad')
                     ->findOneBy(array('id' => $id, 
                                       'user' => $user));
+        if (!$pad) {
+            throw $this->createNotFoundException('The pad does not exist');
+        }
         if ($request->getMethod() == 'POST') {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($pad);
             $em->flush();
 
