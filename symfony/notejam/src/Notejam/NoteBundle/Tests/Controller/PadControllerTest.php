@@ -19,6 +19,13 @@ class PadControllerTest extends WebTestCase
             ->get('doctrine')
             ->getManager() ;
     }
+
+    public function getEm() {
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager() ;
+        return $this->em;
+    }
     
     private function _createUser($email, $password) {
         $user = new User();
@@ -98,6 +105,22 @@ class PadControllerTest extends WebTestCase
 
     public function testEditPadSuccess() 
     {
+        $email = 'test@example.com';
+        $password = '123123';
+        $user = $this->_createUser($email, $password);
+        $pad = $this->_createPad('initial pad', $user);
+
+        $client = $this->_signIn($user);
+        $crawler = $client->request('GET', "/pads/{$pad->getId()}/edit");
+        $form = $crawler->filter('button')->form();
+        $newName = 'new pad name';
+        $form['pad[name]'] = $newName;
+        $crawler = $client->submit($form);
+
+        $updatedPad = $this->getEm()->getRepository(
+            'NotejamNoteBundle:Pad'
+        )->find(1);
+        $this->assertEquals($newName, $updatedPad->getName());
     }
 
     public function testEditPadErrorRequiredFields() 
@@ -117,8 +140,8 @@ class PadControllerTest extends WebTestCase
         $email = 'test@example.com';
         $password = '123123';
         $user = $this->_createUser($email, $password);
-
         $pad = $this->_createPad('test pad', $user);
+
         $client = $this->_signIn($user);
         $client->followRedirects();
         $crawler = $client->request('GET', "/pads/{$pad->getId()}");
