@@ -15,9 +15,6 @@ class PadControllerTest extends WebTestCase
         // init kernel to init entity manager
         static::$kernel = static::createKernel(array('environment' => 'test'));
         static::$kernel->boot();
-        $this->em = static::$kernel->getContainer()
-            ->get('doctrine')
-            ->getManager() ;
     }
 
     public function getEm() {
@@ -38,8 +35,8 @@ class PadControllerTest extends WebTestCase
         $user->setEmail($email)
              ->setPassword($password);
 
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->getEm()->persist($user);
+        $this->getEm()->flush();
 
         return $user;
     }
@@ -49,8 +46,8 @@ class PadControllerTest extends WebTestCase
         $pad->setName($name);
         $pad->setUser($user);
 
-        $this->em->persist($pad);
-        $this->em->flush();
+        $this->getEm()->persist($pad);
+        $this->getEm()->flush();
 
         return $pad;
     }
@@ -86,7 +83,7 @@ class PadControllerTest extends WebTestCase
         $crawler = $client->submit($form);
         $this->assertEquals(1, $crawler->filter('nav > ul > li')->count());
         $this->assertCount(
-            1, $this->em->getRepository('NotejamNoteBundle:Pad')->findAll()
+            1, $this->getEm()->getRepository('NotejamNoteBundle:Pad')->findAll()
         );
     }
 
