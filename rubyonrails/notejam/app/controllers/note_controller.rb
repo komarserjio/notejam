@@ -1,4 +1,5 @@
 class NoteController < ApplicationController
+  layout 'user'
   def list
   end
 
