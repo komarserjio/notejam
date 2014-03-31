@@ -2,12 +2,12 @@
 Notejam project
 ***************
 
-Notejam is a typical web application implemented using different popular server-side frameworks.
+Do you know django/yii/symfony/... and want to try rails/pyramid/flash/...? One of the
+most easiest way to start up with a new framework is to compare it with frameworks you already know.
 
-Purpose of the project is to help web developers to learn new frameworks by comparing how the same tasks are solved
-by different frameworks. 
+Notejam is a simple web application (more than just Hello World) implemented using different popular server-side frameworks.
 
-The idea is very similar to well known javascript project https://github.com/tastejs/todomvc
+Compare, learn and have fun :)
 
 ====================
 Supported frameworks
@@ -51,13 +51,13 @@ In progress
 Live demo
 =========
 
-TBD
+Not available yet.
 
 ============
 Contribution
 ============
 
-Contribution is very welcome!
+Contribution is more than welcome!
 
 **Do you want improve one of the existing applications?**
 
