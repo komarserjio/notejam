@@ -12,6 +12,7 @@ class PadController extends Controller
     public function listAction()
     {
         $user = $this->get('security.context')->getToken()->getUser();
+        var_dump($user->getId());
         return $this->render(
             'NotejamNoteBundle:Pad:list.html.twig', 
             array('pads' => $user->getPads())
@@ -27,6 +28,9 @@ class PadController extends Controller
                     ->getRepository('NotejamNoteBundle:Pad')
                     ->findOneBy(array('id' => $id, 
                                       'user' => $user));
+        if (!$pad) {
+            throw $this->createNotFoundException('The pad does not exist');
+        }
 
         $notes = $this->getDoctrine()
                       ->getRepository('NotejamNoteBundle:Note')
@@ -57,7 +61,7 @@ class PadController extends Controller
                     $this->get('security.context')->getToken()->getUser()
                 );
 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($pad);
                 $em->flush();
 
@@ -81,12 +85,15 @@ class PadController extends Controller
                     ->getRepository('NotejamNoteBundle:Pad')
                     ->findOneBy(array('id' => $id, 
                                       'user' => $user));
+        if (!$pad) {
+            throw $this->createNotFoundException('The pad does not exist');
+        }
 
         $form = $this->createForm(new PadType(), $pad);
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($form->getData());
                 $em->flush();
 
@@ -111,8 +118,11 @@ class PadController extends Controller
                     ->getRepository('NotejamNoteBundle:Pad')
                     ->findOneBy(array('id' => $id, 
                                       'user' => $user));
+        if (!$pad) {
+            throw $this->createNotFoundException('The pad does not exist');
+        }
         if ($request->getMethod() == 'POST') {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($pad);
             $em->flush();
 

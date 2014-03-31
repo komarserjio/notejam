@@ -1,12 +1,15 @@
 <?php
 namespace Notejam\NoteBundle\Tests\Controller;
 
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Notejam\UserBundle\Entity\User;
 
 class UserControllerTest extends WebTestCase
 {
-    public function setUp() {
+    public function setUp() 
+    {
         $this->loadFixtures(array());
         // init kernel to init entity manager
         static::$kernel = static::createKernel(array('environment' => 'test'));
@@ -16,6 +19,41 @@ class UserControllerTest extends WebTestCase
             ->getManager() ;
         
     }
+
+    private function _createUser($email, $password) {
+        $user = new User();
+
+        $encoder = static::$kernel->getContainer()
+            ->get('security.encoder_factory')
+            ->getEncoder($user);
+
+        $password = $encoder->encodePassword($password, $user->getSalt());
+        $user->setEmail($email)
+             ->setPassword($password);
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return $user;
+    }
+    
+    private function _signIn($username, $password)
+    {
+        $client = static::createClient();
+        $session = $this->client->getContainer()->get('session');
+
+        $firewall = 'main';
+        $token = new UsernamePasswordToken(
+            $username, $password, $firewall, array('ROLE_USER')
+        );
+        $session->set('_security_'.$firewall, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $client->getCookieJar()->set($cookie);
+        return $client;
+    }
+
     public function testSignupSuccess() 
     {
         $client = static::createClient();
@@ -49,11 +87,7 @@ class UserControllerTest extends WebTestCase
     public function testSignupFailEmailAlreadyExists() 
     {
         $email = 'test@example.com';
-        $user = new User();
-        $user->setEmail($email)
-             ->setPassword('123123');
-        $this->em->persist($user);
-        $this->em->flush();
+        $user = $this->_createUser($email, '123123');
 
         $client = static::createClient();
         $crawler = $client->request('GET', '/signup');
@@ -96,13 +130,37 @@ class UserControllerTest extends WebTestCase
 
     public function testSigninSuccess() 
     {
+        $email = 'test@example.com';
+        $password = '123123';
+        $user = $this->_createUser($email, $password);
+
+        $client = static::createClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', '/signin');
+        $form = $crawler->filter('button')->form();
+        $form['form[email]'] = $email;
+        $form['form[password]'] = $password;
+        $crawler = $client->submit($form);
+
+        $this->assertRegExp(
+            '/Sign out/', $client->getResponse()->getContent()
+        );
     }
 
     public function testSigninFail() 
     {
+        $client = static::createClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', '/signin');
+        $form = $crawler->filter('button')->form();
+        $form['form[email]'] = 'test@example.com';
+        $form['form[password]'] = 'password1';
+        $crawler = $client->submit($form);
+        $this->assertEquals(1, $crawler->filter('div.alert-error')->count());
     }
 
     public function testSigninErrorRequiredFields() 
     {
+        // @TODO not impelemented yet
     }
 }
