@@ -1,32 +1,17 @@
-<h1>User#signup</h1>
-<p>Find me in app/views/user/signup.html.erb</p>
+<% content_for :page_title do %>Sign Up<% end %>
 
-<%#<form class="offset-by-six sign-in">%>
-    <%#<label for="regularInput">Email</label>%>
-    <%#<input type="text" id="regularInput">%>
-    <%#<label for="regularInput">Password</label>%>
-    <%#<input type="password" id="regularInput">%>
-    <%#<label for="regularInput">Confirm password</label>%>
-    <%#<input type="password" id="regularInput">%>
-    <%#<button type="submit">Sign Up</button>%>
-<%#</form>%>
-
-<%= form_for :user do |f| %>
-  <p>
+<%= form_for :user, :html => {:class => "offset-by-six sign-in"} do |f| %>
     <%= f.label :email %>
     <%= f.text_field :email %>
     <%= field_errors :email, @user %>
-  </p>
-  <p>
+
     <%= f.label :password %>
     <%= f.password_field :password %>
-  </p>
-  <p>
+    <%= field_errors :password, @user %>
+
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
-  </p>
+    <%= field_errors :password_confirmation, @user %>
  
-  <p>
     <%= f.submit "Sign Up" %>
-  </p>
 <% end %>
