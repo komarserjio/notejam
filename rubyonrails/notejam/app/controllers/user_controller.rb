@@ -3,6 +3,7 @@ class UserController < ApplicationController
     if params[:user]
       @user = User.new(user_params)
       if @user.valid?
+        @user.save
         redirect_to url_for :signin
       end
     end
