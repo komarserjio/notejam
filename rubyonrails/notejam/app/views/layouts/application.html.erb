@@ -59,6 +59,11 @@
             </div>
         <% end %>
         <div class="<% if content_for?(:content_class) %><%= yield(:content_class) %><% else %>thirteen<% end %> columns content-area">
+            <div class="alert-area">
+                <% flash.each do |name, msg| -%>
+                    <div class="alert alert-<%= name %>"><%= msg %></div>
+                <% end -%>
+            </div>
             <%= content_for?(:content) ? yield(:content) : yield %>
         </div>
         <hr class="footer" />
