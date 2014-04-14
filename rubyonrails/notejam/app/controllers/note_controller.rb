@@ -1,4 +1,5 @@
 class NoteController < ApplicationController
+  before_filter :authenticate_user
   layout 'user'
   def list
   end
