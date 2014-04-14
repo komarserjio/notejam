@@ -1,2 +1,9 @@
-<h1>Pad#create</h1>
-<p>Find me in app/views/pad/create.html.erb</p>
+<% content_for :page_title do %>Create a Pad<% end %>
+
+<%= form_for :pad do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= field_errors :name, @pad %>
+ 
+    <%= f.submit "Create" %>
+<% end %>

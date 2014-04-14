@@ -9,10 +9,10 @@ Notejam::Application.routes.draw do
   get "pads/:id/delete" => "pad#delete", as: :delete_pad
   post "pads/:id/delete" => "pad#delete"
 
-  get "pads/:id/" => "pad#view", as: :view_pad_notes
-
   get "pads/create" => "pad#create", as: :create_pad
   post "pads/create" => "pad#create"
+
+  get "pads/:id/" => "pad#view", as: :view_pad_notes
 
   # Note urls
   get "notes/create" => "note#create", as: :create_note
