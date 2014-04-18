@@ -12,9 +12,27 @@ class PadController < ApplicationController
   end
 
   def edit
+    @pad = Pad.find(params[:id])
+    @current_name = @pad.name
+    if params[:pad]
+      if @pad.update(pad_params)
+        redirect_to(
+          all_notes_path,
+          :flash => {:success => "Pad is updated"}
+        )
+      end
+    end
   end
 
   def delete
+    @pad = Pad.find(params[:id])
+    if request.post?
+        @pad.destroy
+        redirect_to(
+          all_notes_path,
+          :flash => {:success => "Pad was deleted"}
+        )
+    end
   end
 
   def view

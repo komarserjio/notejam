@@ -231,7 +231,7 @@ a.delete-note {
     color: red;
 }
 
-.red {
+.red, input[type=submit].red {
     color: red;
 }
 

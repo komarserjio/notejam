@@ -1,2 +1,7 @@
-<h1>Pad#delete</h1>
-<p>Find me in app/views/pad/delete.html.erb</p>
+<% content_for :page_title do %>Delete pad: <%= @pad.name %><% end %>
+
+<p>Are you sure you want to delete <%= @pad.name %>?</p>
+<%= form_for :pad do |f| %>
+    <%= f.submit "Yes, I want to delete this pad", :class => "red" %>
+    <%= link_to "Cancel", all_notes_path %>
+<% end %>

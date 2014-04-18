@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140414192524) do
+ActiveRecord::Schema.define(version: 20140418215526) do
+
+  create_table "notes", force: true do |t|
+    t.string   "name"
+    t.string   "text"
+    t.integer  "pad_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notes", ["pad_id"], name: "index_notes_on_pad_id"
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id"
 
   create_table "pads", force: true do |t|
     t.string   "name"
