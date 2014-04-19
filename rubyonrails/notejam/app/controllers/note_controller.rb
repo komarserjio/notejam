@@ -1,6 +1,7 @@
 class NoteController < ApplicationController
   before_filter :authenticate_user
   def list
+    @notes = current_user.notes.order('name DESC')
   end
 
   def edit
@@ -14,7 +15,7 @@ class NoteController < ApplicationController
       @note = current_user.notes.create(note_params)
       if @note.valid?
         redirect_to(
-          url_for(:all_notes), 
+          all_notes_path,
           :flash => {:success => "Note is created"}
         )
       end
