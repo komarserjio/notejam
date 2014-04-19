@@ -1,9 +1,9 @@
 <% content_for :page_title do %>All notes<% end %>
 <table class="notes">
     <tr>
-        <th class="note">Note <a href="#" class="sort_arrow">↑</a><a href="#" class="sort_arrow">↓</a></th>
+        <th class="note">Note <a href="<%= all_notes_path + "?order=name" %>" class="sort_arrow">↑</a><a href="<%= all_notes_path + "?order=-name" %>" class="sort_arrow">↓</a></th>
         <th>Pad</th>
-        <th class="date">Last modified <a href="#" class="sort_arrow">↑</a><a href="#" class="sort_arrow">↓</a></th>
+        <th class="date">Last modified <a href="<%= all_notes_path + "?order=updated_at" %>" class="sort_arrow">↑</a><a href="<%= all_notes_path + "?order=-updated_at" %>" class="sort_arrow">↓</a></th>
     </tr>
     <% @notes.each do |note|  -%>
     <tr>
@@ -15,7 +15,7 @@
                 <p class="empty">No pad</p>
             <% end %> 
         </td>
-        <td class="hidden-text date"><%= note.updated_at %></td>
+        <td class="hidden-text date"><%= smart_date note.updated_at %></td>
     </tr>
     <% end -%>
 </table>
