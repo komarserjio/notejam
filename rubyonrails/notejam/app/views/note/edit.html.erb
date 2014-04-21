@@ -1,0 +1,16 @@
+<% content_for :page_title do %>Edit note: <%= @current_name %><% end %>
+
+<%= form_for :note do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= field_errors :name, @note %>
+
+    <%= f.label :text %>
+    <%= f.text_area :text %>
+    <%= field_errors :text, @note %>
+
+    <%= f.label :pad %>
+    <%= f.collection_select :pad_id, Pad.all, :id, :name, :prompt => "--------" %>
+ 
+    <%= f.submit "Save" %>
+<% end %>

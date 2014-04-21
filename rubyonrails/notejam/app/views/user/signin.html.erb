@@ -1,0 +1,11 @@
+<% content_for :page_title do %>Sign In<% end %>
+
+<%= form_tag({}, {:class => "offset-by-six sign-in"}) do %>
+    <%= label_tag :email %>
+    <%= text_field_tag :email, nil, :required => true %>
+
+    <%= label_tag :password %>
+    <%= password_field_tag :password %>
+
+    <%= submit_tag "Sign In" %>
+<% end %>
