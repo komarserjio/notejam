@@ -1,6 +1,6 @@
 <% content_for :page_title do %>Create a Note<% end %>
 
-<%= form_for :note do |f| %>
+<%= form_for :note, :html => {:class => "note"} do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
     <%= field_errors :name, @note %>
@@ -10,7 +10,7 @@
     <%= field_errors :text, @note %>
 
     <%= f.label :pad %>
-    <%= f.collection_select :pad_id, Pad.all, :id, :name %>
+    <%= f.collection_select :pad_id, Pad.all, :id, :name, :prompt => "--------", :selected => params[:pad] %>
  
     <%= f.submit "Save" %>
 <% end %>

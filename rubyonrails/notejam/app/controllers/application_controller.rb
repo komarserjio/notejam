@@ -14,7 +14,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
   private
+    def order_param
+      order = params[:order] || '-updated_at'
+      {"name" => "name ASC",
+       "-name" => "name DESC",
+       "updated_at" => "updated_at ASC",
+       "-updated_at" => "updated_at DESC"}[order]
+    end
+
     def current_user
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
     end

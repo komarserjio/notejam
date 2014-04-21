@@ -19,7 +19,7 @@ Notejam::Application.routes.draw do
   post "notes/create" => "note#create"
 
   get "notes/:id/edit" => "note#edit", as: :edit_note
-  post "notes/:id/edit" => "notes#edit"
+  post "notes/:id/edit" => "note#edit"
 
   get "notes/:id/delete" => "note#delete", as: :delete_note
   post "notes/:id/delete" => "note#delete"
@@ -32,6 +32,9 @@ Notejam::Application.routes.draw do
 
   get "signin/" => "user#signin", as: :signin
   post "signin/" => "user#signin"
+
+  get "settings/" => "user#settings", as: :settings
+  post "settings/" => "user#settings"
 
   get "signout/" => "user#signout", as: :signout
 

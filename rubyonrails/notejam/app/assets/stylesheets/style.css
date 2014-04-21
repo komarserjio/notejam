@@ -153,7 +153,7 @@ td.date {
     font-style: italic;
 }
 
-form.note input, form.note textarea {
+form.note input[type=text], form.note textarea {
     width: 100%;
 }
 

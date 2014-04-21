@@ -5,6 +5,16 @@ class NoteController < ApplicationController
   end
 
   def edit
+    @note = current_user.notes.find(params[:id])
+    @current_name = @note.name
+    if params[:note]
+      if @note.update(note_params)
+        redirect_to(
+          all_notes_path,
+          :flash => {:success => "Note is updated"}
+        )
+      end
+    end
   end
 
   def delete
@@ -23,19 +33,11 @@ class NoteController < ApplicationController
   end
 
   def view
+    @note = current_user.notes.find(params[:id])
   end
 
   private
     def note_params
       params.require(:note).permit(:name, :text, :pad_id)
-    end
-
-    def order_param
-      if params[:order]
-        {"name" => "name ASC",
-         "-name" => "name DESC",
-         "updated_at" => "updated_at ASC",
-         "-updated_at" => "updated_at DESC"}[params[:order]]
-      end
     end
 end

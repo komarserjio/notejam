@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-    <title><%= yield(:title) %></title>
+    <title><%= yield(:page_title) %></title>
 	<meta name="description" content="Notejam, Ruby on Rails">
 	<meta name="author" content="komarserjio@gmail.com">
 
@@ -33,7 +33,7 @@
         <div class="sixteen columns">
             <div class="sign-in-out-block">
                 <% if current_user %>
-                    <%= current_user.email %>:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signout) %>">Sign out</a>
+                    <%= current_user.email %>:&nbsp; <%= link_to "Account Settings", settings_path %>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signout) %>">Sign out</a>
                 <% else %>
                     <a href="<%= url_for(:signin) %>">Sign In</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signup) %>">Sign Up</a>
                 <% end %>
@@ -53,7 +53,7 @@
                     <% if current_user.pads.count.nonzero? %>
                         <ul>
                         <% current_user.pads.each do |pad| -%>
-                            <li><%= link_to pad.name, edit_pad_path(:id => pad.id) %></li>
+                            <li><%= link_to pad.name, view_pad_notes_path(:id => pad.id) %></li>
                         <% end -%>
                         </ul>
                     <% else %>

@@ -1,4 +1,5 @@
-<% content_for :page_title do %>All notes<% end %>
+<% content_for :page_title do %>All notes (<%= @notes.count %>)<% end %>
+<% if @notes.count.nonzero? %>
 <table class="notes">
     <tr>
         <th class="note">Note <a href="<%= all_notes_path + "?order=name" %>" class="sort_arrow">↑</a><a href="<%= all_notes_path + "?order=-name" %>" class="sort_arrow">↓</a></th>
@@ -12,10 +13,14 @@
             <% if note.pad %> 
                 <%= link_to note.pad.name, edit_pad_path(:id => note.pad.id) %>
             <% else %> 
-                <p class="empty">No pad</p>
+                No pad
             <% end %> 
         </td>
         <td class="hidden-text date"><%= smart_date note.updated_at %></td>
     </tr>
     <% end -%>
 </table>
+<% else %>
+    <p class="empty">No notes yet.</p>
+<% end %>
+<%= link_to "Create a note", create_note_path, :class => "button" %>

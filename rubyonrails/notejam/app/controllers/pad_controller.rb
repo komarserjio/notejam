@@ -12,7 +12,7 @@ class PadController < ApplicationController
   end
 
   def edit
-    @pad = Pad.find(params[:id])
+    @pad = current_user.pads.find(params[:id])
     @current_name = @pad.name
     if params[:pad]
       if @pad.update(pad_params)
@@ -25,7 +25,7 @@ class PadController < ApplicationController
   end
 
   def delete
-    @pad = Pad.find(params[:id])
+    @pad = current_user.pads.find(params[:id])
     if request.post?
         @pad.destroy
         redirect_to(
@@ -36,6 +36,8 @@ class PadController < ApplicationController
   end
 
   def view
+    @pad = current_user.pads.find(params[:id])
+    @notes = @pad.notes.order(order_param)
   end
 
   private
