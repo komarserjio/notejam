@@ -18,6 +18,14 @@ class NoteController < ApplicationController
   end
 
   def delete
+    @note = current_user.notes.find(params[:id])
+    if request.post?
+        @note.destroy
+        redirect_to(
+          all_notes_path,
+          :flash => {:success => "Note is deleted"}
+        )
+    end
   end
 
   def create

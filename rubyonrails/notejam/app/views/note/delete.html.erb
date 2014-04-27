@@ -1,2 +1,7 @@
-<h1>Note#delete</h1>
-<p>Find me in app/views/note/delete.html.erb</p>
+<% content_for :page_title do %>Delete note: <%= @note.name %><% end %>
+
+<p>Are you sure you want to delete <%= @note.name %>?</p>
+<%= form_for :note do |f| %>
+    <%= f.submit "Yes, I want to delete this note", :class => "red" %>
+    <%= link_to "Cancel", all_notes_path %>
+<% end %>
