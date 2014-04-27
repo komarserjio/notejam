@@ -4,7 +4,7 @@ class PadController < ApplicationController
       @pad = current_user.pads.create(pad_params)
       if @pad.valid?
         redirect_to(
-          url_for(:all_notes), 
+          url_for(:all_notes),
           :flash => {:success => "Pad is created"}
         )
       end
@@ -30,7 +30,7 @@ class PadController < ApplicationController
         @pad.destroy
         redirect_to(
           all_notes_path,
-          :flash => {:success => "Pad was deleted"}
+          :flash => {:success => "Pad is deleted"}
         )
     end
   end
