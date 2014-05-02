@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user
     if session[:user_id]
-      return true 
+      return true
     else
       redirect_to(
-        url_for(:signin), 
+        url_for(:signin),
         :flash => {:success => "Please sign in"}
       )
     end
