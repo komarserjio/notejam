@@ -27,9 +27,9 @@ Always prepend commit message with framework name.
 .. code-block::
 
     Fixed broken symfony pad tests
-    
 
-If you contribute into on of the existing application please 
+
+If you contribute into on of the existing application please
 send your pull requests in the specific branch
 (e.g. ``django`` branch for Django framework, ``rubyonrails`` for Ruby on Rails)
 
@@ -47,7 +47,7 @@ Specify guidelines in a README file in a code style section.
 Application requirements
 ========================
 
-Notejam is a web application which allows user to sign up/in/out and 
+Notejam is a web application which allows user to sign up/in/out and
 create/view/edit/delete notes and pads.
 
 Live demo at (TBD).

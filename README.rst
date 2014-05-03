@@ -2,8 +2,8 @@
 Notejam project
 ***************
 
-Do you know django/yii/symfony/... and want to try rails/flask/pyramid/...? One of the
-most easiest way to start up with a new framework is to compare it with frameworks you already know.
+Do you know django/lavarel/symfony/etc and want to try rails/flask/pyramid/etc?
+The easy way to start up with a new framework is to compare it with frameworks you already know.
 
 Notejam is a simple web application (more than just Hello World) implemented using different popular server-side frameworks.
 
@@ -13,7 +13,7 @@ Compare, learn and have fun :)
 Supported frameworks
 ====================
 
-**Python** 
+**Python**
 
 
 * Django
@@ -25,26 +25,24 @@ Supported frameworks
 
 * Symfony
 
-
-===========
-In progress
-===========
-
 **Ruby**
 
 
 * Ruby on Rails
 
+===========
+In progress
+===========
+
 **PHP**
 
 
-* Yii
+* Lavarel
 
-**Javascript**
+**Ruby**
 
 
-* express.js
-
+* Padrino
 
 
 =========
@@ -52,6 +50,14 @@ Live demo
 =========
 
 Not available yet.
+
+
+===========
+Screenshots
+===========
+
+Not available yet.
+
 
 ============
 Contribution
