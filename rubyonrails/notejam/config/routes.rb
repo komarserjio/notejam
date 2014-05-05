@@ -5,7 +5,7 @@ Notejam::Application.routes.draw do
   # Pad urls
   get "pads/:id/edit" => "pad#edit", as: :edit_pad
   post "pads/:id/edit" => "pad#edit"
-  
+
   get "pads/:id/delete" => "pad#delete", as: :delete_pad
   post "pads/:id/delete" => "pad#delete"
 

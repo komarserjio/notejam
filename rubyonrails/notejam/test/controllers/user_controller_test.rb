@@ -44,4 +44,19 @@ class UserControllerTest < ActionController::TestCase
     }
     assert_select ".errorlist li"
   end
+
+  test 'should successfully signin' do
+    email = users(:existent_user).email
+    post :signin, {
+      email: email, password: 'secure_password'
+    }
+    assert_redirected_to all_notes_path
+  end
+
+  test 'should not signin if wrong email/password' do
+    post :signin, {
+      email: 'some_email@example.com', password: 'password',
+    }
+    assert_select ".alert-error", "Invalid email or password"
+  end
 end
