@@ -1,3 +1,7 @@
 existent_user:
   email: 'existent_user@example.com'
   password_digest: <%= BCrypt::Password.create("secure_password")%>
+
+existent_user2:
+  email: 'existent_user2@example.com'
+  password_digest: <%= BCrypt::Password.create("secure_password")%>

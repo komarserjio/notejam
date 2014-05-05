@@ -1,4 +1,5 @@
 class PadController < ApplicationController
+  before_filter :authenticate_user
   def create
     if params[:pad]
       @pad = current_user.pads.create(pad_params)
@@ -8,6 +9,7 @@ class PadController < ApplicationController
           :flash => {:success => "Pad is created"}
         )
       end
+      current_user.pads.delete(@pad)
     end
   end
 
@@ -17,7 +19,7 @@ class PadController < ApplicationController
     if params[:pad]
       if @pad.update(pad_params)
         redirect_to(
-          all_notes_path,
+          view_pad_notes_path(:id => @pad.id),
           :flash => {:success => "Pad is updated"}
         )
       end

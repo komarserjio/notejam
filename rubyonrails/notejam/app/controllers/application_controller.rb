@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+
   def authenticate_user
     if session[:user_id]
       return true
@@ -14,8 +16,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   private
+    def not_found
+      render :nothing => true, :status => :not_found
+    end
+
     def order_param
       order = params[:order] || '-updated_at'
       {"name" => "name ASC",
