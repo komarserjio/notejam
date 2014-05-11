@@ -71,4 +71,4 @@ Each application has its own README with contribution details.
 
 **Do you want to add new application?**
 
-Read contribution guide.
+Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_.

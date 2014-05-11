@@ -6,7 +6,7 @@ Contribution guide
 Pull requests and commits
 =========================
 
-Always prepend commit message with framework name.
+Please prepend commit messages with framework name.
 
 **Good** commit messages:
 
@@ -52,9 +52,9 @@ create/view/edit/delete notes and pads.
 
 Live demo at (TBD).
 
----------------------
-Pages to be implement
----------------------
+-----------------------
+Pages to be implemented
+-----------------------
 
 All html layouts are available in the `html` folder.
 
