@@ -18,9 +18,23 @@ Clone the repo:
 
     $ git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
 
+-------
+Install
+-------
+
+Using rbenv or RVM is strongly advised.
+
+Install dependencies:
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/rubyonrails/notejam/
+    $ bundle install
+
 ------
 Launch
 ------
+
 
 Start built-in web server:
 
