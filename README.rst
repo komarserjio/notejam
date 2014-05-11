@@ -16,19 +16,19 @@ Supported frameworks
 **Python**
 
 
-* Django
-* Flask
-* Pyramid
+* `Django <https://github.com/komarserjio/notejam/tree/master/django>`_
+* `Flask <https://github.com/komarserjio/notejam/tree/master/flask>`_
+* `Pyramid <https://github.com/komarserjio/notejam/tree/master/pyramid>`_
 
 **PHP**
 
 
-* Symfony
+* `Symfony <https://github.com/komarserjio/notejam/tree/master/symfony>`_
 
 **Ruby**
 
 
-* Ruby on Rails
+* `Ruby on Rails <https://github.com/komarserjio/notejam/tree/master/rubyonrails>`_
 
 ===========
 In progress
