@@ -37,7 +37,7 @@ In progress
 **PHP**
 
 
-* Lavarel
+* Laravel
 
 **Ruby**
 
