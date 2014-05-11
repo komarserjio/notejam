@@ -1,29 +1,84 @@
 require 'test_helper'
 
 class NoteControllerTest < ActionController::TestCase
-  test "should get list" do
-    get :list
+  test "note should be successfully created" do
+    assert_response :success
+    login_as(:existent_user)
+    assert_difference('Note.count') do
+      post :create, note: {name: "test note", text: "text"}
+    end
+  end
+
+  test "note should not be created by anonymous user" do
+    post :create, note: {name: "test note", text: "text"}
+    assert_redirected_to signin_path
+  end
+
+  test "note should note be created if required fields are missing" do
+    login_as(:existent_user)
+    post :create, note: {name: "", text: ""}
+    assert_select ".errorlist li", count: 2
+  end
+
+  test "note should be edited by an owner" do
+    login_as(:existent_user)
+    note = notes(:existent_note)
+    new_name = "new name"
+    new_text = "new text"
+    post :edit, {id: note.id, note: {name: new_name, text: new_text}}
+    assert_redirected_to view_note_path :id => note.id
+    assert_equal [new_name, new_text], [Note.first.name, Note.first.text]
+  end
+
+  test "note can't be edited if required fields are missing" do
+    login_as(:existent_user)
+    note = notes(:existent_note)
+    post :edit, {id: note.id, note: {name: "", text: ""}}
+    assert_select ".errorlist li", count: 2
+  end
+
+  test "note should not be edited by not an owner" do
+    login_as(:existent_user2)
+    note = notes(:existent_note)
+    post :edit, {id: note.id, note: {name: "name", text: "text"}}
+    assert_response :missing
+  end
+
+  test "note should not be added into another's user pad" do
+    login_as(:existent_user2)
+    another_user_pad = pads(:existent_pad)
+    post :create, {note: {
+      name: "name", text: "text", pad_id: another_user_pad.id
+    }}
+    assert_response :missing
+  end
+
+  test "note should be viewed by an owner" do
+    login_as(:existent_user)
+    note = notes(:existent_note)
+    get :view, {id: note.id}
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit
-    assert_response :success
+  test "note should not be viewed by not an owner" do
+    login_as(:existent_user2)
+    note = notes(:existent_note)
+    get :view, {id: note.id}
+    assert_response :missing
   end
 
-  test "should get delete" do
-    get :delete
-    assert_response :success
+  test "note should be deleted by an owner" do
+    login_as(:existent_user)
+    note = notes(:existent_note)
+    assert_difference('Note.count', -1) do
+      post :delete, {id: note.id}
+    end
   end
 
-  test "should get create" do
-    get :create
-    assert_response :success
+  test "note should not be deleted by not an owner" do
+    login_as(:existent_user2)
+    note = notes(:existent_note)
+    post :delete, {id: note.id}
+    assert_response :missing
   end
-
-  test "should get view" do
-    get :view
-    assert_response :success
-  end
-
 end

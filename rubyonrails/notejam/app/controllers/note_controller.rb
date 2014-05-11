@@ -10,7 +10,7 @@ class NoteController < ApplicationController
     if params[:note]
       if @note.update(note_params)
         redirect_to(
-          all_notes_path,
+          view_note_path(:id => @note.id),
           :flash => {:success => "Note is updated"}
         )
       end
@@ -30,6 +30,10 @@ class NoteController < ApplicationController
 
   def create
     if params[:note]
+      if params[:note][:pad_id]
+        # check if user owns specified pad
+        current_user.pads.find(params[:pad_id])
+      end
       @note = current_user.notes.create(note_params)
       if @note.valid?
         redirect_to(
