@@ -17,4 +17,3 @@
 //});
 Route::get('signup', 'UserController@signup');
 Route::post('signup', 'UserController@signup');
-
