@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+//Route::get('/', function()
+//{
+	//return View::make('hello');
+//});
+Route::get('signup', 'UserController@signup');
+Route::post('signup', 'UserController@signup');
+
