@@ -17,3 +17,6 @@
 //});
 Route::get('signup', 'UserController@signup');
 Route::post('signup', 'UserController@signup');
+
+Route::get('signin', 'UserController@signin');
+Route::post('signin', 'UserController@signin');

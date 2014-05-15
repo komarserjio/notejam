@@ -22,14 +22,38 @@ class UserController extends BaseController {
             $user->email = Input::get('email');
             $user->password = Hash::make(Input::get('password'));
             $user->save();
-            Redirect::to('signup')->withInput()->with('success', 'User is created.');
+            return Redirect::to('signin')
+                ->with('success', 'Now you can sign in.');
         }
 		return View::make('user/signup');
 	}
 
 	public function signin()
 	{
-		return View::make('user/signup');
+        if (Request::isMethod('post'))
+        {
+            $validation = Validator::make(
+                Input::all(),
+                array(
+                    'email' => 'required|email',
+                    'password' => 'required',
+                )
+            );
+            if ($validation->fails())
+            {
+                return Redirect::to('signin')->withErrors($validation);
+            }
+            $authParams = array(
+                'email' => Input::get('email'),
+                'password' => Input::get('password')
+            );
+            if (Auth::attempt($authParams))
+            {
+                return Redirect::to('signin')
+                    ->with('success', 'Signed in now!');
+            }
+        }
+		return View::make('user/signin');
 	}
 
 	public function signout()
