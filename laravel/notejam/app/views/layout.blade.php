@@ -46,7 +46,19 @@
         <div class="sixteen columns">
             <h1 class="bold-header"><a href="#" class="header">notejam</a> <span> Sign Up</span></h1>
         </div>
-        <div class="thirteen columns content-area">
+        <div class="sixteen columns content-area">
+            @if(Session::has('success') || Session::has('error'))
+            <div class="alert-area">
+                @if(Session::has('success'))
+                    <div class="alert alert-success">{{ Session::get('success') }}</div>
+                    {{ Session::flush('success') }}
+                @endif
+                @if(Session::has('error'))
+                    <div class="alert alert-error">{{ Session::get('error') }}</div>
+                    {{ Session::flush('error') }}
+                @endif
+            </div>
+            @endif
             @yield('content')
         </div>
         <hr class="footer" />

@@ -9,7 +9,7 @@ class UserController extends BaseController {
             $validation = Validator::make(
                 Input::all(),
                 array(
-                    'email' => 'required|email',
+                    'email' => 'required|email|unique:users',
                     'password' => 'required|min:6|confirmed',
                     'password_confirmation' => 'required|min:6',
                 )
@@ -20,8 +20,9 @@ class UserController extends BaseController {
             }
             $user = new User();
             $user->email = Input::get('email');
-            $user->password = Input::get('password');
+            $user->password = Hash::make(Input::get('password'));
             $user->save();
+            Redirect::to('signup')->withInput()->with('success', 'User is created.');
         }
 		return View::make('user/signup');
 	}
