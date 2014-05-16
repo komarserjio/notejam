@@ -17,6 +17,10 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'all_notes', 'uses' => 'NoteController@index'
         )
     );
+    Route::get('signout', array('as' => 'signout', function() {
+        Auth::logout();
+	    return Redirect::route('signin');
+    }));
 });
 
 Route::match(
