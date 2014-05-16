@@ -11,12 +11,28 @@
 |
 */
 
-//Route::get('/', function()
-//{
-	//return View::make('hello');
-//});
-Route::get('signup', 'UserController@signup');
-Route::post('signup', 'UserController@signup');
+Route::group(array('before' => 'auth'), function()
+{
+    Route::get('/', array(
+        'as' => 'all_notes', 'uses' => 'NoteController@index'
+        )
+    );
+});
 
-Route::get('signin', 'UserController@signin');
-Route::post('signin', 'UserController@signin');
+Route::match(
+    array('GET', 'POST'),
+    'signup',
+    array(
+        'as' => 'signup',
+        'uses' => 'UserController@signup'
+    )
+);
+Route::match(
+    array('GET', 'POST'),
+    'signin',
+    array(
+        'as' => 'signin',
+        'uses' => 'UserController@signin'
+    )
+);
+

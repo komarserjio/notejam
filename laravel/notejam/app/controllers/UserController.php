@@ -16,13 +16,13 @@ class UserController extends BaseController {
             );
             if ($validation->fails())
             {
-                return Redirect::to('signup')->withErrors($validation);
+                return Redirect::route('signup')->withErrors($validation);
             }
             $user = new User();
             $user->email = Input::get('email');
             $user->password = Hash::make(Input::get('password'));
             $user->save();
-            return Redirect::to('signin')
+            return Redirect::route('signin')
                 ->with('success', 'Now you can sign in.');
         }
 		return View::make('user/signup');
@@ -41,7 +41,7 @@ class UserController extends BaseController {
             );
             if ($validation->fails())
             {
-                return Redirect::to('signin')->withErrors($validation);
+                return Redirect::route('signin')->withErrors($validation);
             }
             $authParams = array(
                 'email' => Input::get('email'),
@@ -49,7 +49,7 @@ class UserController extends BaseController {
             );
             if (Auth::attempt($authParams))
             {
-                return Redirect::to('signin')
+                return Redirect::route('all_notes')
                     ->with('success', 'Signed in now!');
             }
         }
@@ -65,6 +65,5 @@ class UserController extends BaseController {
     {
         // code...
     }
-
 }
 
