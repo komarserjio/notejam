@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('page_title')
+Sign Up
+@stop
+
 @section('content')
     {{ Form::open(array('class' => 'offset-by-six')) }}
 
@@ -13,4 +18,5 @@
     <p><a href="#">Already have an account?</a></p>
 
     {{ Form::close() }}
+
 @stop

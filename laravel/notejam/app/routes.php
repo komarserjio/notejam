@@ -17,10 +17,19 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'all_notes', 'uses' => 'NoteController@index'
         )
     );
+    Route::get('settings', array(
+        'as' => 'settings', 'uses' => 'UserController@settings'
+        )
+    );
     Route::get('signout', array('as' => 'signout', function() {
         Auth::logout();
-	    return Redirect::route('signin');
+        return Redirect::route('signin');
     }));
+
+    Route::match(array('GET', 'POST'), 'pads/create', array(
+        'as' => 'create_pad', 'uses' => 'PadController@create'
+        )
+    );
 });
 
 Route::match(

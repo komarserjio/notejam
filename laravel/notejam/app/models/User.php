@@ -69,4 +69,9 @@ class User extends Eloquent implements UserInterface {
 		return 'remember_token';
 	}
 
+    public function pads()
+    {
+        return $this->hasMany('Pad');
+    }
+
 }

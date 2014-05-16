@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Notejam: Sign Up</title>
+	<title>@yield('page_title')</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -40,22 +40,27 @@
 	<div class="container">
         <div class="sixteen columns">
             <div class="sign-in-out-block">
-                <a href="#">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign in</a>
+                @if(Auth::check())
+                    {{ Auth::user()->email }}:&nbsp; <a href="{{ URL::route('settings'); }}">Account Settings</a> &nbsp;&nbsp;&nbsp;<a href="{{ URL::route('signout'); }}">Sign out</a>
+                @else
+                    <a href="{{ URL::route('signup'); }}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{{ URL::route('signin'); }}">Sign in</a>
+                @endif
             </div>
         </div>
         <div class="sixteen columns">
-            <h1 class="bold-header"><a href="#" class="header">notejam</a> <span> Sign Up</span></h1>
+            <h1 class="bold-header"><a href="#" class="header">notejam</a> <span>@yield('page_title')</span></h1>
         </div>
-        <div class="sixteen columns content-area">
+        @yield('pad_menu')
+        <div class="@yield('content_class', 'sixteen') columns content-area">
             @if(Session::has('success') || Session::has('error'))
             <div class="alert-area">
                 @if(Session::has('success'))
                     <div class="alert alert-success">{{ Session::get('success') }}</div>
-                    {{ Session::flush('success') }}
+                    {{ Session::forget('success') }}
                 @endif
                 @if(Session::has('error'))
                     <div class="alert alert-error">{{ Session::get('error') }}</div>
-                    {{ Session::flush('error') }}
+                    {{ Session::forget('error') }}
                 @endif
             </div>
             @endif

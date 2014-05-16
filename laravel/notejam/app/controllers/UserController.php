@@ -56,14 +56,14 @@ class UserController extends BaseController {
 		return View::make('user/signin');
 	}
 
-	public function signout()
-	{
-		return View::make('user/signup');
-	}
-
     public function forgotPassword()
     {
-        // code...
+        // @TODO
+    }
+
+    public function settings()
+    {
+		return View::make('user/settings');
     }
 }
 
