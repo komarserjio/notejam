@@ -18,7 +18,7 @@ thirteen
             <p class="empty">No pads yet</p>
         @endif
         <hr />
-        <a href="#">Add pad</a>
+        <a href="{{ URL::route('create_pad'); }}">Add pad</a>
     </nav>
 </div>
 @stop

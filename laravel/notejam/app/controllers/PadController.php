@@ -24,9 +24,28 @@ class PadController extends BaseController {
 		return View::make('pad/create');
 	}
 
-	public function edit()
+	public function edit($id)
 	{
-		return View::make('pad/edit');
+        $pad = Auth::user()->pads()->where('id', '=', $id)->firstOrFail();
+        if (Request::isMethod('post'))
+        {
+            $validation = Validator::make(
+                Input::all(),
+                array(
+                    'name' => 'required',
+                )
+            );
+            if ($validation->fails())
+            {
+                return Redirect::route('edit_pad', array('id' => $pad->id))
+                    ->withErrors($validation);
+            }
+            $pad->name = Input::get('name');
+            $pad->save();
+            return Redirect::route('all_notes')
+                ->with('success', 'Pad is updated.');
+        }
+		return View::make('pad/edit', array('pad' => $pad));
 	}
 
 	public function view()

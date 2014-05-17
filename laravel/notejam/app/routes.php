@@ -30,6 +30,10 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'create_pad', 'uses' => 'PadController@create'
         )
     );
+    Route::match(array('GET', 'POST'), 'pads/{id}/edit', array(
+        'as' => 'edit_pad', 'uses' => 'PadController@edit'
+        )
+    );
 });
 
 Route::match(
