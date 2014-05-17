@@ -1,4 +1,9 @@
 @extends('layout')
+
+@section('page_title')
+Sign In
+@stop
+
 @section('content')
     {{ Form::open(array('class' => 'offset-by-six')) }}
 
