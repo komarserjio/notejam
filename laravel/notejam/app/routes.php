@@ -34,6 +34,10 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'edit_pad', 'uses' => 'PadController@edit'
         )
     );
+    Route::match(array('GET', 'POST'), 'pads/{id}/delete', array(
+        'as' => 'delete_pad', 'uses' => 'PadController@delete'
+        )
+    );
 });
 
 Route::match(

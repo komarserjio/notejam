@@ -53,9 +53,16 @@ class PadController extends BaseController {
 		return View::make('pad/view');
 	}
 
-	public function delete()
+	public function delete($id)
 	{
-		return View::make('pad/delete');
+        $pad = Auth::user()->pads()->where('id', '=', $id)->firstOrFail();
+        if (Request::isMethod('post'))
+        {
+            $pad->delete();
+            return Redirect::route('all_notes')
+                ->with('success', 'Pad is deleted.');
+        }
+		return View::make('pad/delete', array('pad' => $pad));
 	}
 
 }

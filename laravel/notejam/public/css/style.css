@@ -174,7 +174,7 @@ hr.footer {
 }
 
 div.footer {
-   margin-bottom: 10px; 
+   margin-bottom: 10px;
 }
 
 form.sign-in {
@@ -235,7 +235,7 @@ a.delete-note {
     color: red;
 }
 
-.red {
+.red, input.red {
     color: red;
 }
 
