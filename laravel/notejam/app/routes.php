@@ -38,6 +38,11 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'delete_pad', 'uses' => 'PadController@delete'
         )
     );
+
+    Route::match(array('GET', 'POST'), 'notes/create', array(
+        'as' => 'create_note', 'uses' => 'NoteController@create'
+        )
+    );
 });
 
 Route::match(

@@ -2,25 +2,26 @@
 
 use Illuminate\Auth\UserInterface;
 
-class Pad extends Eloquent {
+class Note extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'pads';
+	protected $table = 'notes';
 
-    protected $fillable = array('name');
+    protected $fillable = array('name', 'text');
 
     public function user()
     {
         $this->belongsTo('User');
     }
 
-    public function notes()
+    public function pad()
     {
-        return $this->hasMany('Note');
+        $this->belongsTo('Pad');
     }
 }
+
 

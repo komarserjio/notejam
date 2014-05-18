@@ -74,4 +74,9 @@ class User extends Eloquent implements UserInterface {
         return $this->hasMany('Pad');
     }
 
+    public function notes()
+    {
+        return $this->hasMany('Note');
+    }
+
 }
