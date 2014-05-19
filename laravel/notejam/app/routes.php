@@ -43,6 +43,10 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'create_note', 'uses' => 'NoteController@create'
         )
     );
+    Route::match(array('GET', 'POST'), 'notes/{id}/edit', array(
+        'as' => 'edit_note', 'uses' => 'NoteController@edit'
+        )
+    );
 });
 
 Route::match(
