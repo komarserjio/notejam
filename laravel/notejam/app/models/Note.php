@@ -15,12 +15,12 @@ class Note extends Eloquent {
 
     public function user()
     {
-        $this->belongsTo('User');
+        return $this->belongsTo('User');
     }
 
     public function pad()
     {
-        $this->belongsTo('Pad');
+        return $this->belongsTo('Pad');
     }
 }
 

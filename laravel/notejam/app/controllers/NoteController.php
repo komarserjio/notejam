@@ -22,17 +22,22 @@ class NoteController extends BaseController {
             {
                 return Redirect::route('create_note')->withErrors($validation);
             }
-            $note = new Pad(
+            $note = new Note(
                 array(
                     'name' => Input::get('name'),
                     'text' => Input::get('text')
                 )
             );
-            Auth::user()->pads()->save($note);
+            $padId = (int)Input::get('pad_id');
+            if ($padId) {
+                $pad = Auth::user()->pads()->where('id', $padId)->firstOrFail();
+                $note->pad_id = $pad->id;
+            }
+            Auth::user()->notes()->save($note);
             return Redirect::route('all_notes')
                 ->with('success', 'Note is created.');
         }
-		return View::make('pad/create');
+		return View::make('note/create');
 	}
 
 }
