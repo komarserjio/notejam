@@ -10,11 +10,11 @@
     <tr>
         <td><%= link_to note.name, view_note_path(:id => note.id) %></td>
         <td class="pad">
-            <% if note.pad %> 
+            <% if note.pad %>
                 <%= link_to note.pad.name, edit_pad_path(:id => note.pad.id) %>
-            <% else %> 
+            <% else %>
                 No pad
-            <% end %> 
+            <% end %>
         </td>
         <td class="hidden-text date"><%= smart_date note.updated_at %></td>
     </tr>

@@ -76,4 +76,22 @@ class NoteController extends BaseController {
         }
 		return View::make('note/edit', array('note' => $note));
     }
+
+	public function delete($id)
+	{
+        $note = Auth::user()->notes()->where('id', '=', $id)->firstOrFail();
+        if (Request::isMethod('post'))
+        {
+            $note->delete();
+            return Redirect::route('all_notes')
+                ->with('success', 'Note is deleted.');
+        }
+		return View::make('note/delete', array('note' => $note));
+	}
+
+    public function view($id)
+    {
+        $note = Auth::user()->notes()->where('id', '=', $id)->firstOrFail();
+		return View::make('note/view', array('note' => $note));
+    }
 }

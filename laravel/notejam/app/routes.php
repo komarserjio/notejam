@@ -47,6 +47,14 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'edit_note', 'uses' => 'NoteController@edit'
         )
     );
+    Route::match(array('GET', 'POST'), 'notes/{id}/delete', array(
+        'as' => 'delete_note', 'uses' => 'NoteController@delete'
+        )
+    );
+    Route::match(array('GET', 'POST'), 'notes/{id}', array(
+        'as' => 'view_note', 'uses' => 'NoteController@view'
+        )
+    );
 });
 
 Route::match(
