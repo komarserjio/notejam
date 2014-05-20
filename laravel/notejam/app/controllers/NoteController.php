@@ -4,7 +4,8 @@ class NoteController extends BaseController {
 
 	public function index()
 	{
-		return View::make('note/index');
+        $notes = Auth::user()->notes()->orderBy(Input::get('order', 'aa'))->get();
+		return View::make('note/index', array('notes' => $notes));
 	}
 
 	public function create()

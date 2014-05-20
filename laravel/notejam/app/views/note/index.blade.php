@@ -1,18 +1,18 @@
 @extends('user')
 
 @section('page_title')
-All notes
+All notes ({{ $notes->count() }})
 @stop
 
 @section('content')
-    @if (Auth::user()->notes()->count())
+    @if ($notes->count())
         <table class="notes">
             <tr>
                 <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
                 <th>Pad</th>
                 <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
             </tr>
-            @foreach (Auth::user()->notes as $note)
+            @foreach ($notes as $note)
                 <tr>
                     <td><a href="{{ URL::route('view_note', array('id' => $note->id)) }}">{{ $note->name }}</a></td>
                     <td class="pad">
