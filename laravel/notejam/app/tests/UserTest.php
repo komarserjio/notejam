@@ -89,7 +89,11 @@ class UserTest extends TestCase {
 
     public function testSigninFailInvalidCredentials()
     {
-        // code...
+        $crawler = $this->client->request(
+            'POST', URL::route('signin'), $this->getUserData()
+        );
+        $this->assertRedirectedToRoute('signin');
+        $this->assertSessionHas('error');
     }
 }
 

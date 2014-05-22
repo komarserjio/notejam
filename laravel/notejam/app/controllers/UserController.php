@@ -52,6 +52,8 @@ class UserController extends BaseController {
                 return Redirect::route('all_notes')
                     ->with('success', 'Signed in now!');
             }
+            return Redirect::route('signin')
+                ->with('error', 'Invalid email or password');
         }
 		return View::make('user/signin');
 	}
