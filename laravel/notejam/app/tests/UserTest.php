@@ -79,7 +79,12 @@ class UserTest extends TestCase {
 
     public function testSigninFailRequiredFields()
     {
-        // code...
+        $crawler = $this->client->request(
+            'POST', URL::route('signin'), array()
+        );
+        $this->assertSessionHasErrors(
+            array('email', 'password')
+        );
     }
 
     public function testSigninFailInvalidCredentials()
