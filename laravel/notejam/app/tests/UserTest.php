@@ -65,5 +65,35 @@ class UserTest extends TestCase {
         );
         $this->assertSessionHasErrors('password');
     }
+
+    public function testSigninSuccess()
+    {
+        $data = $this->getUserData();
+        $data['password']  = Hash::make($data['password']);
+        $user = User::create($data);
+        $crawler = $this->client->request(
+            'POST', URL::route('signin'), $this->getUserData()
+        );
+        $this->assertRedirectedToRoute('all_notes');
+    }
+
+    public function testSigninFailRequiredFields()
+    {
+        $crawler = $this->client->request(
+            'POST', URL::route('signin'), array()
+        );
+        $this->assertSessionHasErrors(
+            array('email', 'password')
+        );
+    }
+
+    public function testSigninFailInvalidCredentials()
+    {
+        $crawler = $this->client->request(
+            'POST', URL::route('signin'), $this->getUserData()
+        );
+        $this->assertRedirectedToRoute('signin');
+        $this->assertSessionHas('error');
+    }
 }
 
