@@ -108,12 +108,36 @@ class UserController extends BaseController {
             $user = User::where(
                 'email', '=', Input::get('email')
             )->firstOrFail();
+
+            $password = $this->generatePassword();
             $user->password = Hash::make('123123');
             $user->save();
+
+            $this->sendNewPassword($user, $password);
+
             return Redirect::route('signin')
                 ->with('success', 'New password sent to you mail.');
         }
 		return View::make('user/forgot-password');
+    }
+
+    private function generatePassword()
+    {
+        return substr(md5(time()), 0, 8);
+    }
+
+    private function sendNewPassword($user, $password)
+    {
+        $data = array(
+            'email' => $user->email,
+            'password' => $password
+        );
+        Mail::send(array('text' => 'emails.password') , $data,
+            function($message) use ($user)
+            {
+                $message->to($user->email)->subject('New password');
+            }
+        );
     }
 }
 
