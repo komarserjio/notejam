@@ -38,6 +38,10 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'delete_pad', 'uses' => 'PadController@delete'
         )
     );
+    Route::get('pads/{id}', array(
+        'as' => 'view_pad', 'uses' => 'PadController@view'
+        )
+    );
 
     Route::match(array('GET', 'POST'), 'notes/create', array(
         'as' => 'create_note', 'uses' => 'NoteController@create'
@@ -51,7 +55,7 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'delete_note', 'uses' => 'NoteController@delete'
         )
     );
-    Route::match(array('GET', 'POST'), 'notes/{id}', array(
+    Route::get('notes/{id}', array(
         'as' => 'view_note', 'uses' => 'NoteController@view'
         )
     );

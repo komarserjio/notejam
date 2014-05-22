@@ -11,7 +11,7 @@ thirteen
         @if(Auth::user()->pads)
             <ul>
             @foreach(Auth::user()->pads as $pad)
-                <li><a href="#">{{ $pad->name; }}</a></li>
+                <li><a href="{{ URL::route('view_pad', array('id' => $pad->id) )}}">{{ $pad->name; }}</a></li>
             @endforeach
             </ul>
         @else

@@ -15,4 +15,14 @@ class BaseController extends Controller {
 		}
 	}
 
+    protected function processOrderParam()
+    {
+        $order = array(
+            'name' => array('name', 'ASC'),
+            '-name' => array('name', 'DESC'),
+            'updated_at' => array('updated_at', 'ASC'),
+            '-updated_at' => array('updated_at', 'DESC'),
+        );
+        return $order[Input::get('order', '-updated_at')];
+    }
 }

@@ -2,21 +2,12 @@
 
 class NoteController extends BaseController {
 
-    private function getOrderParam()
-    {
-        $order = array(
-            'name' => 'name ASC',
-            '-name' => 'name DESC',
-            'updated_at' => 'updated_at ASC',
-            '-updated_at' => 'updated_at DESC',
-        );
-        return $order[Input::get('order', '-updated_at')];
-    }
 
 	public function index()
 	{
+        $orderParams = $this->processOrderParam();
         $notes = Auth::user()->notes()->orderBy(
-            $this->getOrderParam()
+            $orderParams[0], $orderParams[1]
         )->get();
 		return View::make('note/index', array('notes' => $notes));
 	}

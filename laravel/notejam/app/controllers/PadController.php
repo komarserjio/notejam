@@ -48,14 +48,18 @@ class PadController extends BaseController {
 		return View::make('pad/edit', array('pad' => $pad));
 	}
 
-	public function view()
+	public function view($id)
 	{
-		return View::make('pad/view');
+        $pad = Auth::user()->pads()->where('id', '=', $id)->firstOrFail();
+        $orderParams = $this->processOrderParam();
+        $notes = $pad->notes()->orderBy(
+            $orderParams[0], $orderParams[1]
+        )->get();
+		return View::make('pad/view', array('pad' => $pad, 'notes' => $notes));
 	}
 
 	public function delete($id)
 	{
-        $pad = Auth::user()->pads()->where('id', '=', $id)->firstOrFail();
         if (Request::isMethod('post'))
         {
             $pad->delete();

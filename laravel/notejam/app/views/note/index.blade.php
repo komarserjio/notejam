@@ -8,21 +8,21 @@ All notes ({{ $notes->count() }})
     @if ($notes->count())
         <table class="notes">
             <tr>
-                <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+                <th class="note">Note <a href="{{ URL::route('all_notes') }}?order=-name" class="sort_arrow" >&uarr;</a><a href="{{ URL::route('all_notes') }}?order=name" class="sort_arrow" >&darr;</a></th>
                 <th>Pad</th>
-                <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+                <th class="date">Last modified <a href="{{ URL::route('all_notes') }}?order=-updated_at" class="sort_arrow" >&uarr;</a><a href="{{ URL::route('all_notes') }}?order=updated_at" class="sort_arrow" >&darr;</a></th>
             </tr>
             @foreach ($notes as $note)
                 <tr>
                     <td><a href="{{ URL::route('view_note', array('id' => $note->id)) }}">{{ $note->name }}</a></td>
                     <td class="pad">
                         @if ($note->pad)
-                            <a href="#">{{ $note->pad->name }}</a>
+                            <a href="{{ URL::route('view_pad', array('id' => $note->pad->id)); }}">{{ $note->pad->name }}</a>
                         @else
                             No pad
                         @endif
                     </td>
-                    <td class="hidden-text date">Today at 10:51</td>
+                    <td class="hidden-text date">{{ $note->smartDate(); }}</td>
                 </tr>
             @endforeach
         </table>
