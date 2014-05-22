@@ -63,6 +63,35 @@ class UserController extends BaseController {
 
     public function settings()
     {
+        $user = Auth::user();
+        if (Request::isMethod('post'))
+        {
+            $validation = Validator::make(
+                Input::all(),
+                array(
+                    'old_password' => 'required',
+                    'password' => 'required|min:6|confirmed',
+                    'password_confirmation' => 'required|min:6',
+                )
+            );
+            if ($validation->fails())
+            {
+                return Redirect::route('settings')->withErrors($validation);
+            }
+            $authParams = array(
+                'email' => $user->email,
+                'password' => Input::get('old_password')
+            );
+            if (Auth::validate($authParams))
+            {
+                $user->password = Hash::make(Input::get('password'));
+                return Redirect::route('settings')
+                    ->with('success', 'Password is successfully changed');
+            } else {
+                return Redirect::route('settings')
+                    ->with('error', 'Current password is incorrect');
+            }
+        }
 		return View::make('user/settings');
     }
 }
