@@ -56,11 +56,6 @@ class UserController extends BaseController {
 		return View::make('user/signin');
 	}
 
-    public function forgotPassword()
-    {
-        // @TODO
-    }
-
     public function settings()
     {
         $user = Auth::user();
@@ -93,6 +88,32 @@ class UserController extends BaseController {
             }
         }
 		return View::make('user/settings');
+    }
+
+    public function forgotPassword()
+    {
+        if (Request::isMethod('post'))
+        {
+            $validation = Validator::make(
+                Input::all(),
+                array(
+                    'email' => 'required|email|exists:users',
+                )
+            );
+            if ($validation->fails())
+            {
+                return Redirect::route('forgot_password')
+                    ->withErrors($validation);
+            }
+            $user = User::where(
+                'email', '=', Input::get('email')
+            )->firstOrFail();
+            $user->password = Hash::make('123123');
+            $user->save();
+            return Redirect::route('signin')
+                ->with('success', 'New password sent to you mail.');
+        }
+		return View::make('user/forgot-password');
     }
 }
 

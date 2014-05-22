@@ -77,4 +77,12 @@ Route::match(
         'uses' => 'UserController@signin'
     )
 );
+Route::match(
+    array('GET', 'POST'),
+    'forgot-password',
+    array(
+        'as' => 'forgot_password',
+        'uses' => 'UserController@forgotPassword'
+    )
+);
 
