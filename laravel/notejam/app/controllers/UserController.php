@@ -110,7 +110,7 @@ class UserController extends BaseController {
             )->firstOrFail();
 
             $password = $this->generatePassword();
-            $user->password = Hash::make('123123');
+            $user->password = Hash::make($password);
             $user->save();
 
             $this->sendNewPassword($user, $password);
