@@ -45,9 +45,7 @@ class UserTest extends TestCase {
     public function testSignupFailEmailExists()
     {
         $email = 'exists@example.com';
-        $user = User::create(
-            array('email' => $email, 'password' => 'password')
-        );
+        $user = $this->createUser($email);
 
         $data = $this->getUserData(array('email' => $email));
         $crawler = $this->client->request(
