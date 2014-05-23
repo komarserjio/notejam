@@ -23,4 +23,14 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
         Artisan::call('migrate');
     }
 
+    protected function createUser($email, $password = 'password') {
+        $user = User::create(
+            array(
+                'email' => $email,
+                'password' => Hash::make($password)
+            )
+        );
+        return $user;
+    }
+
 }

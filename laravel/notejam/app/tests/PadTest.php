@@ -11,17 +11,6 @@ class PadTest extends TestCase {
         );
     }
 
-    protected function createUser($email, $password = 'password') {
-        $user = new User(
-            array(
-                'email' => $email,
-                'password' => Hash::make($password)
-            )
-        );
-        $user->save();
-        return $user;
-    }
-
     public function testCreateSuccess()
     {
         $data = $this->getPadData();
@@ -48,7 +37,7 @@ class PadTest extends TestCase {
         );
     }
 
-    public function testEditByOwnerSuccess()
+    public function testEditSuccess()
     {
         $user = $this->createUser('exists@example.com');
         $this->be($user);
@@ -61,6 +50,89 @@ class PadTest extends TestCase {
         $this->assertRedirectedToRoute('view_pad', array('id' => $pad->id));
     }
 
+    public function testEditFailRequiredFields()
+    {
+        $user = $this->createUser('exists@example.com');
+        $this->be($user);
+        $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
+        $crawler = $this->client->request(
+            'POST',
+            URL::route('edit_pad', array('id' => $pad->id)),
+            array()
+        );
+        $this->assertSessionHasErrors(
+            array('name')
+        );
+    }
+
+    /**
+     * @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function testEditFailNotAnOwner()
+    {
+        $user = $this->createUser('exists@example.com');
+        $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
+
+        $this->be($this->createUser('exists2@example.com'));
+        $crawler = $this->client->request(
+            'POST',
+            URL::route('edit_pad', array('id' => $pad->id)),
+            array('name' => 'new name')
+        );
+    }
+
+    public function testViewSuccess()
+    {
+        $user = $this->createUser('exists@example.com');
+        $this->be($user);
+        $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
+        $crawler = $this->client->request(
+            'GET',
+            URL::route('view_pad', array('id' => $pad->id))
+        );
+        $this->assertTrue($this->client->getResponse()->isOk());
+    }
+
+    /**
+     * @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function testViewFailNotAnOwner()
+    {
+        $user = $this->createUser('exists@example.com');
+        $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
+        $this->be($this->createUser('exists2@example.com'));
+        $crawler = $this->client->request(
+            'GET',
+            URL::route('view_pad', array('id' => $pad->id))
+        );
+    }
+
+    public function testDeleteSuccess()
+    {
+        $user = $this->createUser('exists@example.com');
+        $this->be($user);
+        $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
+        $crawler = $this->client->request(
+            'POST',
+            URL::route('delete_pad', array('id' => $pad->id))
+        );
+        $this->assertRedirectedToRoute('all_notes');
+        $this->assertEquals(0, $user->pads()->count());
+    }
+
+    /**
+     * @expectedException Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function testDeleteFailNotAnOwner()
+    {
+        $user = $this->createUser('exists@example.com');
+        $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
+        $this->be($this->createUser('exists2@example.com'));
+        $crawler = $this->client->request(
+            'POST',
+            URL::route('delete_pad', array('id' => $pad->id))
+        );
+    }
 }
 
 

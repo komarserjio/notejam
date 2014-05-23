@@ -60,6 +60,7 @@ class PadController extends BaseController {
 
 	public function delete($id)
 	{
+        $pad = Auth::user()->pads()->where('id', '=', $id)->firstOrFail();
         if (Request::isMethod('post'))
         {
             $pad->delete();
