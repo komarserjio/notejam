@@ -30,8 +30,35 @@ class PadTest extends TestCase {
         $crawler = $this->client->request(
             'POST', URL::route('create_pad'), $data
         );
-        $this->assertRedirectedToRoute('all_notes');
+        $this->assertRedirectedToRoute(
+            'view_pad',
+            array('id' => $user->pads()->first()->id)
+        );
         $this->assertEquals(1, $user->pads()->count());
+    }
+
+    public function testCreateFailRequiredFields()
+    {
+        $this->be($this->createUser('exists@example.com'));
+        $crawler = $this->client->request(
+            'POST', URL::route('create_pad'), array()
+        );
+        $this->assertSessionHasErrors(
+            array('name')
+        );
+    }
+
+    public function testEditByOwnerSuccess()
+    {
+        $user = $this->createUser('exists@example.com');
+        $this->be($user);
+        $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
+        $crawler = $this->client->request(
+            'POST',
+            URL::route('edit_pad', array('id' => $pad->id)),
+            array('name' => 'new name')
+        );
+        $this->assertRedirectedToRoute('view_pad', array('id' => $pad->id));
     }
 
 }

@@ -18,7 +18,7 @@ class PadController extends BaseController {
             }
             $pad = new Pad(array('name' => Input::get('name')));
             Auth::user()->pads()->save($pad);
-            return Redirect::route('all_notes')
+            return Redirect::route('view_pad', array('id' => $pad->id))
                 ->with('success', 'Pad is created.');
         }
 		return View::make('pad/create');
@@ -42,7 +42,7 @@ class PadController extends BaseController {
             }
             $pad->name = Input::get('name');
             $pad->save();
-            return Redirect::route('all_notes')
+            return Redirect::route('view_pad', array('id' => $pad->id))
                 ->with('success', 'Pad is updated.');
         }
 		return View::make('pad/edit', array('pad' => $pad));
