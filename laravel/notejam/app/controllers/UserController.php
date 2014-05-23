@@ -18,10 +18,12 @@ class UserController extends BaseController {
             {
                 return Redirect::route('signup')->withErrors($validation);
             }
-            $user = new User();
-            $user->email = Input::get('email');
-            $user->password = Hash::make(Input::get('password'));
-            $user->save();
+            $user = User::create(
+                array(
+                    'email'  => Input::get('email'),
+                    'password' => Hash::make(Input::get('password'))
+                )
+            );
             return Redirect::route('signin')
                 ->with('success', 'Now you can sign in.');
         }

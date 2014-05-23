@@ -16,13 +16,7 @@ class NoteController extends BaseController {
 	{
         if (Request::isMethod('post'))
         {
-            $validation = Validator::make(
-                Input::all(),
-                array(
-                    'name' => 'required',
-                    'text' => 'required',
-                )
-            );
+            $validation = $this->validator();
             if ($validation->fails())
             {
                 return Redirect::route('create_note')->withErrors($validation);
@@ -48,16 +42,10 @@ class NoteController extends BaseController {
 
     public function edit($id)
     {
-        $note = Auth::user()->notes()->where('id', '=', $id)->firstOrFail();
+        $note = $this->getNoteOrFail($id);
         if (Request::isMethod('post'))
         {
-            $validation = Validator::make(
-                Input::all(),
-                array(
-                    'name' => 'required',
-                    'text' => 'required',
-                )
-            );
+            $validation = $this->validator();
             if ($validation->fails())
             {
                 return Redirect::route('edit_note')->withErrors($validation);
@@ -86,7 +74,7 @@ class NoteController extends BaseController {
 
 	public function delete($id)
 	{
-        $note = Auth::user()->notes()->where('id', '=', $id)->firstOrFail();
+        $note = $this->getNoteOrFail($id);
         if (Request::isMethod('post'))
         {
             $note->delete();
@@ -98,7 +86,24 @@ class NoteController extends BaseController {
 
     public function view($id)
     {
-        $note = Auth::user()->notes()->where('id', '=', $id)->firstOrFail();
+        $note = $this->getNoteOrFail($id);
 		return View::make('note/view', array('note' => $note));
+    }
+
+    private function getNoteOrFail($id)
+    {
+        return Auth::user()->notes()
+            ->where('id', '=', $id)->firstOrFail();
+    }
+
+    private function validator()
+    {
+        return Validator::make(
+            Input::all(),
+            array(
+                'name' => 'required',
+                'text' => 'required',
+            )
+        );
     }
 }
