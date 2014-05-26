@@ -7,3 +7,4 @@
 :stylesheet: none
 :namespace: Notejam
 :migration_format: number
+:admin_renderer: erb

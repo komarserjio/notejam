@@ -1,7 +1,18 @@
 module Notejam
   class App < Padrino::Application
+    register Padrino::Admin::AccessControl
     register Padrino::Mailer
     register Padrino::Helpers
+
+    enable :authentication
+    enable :store_location
+    set    :login_page, "/signin"
+
+    access_control.roles_for :any do |role|
+      role.protect '/'
+      role.allow '/signin'
+      role.allow '/signup'
+    end
 
     enable :sessions
 

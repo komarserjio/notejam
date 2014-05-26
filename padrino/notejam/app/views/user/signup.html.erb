@@ -1,6 +1,6 @@
 <% content_for :page_title do %>Sign Up<% end %>
 
-<%= form_for :user, :html => {:class => "offset-by-six sign-in"} do |f| %>
+<% form_for :user, '/signup', {:class => "offset-by-six sign-in"} do |f| %>
     <%= f.label :email %>
     <%= f.text_field :email %>
     <%= field_errors :email, @user %>

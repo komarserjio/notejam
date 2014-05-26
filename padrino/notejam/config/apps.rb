@@ -30,7 +30,10 @@ Padrino.configure_apps do
   set :session_secret, '8c96fce57ed6f0b8e5d2eeb3dc635f959a9b092df8e3485080a2c944f25118bc'
   set :protection, :except => :path_traversal
   set :protect_from_csrf, true
+  set :admin_model, 'User'
 end
 
 # Mounts the core application for this project
+
+Padrino.mount("Notejam::Admin", :app_file => Padrino.root('admin/app.rb')).to("/admin")
 Padrino.mount('Notejam::App', :app_file => Padrino.root('app/app.rb')).to('/')
