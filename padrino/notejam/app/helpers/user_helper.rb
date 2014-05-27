@@ -7,10 +7,6 @@ module Notejam
         nil
       end
 
-      def url_for (arg1, arg2 = nil)
-        nil
-      end
-
       def pads
         nil
       end

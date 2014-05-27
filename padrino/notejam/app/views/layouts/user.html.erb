@@ -36,11 +36,7 @@
 	<div class="container">
         <div class="sixteen columns">
             <div class="sign-in-out-block">
-                <% if current_user %>
-                    <%= current_user.email %>:&nbsp; <%= link_to "Account Settings", settings_path %>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signout) %>">Sign out</a>
-                <% else %>
-                    <a href="<%= url_for(:signin) %>">Sign In</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signup) %>">Sign Up</a>
-                <% end %>
+                <a href="<%= url_for(:user, :signin) %>">Sign In</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:user, :signup) %>">Sign Up</a>
             </div>
         </div>
         <div class="sixteen columns">

@@ -1,0 +1,11 @@
+<% content_for :page_title do %>Edit pad <%= @pad.name %><% end %>
+
+<% form_for :pad, url(:pad, :edit, :id => @pad.id) do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= field_errors :name, @pad %>
+
+    <%= f.submit "Create" %>
+<% end %>
+
+

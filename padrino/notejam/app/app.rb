@@ -4,6 +4,8 @@ module Notejam
     register Padrino::Mailer
     register Padrino::Helpers
 
+    enable :sessions
+
     enable :authentication
     enable :store_location
     set    :login_page, "/signin"
@@ -14,7 +16,6 @@ module Notejam
       role.allow '/signup'
     end
 
-    enable :sessions
 
     ##
     # Caching support.
@@ -72,5 +73,6 @@ module Notejam
     #     render 'errors/505'
     #   end
     #
+    DataMapper.auto_upgrade!
   end
 end

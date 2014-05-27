@@ -9,6 +9,8 @@ class User
   property :crypted_password, String, :length => 70
   property :role,             String
 
+  has n, :pads
+
   # Validations
   validates_presence_of      :email
   validates_presence_of      :password,                          :if => :password_required

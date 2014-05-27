@@ -19,14 +19,19 @@ Notejam::App.controllers :user do
     render "user/signin"
   end
 
-  post :signup, :map => '/signin' do
+  post :signin, :map => '/signin' do
     if user = User.authenticate(params[:email], params[:password])
       set_current_account(user)
-      redirect url(:note, :all_notes)
+      redirect url(:pad, :create)
     else
       params[:email] = h(params[:email])
       flash.now[:error] = "Invalid credentials"
       render "user/signin"
     end
+  end
+
+  get :signout, :map => '/signout' do
+    set_current_account nil
+    redirect url(:pad, :create)
   end
 end

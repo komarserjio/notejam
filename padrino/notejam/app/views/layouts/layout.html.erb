@@ -36,10 +36,10 @@
 	<div class="container">
         <div class="sixteen columns">
             <div class="sign-in-out-block">
-                <% if current_user %>
-                    <%= current_user.email %>:&nbsp; <%= link_to "Account Settings", settings_path %>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signout) %>">Sign out</a>
+                <% if current_account %>
+                    <%= current_account.email %>:&nbsp; <%= link_to "Account Settings", url_for(:user, :signin) %>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:user, :signout) %>">Sign out</a>
                 <% else %>
-                    <a href="<%= url_for(:signin) %>">Sign In</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signup) %>">Sign Up</a>
+                    <a href="<%= url_for(:signin, :user) %>">Sign In</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signup) %>">Sign Up</a>
                 <% end %>
             </div>
         </div>
@@ -54,8 +54,17 @@
             <div class="three columns">
                 <h4 id="logo">My pads</h4>
                 <nav>
+                    <% if current_account.pads.count.nonzero? %>
+                        <ul>
+                        <% current_account.pads.each do |pad| -%>
+                            <li><%= link_to pad.name, url_for(:pad, :view, :id => pad.id) %></li>
+                        <% end -%>
+                        </ul>
+                    <% else %>
+                        <p class="empty">No pads yet</p>
+                    <% end %>
                     <hr />
-                    <a href="<%= url_for(:create_pad) %>">Add pad</a>
+                    <a href="<%= url_for(:pad, :create) %>">Add pad</a>
                 </nav>
             </div>
         <% end %>
