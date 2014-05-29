@@ -13,6 +13,7 @@ Notejam::App.controllers :pad do
       flash[:success] = 'Pad is created!'
       redirect url(:pad, :create)
     end
+    @pad.destroy
     render "pad/create"
   end
 
@@ -21,7 +22,8 @@ Notejam::App.controllers :pad do
   end
 
   get :edit, :map => '/pads/:id/edit' do
-    @pad = Pad.get(params[:id])
+    #@pad = Pad.get(params[:id])
+    @pad = current_account.pads.first
     render "pad/edit"
   end
 
