@@ -47,8 +47,6 @@ Notejam::App.controllers :pad do
     flash[:success] = 'Pad is deleted!'
     redirect url(:note, :all_notes)
   end
-
-
 end
 
 

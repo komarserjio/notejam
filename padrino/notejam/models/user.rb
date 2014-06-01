@@ -10,6 +10,7 @@ class User
   property :role,             String
 
   has n, :pads
+  has n, :notes
 
   # Validations
   validates_presence_of      :email
