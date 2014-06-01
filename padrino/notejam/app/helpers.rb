@@ -3,7 +3,7 @@
 module Notejam
   class App
     def get_or_404(model, id)
-      halt 404, "Page not found"
+      model.get(id) or halt 404, "Page not found"
     end
   end
 end

@@ -22,13 +22,12 @@ Notejam::App.controllers :pad do
   end
 
   get :edit, :map => '/pads/:id/edit' do
-    #@pad = Pad.get(params[:id])
-    @pad = current_account.pads.first
+    @pad = get_or_404(current_account.pads, params[:id])
     render "pad/edit"
   end
 
   post :edit, :map => '/pads/:id/edit' do
-    @pad = Pad.get(params[:id])
+    @pad = get_or_404(current_account.pads, params[:id])
     @pad.update(params[:pad])
     if @pad.save
       flash[:success] = 'Pad is updated!'
@@ -36,6 +35,19 @@ Notejam::App.controllers :pad do
     end
     render "pad/edit"
   end
+
+  get :delete, :map => '/pads/:id/delete' do
+    @pad = get_or_404(current_account.pads, params[:id])
+    render "pad/delete"
+  end
+
+  post :delete, :map => '/pads/:id/delete' do
+    @pad = get_or_404(current_account.pads, params[:id])
+    @pad.destroy
+    flash[:success] = 'Pad is deleted!'
+    redirect url(:note, :all_notes)
+  end
+
 
 end
 
