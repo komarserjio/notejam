@@ -11,14 +11,22 @@ Notejam::App.controllers :note do
   end
 
   post :create, :map => '/notes/create' do
+    if params[:note][:pad_id] == "0"
+     params[:note].delete("pad_id")
+    end
+
     @note = Note.new(params[:note])
     current_account.notes << @note
     if @note.save
       flash[:success] = 'Note is created!'
       redirect url(:note, :create)
     end
-    print @note.errors.full_messages
     render "note/create"
+  end
+
+  get :edit, :map => '/notes/:id/edit' do
+    @note = get_or_404(current_account.notes, params[:id])
+    render "note/edit"
   end
 
 end
