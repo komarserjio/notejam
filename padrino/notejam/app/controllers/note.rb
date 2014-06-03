@@ -49,5 +49,17 @@ Notejam::App.controllers :note do
     render "note/view"
   end
 
+  get :delete, :map => '/notes/:id/delete' do
+    @note = get_or_404(current_account.notes, params[:id])
+    render "note/delete"
+  end
+
+  post :delete, :map => '/notes/:id/delete' do
+    @note = get_or_404(current_account.notes, params[:id])
+    @note.destroy
+    flash[:success] = 'Note is deleted!'
+    redirect url(:note, :all_notes)
+  end
+
 end
 
