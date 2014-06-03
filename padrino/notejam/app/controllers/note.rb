@@ -3,7 +3,10 @@ Notejam::App.controllers :note do
   layout :layout
 
   get :all_notes, :map => '/' do
-    "All notes"
+    @notes = Note.all(
+      :user_id => current_account.id, :order => order_param(params)
+    )
+    render "note/list"
   end
 
   get :create, :map => '/notes/create' do

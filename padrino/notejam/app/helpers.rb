@@ -30,5 +30,13 @@ module Notejam
         errors.html_safe
       end
     end
+
+    def order_param(params)
+      order = params[:order] || "-updated_at"
+      {"name" => :name.asc,
+       "-name" => :name.desc,
+       "updated_at" => :updated_at.asc,
+       "-updated_at" => :updated_at.desc}[order]
+    end
   end
 end
