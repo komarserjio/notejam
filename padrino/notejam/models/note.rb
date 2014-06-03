@@ -10,6 +10,9 @@ class Note
   belongs_to :user
   belongs_to :pad, :required => false
 
+  property :created_at, DateTime
+  property :updated_at, DateTime
+
   # Validations
   validates_presence_of      :name
   validates_presence_of      :text

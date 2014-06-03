@@ -29,5 +29,25 @@ Notejam::App.controllers :note do
     render "note/edit"
   end
 
+  post :edit, :map => '/notes/:id/edit' do
+    @note = get_or_404(current_account.notes, params[:id])
+
+    if params[:note][:pad_id] == "0"
+     params[:note].delete("pad_id")
+    end
+
+    @note.update(params[:note])
+    if @note.save
+      flash[:success] = 'Note is updated!'
+      redirect url(:note, :view, :id => @note.id)
+    end
+    render "note/edit"
+  end
+
+  get :view, :map => '/notes/:id' do
+    @note = get_or_404(current_account.notes, params[:id])
+    render "note/view"
+  end
+
 end
 

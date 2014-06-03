@@ -10,18 +10,6 @@ module Notejam
       def pads
         nil
       end
-
-    def field_errors(field, model)
-      if model && model.errors[field].any?
-        errors = "<ul class='errorlist'>"
-        model.errors[field].each do |message|
-          errors << "<li>#{message}</li>"
-        end
-        errors << "</ul>"
-        errors.html_safe
-      end
-    end
-
     end
 
     helpers UserHelper
