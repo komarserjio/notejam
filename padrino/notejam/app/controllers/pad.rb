@@ -2,6 +2,14 @@ Notejam::App.controllers :pad do
 
   layout :layout
 
+  get :view, :map => '/pads/:id' do
+    @pad = get_or_404(current_account.pads, params[:id])
+    @notes = Note.all(
+      :pad_id => @pad.id, :order => order_param(params)
+    )
+    render "pad/view"
+  end
+
   get :create, :map => '/pads/create' do
     render "pad/create"
   end

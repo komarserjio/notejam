@@ -2,16 +2,16 @@
 <% if @notes.count.nonzero? %>
 <table class="notes">
     <tr>
-        <th class="note">Note <a href="<%= url(:note, :all_notes) + "?order=-name" %>" class="sort_arrow">↑</a><a href="<%= url(:note, :all_notes) + "?order=name" %>" class="sort_arrow">↓</a></th>
+        <th class="note">Note <a href="<%= url(:note, :all_notes, :order => "-name") %>" class="sort_arrow">↑</a><a href="<%= url(:note, :all_notes, :order => "name") %>" class="sort_arrow">↓</a></th>
         <th>Pad</th>
-        <th class="date">Last modified <a href="<%= url(:note, :all_notes) + "?order=-updated_at" %>" class="sort_arrow">↑</a><a href="<%= url(:note, :all_notes) + "?order=updated_at" %>" class="sort_arrow">↓</a></th>
+        <th class="date">Last modified <a href="<%= url(:note, :all_notes, :order => "-updated_at") %>" class="sort_arrow">↑</a><a href="<%= url(:note, :all_notes, :order => "updated_at") %>" class="sort_arrow">↓</a></th>
     </tr>
     <% @notes.each do |note| -%>
     <tr>
         <td><%= link_to note.name, url(:note, :view, :id => note.id) %></td>
         <td class="pad">
             <% if note.pad %>
-                <%= link_to note.pad.name, url(:pad, :edit, :id => note.pad.id) %>
+                <%= link_to note.pad.name, url(:pad, :view, :id => note.pad.id) %>
             <% else %>
                 No pad
             <% end %>
@@ -21,7 +21,7 @@
     <% end -%>
 </table>
 <% else %>
-    <p class="empty">No notes yet.</p>
+    <p class="empty">No notes in this pad yet.</p>
 <% end %>
 <%= link_to "Create a note", url(:note, :create), :class => "button" %>
 
