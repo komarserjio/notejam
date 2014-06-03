@@ -6,6 +6,7 @@
     <%= field_errors :name, @pad %>
 
     <%= f.submit "Save" %>
+    <%= link_to "Delete pad", url(:pad, :delete, {:id => @pad.id}), :class => "red" %>
 <% end %>
 
 

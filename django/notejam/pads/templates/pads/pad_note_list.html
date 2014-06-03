@@ -7,7 +7,7 @@
     {% if notes %}
         <table class="notes">
             <tr>
-                <th>Note 
+                <th>Note
                     <a href="{% url view_pad_notes pk=pad.id %}?order=name" class="sort_arrow" >&darr;</a><a href="{% url view_pad_notes pk=pad.id %}?order=-name" class="sort_arrow" >&uarr;</a></th>
                 <th class="date">Last modified <a href="{% url view_pad_notes pk=pad.id %}?order=updated_at" class="sort_arrow" >&darr;</a><a href="{% url view_pad_notes pk=pad.id %}?order=-updated_at" class="sort_arrow" >&uarr;</a></th>
             </tr>

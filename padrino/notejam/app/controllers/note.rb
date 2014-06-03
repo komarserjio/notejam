@@ -14,6 +14,7 @@ Notejam::App.controllers :note do
   end
 
   post :create, :map => '/notes/create' do
+    # @TODO datamapper validation issue?
     if params[:note][:pad_id] == "0"
      params[:note].delete("pad_id")
     end
@@ -22,7 +23,7 @@ Notejam::App.controllers :note do
     current_account.notes << @note
     if @note.save
       flash[:success] = 'Note is created!'
-      redirect url(:note, :create)
+      redirect url(:note, :view, :id => @note.id)
     end
     render "note/create"
   end
@@ -35,6 +36,7 @@ Notejam::App.controllers :note do
   post :edit, :map => '/notes/:id/edit' do
     @note = get_or_404(current_account.notes, params[:id])
 
+    # @TODO datamapper validation issue?
     if params[:note][:pad_id] == "0"
      params[:note].delete("pad_id")
     end
