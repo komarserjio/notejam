@@ -38,5 +38,10 @@ module Notejam
        "updated_at" => :updated_at.asc,
        "-updated_at" => :updated_at.desc}[order]
     end
+
+    def generate_password
+        # weak password generation
+        (0...8).map { ('a'..'z').to_a[rand(26)] }.join
+    end
   end
 end

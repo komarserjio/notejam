@@ -3,13 +3,6 @@
 module Notejam
   class App
     module UserHelper
-      def current_user
-        nil
-      end
-
-      def pads
-        nil
-      end
     end
 
     helpers UserHelper

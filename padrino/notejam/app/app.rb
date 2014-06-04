@@ -14,8 +14,10 @@ module Notejam
       role.protect '/'
       role.allow '/signin'
       role.allow '/signup'
+      role.allow '/forgot-password'
     end
 
+    set :delivery_method, :test
 
     ##
     # Caching support.

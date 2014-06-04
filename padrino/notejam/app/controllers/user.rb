@@ -56,4 +56,24 @@ Notejam::App.controllers :user do
 
     render "user/settings"
   end
+
+  get :forgot_password, :map => '/forgot-password' do
+    render "user/forgot-password"
+  end
+
+  post :forgot_password, :map => '/forgot-password' do
+    @user = User.first(:email => params[:email])
+    if @user
+      new_password = generate_password
+      @user.password = new_password
+      @user.save
+
+      deliver(:mailer, :new_password_email, @user.email, new_password)
+
+      flash[:success] = 'New password sent to your email.'
+      redirect url(:user, :signin)
+    end
+    flash[:error] = 'No users found'
+    redirect url(:user, :forgot_password)
+  end
 end
