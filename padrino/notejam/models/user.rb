@@ -44,11 +44,11 @@ class User
 
   private
 
-  def password_required
-    crypted_password.blank? || password.present?
-  end
+    def password_required
+      crypted_password.blank? || password.present?
+    end
 
-  def encrypt_password
-    self.crypted_password = ::BCrypt::Password.create(password) if password.present?
-  end
+    def encrypt_password
+      self.crypted_password = ::BCrypt::Password.create(password) if password.present?
+    end
 end
