@@ -1,0 +1,57 @@
+<% error = @account.errors.key?(:name) && @account.errors[:name].count > 0 %>
+<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
+  <%= f.label :name, :class => 'control-label' %>
+  <div class='controls'>
+    <%= f.text_field :name, :class => 'form-control input-xlarge input-with-feedback', :autofocus => true %>
+    <span class='help-inline'><%= error ? f.error_message_on(:name) : "Ex: a simple text" %></span>
+  </div>
+</fieldset>
+<% error = @account.errors.key?(:surname) && @account.errors[:surname].count > 0 %>
+<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
+  <%= f.label :surname, :class => 'control-label' %>
+  <div class='controls'>
+    <%= f.text_field :surname, :class => 'form-control input-xlarge input-with-feedback' %>
+    <span class='help-inline'><%= error ? f.error_message_on(:surname) : "Ex: a simple text" %></span>
+  </div>
+</fieldset>
+<% error = @account.errors.key?(:email) && @account.errors[:email].count > 0 %>
+<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
+  <%= f.label :email, :class => 'control-label' %>
+  <div class='controls'>
+    <%= f.text_field :email, :class => 'form-control input-xlarge input-with-feedback' %>
+    <span class='help-inline'><%= error ? f.error_message_on(:email) : "Ex: a simple text" %></span>
+  </div>
+</fieldset>
+<% error = @account.errors.key?(:password) && @account.errors[:password].count > 0 %>
+<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
+  <%= f.label :password, :class => 'control-label' %>
+  <div class='controls'>
+    <%= f.password_field :password, :class => 'form-control input-xlarge input-with-feedback' %>
+    <span class='help-inline'><%= error ? f.error_message_on(:password) : "Ex: a simple text" %></span>
+  </div>
+</fieldset>
+<% error = @account.errors.key?(:password_confirmation) && @account.errors[:password_confirmation].count > 0 %>
+<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
+  <%= f.label :password_confirmation, :class => 'control-label' %>
+  <div class='controls'>
+    <%= f.password_field :password_confirmation, :class => 'form-control input-xlarge input-with-feedback' %>
+    <span class='help-inline'><%= error ? f.error_message_on(:password_confirmation) : "Ex: a simple text" %></span>
+  </div>
+</fieldset>
+<% error = @account.errors.key?(:role) && @account.errors[:role].count > 0 %>
+<fieldset class='control-group <%= error ? 'has-error' : ''%>'>
+  <%= f.label :role, :class => 'control-label' %>
+  <div class='controls'>
+    <%= f.text_field :role, :class => 'form-control input-xlarge input-with-feedback' %>
+    <span class='help-inline'><%= error ? f.error_message_on(:role) : "Ex: a simple text" %></span>
+  </div>
+</fieldset>
+
+
+<div class="form-actions">
+  <%= f.submit pat(:save), :class => 'btn btn-primary' %>
+  &nbsp;
+  <%= f.submit pat(:save_and_continue), :class => 'btn btn-info', :name => 'save_and_continue' %>
+  &nbsp;
+  <%= link_to pat(:cancel), url(:accounts, :index), :class => 'btn btn-default' %>
+</div>

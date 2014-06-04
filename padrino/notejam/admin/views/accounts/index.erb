@@ -1,0 +1,74 @@
+<ul class="nav nav-tabs">
+  <li class=active> <%= link_to tag_icon(:list, pat(:list)), url(:accounts, :index) %></li>
+  <li> <%= link_to tag_icon(:plus, pat(:new)), url(:accounts, :new) %></li>
+</ul>
+<div class=tabs-content>
+  <table id=list class="table table-striped table-hover table-condensed">
+    <thead>
+      <tr>
+        <th class="header list-menu">
+          <div class=dropdown>
+            <a href="#" class="list-menu-toggle dropdown-toggle" data-toggle='dropdown'>
+              <%= tag_icon :magic %> <span class=caret></span>
+            </a>
+            <ul class="list-menu dropdown-menu" role=menu>
+              <li class=ist-menu-wrapper>
+                <%= link_to tag_icon(:check, pat(:select_all)), '#', :id => 'select-all', :class => 'list-menu-link' %>
+              </li>
+              <li class=list-menu-wrapper.list-menu-wrapper-disabled>
+                <%= link_to tag_icon('check-empty', pat(:deselect_all)), '#', :id => 'deselect-all', :class => 'list-menu-link list-menu-link-disabled' %>
+              </li>
+              <li class="list-menu-divider divider"></li>
+              <li class=list-menu-wrapper.list-menu-wrapper-disabled>
+                <%=link_to tag_icon(:trash, pat(:delete_selected)), '#', :id => 'delete-selected', :class => 'list-menu-link list-menu-link-disabled' %>
+                <div class='list-menu-popover-delete-selected popover right'>
+                  <div class=arrow></div>
+                  <h3 class=popover-title><%= pat(:delete_selected_title) %></h3>
+                  <div class=popover-content>
+                    <% form_tag url(:accounts, :destroy_many), :method => :delete do %>
+                      <%=hidden_field_tag :account_ids, :'data-delete-many-ids' => true %>
+                      <%=submit_tag pat(:delete), :class =>'list-menu-popover-delete-selected-btn btn btn-danger btn-small' %>
+                      <div class='btn btn-default btn-small cancel'><%= pat(:cancel) %></div>
+                    <% end %>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </th>
+                <th class=header> <%= mat(:account, :id) %></th>
+                <th class=header> <%= mat(:account, :name) %></th>
+                <th class=header> <%= mat(:account, :surname) %></th>
+                <th class=header> <%= mat(:account, :email) %></th>
+                <th class="header list-row-action-header"></th>
+    </thead>
+
+    <tbody>
+      <% @accounts.each do |account| %>
+        <tr class=list-row>
+          <td class="list-column list-selectable">
+            <%= check_box_tag 'account_ids[]', :value => account.id, :class => 'list-selectable-checkbox' %>
+           </td>
+          <td class=list-column> <%= account.id %> </td>
+          <td class=list-column> <%= account.name %> </td>
+          <td class=list-column> <%= account.surname %> </td>
+          <td class=list-column> <%= account.email %> </td>
+          <td class="list-column list-row-action">
+            <div class='list-row-action-wrapper'>
+               <%= link_to tag_icon(:edit), :href => url(:accounts, :edit, :id => account.id), :rel => :tooltip, :title => "#{pat(:edit)} account", :class => 'list-row-action-wrapper-link' %>
+               <%= link_to tag_icon(:trash), :rel => :tooltip, :title => "#{pat(:delete)} account", :class => 'list-row-action-delete-one list-row-action-wrapper-link' %>
+               <div class="popover list-row-action-popover-delete-one left">
+                 <div class=arrow> </div>
+                 <h3 class=popover-title><%= pat(:delete, :model => "account") %></h3>
+                 <div class=popover-content>
+                   <%- form_tag url(:accounts, :destroy, :id => account.id), :method => :delete do %>
+                     <%= submit_tag pat(:delete), :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small' %>
+                     <div class="btn btn-default btn-small cancel"><%= pat(:cancel) %></div>
+                   <% end %>
+               </div>
+             </div>
+          </td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
