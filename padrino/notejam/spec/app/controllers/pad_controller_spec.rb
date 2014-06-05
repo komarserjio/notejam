@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "SampleController" do
+describe "PadController" do
   before do
     get "/"
   end
@@ -9,3 +9,5 @@ describe "SampleController" do
     last_response.body.should == "Hello World"
   end
 end
+
+
