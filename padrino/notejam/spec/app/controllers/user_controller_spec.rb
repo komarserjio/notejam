@@ -1,18 +1,20 @@
 require 'spec_helper'
 
 describe "UserController" do
-  before do
-    get "/"
-  end
-
-  it "returns hello world" do
-    last_response.body.should == "Hello World"
-  end
 
   it "successfully signs up" do
-  end
+    post "/signup", {
+      "user" => {
+        "email" => "user@example.com",
+        "password" => "123123",
+        "password_confirmation" => "123123",
+      }
+    }
+    last_response.should be_redirect
+    follow_redirect!
+    last_request.url.should include("/signin")
 
-  it "requires fields to sign up" do
+    expect(User.count).to eq(1)
   end
 
   it "doesn't sign up if email is taken" do

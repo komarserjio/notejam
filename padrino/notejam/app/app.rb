@@ -63,6 +63,9 @@ module Notejam
     #     disable :asset_stamp # no asset timestamping for dev
     #   end
     #
+    configure :test do
+      set :protect_from_csrf, false
+    end
 
     ##
     # You can manage errors like:

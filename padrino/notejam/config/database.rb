@@ -36,5 +36,5 @@ DataMapper::Property::String.length(255)
 case Padrino.env
   when :development then DataMapper.setup(:default, "sqlite3://" + Padrino.root('db', "notejam.db"))
   when :production  then DataMapper.setup(:default, "sqlite3://" + Padrino.root('db', "notejam_production.db"))
-  when :test        then DataMapper.setup(:default, "sqlite3://" + Padrino.root('db', "notejam_test.db"))
+  when :test        then DataMapper.setup(:default, "sqlite::memory:")
 end
