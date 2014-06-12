@@ -2,13 +2,18 @@ require 'spec_helper'
 
 describe "UserController" do
 
+  def user_data
+    {
+      "email" => "user@example.com",
+      "password" => "secure_password",
+      "password_confirmation" => "secure_password",
+    }
+  end
+
+
   it "successfully signs up" do
     post "/signup", {
-      "user" => {
-        "email" => "user@example.com",
-        "password" => "123123",
-        "password_confirmation" => "123123",
-      }
+      "user" => user_data
     }
     last_response.should be_redirect
     follow_redirect!
@@ -17,12 +22,44 @@ describe "UserController" do
     expect(User.count).to eq(1)
   end
 
+  it "requires mandatory fields to sign up" do
+    post "/signup", {
+      "user" => {
+        "email" => "",
+        "password" => "",
+        "password_confirmation" => "",
+      }
+    }
+    last_response.body.should include("Email must not be blank")
+    last_response.body.should include("Password must not be blank")
+    last_response.body.should include(
+      "Password confirmation must not be blank"
+    )
+  end
+
+  it "requireds passwords to match" do
+    data = user_data
+    data['password_confirmation'] = "wrong"
+
+    post "/signup", {
+      "user" => data
+    }
+    last_response.body.should include(
+      "Password does not match the confirmation"
+    )
+  end
+
   it "doesn't sign up if email is taken" do
+    user = User.create(user_data)
+    post "/signup", {
+      "user" => user_data
+    }
+    last_response.body.should include("Email is already taken")
   end
 
   it "successfully signs in" do
   end
 
-  it "doesn't sign in if invalid credentials" do
+  it "requires valid credentials" do
   end
 end

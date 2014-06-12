@@ -14,11 +14,13 @@ class User
 
   # Validations
   validates_presence_of      :email
+  validates_format_of        :email,    :with => :email_address
+  validates_uniqueness_of    :email
   validates_presence_of      :password,                          :if => :password_required
   validates_presence_of      :password_confirmation,             :if => :password_required
   validates_length_of        :password, :min => 6, :max => 32,   :if => :password_required
   validates_confirmation_of  :password,                          :if => :password_required
-  validates_format_of        :email,    :with => :email_address
+
 
   # Callbacks
   before :save, :encrypt_password

@@ -3,6 +3,11 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
+
+  conf.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
 end
 
 # You can use this method to custom specify a Rack app
