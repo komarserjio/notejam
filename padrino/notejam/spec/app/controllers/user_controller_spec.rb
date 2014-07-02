@@ -58,8 +58,16 @@ describe "UserController" do
   end
 
   it "successfully signs in" do
+    user = User.create(user_data)
+    post "/signin", {
+      "email" => user_data['email'],
+      "password" => user_data['password']
+    }
+    last_response.should be_redirect
+    follow_redirect!
+    last_request.url.should include("/")
   end
 
-  it "requires valid credentials" do
+  it "requires mandatory fields to sign in" do
   end
 end
