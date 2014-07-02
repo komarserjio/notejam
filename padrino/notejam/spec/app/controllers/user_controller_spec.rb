@@ -37,7 +37,7 @@ describe "UserController" do
     )
   end
 
-  it "requireds passwords to match" do
+  it "requires passwords to match" do
     data = user_data
     data['password_confirmation'] = "wrong"
 
@@ -68,6 +68,12 @@ describe "UserController" do
     last_request.url.should include("/")
   end
 
-  it "requires mandatory fields to sign in" do
+  it "requires correct credentials to sign in" do
+    user = User.create(user_data)
+    post "/signin", {
+      "email" => user_data['email'],
+      "password" => "wrong password"
+    }
+    last_response.body.should include("Invalid credentials")
   end
 end
