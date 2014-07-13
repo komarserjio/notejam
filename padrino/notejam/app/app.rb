@@ -15,6 +15,7 @@ module Notejam
       role.allow '/signin'
       role.allow '/signup'
       role.allow '/forgot-password'
+      role.allow '/set-session-variable'
     end
 
     set :delivery_method, :test
