@@ -20,7 +20,7 @@ describe "PadController" do
   # http://snippets.aktagon.com/snippets/332-testing-sessions-with-sinatra-and-rack-test
   # Silly workaround:
   def login_user(user_data)
-    user= User.create(user_data)
+    user = User.create(user_data)
     post "/signin", {
       "email" => user_data['email'],
       "password" => user_data['password']
@@ -44,6 +44,26 @@ describe "PadController" do
     }
 
     expect(Pad.count).to eq(1)
+  end
+
+  it "requires mandatory fields to create pad" do
+    login_user user_data
+    post "/pads/create", {
+      "pad" => {
+        "name" => ""
+      }
+    }
+    last_response.body.should include("Name must not be blank")
+  end
+
+  it "edits pad successfully" do
+    user = User.create(user_data)
+    pad = Pad.create({name: "Initial name", user: user})
+    login_user user_data
+    post "/pads/#{pad.id}/edit", {
+      "pad" => pad_data
+    }
+    expect(Pad.get(pad.id).name).to eq(pad_data['name'])
   end
 end
 
