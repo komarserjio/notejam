@@ -104,7 +104,7 @@ Any kind of tests are very desirable.
 
 Sign Up:
 
-* user can successfully sign up (padrino example)
+* user can successfully sign up
 * user can't sign up if required fields are missing
 * user can't sign up if email is invalid
 * user can't sign up if email already exists

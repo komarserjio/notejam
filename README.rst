@@ -94,6 +94,5 @@ Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/con
 Questions?
 ==========
 
-Contact me:
 * Twitter: `@komarserjio <https://twitter.com/komarserjio>`_
 * Email: komarserjio <at> gmail.com
