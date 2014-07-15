@@ -1,6 +1,6 @@
 *******************************
 Notejam: Laravel implementation
-******************************
+*******************************
 
 Notejam application implemented using Laravel framework.
 
@@ -78,7 +78,5 @@ Always prepend your commits with a framework name:
 .. code-block:: bash
 
     Symfony: Implemented sign in functionality
-
-Post issues into project github tracker.
 
 Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.
