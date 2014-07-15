@@ -1,6 +1,6 @@
-***************
-Notejam project
-***************
+*******
+Notejam
+*******
 
 Do you know django/lavarel/symfony/etc and want to try rails/flask/pyramid/etc?
 The easy way to start up with a new framework is to compare it with frameworks you already know.
@@ -9,8 +9,9 @@ Notejam is a simple web application (more than just Hello World) implemented usi
 
 Compare, learn and have fun :)
 
+====================
 Supported frameworks
---------------------
+====================
 
 **Python**
 
@@ -94,6 +95,5 @@ Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/con
 Questions?
 ==========
 
-Contact me:
 * Twitter: `@komarserjio <https://twitter.com/komarserjio>`_
 * Email: komarserjio <at> gmail.com
