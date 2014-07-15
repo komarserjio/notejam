@@ -5,13 +5,12 @@ Notejam project
 Do you know django/lavarel/symfony/etc and want to try rails/flask/pyramid/etc?
 The easy way to start up with a new framework is to compare it with frameworks you already know.
 
-Notejam is a simple web application (more than just Hello World) implemented using different popular server-side frameworks.
+Notejam is a simple web application (more than just Hello World) implemented using different server-side frameworks.
 
 Compare, learn and have fun :)
 
-====================
 Supported frameworks
-====================
+--------------------
 
 **Python**
 
@@ -32,29 +31,50 @@ Supported frameworks
 * `Ruby on Rails <https://github.com/komarserjio/notejam/tree/master/rubyonrails>`_
 * `Padrino <https://github.com/komarserjio/notejam/tree/master/padrino>`_
 
-===========
-In progress
-===========
 
-**Javasript**
+In progress
+-----------
+
+**Javascript**
 
 
 * Express.js
 
 
-=========
-Live demo
-=========
+**PHP**
 
-Not available yet.
+* YII
 
 
-===========
-Screenshots
-===========
+====================
+Application overview
+====================
 
-Not available yet.
+Notejam is a web application which allows user to sign up/in/out and create/view/edit/delete notes.
+Notes are grouped in pads. See `screenshots <https://github.com/komarserjio/notejam/tree/master/screenshots.rst>`_
+for look and feel.
 
+See `detailed overview <https://github.com/komarserjio/notejam/blob/master/contribute.rst#application-requirements>`_.
+
+The application typically covers following components:
+
+* Request/Response
+* Routing
+* Templates
+* Configuration
+* Authentication
+* Forms
+* Error handling
+* Database/ORM
+* Mailing
+* Functional/unit testing
+
+=============
+How to launch
+=============
+
+Implemenations are SQLite based and supported by built-in web servers.
+Each implementation has instuction describing easy steps to install environment, launch and run tests.
 
 ============
 Contribution
@@ -62,10 +82,18 @@ Contribution
 
 Contribution is more than welcome!
 
-**Do you want to improve one of the existing applications?**
+**Do you want to improve one of the existing implementations?**
 
-Each application has its own README with contribution details.
+Each implemenation has its own README with contribution details.
 
-**Do you want to add new application?**
+**Do you want to add new implementaion?**
 
-Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_.
+Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.
+
+==========
+Questions?
+==========
+
+Contact me:
+* Twitter: `@komarserjio <https://twitter.com/komarserjio>`_
+* Email: komarserjio <at> gmail.com

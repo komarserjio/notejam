@@ -47,16 +47,15 @@ Specify guidelines in a README file in a code style section.
 Application requirements
 ========================
 
-Notejam is a web application which allows user to sign up/in/out and
-create/view/edit/delete notes and pads.
+Notejam is a web application which allows user to sign up/in/out and create/view/edit/delete notes.
+Notes are grouped in pads. See `screenshots <https://github.com/komarserjio/notejam/tree/master/screenshots.rst>`_
+for look and feel.
 
-Live demo at (TBD).
+-----
+Pages
+-----
 
------------------------
-Pages to be implemented
------------------------
-
-All html layouts are available in the `html` folder.
+All html layouts are available in the `html <https://github.com/komarserjio/notejam/tree/master/html>`_ folder.
 
 **User pages**
 
@@ -95,12 +94,6 @@ All html layouts are available in the `html` folder.
 * ``POST /pads/<pad_id>/delete/`` - Delete pad
 
 
-----
-I18N
-----
-
-Not supported yet
-
 ---------------------
 Functional/unit tests
 ---------------------
@@ -111,7 +104,7 @@ Any kind of tests are very desirable.
 
 Sign Up:
 
-* user can successfully sign up
+* user can successfully sign up (padrino example)
 * user can't sign up if required fields are missing
 * user can't sign up if email is invalid
 * user can't sign up if email already exists
