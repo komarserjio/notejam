@@ -48,6 +48,7 @@ In progress
 
 * Yii
 
+... and more frameworks are coming.
 
 ====================
 Application overview
@@ -59,7 +60,7 @@ for look and feel.
 
 See `detailed overview <https://github.com/komarserjio/notejam/blob/master/contribute.rst#application-requirements>`_.
 
-The application typically covers following components:
+The application covers following components:
 
 * Request/Response
 * Routing
@@ -76,8 +77,8 @@ The application typically covers following components:
 How to launch
 =============
 
-Implemenations are SQLite based and supported by built-in web servers.
-Each implementation has instuction describing easy steps to install environment, launch and run tests.
+Implemenations are SQLite based and launchable by built-in web servers.
+Each implementation has instruction describing easy steps to install environment, launch and run tests.
 
 ============
 Contribution
