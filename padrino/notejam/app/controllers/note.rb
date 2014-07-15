@@ -16,7 +16,9 @@ Notejam::App.controllers :note do
   post :create, :map => '/notes/create' do
     # @TODO datamapper validation issue?
     if params[:note][:pad_id] == "0"
-     params[:note].delete("pad_id")
+      params[:note].delete("pad_id")
+    else
+      @pad = get_or_404(current_account.pads, params[:note][:pad_id])
     end
 
     @note = Note.new(params[:note])
