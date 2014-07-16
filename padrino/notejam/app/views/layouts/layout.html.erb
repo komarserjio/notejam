@@ -39,7 +39,7 @@
                 <% if current_account %>
                     <%= current_account.email %>:&nbsp; <%= link_to "Account Settings", url_for(:user, :settings) %>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:user, :signout) %>">Sign out</a>
                 <% else %>
-                    <a href="<%= url_for(:signin, :user) %>">Sign In</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signup) %>">Sign Up</a>
+                    <a href="<%= url_for(:user, :signin) %>">Sign In</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:user, :signup) %>">Sign Up</a>
                 <% end %>
             </div>
         </div>
