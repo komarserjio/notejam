@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Notejam: Sign Up</title>
+	<title>Notejam: Sign In</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -38,15 +38,18 @@
     <div class="sixteen columns">
       <h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam:</span></a> <span> Sign In</span></h1>
     </div>
-    <div class="thirteen columns content-area">
+    <div class="sixteen columns content-area">
+      <div class="alert-area">
+        <div class="alert alert-error">Wrong password or email</div>
+      </div>
       <form class="offset-by-six sign-in">
         <label for="email">Email</label>
         <input type="text" id="email">
         <label for="password">Password</label>
         <input type="password" id="password">
-        <label for="confirm-password">Confirm password</label>
-        <input type="password" id="confirm-password">
-        <input type="submit" value="Sign Up"> or <a href='#'>Sign in</a>
+        <input type="submit" value="Sign In"> or <a href="#signup">Sign up</a>
+        <hr />
+        <p><a href="#forgot-password" class="small-red">Forgot password?</a></p>
       </form>
     </div>
     <hr class="footer" />
@@ -58,3 +61,7 @@
   <a href="https://github.com/komarserjio/notejam"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 </body>
 </html>
+
+
+
+

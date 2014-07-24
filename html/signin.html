@@ -27,44 +27,38 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
 </head>
 <body>
-	<div class="container">
-        <div class="sixteen columns">
-            <div class="sign-in-out-block">
-                <a href="#">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign in</a>
-            </div>
-        </div>
-        <div class="sixteen columns">
-            <h1 class="bold-header"><a href="#" class="header">notejam</a> <span> Sign In</span></h1>
-        </div>
-        <div class="sixteen columns content-area">
-            <div class="alert-area">
-                <div class="alert alert-error">Wrong password or email</div>
-            </div>
-            <form class="offset-by-six sign-in">
-                <label for="regularInput">Email</label>
-                <input type="text" id="regularInput">
-                <label for="regularInput">Password</label>
-                <input type="password" id="regularInput">
-                <button type="submit">Sign In</button>
-                <p><a href="#">Forgot password?</a></p>
-            </form>
-        </div>
-        <hr class="footer" />
-        <footer>
-            <div class="footer">2013, notejam project</div>
-        </footer>
-	</div><!-- container -->
-    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+  <div class="container">
+    <div class="sixteen columns">
+      <div class="sign-in-out-block">
+        <a href="#">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign in</a>
+      </div>
+    </div>
+    <div class="sixteen columns">
+      <h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam:</span></a> <span> Sign In</span></h1>
+    </div>
+    <div class="sixteen columns content-area">
+      <!--<div class="alert-area">-->
+        <!--<div class="alert alert-error">Wrong password or email</div>-->
+        <!--</div>-->
+      <form class="offset-by-six sign-in">
+        <label for="email">Email</label>
+        <input type="text" id="email">
+        <label for="password">Password</label>
+        <input type="password" id="password">
+        <input type="submit" value="Sign In"> or <a href="#signup">Sign up</a>
+        <hr />
+        <p><a href="#forgot-password" class="small-red">Forgot password?</a></p>
+      </form>
+    </div>
+    <hr class="footer" />
+    <div class="footer">
+      <div>Notejam: <strong>Django</strong> application</div>
+      <div><a href="https://github.com/komarserjio/notejam">Github</a>, <a href="https://twitter.com/komarserjio">Twitter</a>, created by <a href="https://github.com/komarserjio/">Serhii Komar</a></div>
+    </div>
+  </div><!-- container -->
+  <a href="https://github.com/komarserjio/notejam"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 </body>
 </html>
 
