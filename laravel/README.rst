@@ -1,6 +1,6 @@
-*******************************
-Notejam: Laravel implementation
-*******************************
+****************
+Notejam: Laravel
+****************
 
 Notejam application implemented using `Laravel <http://laravel.com/>`_ framework.
 
