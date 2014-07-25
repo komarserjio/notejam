@@ -1,7 +1,7 @@
 @extends('user')
 
 @section('page_title')
-Edit pad {{ $pad->name }}
+{{ $pad->name }}
 @stop
 
 @section('content')
@@ -10,8 +10,8 @@ Edit pad {{ $pad->name }}
     {{ Form::label('name', 'Name') . Form::text('name', $pad->name) }}
     @include('partials.error', array('error' => $errors->first('name')))
 
-    {{ Form::submit('Create') }}
-
+    {{ Form::submit('Save') }}
     {{ Form::close() }}
+    <a class="red" href="{{ URL::route('delete_pad', array('id' => $pad->id)) }}">Delete pad</a>
 
 @stop

@@ -35,7 +35,7 @@ class NoteController extends BaseController {
             }
             Auth::user()->notes()->save($note);
             return Redirect::route('view_note', array('id' => $note->id))
-                ->with('success', 'Note is created.');
+                ->with('success', 'Note is successfully created.');
         }
 		return View::make('note/create');
 	}
@@ -67,7 +67,7 @@ class NoteController extends BaseController {
             Auth::user()->notes()->save($note);
 
             return Redirect::route('view_note', array('id' => $note->id))
-                ->with('success', 'Note is updated.');
+                ->with('success', 'Note is successfully updated.');
         }
 		return View::make('note/edit', array('note' => $note));
     }

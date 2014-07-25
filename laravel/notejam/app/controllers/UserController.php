@@ -25,7 +25,7 @@ class UserController extends BaseController {
                 )
             );
             return Redirect::route('signin')
-                ->with('success', 'Now you can sign in.');
+                ->with('success', 'Account is created. Now you can sign in.');
         }
 		return View::make('user/signup');
 	}

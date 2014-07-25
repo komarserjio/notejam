@@ -12,8 +12,9 @@ Sign In
     {{ Form::label('password', 'Password') . Form::password('password') }}
     @include('partials.error', array('error' => $errors->first('password')))
 
-    {{ Form::submit('Sign In') }}
-    <p><a href="#">Don't have an account?</a></p>
+    {{ Form::submit('Sign in') }} or <a href="{{ URL::route('signup'); }}">Sign up</a>
+    <hr />
+    <p><a class="small-red" href="{{ URL::route('forgot_password'); }}">Forgot Password?</a></p>
 
     {{ Form::close() }}
 @stop

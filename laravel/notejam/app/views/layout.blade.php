@@ -27,14 +27,6 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
 </head>
 <body>
 	<div class="container">
@@ -48,9 +40,12 @@
             </div>
         </div>
         <div class="sixteen columns">
-            <h1 class="bold-header"><a href="#" class="header">notejam</a> <span>@yield('page_title')</span></h1>
+            <h1 class="bold-header">
+                <a href="{{ URL::route('all_notes'); }}" class="header">note<span class="jam">jam: </span></a>
+                <span>@yield('page_title')</span>
+            </h1>
         </div>
-        @yield('pad_menu')
+        @yield('pads')
         <div class="@yield('content_class', 'sixteen') columns content-area">
             @if(Session::has('success') || Session::has('error'))
             <div class="alert-area">
@@ -67,9 +62,10 @@
             @yield('content')
         </div>
         <hr class="footer" />
-        <footer>
-            <div class="footer">2013, notejam project</div>
-        </footer>
+        <div class="footer">
+            <div>Notejam: <strong>Laravel</strong> application</div>
+            <div><a href="https://github.com/komarserjio/notejam">Github</a>, <a href="https://twitter.com/komarserjio">Twitter</a>, created by <a href="https://github.com/komarserjio/">Serhii Komar</a></div>
+        </div>
 	</div><!-- container -->
     <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 </body>
