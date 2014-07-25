@@ -34,6 +34,13 @@ Install dependencies:
     $ cd YOUR_PROJECT_DIR/pyramid/
     $ python setup.py develop
 
+Create database schema:
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/pyramid/
+    $ initialize_notejam_db development.ini
+
 ------
 Launch
 ------
