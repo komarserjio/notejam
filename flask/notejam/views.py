@@ -218,12 +218,12 @@ def inject_user_pads():
 
 @app.template_filter('smart_date')
 def smart_date_filter(updated_at):
-    delta = updated_at.date() - date.today()
+    delta = date.today() - updated_at.date()
     if delta.days == 0:
         return 'Today at {}'.format(updated_at.strftime("%H:%M"))
-    elif delta.days == -1:
+    elif delta.days == 1:
         return 'Yesterday at {}'.format(updated_at.strftime("%H:%M"))
-    elif -7 < delta.days < -1:
+    elif 1 > delta.days > 4:
         return '{} days ago'.format(abs(delta.days))
     else:
         return updated_at.date()
