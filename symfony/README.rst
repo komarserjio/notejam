@@ -38,6 +38,13 @@ Install dependencies
     $ cd YOUR_PROJECT_DIR/symfony/notejam
     $ php composer.phar install
 
+Create database schema
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/symfony/notejam
+    $ php app/console doctrine:schema:update --force
+
 
 ------
 Launch
@@ -62,7 +69,6 @@ Run tests:
 
     $ cd YOUR_PROJECT_DIR/symfony/notejam/
     $ ./bin/phpunit -c app/
-
 
 
 ============

@@ -4,9 +4,9 @@
 {% block page_title %}<span>{{ pad.name }}</span>{% endblock %}
 
 {% block body %}
-    <p>Are you sure you want to delete {{ pad.name }} and all related notes?</p>
-    <form method="POST">
-        <input type="submit" class="red" value="Yes, delete I want to delete it">&nbsp;
-        <a href="{{ path('edit_pad', {'id': pad.id})  }}">Cancel</a>
-    </form>
+  <p>Are you sure you want to delete {{ pad.name }} and all related notes?</p>
+  <form method="POST">
+    <button type="submit" class="red">Yes, delete I want to delete it</button>&nbsp;
+    <a href="{{ path('edit_pad', {'id': pad.id})  }}">Cancel</a>
+  </form>
 {% endblock %}

@@ -6,7 +6,7 @@
 {% block body %}
   <p>Are you sure you want to delete {{ note.name }}?</p>
   <form method="POST">
-    <input type="submit" class="red" value="Yes, delete I want to delete it">&nbsp;
+    <button type="submit" class="red">Yes, delete I want to delete it</button>&nbsp;
     <a href="{{ path('view_note', {'id': note.id})  }}">Cancel</a>
   </form>
 {% endblock %}
