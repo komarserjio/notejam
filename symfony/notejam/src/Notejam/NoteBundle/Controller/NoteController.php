@@ -22,7 +22,7 @@ class NoteController extends Controller
         ));
     }
 
-    private function _buildOrderBy($orderBy = 'name') 
+    private function _buildOrderBy($orderBy = 'name')
     {
         return array(
             'name' => array('name' => 'ASC'),
@@ -32,19 +32,19 @@ class NoteController extends Controller
         )[$orderBy];
     }
 
-    public function viewAction($id, Request $request) 
+    public function viewAction($id, Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
         $note = $this->getDoctrine()
                     ->getRepository('NotejamNoteBundle:Note')
-                    ->findOneBy(array('id' => $id, 
+                    ->findOneBy(array('id' => $id,
                                       'user' => $user));
         return $this->render('NotejamNoteBundle:Note:view.html.twig', array(
             'note' => $note
         ));
     }
 
-    public function createAction(Request $request) 
+    public function createAction(Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
         $pad = $this->getDoctrine()
@@ -67,7 +67,7 @@ class NoteController extends Controller
 
                 $this->get('session')->getFlashBag()->add(
                     'success',
-                    'Note was successfully created'
+                    'Note is successfully created'
                 );
                 return $this->redirect($this->generateUrl('homepage'));
             }
@@ -78,12 +78,12 @@ class NoteController extends Controller
         );
     }
 
-    public function editAction($id, Request $request) 
+    public function editAction($id, Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
         $note = $this->getDoctrine()
                     ->getRepository('NotejamNoteBundle:Note')
-                    ->findOneBy(array('id' => $id, 
+                    ->findOneBy(array('id' => $id,
                                       'user' => $user));
 
         $form = $this->createForm(new NoteType($user), $note);
@@ -96,7 +96,7 @@ class NoteController extends Controller
 
                 $this->get('session')->getFlashBag()->add(
                     'success',
-                    'Note was successfully updated'
+                    'Note is successfully updated'
                 );
                 return $this->redirect($this->generateUrl('homepage'));
             }
@@ -112,7 +112,7 @@ class NoteController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $note = $this->getDoctrine()
                     ->getRepository('NotejamNoteBundle:Note')
-                    ->findOneBy(array('id' => $id, 
+                    ->findOneBy(array('id' => $id,
                                       'user' => $user));
         if ($request->getMethod() == 'POST') {
             $em = $this->getDoctrine()->getEntityManager();
@@ -121,7 +121,7 @@ class NoteController extends Controller
 
             $this->get('session')->getFlashBag()->add(
                 'success',
-                'Note was successfully deleted'
+                'Note is successfully deleted'
             );
             return $this->redirect($this->generateUrl('homepage'));
         }

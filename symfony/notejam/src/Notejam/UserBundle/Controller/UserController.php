@@ -38,7 +38,7 @@ class UserController extends Controller
 
                 $this->get('session')->getFlashBag()->add(
                     'success',
-                    'Now you can sign in'
+                    'Account is created. Now you can sign in.'
                 );
                 return $this->redirect($this->generateUrl('signin'));
             }
@@ -58,9 +58,9 @@ class UserController extends Controller
                      ->setAction($this->generateUrl('login_check'))
                      ->add('email', 'text')
                      ->add('password', 'password')
-                     ->add('save', 'submit')
+                     ->add('save', 'submit', array('label' => 'Sign in'))
                      ->getForm();
- 
+
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(
                 SecurityContext::AUTHENTICATION_ERROR
@@ -74,9 +74,9 @@ class UserController extends Controller
                 $error->getMessage()
             );
         }
- 
+
         return $this->render(
-            'NotejamUserBundle:User:signin.html.twig', 
+            'NotejamUserBundle:User:signin.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -130,7 +130,7 @@ class UserController extends Controller
         }
 
         return $this->render(
-            'NotejamUserBundle:User:forgot-password.html.twig', 
+            'NotejamUserBundle:User:forgot-password.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -155,7 +155,7 @@ class UserController extends Controller
 
                 $this->get('session')->getFlashBag()->add(
                     'success',
-                    'Password successfully changed'
+                    'Password is successfully changed'
                 );
             }
         }

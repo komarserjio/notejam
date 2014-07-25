@@ -10,15 +10,15 @@ class NoteControllerTest extends WebTestCase
     {
     }
 
-    public function testCreateNoteFailRequiredFields() 
+    public function testCreateNoteFailRequiredFields()
     {
     }
 
-    public function testEditNoteSuccess() 
+    public function testEditNoteSuccess()
     {
     }
 
-    public function testEditNoteFailRequiredFields() 
+    public function testEditNoteFailRequiredFields()
     {
     }
 
