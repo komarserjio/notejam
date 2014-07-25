@@ -1,6 +1,6 @@
-******************************
-Notejam: Symfony implementation
-******************************
+****************
+Notejam: Symfony
+****************
 
 Notejam application implemented using `Symfony <http://symfony.com>`_ framework.
 
@@ -24,7 +24,7 @@ Clone the repo:
 Install
 -------
 
-Install composee
+Install `composer <https://getcomposer.org/>`_
 
 .. code-block:: bash
 
