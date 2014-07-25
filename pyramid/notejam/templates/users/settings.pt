@@ -1,25 +1,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="load: ../wide_layout.pt">
+      metal:use-macro="load: ../user_layout.pt">
 
-<tal:block metal:fill-slot="current_page">
-    <span>Account Settings</span>
+<tal:block metal:fill-slot="title">
+  Account Settings
+</tal:block>
+<tal:block metal:fill-slot="page_title">
+  <span>Account Settings</span>
 </tal:block>
 
 <tal:block metal:fill-slot="content">
-    <form class="offset-by-six sign-in" method="POST">
-        <label for="regularInput">Current Password</label>
-        ${renderer.password("old_password")}
-        ${renderer.errorlist("old_password")}
-        <label for="regularInput">New Password</label>
-        ${renderer.password("password")}
-        ${renderer.errorlist("password")}
-        <label for="regularInput">Confirm New Password</label>
-        ${renderer.password("confirm_password")}
-        ${renderer.errorlist("confirm_password")}
-        <button type="submit">Save</button>
-    </form>
+  <form class="offset-by-six sign-in" method="POST">
+    <label for="old_password">Current Password</label>
+    ${renderer.password("old_password")}
+    ${renderer.errorlist("old_password")}
+    <label for="password">New Password</label>
+    ${renderer.password("password")}
+    ${renderer.errorlist("password")}
+    <label for="confirm_password">Confirm New Password</label>
+    ${renderer.password("confirm_password")}
+    ${renderer.errorlist("confirm_password")}
+    <input type="submit" value="Save" />
+  </form>
 </tal:block>
 
 </html>

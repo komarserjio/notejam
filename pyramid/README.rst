@@ -1,8 +1,8 @@
-****************************
-Notejam: Pyramid application
-****************************
+****************
+Notejam: Pyramid
+****************
 
-Notejam application implemented using `Pyramid`_ framework.
+Notejam application implemented using `Pyramid <http://www.pylonsproject.org/>`_ framework.
 
 Pyramid version: 1.5
 
@@ -10,9 +10,9 @@ Pyramid version: 1.5
 Installation and launching
 ==========================
 
--------
-Cloning
--------
+-----
+Clone
+-----
 
 Clone the repo:
 
@@ -20,10 +20,12 @@ Clone the repo:
 
     $ git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
 
--------------------
-Install environment
--------------------
-Using `virtualenv`_ is strongly advised.
+-------
+Install
+-------
+
+Use `virtualenv <http://www.virtualenv.org>`_ or `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/>`_
+for `environment management <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_.
 
 Install dependencies:
 
@@ -32,9 +34,9 @@ Install dependencies:
     $ cd YOUR_PROJECT_DIR/pyramid/
     $ python setup.py develop
 
----------
-Launching
----------
+------
+Launch
+------
 
 Start pyramid web server:
 
@@ -45,11 +47,11 @@ Start pyramid web server:
 
 Go to http://127.0.0.1:6543/ in your browser
 
--------------
-Running tests
--------------
+---------
+Run tests
+---------
 
-Run unit tests:
+Run functional and unit tests:
 
 .. code-block:: bash
 
@@ -60,14 +62,13 @@ Run unit tests:
 Contribution
 ============
 
-Please send your pull requests in the ``pyramid`` branch, not ``master``.
+Do you have python/pyramid experience? Help the app to follow python and pyramid best practices.
 
-Always prepend your commits with a framework name:
+Please send your pull requests in the `pyramid`` branch, not ``master``.
+Always prepend your commits with framework name:
 
 .. code-block:: bash
 
     Pyramid: Implemented sign in functionality
 
-
-.. _virtualenv: http://www.virtualenv.org 
-.. _Pyramid: http://www.pylonsproject.org
+Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.

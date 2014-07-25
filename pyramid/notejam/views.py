@@ -166,6 +166,7 @@ def update_note(request):
         return HTTPFound(location=location)
     return _response_dict(
         request,
+        note=note,
         renderer=FormRenderer(form)
     )
 
@@ -234,7 +235,9 @@ def delete_pad(request):
 def _response_dict(request, *args, **kwargs):
     return dict(
         logged_in=authenticated_userid(request),
-        pads=DBSession.query(Pad).all(),
+        pads=DBSession.query(Pad).filter(
+          Pad.user == get_current_user(request)
+        ).all(),
         snippets=get_renderer('templates/snippets.pt').implementation(),
         **kwargs
     )
