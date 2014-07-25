@@ -4,12 +4,16 @@ Notejam
 
 **The easy way to learn web frameworks**
 
-Do you know django/lavarel/symfony/etc and want to try rails/flask/pyramid/etc?
+Do you know django/laravel/symfony/etc and want to try rails/flask/pyramid/etc?
 The easy way to start up with a new framework is to compare it with frameworks you already know.
 
 Notejam is a simple web application (more than just Hello World) implemented using different server-side frameworks.
 
-Learn, discover and have fun :)
+
+**Is it like TodoMVC in Javascript?**
+
+Yes, the idea is very similar.
+
 
 ====================
 Supported frameworks
@@ -60,7 +64,7 @@ for look and feel.
 
 See `detailed overview <https://github.com/komarserjio/notejam/blob/master/contribute.rst#application-requirements>`_.
 
-The application covers following components:
+Typical application covers following components:
 
 * Request/Response
 * Routing
@@ -77,7 +81,7 @@ The application covers following components:
 How to launch
 =============
 
-Implemenations are SQLite based and launchable by built-in web servers.
+All Implemenations are SQLite based and launchable by built-in web servers.
 Each implementation has instruction describing easy steps to install environment, launch and run tests.
 
 ============
