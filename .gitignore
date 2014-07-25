@@ -42,3 +42,6 @@ nosetests.xml
 
 # Django
 /django/notejam/static/
+
+#.phar archives
+*.phar
