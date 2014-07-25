@@ -19,7 +19,7 @@ def load_user(user_id):
 
 @app.route('/')
 @login_required
-def index():
+def home():
     notes = (Note.query
                  .filter_by(user=current_user)
                  .order_by(_get_order_by(request.args.get('order')))
@@ -47,7 +47,7 @@ def create_note():
 
 @app.route('/notes/<int:note_id>/edit/', methods=['GET', 'POST'])
 @login_required
-def update_note(note_id):
+def edit_note(note_id):
     note = _get_user_object_or_404(Note, note_id, current_user)
     note_form = NoteForm(user=current_user, obj=note)
     if note_form.validate_on_submit():
@@ -60,7 +60,7 @@ def update_note(note_id):
         return redirect(_get_note_success_url(note))
     if note.pad:
         note_form.pad.data = note.pad.id  # XXX ?
-    return render_template('notes/update.html', form=note_form)
+    return render_template('notes/edit.html', form=note_form)
 
 
 @app.route('/notes/<int:note_id>/')
@@ -82,7 +82,7 @@ def delete_note(note_id):
         if note.pad:
             return redirect(url_for('pad_notes', pad_id=note.pad.id))
         else:
-            return redirect(url_for('index'))
+            return redirect(url_for('home'))
     return render_template('notes/delete.html', note=note, form=delete_form)
 
 
@@ -98,13 +98,13 @@ def create_pad():
         db.session.add(pad)
         db.session.commit()
         flash('Pad is successfully created', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     return render_template('pads/create.html', form=pad_form)
 
 
 @app.route('/pads/<int:pad_id>/edit/', methods=['GET', 'POST'])
 @login_required
-def update_pad(pad_id):
+def edit_pad(pad_id):
     pad = _get_user_object_or_404(Pad, pad_id, current_user)
     pad_form = PadForm(obj=pad)
     if pad_form.validate_on_submit():
@@ -112,7 +112,7 @@ def update_pad(pad_id):
         db.session.commit()
         flash('Pad is successfully updated', 'success')
         return redirect(url_for('pad_notes', pad_id=pad.id))
-    return render_template('pads/update.html', form=pad_form, pad=pad)
+    return render_template('pads/edit.html', form=pad_form, pad=pad)
 
 
 @app.route('/pads/<int:pad_id>/')
@@ -135,7 +135,7 @@ def delete_pad(pad_id):
         db.session.delete(pad)
         db.session.commit()
         flash('Note is successfully deleted', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     return render_template('pads/delete.html', pad=pad, form=delete_form)
 
 
@@ -148,7 +148,7 @@ def signin():
         if auth_user:
             login_user(auth_user)
             flash('You are signed in!', 'success')
-            return redirect(url_for('index'))
+            return redirect(url_for('home'))
         else:
             flash('Wrong email or password', 'error')
     return render_template('users/signin.html', form=form)
@@ -180,8 +180,8 @@ def account_settings():
     if form.validate_on_submit():
         current_user.set_password(form.new_password.data)
         db.session.commit()
-        flash("You've successfully changed the password", 'success')
-        return redirect(url_for('index'))
+        flash("Your password is successfully changed.", 'success')
+        return redirect(url_for('home'))
     return render_template('users/settings.html', form=form)
 
 
@@ -203,7 +203,7 @@ def forgot_password():
 
         db.session.commit()
         flash("Find new password in your inbox", 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('home'))
     return render_template('users/forgot_password.html', form=form)
 
 
@@ -233,7 +233,7 @@ def smart_date_filter(updated_at):
 def _get_note_success_url(note):
     ''' get note success redirect url depends on note's pad '''
     if note.pad is None:
-        return url_for('index')
+        return url_for('home')
     else:
         return url_for('pad_notes', pad_id=note.pad.id)
 
@@ -255,7 +255,6 @@ def _get_order_by(param='-updated_at'):
 
 
 def _generate_password(user):
-    return '123456'
     ''' generate new user password '''
     m = md5.new()
     m.update(

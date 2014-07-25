@@ -1,8 +1,8 @@
-**************************
-Notejam: Flask application
-**************************
+**************
+Notejam: Flask
+**************
 
-Notejam application implemented using `Flask`_ microframework.
+Notejam application implemented using `Flask <http://flask.pocoo.org/>`_ microframework.
 
 Flask version: 0.9
 
@@ -18,9 +18,9 @@ Flask extension used:
 Installation and launching
 ==========================
 
--------
-Cloning
--------
+-----
+Clone
+-----
 
 Clone the repo:
 
@@ -28,10 +28,11 @@ Clone the repo:
 
     $ git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
 
--------------------
-Install environment
--------------------
-Using `virtualenv`_ is strongly advised.
+-------
+Install
+-------
+Use `virtualenv <http://www.virtualenv.org>`_ or `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/>`_
+for `environment management <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_.
 
 Install dependencies:
 
@@ -53,29 +54,29 @@ Start flask web server:
 
 Go to http://127.0.0.1:5000/ in your browser
 
-------------------
-Running unit tests
-------------------
+---------
+Run tests
+---------
 
-Run unit tests:
+Run functional and unit tests:
 
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/flask/
     $ python tests.py
 
+
 ============
 Contribution
 ============
 
-Please send your pull requests in the ``flask`` branch, not ``master``.
+Do you have python/flask experience? Help the app to follow python and flask best practices.
 
-Always prepend your commits with a framework name:
+Please send your pull requests in the ``flask`` branch, not ``master``.
+Always prepend your commits with framework name:
 
 .. code-block:: bash
 
     Flask: Implemented sign in functionality
 
-
-.. _virtualenv: http://www.virtualenv.org 
-.. _Flask: http://flask.pocoo.org/
+Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.

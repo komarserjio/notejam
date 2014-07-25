@@ -1,17 +1,16 @@
-{% extends "base.html" %}
+{% extends "user.html" %}
 {% from "_helpers.html" import render_field %}
 
-{% block breadcrumbs %}<span>Sign Up</span>{% endblock %}
+{% block title %}Sign Up{% endblock %}
+{% block page_title %}<span>Sign Up</span>{% endblock %}
 
-{% block left_bar %}{% endblock %}
-{% block content_class %}sixteen columns content-area{% endblock %}
 {% block content %}
 <form method="POST" class="offset-by-six sign-in">
-    {{ form.hidden_tag() }}
-    {{ render_field(form.email) }}
-    {{ render_field(form.password) }}
-    {{ render_field(form.repeat_password) }}
-    <button type="submit">Sign Up</button>
+  {{ form.hidden_tag() }}
+  {{ render_field(form.email) }}
+  {{ render_field(form.password) }}
+  {{ render_field(form.repeat_password) }}
+  <input type="submit" value="Sign up"> or <a href="{{ url_for ('signin') }}">Sign in</a>
 </form>
 {% endblock %}
 
