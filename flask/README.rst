@@ -41,6 +41,13 @@ Install dependencies:
     $ cd YOUR_PROJECT_DIR/flask/
     $ pip install -r requirements.txt
 
+Create database schema:
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/flask/
+    $ python db.py
+
 ------
 Launch
 ------
