@@ -251,15 +251,15 @@ a.delete-note {
     color: red;
 }
 
-.red {
-    color: red;
+.red, input.red {
+    color: red !important;
 }
 
-ul.errorlist {
+ul.errorlist, ul.errors {
     margin: -18px 0 0 0;
 }
 
-ul.errorlist li {
+ul.errorlist li, ul.errors li {
     color: red;
 }
 

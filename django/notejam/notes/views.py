@@ -58,6 +58,14 @@ class NoteUpdateView(UpdateView):
         qs = super(NoteUpdateView, self).get_queryset()
         return qs.filter(user=self.request.user)
 
+    def get_form(self, form_class):
+        form = super(NoteUpdateView, self).get_form(self.get_form_class())
+        # limit pad choice
+        form.fields['pad'].queryset = Pad.objects.filter(
+            user=self.request.user
+        )
+        return form
+
     def get_success_url(self):
         if self.object.pad is not None:
             return reverse_lazy(
