@@ -44,7 +44,8 @@ Create database schema
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/laravel/notejam/
-    $ php artisan migrate --force
+    $ touch app/database/notejam.db
+    $ php artisan migrate
 
 
 ------
