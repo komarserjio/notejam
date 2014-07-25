@@ -33,6 +33,14 @@ Install dependencies:
     $ cd YOUR_PROJECT_DIR/django/
     $ pip install -r requirements.txt
 
+Create database schema:
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/django/notejam/
+    $ ./manage.py syncdb
+    $ ./manage.py migrate
+
 ------
 Launch
 ------
