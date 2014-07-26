@@ -124,9 +124,17 @@ Each implemenation has its own README with contribution details.
 
 Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.
 
-==========
-Questions?
-==========
+========
+Contacts
+========
 
 * Twitter: `@komarserjio <https://twitter.com/komarserjio>`_
 * Email: komarserjio <at> gmail.com
+
+=======
+License
+=======
+
+MIT © Serhii Komar.
+
+See `license <https://github.com/komarserjio/notejam/blob/master/license.rst>`_.
