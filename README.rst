@@ -104,7 +104,7 @@ Typical application covers following topics:
 How to launch
 =============
 
-All implemenations are SQLite based and launchable by built-in web servers.
+All implemenations are SQLite based and quiclky launchable by built-in web servers.
 Each implementation has instruction describing easy steps to install environment, launch and run tests.
 
 ============
