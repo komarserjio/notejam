@@ -5,9 +5,10 @@ Notejam
 **The easy way to learn web frameworks**
 
 Do you know django/laravel/symfony/etc and want to try rails/flask/pyramid/etc?
-The easy way to start up with a new framework is to compare it with frameworks you already know.
+The easy way to start with a new framework is to compare it with frameworks you already know.
+The goal of the project is to help developers easily learn new frameworks by examples.
 
-Notejam is a simple web application (more than just Hello World) implemented using different server-side frameworks.
+Notejam is a unified sample web application (more than just "Hello World") implemented using different server-side frameworks.
 
 
 **Is it like TodoMVC in Javascript?**
@@ -59,7 +60,27 @@ Application overview
 ====================
 
 Notejam is a web application which allows user to sign up/in/out and create/view/edit/delete notes.
-Notes are grouped in pads. See `screenshots <https://github.com/komarserjio/notejam/tree/master/screenshots.rst>`_
+Notes are grouped in pads.
+
+.. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/1s.png
+    :alt: Sign in
+    :width: 640
+    :align: center
+    :target: https://github.com/komarserjio/notejam/tree/master/screenshots.rst
+
+.. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/2s.png
+    :alt: All notes
+    :width: 640
+    :align: center
+    :target: https://github.com/komarserjio/notejam/tree/master/screenshots.rst
+
+.. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/3s.png
+    :alt: New note
+    :width: 640
+    :align: center
+    :target: https://github.com/komarserjio/notejam/tree/master/screenshots.rst
+
+See `more screenshots <https://github.com/komarserjio/notejam/tree/master/screenshots.rst>`_
 for look and feel.
 
 See `detailed overview <https://github.com/komarserjio/notejam/blob/master/contribute.rst#application-requirements>`_.
@@ -88,8 +109,8 @@ Each implementation has instruction describing easy steps to install environment
 Contribution
 ============
 
-Contribution is more than welcome! 
-Contribute improvements to existing applications to help them follow best practices 
+Contribution is more than welcome!
+Contribute improvements to existing applications to help them follow best practices
 or provide new implementation for unsupported framework.
 
 
