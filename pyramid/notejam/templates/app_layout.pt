@@ -5,10 +5,10 @@
       metal:use-macro="load: base.pt">
 
 <tal:block metal:fill-slot="base_layout">
-    <div class="thirteen columns content-area">
-        <div metal:use-macro="snippets.macros['alert_area']"></div>
-        <tal:block metal:define-slot="content"></tal:block>
-    </div>
+  <div class="thirteen columns content-area">
+    <div metal:use-macro="snippets.macros['alert_area']"></div>
+    <tal:block metal:define-slot="content"></tal:block>
+  </div>
 </tal:block>
 
 </html>

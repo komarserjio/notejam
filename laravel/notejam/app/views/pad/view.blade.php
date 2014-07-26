@@ -1,7 +1,7 @@
 @extends('user')
 
 @section('page_title')
-Pad: {{ $pad->name; }} ({{ $notes->count() }})
+{{ $pad->name; }} ({{ $notes->count() }})
 @stop
 
 @section('content')
@@ -29,5 +29,6 @@ Pad: {{ $pad->name; }} ({{ $notes->count() }})
     @else
         <p class="empty">You don't have notes in this pad yet.</p>
     @endif
-    <a href="{{ URL::route('create_note') }}?pad={{ $pad->id; }}" class="button">Create a note</a>
+    <a href="{{ URL::route('create_note') }}?pad={{ $pad->id; }}" class="button">New note</a>&nbsp;
+    <a href="{{ URL::route('edit_pad', array('id' => $pad->id)) }}">Pad settings</a>
 @stop

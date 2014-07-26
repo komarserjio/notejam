@@ -1,11 +1,11 @@
 @extends('user')
 
 @section('page_title')
-View note {{ $note->name }}
+{{ $note->name }}
 @stop
 
 @section('content')
-    <p class="hidden-text">Last edited at 10:32</p>
+    <p class="hidden-text">Last edited at {{ $note->smartDate() }}</p>
     <div class="note">
         {{ $note->text }}
     </div>

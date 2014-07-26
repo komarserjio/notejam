@@ -121,4 +121,10 @@ return array(
 
 	),
 
+    'test' => array(
+        'driver'   => 'sqlite',
+        'database' => 'memory:',
+        'prefix'   => '',
+    ),
+
 );

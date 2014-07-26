@@ -63,7 +63,7 @@ class Note
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -79,14 +79,14 @@ class Note
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -102,14 +102,14 @@ class Note
     public function setText($text)
     {
         $this->text = $text;
-    
+
         return $this;
     }
 
     /**
      * Get text
      *
-     * @return string 
+     * @return string
      */
     public function getText()
     {
@@ -121,9 +121,9 @@ class Note
      *
      * @return User
      */
-    public function getUser() 
+    public function getUser()
     {
-        return $this->user; 
+        return $this->user;
     }
 
 
@@ -133,10 +133,10 @@ class Note
      * @param User user
      * @return Note
      */
-    public function setUser($user) 
+    public function setUser($user)
     {
         $this->user = $user;
-        return $this; 
+        return $this;
     }
 
     /**
@@ -144,9 +144,9 @@ class Note
      *
      * @return Pad
      */
-    public function getPad() 
+    public function getPad()
     {
-        return $this->pad; 
+        return $this->pad;
     }
 
 
@@ -156,10 +156,10 @@ class Note
      * @param Pad pad
      * @return Note
      */
-    public function setPad($pad) 
+    public function setPad($pad)
     {
         $this->pad = $pad;
-        return $this; 
+        return $this;
     }
 
     /**
@@ -168,17 +168,17 @@ class Note
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function setUpdatedAt() 
+    public function setUpdatedAt()
     {
         $this->updated_at = new \DateTime('now');
     }
 
     /**
      * Get last update time
-     * 
+     *
      * @return string formatted date
      */
-    public function getUpdatedAt() 
+    public function getUpdatedAt()
     {
         return $this->updated_at->format('d M. Y');
     }

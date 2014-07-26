@@ -1,0 +1,20 @@
+{% extends "user.html" %}
+
+{% block title %}Account Settings{% endblock %}
+{% block page_title %}<span>Account Settings</span>{% endblock %}
+
+{% block content %}
+<form method="POST" class="offset-by-six">
+  {% csrf_token %}
+  <label for="old-password">Old password</label>
+  {{ form.old_password }}
+  {{ form.old_password.errors }}
+  <label for="new-password">New password</label>
+  {{ form.new_password1 }}
+  {{ form.new_password1.errors }}
+  <label for="confirm-new-password">Confirm new password</label>
+  {{ form.new_password2 }}
+  {{ form.new_password2.errors }}
+  <input type="submit" value="Save" />
+</form>
+{% endblock %}

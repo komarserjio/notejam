@@ -32,7 +32,7 @@ class PadCreateView(CreateView):
 class PadUpdateView(UpdateView):
     model = Pad
     form_class = PadForm
-    template_name_suffix = '_update'
+    template_name_suffix = '_edit'
     success_url = reverse_lazy('home')
     success_message = 'Pad is successfully updated'
 

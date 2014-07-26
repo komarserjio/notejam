@@ -9,7 +9,7 @@ use Notejam\NoteBundle\Entity\Pad;
 
 class PadControllerTest extends WebTestCase
 {
-    public function setUp() 
+    public function setUp()
     {
         $this->loadFixtures(array());
         // init kernel to init entity manager
@@ -23,7 +23,7 @@ class PadControllerTest extends WebTestCase
             ->getManager() ;
         return $this->em;
     }
-    
+
     private function _createUser($email, $password) {
         $user = new User();
 
@@ -87,7 +87,7 @@ class PadControllerTest extends WebTestCase
         );
     }
 
-    public function testCreatePadErrorRequiredFields() 
+    public function testCreatePadErrorRequiredFields()
     {
         $email = 'test@example.com';
         $password = '123123';
@@ -100,7 +100,7 @@ class PadControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter('ul.errorlist > li')->count());
     }
 
-    public function testEditPadSuccess() 
+    public function testEditPadSuccess()
     {
         $email = 'test@example.com';
         $password = '123123';
@@ -120,7 +120,7 @@ class PadControllerTest extends WebTestCase
         $this->assertEquals($newName, $updatedPad->getName());
     }
 
-    public function testEditPadErrorRequiredFields() 
+    public function testEditPadErrorRequiredFields()
     {
         $email = 'test@example.com';
         $password = '123123';

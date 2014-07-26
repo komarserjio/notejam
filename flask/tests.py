@@ -112,7 +112,7 @@ class SigninTestCase(NotejamBaseTestCase):
         self.create_user(**data)
 
         response = self.client.post(url_for('signin'), data=data)
-        self.assertRedirects(response, url_for('index'))
+        self.assertRedirects(response, url_for('home'))
 
     def test_signin_fail(self):
         response = self.client.post(
@@ -167,7 +167,7 @@ class PadTestCase(NotejamBaseTestCase):
         with signed_in_user(user) as c:
             new_name = 'new pad name'
             response = c.post(
-                url_for('update_pad', pad_id=pad.id), data={'name': new_name})
+                url_for('edit_pad', pad_id=pad.id), data={'name': new_name})
             self.assertRedirects(response, url_for('pad_notes', pad_id=pad.id))
             self.assertEquals(new_name, Pad.query.get(pad.id).name)
 
@@ -175,7 +175,7 @@ class PadTestCase(NotejamBaseTestCase):
         user = self.create_user(email='email@example.com', password='password')
         pad = self.create_pad(name='pad', user=user)
         with signed_in_user(user) as c:
-            c.post(url_for('update_pad', pad_id=pad.id), data={'name': ''})
+            c.post(url_for('edit_pad', pad_id=pad.id), data={'name': ''})
             self.assertEquals(
                 ['name'], self.get_context_variable('form').errors.keys())
 
@@ -187,7 +187,7 @@ class PadTestCase(NotejamBaseTestCase):
         with signed_in_user(another_user) as c:
             new_name = 'new pad name'
             response = c.post(
-                url_for('update_pad', pad_id=pad.id), data={'name': new_name})
+                url_for('edit_pad', pad_id=pad.id), data={'name': new_name})
             self.assertEquals(404, response.status_code)
 
     def test_delete_success(self):
@@ -196,7 +196,7 @@ class PadTestCase(NotejamBaseTestCase):
         with signed_in_user(user) as c:
             response = c.post(
                 url_for('delete_pad', pad_id=pad.id))
-            self.assertRedirects(response, url_for('index'))
+            self.assertRedirects(response, url_for('home'))
             self.assertEquals(0, Pad.query.count())
 
     def test_delete_fail_anothers_user(self):
@@ -264,7 +264,7 @@ class NoteTestCase(NotejamBaseTestCase):
         with signed_in_user(user) as c:
             new_name = 'new pad name'
             c.post(
-                url_for('update_note', note_id=note.id),
+                url_for('edit_note', note_id=note.id),
                 data=self._get_note_data(name=new_name)
             )
             self.assertEquals(new_name, Note.query.get(note.id).name)
@@ -275,7 +275,7 @@ class NoteTestCase(NotejamBaseTestCase):
         note = self.create_note(**note_data)
         with signed_in_user(user) as c:
             c.post(
-                url_for('update_note', note_id=note.id),
+                url_for('edit_note', note_id=note.id),
                 data={'pad': '', 'name': '', 'text': ''}
             )
             self.assertEquals(
@@ -291,7 +291,7 @@ class NoteTestCase(NotejamBaseTestCase):
             email='another@example.com', password='password')
         with signed_in_user(another_user) as c:
             response = c.post(
-                url_for('update_note', note_id=note.id), data={})
+                url_for('edit_note', note_id=note.id), data={})
             self.assertEquals(404, response.status_code)
 
     def test_delete_success(self):
@@ -300,7 +300,7 @@ class NoteTestCase(NotejamBaseTestCase):
         with signed_in_user(user) as c:
             response = c.post(
                 url_for('delete_note', note_id=note.id))
-            self.assertRedirects(response, url_for('index'))
+            self.assertRedirects(response, url_for('home'))
             self.assertEquals(0, Note.query.count())
 
     def test_delete_fail_anothers_user(self):

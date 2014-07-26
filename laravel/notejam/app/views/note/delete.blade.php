@@ -1,7 +1,7 @@
 @extends('user')
 
 @section('page_title')
-Delete note {{ $note->name }}
+{{ $note->name }}
 @stop
 
 @section('content')

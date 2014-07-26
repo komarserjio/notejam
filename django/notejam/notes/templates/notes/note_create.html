@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
-{% block breadcrumbs %}<span>Create a note</span>{% endblock %}
-{% block content %}
-    {% include "notes/note_form.html" %}
-{% endblock %}
+{% block title %}New note{% endblock %}
+{% block page_title %}<span>New note</span>{% endblock %}
 
+{% block content %}
+  {% include "notes/note_form.html" %}
+{% endblock %}

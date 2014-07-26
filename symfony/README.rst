@@ -1,8 +1,8 @@
-******************************
-Notejam: Symfony implementation
-******************************
+****************
+Notejam: Symfony
+****************
 
-Notejam application implemented using Symfony framework.
+Notejam application implemented using `Symfony <http://symfony.com>`_ framework.
 
 Symfony version: 2.4
 
@@ -20,22 +20,30 @@ Clone the repo:
 
     $ git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
 
--------------------
-Install environment
--------------------
+-------
+Install
+-------
 
-Install composer
+Install `composer <https://getcomposer.org/>`_
 
 .. code-block:: bash
 
+    $ cd YOUR_PROJECT_DIR/symfony/notejam
     $ curl -s https://getcomposer.org/installer | php
 
 Install dependencies
 
 .. code-block:: bash
 
+    $ cd YOUR_PROJECT_DIR/symfony/notejam
     $ php composer.phar install
 
+Create database schema
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/symfony/notejam
+    $ php app/console doctrine:schema:update --force
 
 
 ------
@@ -63,21 +71,16 @@ Run tests:
     $ ./bin/phpunit -c app/
 
 
-
 ============
 Contribution
 ============
-
-Are you symfony guru? You are welcomve to contribute to improve the implementation.
+Do you have php/symfony experience? Help the app to follow php and symfony best practices.
 
 Please send your pull requests in the ``symfony`` branch, not ``master``.
-
-Always prepend your commits with a framework name:
+Always prepend your commits with framework name:
 
 .. code-block:: bash
 
     Symfony: Implemented sign in functionality
 
-Post issues into project github tracker. 
-
-Read contribution guide for details.
+Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.

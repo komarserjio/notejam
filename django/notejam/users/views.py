@@ -92,7 +92,7 @@ class ForgotPasswordView(FormView):
 
 class AccountSettingsView(FormView):
     form_class = PasswordChangeForm
-    template_name = 'account.html'
+    template_name = 'settings.html'
     success_url = reverse_lazy('home')
     success_message = 'Password is successfully changed'
 

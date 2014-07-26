@@ -16,13 +16,7 @@ class NoteController extends BaseController {
 	{
         if (Request::isMethod('post'))
         {
-            $validation = Validator::make(
-                Input::all(),
-                array(
-                    'name' => 'required',
-                    'text' => 'required',
-                )
-            );
+            $validation = $this->validator();
             if ($validation->fails())
             {
                 return Redirect::route('create_note')->withErrors($validation);
@@ -35,28 +29,23 @@ class NoteController extends BaseController {
             );
             $padId = (int)Input::get('pad_id');
             if ($padId) {
-                $pad = Auth::user()->pads()->where('id', $padId)->firstOrFail();
+                $pad = Auth::user()->pads()
+                    ->where('id', $padId)->firstOrFail();
                 $note->pad_id = $pad->id;
             }
             Auth::user()->notes()->save($note);
-            return Redirect::route('all_notes')
-                ->with('success', 'Note is created.');
+            return Redirect::route('view_note', array('id' => $note->id))
+                ->with('success', 'Note is successfully created.');
         }
 		return View::make('note/create');
 	}
 
     public function edit($id)
     {
-        $note = Auth::user()->notes()->where('id', '=', $id)->firstOrFail();
+        $note = $this->getNoteOrFail($id);
         if (Request::isMethod('post'))
         {
-            $validation = Validator::make(
-                Input::all(),
-                array(
-                    'name' => 'required',
-                    'text' => 'required',
-                )
-            );
+            $validation = $this->validator();
             if ($validation->fails())
             {
                 return Redirect::route('edit_note')->withErrors($validation);
@@ -69,22 +58,23 @@ class NoteController extends BaseController {
             );
             $padId = (int)Input::get('pad_id');
             if ($padId) {
-                $pad = Auth::user()->pads()->where('id', $padId)->firstOrFail();
+                $pad = Auth::user()->pads()
+                    ->where('id', $padId)->firstOrFail();
                 $note->pad_id = $pad->id;
             } else {
                 $note->pad_id = null;
             }
             Auth::user()->notes()->save($note);
 
-            return Redirect::route('all_notes')
-                ->with('success', 'Note is updated.');
+            return Redirect::route('view_note', array('id' => $note->id))
+                ->with('success', 'Note is successfully updated.');
         }
 		return View::make('note/edit', array('note' => $note));
     }
 
 	public function delete($id)
 	{
-        $note = Auth::user()->notes()->where('id', '=', $id)->firstOrFail();
+        $note = $this->getNoteOrFail($id);
         if (Request::isMethod('post'))
         {
             $note->delete();
@@ -96,7 +86,24 @@ class NoteController extends BaseController {
 
     public function view($id)
     {
-        $note = Auth::user()->notes()->where('id', '=', $id)->firstOrFail();
+        $note = $this->getNoteOrFail($id);
 		return View::make('note/view', array('note' => $note));
+    }
+
+    private function getNoteOrFail($id)
+    {
+        return Auth::user()->notes()
+            ->where('id', '=', $id)->firstOrFail();
+    }
+
+    private function validator()
+    {
+        return Validator::make(
+            Input::all(),
+            array(
+                'name' => 'required',
+                'text' => 'required',
+            )
+        );
     }
 }
