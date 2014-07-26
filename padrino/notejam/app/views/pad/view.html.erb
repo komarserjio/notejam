@@ -1,27 +1,19 @@
-<% content_for :page_title do %><%= @pad.name %> notes (<%= @notes.count %>)<% end %>
+<% content_for :page_title do %><%= @pad.name %> (<%= @notes.count %>)<% end %>
 <% if @notes.count.nonzero? %>
 <table class="notes">
-    <tr>
-        <th class="note">Note <a href="<%= url(:pad, :view, :id => @pad.id, :order => "-name") %>" class="sort_arrow">↑</a><a href="<%= url(:pad, :view, :id => @pad.id, :order => "name") %>" class="sort_arrow">↓</a></th>
-        <th>Pad</th>
-        <th class="date">Last modified <a href="<%= url(:pad, :view, :id => @pad.id, :order => "-updated_at") %>" class="sort_arrow">↑</a><a href="<%= url(:pad, :view, :id => @pad.id, :order => "updated_at") %>" class="sort_arrow">↓</a></th>
-    </tr>
-    <% @notes.each do |note| -%>
-    <tr>
-        <td><%= link_to note.name, url(:note, :view, :id => note.id) %></td>
-        <td class="pad">
-            <% if note.pad %>
-                <%= link_to note.pad.name, url(:pad, :edit, :id => note.pad.id) %>
-            <% else %>
-                No pad
-            <% end %>
-        </td>
-        <td class="hidden-text date"><%= smart_date note.updated_at %></td>
-    </tr>
-    <% end -%>
+  <tr>
+    <th class="note">Note <a href="<%= url(:pad, :view, :id => @pad.id, :order => "-name") %>" class="sort_arrow">↑</a><a href="<%= url(:pad, :view, :id => @pad.id, :order => "name") %>" class="sort_arrow">↓</a></th>
+    <th class="date">Last modified <a href="<%= url(:pad, :view, :id => @pad.id, :order => "-updated_at") %>" class="sort_arrow">↑</a><a href="<%= url(:pad, :view, :id => @pad.id, :order => "updated_at") %>" class="sort_arrow">↓</a></th>
+  </tr>
+  <% @notes.each do |note| -%>
+  <tr>
+    <td><%= link_to note.name, url(:note, :view, :id => note.id) %></td>
+    <td class="hidden-text date"><%= smart_date note.updated_at %></td>
+  </tr>
+  <% end -%>
 </table>
 <% else %>
-    <p class="empty">No notes in this pad yet.</p>
+  <p class="empty">Create first note in the pad.</p>
 <% end %>
 <%= link_to "Create a note", url(:note, :create, {:pad => @pad.id}), :class => "button" %>
 <%= link_to "Pad settings", url(:pad, :edit, {:id => @pad.id}) %>

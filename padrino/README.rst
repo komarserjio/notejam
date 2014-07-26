@@ -2,7 +2,7 @@
 Notejam: Padrino implementation
 *******************************
 
-Notejam application implemented using Padrino framework.
+Notejam application implemented using `Padrino <http://www.padrinorb.com/>`_ framework.
 
 ==========================
 Installation and launching
@@ -22,7 +22,8 @@ Clone the repo:
 Install
 -------
 
-Using rbenv or RVM is strongly advised.
+Use `RVM <https://rvm.io/>`_ or `rbenv <https://github.com/sstephenson/rbenv>`_
+for environment management.
 
 Install dependencies:
 
@@ -34,7 +35,6 @@ Install dependencies:
 ------
 Launch
 ------
-
 
 Start built-in web server:
 
@@ -50,10 +50,24 @@ Go to http://127.0.0.1:3000/ in your browser.
 Run tests
 ---------
 
-Start unit/functional tests:
+Start functional and unit tests:
 
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/padrino/notejam/
     $ padrino rake spec
 
+
+============
+Contribution
+============
+Do you have ruby/padrino experience? Help the app to follow ruby and padrino best practices.
+
+Please send your pull requests in the ``padrino`` branch, not ``master``.
+Always prepend your commits with framework name:
+
+.. code-block:: bash
+
+    Padrino: Implemented sign in functionality
+
+Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.
