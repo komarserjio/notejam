@@ -43,7 +43,7 @@ Supported frameworks
 In progress
 -----------
 
-**Javascript**
+**Javascript (node.js)**
 
 
 * Express.js
@@ -59,8 +59,10 @@ In progress
 Application overview
 ====================
 
-Notejam is a web application which allows user to sign up/in/out and create/view/edit/delete notes.
+Notejam is a web application which offers user to sign up/in/out and create/view/edit/delete notes.
 Notes are grouped in pads.
+
+**Screenshots**
 
 .. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/1p.png
     :alt: Sign in
