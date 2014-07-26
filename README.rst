@@ -64,9 +64,9 @@ for look and feel.
 
 See `detailed overview <https://github.com/komarserjio/notejam/blob/master/contribute.rst#application-requirements>`_.
 
-Typical application covers following components:
+Typical application covers following topics:
 
-* Request/Response
+* Request/Response handling
 * Routing
 * Templates
 * Configuration
@@ -81,20 +81,23 @@ Typical application covers following components:
 How to launch
 =============
 
-All Implemenations are SQLite based and launchable by built-in web servers.
+All implemenations are SQLite based and launchable by built-in web servers.
 Each implementation has instruction describing easy steps to install environment, launch and run tests.
 
 ============
 Contribution
 ============
 
-Contribution is more than welcome!
+Contribution is more than welcome! 
+Contribute improvements to existing applications to help them follow best practices 
+or provide new implementation for unsupported framework.
+
 
 **Do you want to improve one of the existing implementations?**
 
 Each implemenation has its own README with contribution details.
 
-**Do you want to add new implementaion?**
+**Do you want to add new framework?**
 
 Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.
 
