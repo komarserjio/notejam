@@ -1,6 +1,6 @@
-*******************************
-Notejam: Padrino implementation
-*******************************
+****************
+Notejam: Padrino
+****************
 
 Notejam application implemented using `Padrino <http://www.padrinorb.com/>`_ framework.
 
