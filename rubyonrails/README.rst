@@ -34,6 +34,14 @@ Install dependencies:
     $ cd YOUR_PROJECT_DIR/rubyonrails/notejam/
     $ bundle install
 
+Create database schema:
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/rubyonrails/notejam/
+    $ rake db:migrate
+
+
 ------
 Launch
 ------
