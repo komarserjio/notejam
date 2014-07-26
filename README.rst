@@ -62,21 +62,21 @@ Application overview
 Notejam is a web application which allows user to sign up/in/out and create/view/edit/delete notes.
 Notes are grouped in pads.
 
-.. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/1s.png
+.. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/1p.png
     :alt: Sign in
-    :width: 640
+    :width: 400
     :align: center
     :target: https://github.com/komarserjio/notejam/tree/master/screenshots.rst
 
-.. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/2s.png
+.. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/2p.png
     :alt: All notes
-    :width: 640
+    :width: 400
     :align: center
     :target: https://github.com/komarserjio/notejam/tree/master/screenshots.rst
 
-.. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/3s.png
+.. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/3p.png
     :alt: New note
-    :width: 640
+    :width: 400
     :align: center
     :target: https://github.com/komarserjio/notejam/tree/master/screenshots.rst
 
