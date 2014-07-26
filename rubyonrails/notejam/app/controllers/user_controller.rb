@@ -8,7 +8,7 @@ class UserController < ApplicationController
         @user.save
         redirect_to(
           signin_path,
-          :flash => {:success => "Now you can sign in"}
+          :flash => {:success => "Account is created. Now you can sign in."}
         )
       end
     end

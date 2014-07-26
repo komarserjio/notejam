@@ -5,7 +5,7 @@ class NoteControllerTest < ActionController::TestCase
     assert_response :success
     login_as(:existent_user)
     assert_difference('Note.count') do
-      post :create, note: {name: "test note", text: "text"}
+      post :create, note: {name: "test note", text: "text", pad_id: 0}
     end
   end
 
@@ -14,9 +14,9 @@ class NoteControllerTest < ActionController::TestCase
     assert_redirected_to signin_path
   end
 
-  test "note should note be created if required fields are missing" do
+  test "note should not be created if required fields are missing" do
     login_as(:existent_user)
-    post :create, note: {name: "", text: ""}
+    post :create, note: {name: "", text: "", pad_id: 0}
     assert_select ".errorlist li", count: 2
   end
 
@@ -25,7 +25,7 @@ class NoteControllerTest < ActionController::TestCase
     note = notes(:existent_note)
     new_name = "new name"
     new_text = "new text"
-    post :edit, {id: note.id, note: {name: new_name, text: new_text}}
+    post :edit, {id: note.id, note: {name: new_name, text: new_text, pad_id: 0}}
     assert_redirected_to view_note_path :id => note.id
     assert_equal [new_name, new_text], [Note.first.name, Note.first.text]
   end
@@ -33,7 +33,7 @@ class NoteControllerTest < ActionController::TestCase
   test "note can't be edited if required fields are missing" do
     login_as(:existent_user)
     note = notes(:existent_note)
-    post :edit, {id: note.id, note: {name: "", text: ""}}
+    post :edit, {id: note.id, note: {name: "", text: "", pad_id: 0}}
     assert_select ".errorlist li", count: 2
   end
 

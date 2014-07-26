@@ -8,10 +8,14 @@ class NoteController < ApplicationController
     @note = current_user.notes.find(params[:id])
     @current_name = @note.name
     if params[:note]
+      # @TODO weird solution
+      if params[:note][:pad_id] != "0"
+        current_user.pads.find(params[:note][:pad_id])
+      end
       if @note.update(note_params)
         redirect_to(
           view_note_path(:id => @note.id),
-          :flash => {:success => "Note is updated"}
+          :flash => {:success => "Note is successfully updated"}
         )
       end
     end
@@ -23,22 +27,22 @@ class NoteController < ApplicationController
         @note.destroy
         redirect_to(
           all_notes_path,
-          :flash => {:success => "Note is deleted"}
+          :flash => {:success => "Note is successfully deleted"}
         )
     end
   end
 
   def create
     if params[:note]
-      if params[:note][:pad_id]
-        # check if user owns specified pad
-        current_user.pads.find(params[:pad_id])
+      # @TODO weird solution
+      if params[:note][:pad_id] != "0"
+        current_user.pads.find(params[:note][:pad_id])
       end
       @note = current_user.notes.create(note_params)
       if @note.valid?
         redirect_to(
           all_notes_path,
-          :flash => {:success => "Note is created"}
+          :flash => {:success => "Note is successfully created"}
         )
       end
     end
