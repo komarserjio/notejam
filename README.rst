@@ -64,19 +64,19 @@ Notes are grouped in pads.
 
 .. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/1s.png
     :alt: Sign in
-    :width: 640
+    :width: 400
     :align: center
     :target: https://github.com/komarserjio/notejam/tree/master/screenshots.rst
 
 .. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/2s.png
     :alt: All notes
-    :width: 640
+    :width: 400
     :align: center
     :target: https://github.com/komarserjio/notejam/tree/master/screenshots.rst
 
 .. image:: https://github.com/komarserjio/notejam/blob/master/html/screenshots/3s.png
     :alt: New note
-    :width: 640
+    :width: 400
     :align: center
     :target: https://github.com/komarserjio/notejam/tree/master/screenshots.rst
 
