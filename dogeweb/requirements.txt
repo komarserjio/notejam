@@ -1,0 +1,2 @@
+https://github.com/pyos/dg/zipball/master
+https://github.com/pyos/dogeweb/zipball/master

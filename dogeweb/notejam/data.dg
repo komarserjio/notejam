@@ -1,0 +1,91 @@
+# get_notes user (Maybe pad_id)   -> (Pad, [Note])
+# get_note  user id               -> Note
+# pop_note  user id               -> Note
+# add_note  user    name text pad -> Note
+# set_note  user id name text pad
+# set_pad   user id name
+# check_user  email (Maybe password) -> User
+# create_user email        password  -> User
+# update_user user         password  -> User
+
+import '/time'
+import '/itertools'
+import '/collections'
+
+
+User = collections.namedtuple 'User' 'id, email'
+Note = collections.namedtuple 'Note' 'id, name, text, time, pad'
+Pad  = collections.namedtuple 'Pad'  'id, name'
+
+
+data = dict!
+mono = itertools.count!
+
+
+get_notes = user pad -> data !! user.email !! 'pads' !! pad
+get_note  = user id  -> data !! user.email !! 'objs' !! id
+
+
+pop_note = user id ->
+  ctx = data !! user.email !! 'objs'
+  obj = ctx.pop id
+  obj.pad =>
+    (data !! user.email !! 'pads' !! obj.pad.id !! 1).remove obj
+    (data !! user.email !! 'pads' !! obj.pad.id !! 1) or
+      data !! user.email !! 'pads' !!~ obj.pad.id
+  obj
+
+
+_find_pad_by_name = pad_name -> if
+  not pad_name => None, list!
+  otherwise    =>
+    nope = for (pad, store) in (data !! user.email !! 'pads').values! =>
+      pad.name == pad_name =>
+        break!
+    nope =>
+      pad   = Pad (next mono) pad_name
+      store = list!
+      data !! user.email !! 'pads' !! pad.id = pad, store
+    pad, store
+
+
+add_note = user name text pad_name ->
+  pad, store = _find_pad_by_name pad_name
+  note = Note (next mono) name text (int $ time.mktime time.gmtime!) pad
+  store.append note
+  data !! user.email !! 'objs' !! note.id = note
+
+
+set_note = user id name text pad_name ->
+  note = pop_note user id
+  pad, store = _find_pad_by_name pad_name
+  note = Note note.id name text (int $ time.mktime time.gmtime!) pad
+  store.append note
+  data !! user.email !! 'objs' !! note.id = note
+
+
+set_pad = user id name ->
+  pad = data !! user.email !! 'pads' !! id
+  pad = data !! user.email !! 'pads' !! id = Pad pad.id name
+
+
+check_user = email pwd ->
+  user = data !! email
+  if pwd is None          => user !! 'user'
+     pwd == user !! 'pwd' => user !! 'user'
+     otherwise => raise ValueError
+
+
+create_user = email pwd ->
+  email in data => raise KeyError
+  data !! email = dict
+    pwd:  pwd
+    user: (User (next mono) email)
+    pads: (dict' (None, (None, list!)))
+    objs: dict!
+  data !! email !! 'user'
+
+
+update_user = user pwd ->
+  data !! user.email !! 'pwd' = pwd
+  user
