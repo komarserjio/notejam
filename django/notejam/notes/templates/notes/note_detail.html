@@ -9,6 +9,6 @@
   <div class="note">
     {{ note.text }}
   </div>
-  <a href="{% url edit_note pk=note.id %}" class="button">Edit</a>
-  <a href="{% url delete_note pk=note.id %}" class="delete-note">Delete it</a>
+  <a href="{% url 'edit_note' pk=note.id %}" class="button">Edit</a>
+  <a href="{% url 'delete_note' pk=note.id %}" class="delete-note">Delete it</a>
 {% endblock %}

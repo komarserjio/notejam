@@ -37,15 +37,15 @@
     <div class="sixteen columns">
       <div class="sign-in-out-block">
         {% if request.user.is_authenticated %}
-          {{ request.user.email}}:&nbsp; <a href="{% url account_settings %}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{% url signout %}">Sign out</a>
+          {{ request.user.email}}:&nbsp; <a href="{% url 'account_settings' %}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{% url 'signout' %}">Sign out</a>
         {% else %}
-          <a href="{% url signup %}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{% url signin %}">Sign in</a>
+          <a href="{% url 'signup' %}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{% url 'signin' %}">Sign in</a>
         {% endif %}
       </div>
     </div>
     <div class="sixteen columns">
       <h1 class="bold-header">
-        <a href="{% url home %}" class="header">note<span class="jam">jam: </span></a>
+        <a href="{% url 'home' %}" class="header">note<span class="jam">jam: </span></a>
         {% block page_title %}
           <span>All notes</span>
         {% endblock %}
@@ -60,14 +60,14 @@
         {% if my_pads.count > 0 %}
         <ul>
           {% for pad in my_pads %}
-            <li><a href="{% url view_pad_notes pk=pad.id %}">{{ pad.name }}</a></li>
+            <li><a href="{% url 'view_pad_notes' pk=pad.id %}">{{ pad.name }}</a></li>
           {% endfor %}
         </ul>
         {% else %}
         <p class="empty">No pads</p>
         {% endif %}
         <hr />
-        <a href="{% url create_pad %}">New pad</a>
+        <a href="{% url 'create_pad' %}">New pad</a>
       </nav>
       <!-- end of pad template tag -->
     </div>
