@@ -1,0 +1,14 @@
+-extends "base.hamlike"
+-set pads = []
+
+-block logo
+  %a.logo-big href="{{ url_for('.root') }}" -> error<span class="logo-normal">{{ err.code }}:</span>
+
+-block title
+  =err.name
+
+-block content
+  -if err.description
+    %h3.text-center.error-description -> =err.description
+
+-block user

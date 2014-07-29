@@ -1,0 +1,55 @@
+%!doctype html
+%html lang="en"
+  %head
+    %meta charset="utf-8"
+    %meta name="viewport" content="width=device-width, initial-scale=1"
+    -if user
+      %meta itemprop="login" content="{{ user.email }}"
+    %title
+      -block title
+        Notejam
+
+    %link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+    %link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"
+    %link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+    %link rel="stylesheet" href="/static/style.css"
+
+    %script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+    %script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"
+    %script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"
+    %script src="/static/script.js"
+  %body
+    %div.main
+      %div.container
+        -block user
+          -if user
+            %div.row
+              %div.col-md-12.user-info
+                %span -> {{ user.email }}
+                %a href="{{ url_for('.user') }}" -> Account settings
+                %a href="{{ url_for('.user_logout') }}" -> Sign out
+        %div.row
+          %div.col-md-12
+            %h1.logo
+              -block logo
+                %a.logo-big href="{{ url_for('.root') }}" -> note<span class="logo-normal">jam:</span>
+              -block page_title
+                %span
+                  =self.title()
+        %div.row
+          -if pads
+            %div.col-md-2
+              %h4 -> My pads
+              %nav
+                %ul.pads
+                  -for pad in pads
+                    %li -> %a href="{{ url_for('.pad', pad_id=pad.id) }}" -> =pad.name
+          %div class="content {% if pads %}col-md-10{% else %}col-md-12{% endif %}"
+            -block content
+    -block misc
+      %footer.text-muted
+        %div.container
+          %p ->
+            <a href="https://github.com/komarserjio/notejam">Notejam</a>:
+            <strong>dogeweb</strong> application
+          %p -> Created by <a href="https://github.com/pyos">@pyos</a>

@@ -1,0 +1,59 @@
+-extends "base.hamlike"
+
+-block title
+  -if pad
+    =pad.name
+  -else
+    All Notes
+  ({{ notes|length }})
+
+-block content
+  -if notes
+    %table.table
+      %tr
+        %th -> Note
+        -if not pad
+          %th -> Pad
+        %th -> Last Modified
+        %th
+      -for note in notes
+        %tr
+          %td -> %a href="{{ url_for('.note', note_id=note.id) }}" -> =note.name
+          -if not pad
+            %td
+              -if note.pad
+                %a href="{{ url_for('.pad', pad_id=note.pad.id) }}" -> =note.pad.name
+              -else
+                —
+          %td.date -> =note.time
+          %td -> %a href="{{ url_for('.note_delete', note_id=note.id) }}" -> %span.fa.fa-times
+  -else
+    %h4.text-muted.note-list-empty ->
+      -if pad
+        Nothing here! (How did you get this message, anyway?)
+      -else
+        Nothing here!
+  %div.form-toggles
+    %a.new-note -> New note
+    -if pad
+      %a.edit-pad -> Pad settings
+  %form.collapse.new-note-form action="{{ url_for('.root') }}" method="POST"
+    %div.input-group
+      %label for="name" -> Name
+      %input.form-control type="text" name="name"
+    %div.input-group
+      %label for="pad" -> Pad
+      %input.form-control type="text" name="pad" placeholder="—" value="{% if pad %}{{ pad.name }}{% endif %}"
+    %div.input-group
+      %label for="text" -> Text
+      %textarea.form-control cols="40" rows="5" name="text" placeholder="**Markdown**"
+    %div.input-group
+      %button.form-control.btn.btn-primary type="submit" -> Save
+
+  -if pad
+    %form.collapse.edit-pad-form action="{{ url_for('.pad', pad_id=pad.id) }}" method="POST"
+      %div.input-group
+        %label for="name" -> Name
+        %input.form-control type="text" name="name" value="{{ pad.name }}"
+      %div.input-group
+        %button.form-control.btn.btn-primary type="submit" -> Save

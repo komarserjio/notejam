@@ -1,33 +1,34 @@
+import '/random'
+import '/asyncio'
+import '/logging'
 import '/os/path'
+
+import '/smtplib'
+import '/email/mime/text/MIMEText'
+import '/email/mime/multipart/MIMEMultipart'
+
+import '/jinja2'
+import '/itsdangerous'
 
 import '/dogeweb'
 import '/dogeweb/r'
 import '/dogeweb/property'
 
 import 'data'
-
-STATIC_DIR = path.join (path.dirname __file__) 'static'
-MARKUP_DIR = path.join (path.dirname __file__) 'templates'
-
-
-#with templates.jinja_dir MARKUP_DIR =>
-#  import 'notes/list'  qualified
-#  import 'notes/view'  qualified
-#  import 'user/view'   qualified
-#  import 'user/login'  qualified
-#  import 'user/remind' qualified
+import 'config'
 
 
 note_list = ~>
   pad, notes = data.get_notes @user None
   if @isjson   => @jsonify $ dict notes: notes pads: pads
-     otherwise => @render notes.list pad: None notes: notes
+     otherwise => @render 'notes/list.hamlike' pad: None notes: notes
 
 
 note_create = ~>
   name = @form.get 'name' ''
   text = @form.get 'text' ''
   pad  = @form.get 'pad'  ''
+  not name or not text => abort 400 'Name and text must not be empty.'
   note = data.add_note @user name text pad
   @redirect $ @url_for '.note' note_id: note.id
 
@@ -36,13 +37,14 @@ note_view = note_id ~>
   except err => note = data.get_note @user note_id
          err :: KeyError => @abort 404
   if @isjson   => @jsonify note
-     otherwise => @render notes.view note: note
+     otherwise => @render 'notes/view.hamlike' note: note
 
 
 note_edit = note_id ~>
   name = @form.get 'name' ''
   text = @form.get 'text' ''
   pad  = @form.get 'pad'  ''
+  not name or not text => @abort 400 'Name and text must not be empty.'
   except err => data.set_note @user note_id name text pad
          err :: KeyError => @abort 404
   @redirect $ @url_for '.note' note_id: note_id
@@ -51,124 +53,176 @@ note_edit = note_id ~>
 note_delete = note_id ~>
   except err => note = data.pop_note @user note_id
          err :: KeyError => @abort 404
-  @redirect $ if
-    note.pad  => @url_for '.pad' pad_id: note.pad.id
-    otherwise => @url_for '.root'
+  @redirect $ @url_for '.root'
 
 
 pad_view = pad_id ~>
   except err => pad, notes = data.get_notes @user pad_id
          err :: KeyError => @abort 404
   if @isjson   => @jsonify pad: pad notes: notes
-     otherwise => @render notes.list pad: pad notes: notes
+     otherwise => @render 'notes/list.hamlike' pad: pad notes: notes
 
 
 pad_edit = pad_id ~>
   name = @form.get 'name' ''
+  not name => abort 400 'Name must be non-empty.'
   except err => data.set_pad @user pad_id name
          err :: KeyError => @abort 404
-  @redirect '.pad' pad_id: pad_id
+  @redirect $ @url_for '.pad' pad_id: pad_id
 
 
 user_config = ~> if
   @user =>
     if @isjson   => @jsonify @user
-       # TODO display a configuration form.
-       # The only setting is the password.
-       otherwise => @render user.view user: @user
+       otherwise => @render 'user/view.hamlike'
   otherwise =>
-    if @isjson   => @abort 403
-       # TODO display a login form.
-       # Email & password.
-       otherwise => @render user.login
+    if @isjson   => @abort 403 'Not logged in.'
+       otherwise => @render 'user/login.hamlike'
 
 
 user_config_set = ~>
   pwd   = @form.get 'pwd'  ''
-  email = @form.get 'user' @user.email
-  email => @set_user $ except
+  email = @form.get 'user' $ if
+    @user     => @user.email
+    otherwise => ''
+  email => headers = @set_user $ except
     # Yes, this will re-check the password even if already logged in.
     # That's a security feature.
     err => data.check_user email pwd
-    err :: KeyError   => @abort 403
-    err :: ValueError => @abort 403
+    err :: KeyError   => @abort 403 'Invalid username/password.'
+    err :: ValueError => @abort 403 'Invalid username/password.'
 
-  not @user => @abort 403
-  new_pwd = @form.get 'new_pwd' ''
-  new_pwd and @user => @set_user $ data.update_user @user new_pwd
-  @redirect $ @url_for '.user'
+  not @user => @abort 403 'Not logged in.'
+  new_pwd   = @form.get 'new_pwd'   ''
+  new_pwd_2 = @form.get 'new_pwd_2' ''
+  new_pwd and @user =>
+    new_pwd != new_pwd_2 => @abort 400 'Passwords do not match.'
+    headers = @set_user $ data.update_user @user new_pwd
+  @redirect headers: headers $ @url_for '.user'
 
 
 user_create = ~>
-  pwd   = @form.get 'pwd'  ''
-  email = @form.get 'user' ''
+  pwd   = @form.get 'pwd'   ''
+  pwd_2 = @form.get 'pwd_2' ''
+  email = @form.get 'user'  ''
   email and pwd =>
-    @set_user $ except
+    pwd != pwd_2 => @abort 400 'Passwords do not match.'
+    # TODO check that `email` is a valid email.
+    headers = @set_user $ except
       err => data.create_user email pwd
-      err :: KeyError => @abort 403
-    @redirect $ @url_for '.root'
-  @abort 400
+      err :: KeyError => @abort 403 'User already exists.'
+    @redirect headers: headers $ @url_for '.root'
+  @abort 400 'E-mail and password must not be empty.'
 
 
 user_logout = ~>
-  @set_user None
-  @redirect $ @url_for '.root'
+  headers = @set_user None
+  @redirect headers: headers $ @url_for '.root'
 
 
 user_remind = ~>
   email = @form.get 'user' ''
-  email or @abort 400
-
+  email or @abort 400 'No email specified.'
   except
     err => data.check_user email None
     err :: KeyError =>
       # NOTE: raising an exception here would allow attackers to brute-force
       #   e-mails. We'll fail silently instead.
+      # FIXME: this code is vulnerable to timing attacks, though. SMTP is SLOW.
     err is None =>
-      # TODO send a message.
-
-  if @isjson   => @jsonify None
-     otherwise => @render user.remind email: email
-
-
-with_templating = f -> r.wraps f $ **: k ~>
-  @render = template **: args -> template **: args
-    # Additional data to pass to the templates goes here.
-    request: self
-    # ...
-  f self **: k
+      alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+      password = ''.join (where for _ in range 10 => yield $ random.choice alphabet)
+      yield from $ @send_message email 'Notepad' $ 'Your new password is: {}'.format password
+      data.set_user_password email password
+  @redirect $ @url_for '.user'
 
 
-with_user_support = f -> r.wraps f $ **: k ~>
-  @set_user = data ->
-    # TODO store the username
-    @user = data
+with_templating = f ->
+  templates = jinja2.Environment loader: (jinja2.FileSystemLoader config.MARKUP_DIR)
+  templates.add_extension $ import '/hamlike/HamlikeExtension' pure
+  templates.autoescape    = True
+  templates.trim_blocks   = True
+  templates.lstrip_blocks = True
 
-  # TODO get the username
-  current_user = ''
+  r.wraps f $ *: a **: k ~>
+    @render = __name **: args ->
+      tpl = templates.get_template __name
+      tpl.render **: args
+        # Additional data to pass to the templates goes here.
+        request: self
+        url_for: @url_for
+        user:    @user
+        pads:   (if
+          @user     => data.get_pads @user
+          otherwise => None)
+    f self *: a **: k
 
-  @user = except
-    err => data.check_user current_user None
-    err :: KeyError => None
-  f self **: k
+
+with_smtp = f ->
+  server = smtplib.SMTP *: config.SMTP_SERVER
+  server.ehlo!
+  server.starttls!
+  server.ehlo!
+  except
+    err => server.login config.SMTP_LOGIN config.SMTP_PASSWORD
+    err :: smtplib.SMTPAuthenticationError =>
+      server = None
+      logger = logging.getLogger 'dogeweb.notepad'
+      logger.warning 'SMTP authentication failed; will be unable to remind passwords.'
+
+  send_message = asyncio.coroutine $ to subject text ->
+    # TODO use some kind of an async SMTP library or delegate this
+    #   to a separate thread/process.
+    server =>
+      msg = MIMEMultipart!
+      msg !! 'From'    = config.SMTP_LOGIN
+      msg !! 'To'      = to
+      msg !! 'Subject' = subject
+      msg.attach $ MIMEText text 'plain'
+      server.sendmail config.SMTP_LOGIN to msg.as_string!
+
+  r.wraps f $ *: a **: k ~>
+    @send_message = send_message
+    f self *: a **: k
 
 
-login_required = f -> r.wraps f $ **: k ~>
-  if @user     => f self **: k
-     # TODO make it return to `@fullpath` somehow.
+with_user_support = f ->
+  signer = itsdangerous.URLSafeSerializer config.SECRET_KEY
+
+  r.wraps f $ *: a **: k ~>
+    current_user = except
+      err => signer.loads $ @cookies.get 'user' ''
+      err :: itsdangerous.BadSignature => ''
+
+    @set_user = data ->
+      @user = data
+      if data      => dict' ('Set-Cookie', 'user={}; path=/; httponly=1'.format $ signer.dumps data.email)
+         otherwise => dict' ('Set-Cookie', 'user=; path=/')
+
+    @user = except
+      err => data.check_user current_user None
+      err :: KeyError => None
+    f self *: a **: k
+
+
+login_required = f -> r.wraps f $ *: a **: k ~>
+  if @user     => f self *: a **: k
      otherwise => @redirect $ @url_for '.user'
 
 
 app = dogeweb.app
-  root = with_templating $ with_user_support $ r.path
+  with_templating $ with_user_support $ r.path
     '/', 'root', login_required $ r.method
       'GET',  note_list
       'POST', note_create
 
     '/notes/<int:note_id>/', 'note', login_required $ r.method
-      'GET',    note_view
-      'POST',   note_edit
-      'DELETE', note_delete
+      'GET',  note_view
+      'POST', note_edit
+
+    # I'd make that `DELETE /notes/<int:note_id>/`, but I don't really want
+    # to send more AJAX requests.
+    '/notes/<int:note_id>/delete/', 'note_delete', login_required $ r.get note_delete
 
     '/pads/<int:pad_id>/', 'pad', login_required $ r.method
       # NOTE: pads are created and removed automatically.
@@ -180,13 +234,14 @@ app = dogeweb.app
       'GET',    user_config
       'POST',   user_config_set
       'PUT',    user_create
-      # NOTE: HTTP allows any methods that match a certain syntax.
-      #   Why limit yourself to GET and POST when neither libraries nor browsers
-      #   have any problems with other methods?
-      'LOGOUT', user_logout
-      'FORGOT', user_remind
+      'FORGOT', with_smtp user_remind
 
+    '/me/logout/', 'user_logout', r.get user_logout
+
+    '/static/<path:x>', x ~> @static $ path.join config.STATIC_DIR $ path.normpath $ x.lstrip '/'
     '/robots.txt',        ~> @redirect '/static/robots.txt'
     '/favicon.ico',       ~> @redirect '/static/favicon.ico'
-    '/static/<path:x>', x ~> @static $ path.join STATIC_DIR $ path.normpath $ x.lstrip '/'
-  # error_handler = exception ~> response
+
+  with_templating $ with_user_support $ err ~>
+    err.code == 500 => @log.error 'unhandled exception' exc_info: True
+    err.code, err.headers, @render 'error.hamlike' err: err

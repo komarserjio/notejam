@@ -3,19 +3,51 @@
 # pop_note  user id               -> Note
 # add_note  user    name text pad -> Note
 # set_note  user id name text pad
+# get_pads  user                  -> [Pad]
 # set_pad   user id name
 # check_user  email (Maybe password) -> User
 # create_user email        password  -> User
 # update_user user         password  -> User
+# set_user_password email password
 
 import '/time'
 import '/itertools'
 import '/collections'
+import '/xml/sax/saxutils/escape'
+
+import '/dg'
+import '/hoep'
+import '/pygments/lexers'     qualified
+import '/pygments/formatters' qualified
 
 
-User = collections.namedtuple 'User' 'id, email'
-Note = collections.namedtuple 'Note' 'id, name, text, time, pad'
-Pad  = collections.namedtuple 'Pad'  'id, name'
+RecordMeta = subclass type where
+  __new__ = name bases data ~> type.__new__ self name bases data where
+    fields = data !! 'fields'
+    xattrs = list $ map ('@' +) fields
+    data.update $ dict'
+      '__slots__',  data !! 'fields'
+      '__init__',   eval $ dg.compile $ 'self '                  + ' '.join xattrs + ' -> None'
+      '__iter__',   eval $ dg.compile $ 'self -> iter ('         + ','.join xattrs + ',)'
+      '__reduce__', eval $ dg.compile $ 'self -> (@__class__, (' + ','.join xattrs + ',))'
+
+
+Record = subclass object metaclass: RecordMeta where fields = ()
+User   = subclass Record where fields = 'id', 'email'
+Note   = subclass Record where fields = 'id', 'name', 'text', 'html', 'time', 'pad'
+Pad    = subclass Record where fields = 'id', 'name'
+
+
+_MdRenderer = subclass hoep.Hoep where block_code = code lang ~> except
+  e => pygments.highlight code
+    pygments.lexers.get_lexer_by_name lang
+    pygments.formatters.HtmlFormatter!
+  e :: Exception => '<pre>{}</pre>'.format $ escape code
+
+
+_md_renderer = _MdRenderer
+  hoep.EXT_FENCED_CODE | hoep.EXT_NO_INTRA_EMPHASIS
+  hoep.HTML_SMARTYPANTS | hoep.HTML_ESCAPE
 
 
 data = dict!
@@ -24,11 +56,13 @@ mono = itertools.count!
 
 get_notes = user pad -> data !! user.email !! 'pads' !! pad
 get_note  = user id  -> data !! user.email !! 'objs' !! id
+get_pads  = user -> list $ filter None $ map fst $ (data !! user.email !! 'pads').values!
 
 
 pop_note = user id ->
   ctx = data !! user.email !! 'objs'
   obj = ctx.pop id
+  (data !! user.email !! 'pads' !! None !! 1).remove obj
   obj.pad =>
     (data !! user.email !! 'pads' !! obj.pad.id !! 1).remove obj
     (data !! user.email !! 'pads' !! obj.pad.id !! 1) or
@@ -36,11 +70,11 @@ pop_note = user id ->
   obj
 
 
-_find_pad_by_name = pad_name -> if
+_find_pad_by_name = user pad_name -> if
   not pad_name => None, list!
   otherwise    =>
     nope = for (pad, store) in (data !! user.email !! 'pads').values! =>
-      pad.name == pad_name =>
+      pad and pad.name == pad_name =>
         break!
     nope =>
       pad   = Pad (next mono) pad_name
@@ -50,23 +84,35 @@ _find_pad_by_name = pad_name -> if
 
 
 add_note = user name text pad_name ->
-  pad, store = _find_pad_by_name pad_name
-  note = Note (next mono) name text (int $ time.mktime time.gmtime!) pad
+  md = _md_renderer.render text
+  pad, store = _find_pad_by_name user pad_name
+  note = Note (next mono) name text md (int $ time.mktime time.localtime!) pad
   store.append note
-  data !! user.email !! 'objs' !! note.id = note
+  (data !! user.email !! 'pads' !! None !! 1).append note
+  (data !! user.email !! 'objs' !! note.id) = note
 
 
 set_note = user id name text pad_name ->
-  note = pop_note user id
-  pad, store = _find_pad_by_name pad_name
-  note = Note note.id name text (int $ time.mktime time.gmtime!) pad
-  store.append note
-  data !! user.email !! 'objs' !! note.id = note
+  md = _md_renderer.render text
+  note = data !! user.email !! 'objs' !! id
+  note.name = name
+  note.text = text
+  note.html = md
+  note.time = int $ time.mktime time.localtime!
+  if not pad_name and not note.pad => None
+     note.pad and pad_name == note.pad.name => None
+     otherwise =>
+       pop_note user id
+       pad, store = _find_pad_by_name user pad_name
+       note.pad = pad
+       store.append note
+       (data !! user.email !! 'pads' !! None !! 1).append note
+       (data !! user.email !! 'objs' !! note.id) = note
 
 
 set_pad = user id name ->
-  pad = data !! user.email !! 'pads' !! id
-  pad = data !! user.email !! 'pads' !! id = Pad pad.id name
+  pad, _ = data !! user.email !! 'pads' !! id
+  pad.name = name
 
 
 check_user = email pwd ->
@@ -89,3 +135,7 @@ create_user = email pwd ->
 update_user = user pwd ->
   data !! user.email !! 'pwd' = pwd
   user
+
+
+set_user_password = user pwd ->
+  data !! user !! 'pwd' = pwd
