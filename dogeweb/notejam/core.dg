@@ -244,4 +244,6 @@ app = dogeweb.app
 
   with_templating $ with_user_support $ err ~>
     err.code == 500 => @log.error 'unhandled exception' exc_info: True
-    err.code, err.headers, @render 'error.hamlike' err: err
+    err.code, err.headers, if
+      @isjson   => @jsonify $ dict code: err.code name: err.name description: err.description
+      otherwise => @render 'error.hamlike' err: err
