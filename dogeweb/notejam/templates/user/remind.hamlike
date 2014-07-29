@@ -1,5 +1,0 @@
--extends "user/login.hamlike"
-
--block content
-  %h4 -> Check your e-mail for the new password.
-  =super()
