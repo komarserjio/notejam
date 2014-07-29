@@ -5,7 +5,6 @@ from flask.ext.mail import Mail
 
 # @TODO use application factory approach
 app = Flask(__name__)
-app.config.from_object('notejam.config')
 
 db = SQLAlchemy(app)
 
