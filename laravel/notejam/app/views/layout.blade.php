@@ -18,10 +18,9 @@
 
 	<!-- CSS
   ================================================== -->
-    {{ HTML::style('css/base.css') }}
-    {{ HTML::style('css/skeleton.css') }}
-    {{ HTML::style('css/layout.css') }}
-    {{ HTML::style('css/tables.css') }}
+    {{ HTML::style('http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css') }}
+    {{ HTML::style('http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css') }}
+    {{ HTML::style('http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css') }}
     {{ HTML::style('css/style.css') }}
 
 	<!--[if lt IE 9]>
