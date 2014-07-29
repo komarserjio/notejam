@@ -17,6 +17,7 @@ requires = [
     'pyramid_simpleform',
     'cryptacular',
     'WebTest',
+    'pyramid-mailer'
     ]
 
 setup(name='notejam',
