@@ -14,13 +14,22 @@ import '/dogeweb'
 import '/dogeweb/r'
 import '/dogeweb/property'
 
-import 'data'
 import 'config'
+import 'data'
+import 'data/Record'
+
+
+jsonify   = x -> dogeweb.jsonify $ jsprepare x
+jsprepare = x -> if
+  x :: Record => dict (where for (k, v) in zip x.fields x => k !! 0 != '_' => yield (k, jsprepare v))
+  x :: dict   => dict $ zip x.keys! $ map jsprepare x.values!
+  x :: list   => list $ map jsprepare x
+  otherwise   => x
 
 
 note_list = ~>
   pad, notes = data.get_notes @user None
-  if @isjson   => @jsonify $ dict notes: notes pads: pads
+  if @isjson   => jsonify $ dict notes: notes pads: (data.get_pads @user)
      otherwise => @render 'notes/list.hamlike' pad: None notes: notes
 
 
@@ -36,7 +45,7 @@ note_create = ~>
 note_view = note_id ~>
   except err => note = data.get_note @user note_id
          err :: KeyError => @abort 404
-  if @isjson   => @jsonify note
+  if @isjson   => jsonify note
      otherwise => @render 'notes/view.hamlike' note: note
 
 
@@ -59,7 +68,7 @@ note_delete = note_id ~>
 pad_view = pad_id ~>
   except err => pad, notes = data.get_notes @user pad_id
          err :: KeyError => @abort 404
-  if @isjson   => @jsonify pad: pad notes: notes
+  if @isjson   => jsonify $ dict pad: pad notes: notes
      otherwise => @render 'notes/list.hamlike' pad: pad notes: notes
 
 
@@ -73,7 +82,7 @@ pad_edit = pad_id ~>
 
 user_config = ~> if
   @user =>
-    if @isjson   => @jsonify @user
+    if @isjson   => jsonify @user
        otherwise => @render 'user/view.hamlike'
   otherwise =>
     if @isjson   => @abort 403 'Not logged in.'
@@ -245,5 +254,5 @@ app = dogeweb.app
   with_templating $ with_user_support $ err ~>
     err.code == 500 => @log.error 'unhandled exception' exc_info: True
     err.code, err.headers, if
-      @isjson   => @jsonify $ dict code: err.code name: err.name description: err.description
+      @isjson   => jsonify $ dict code: err.code name: err.name description: err.description
       otherwise => @render 'error.hamlike' err: err
