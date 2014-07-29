@@ -265,7 +265,7 @@ def _generate_password(request, user):
     m.update(
         "{email}{secret}{date}".format(
             email=user.email,
-            secret=request.registry['session.secret'],
+            secret=request.registry.settings.get('session.secret'),
             date=str(date.today())
         )
     )
