@@ -76,7 +76,7 @@ Contribution
 ============
 Do you have php/symfony experience? Help the app to follow php and symfony best practices.
 
-Please send your pull requests in the ``symfony`` branch, not ``master``.
+Please send your pull requests in the ``master`` branch.
 Always prepend your commits with framework name:
 
 .. code-block:: bash

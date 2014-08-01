@@ -71,7 +71,7 @@ Contribution
 
 Do you have python/pyramid experience? Help the app to follow python and pyramid best practices.
 
-Please send your pull requests in the `pyramid`` branch, not ``master``.
+Please send your pull requests in the ``master`` branch.
 Always prepend your commits with framework name:
 
 .. code-block:: bash

@@ -63,7 +63,7 @@ Contribution
 ============
 Do you have ruby/padrino experience? Help the app to follow ruby and padrino best practices.
 
-Please send your pull requests in the ``padrino`` branch, not ``master``.
+Please send your pull requests in the ``master`` branch.
 Always prepend your commits with framework name:
 
 .. code-block:: bash
