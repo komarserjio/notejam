@@ -9,7 +9,10 @@ from flask import url_for
 from flask.ext.testing import TestCase
 
 from notejam import app, db
+from notejam.config import TestingConfig
 from notejam.models import User, Pad, Note
+
+app.config.from_object(TestingConfig)
 
 
 class NotejamBaseTestCase(TestCase):
