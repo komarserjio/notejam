@@ -6,6 +6,8 @@ Contribution guide
 Pull requests and commits
 =========================
 
+Send your pull requests in the ``master`` branch.
+
 Please prepend commit messages with framework name.
 
 **Good** commit messages:
@@ -28,12 +30,6 @@ Please prepend commit messages with framework name.
 
     Fixed broken symfony pad tests
 
-
-If you contribute into on of the existing application please
-send your pull requests in the specific branch
-(e.g. ``django`` branch for Django framework, ``rubyonrails`` for Ruby on Rails)
-
-If you develop new application submit your code in the ``master`` branch.
 
 ==========
 Code style
