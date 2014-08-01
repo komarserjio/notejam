@@ -4,7 +4,7 @@ Notejam: Django
 
 Notejam application implemented using `Django <https://www.djangoproject.com/>`_ framework.
 
-Django version: 1.4
+Django version: 1.6
 
 ==========================
 Installation and launching

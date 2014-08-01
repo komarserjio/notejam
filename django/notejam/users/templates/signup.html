@@ -15,7 +15,7 @@
     <label for="repeat_password">Confirm password</label>
     {{ form.repeat_password }}
     {{ form.repeat_password.errors }}
-    <input type="submit" value="Sign up" /> or <a href="{% url signin %}">Sign in</a>
+    <input type="submit" value="Sign up" /> or <a href="{% url 'signin' %}">Sign in</a>
   </form>
 {% endblock %}
 
