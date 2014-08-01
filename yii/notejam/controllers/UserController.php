@@ -47,8 +47,7 @@ class UserController extends Controller
 
     public function actionSettings()
     {
-        Yii::$app->session->setFlash('success', 'Yo2');
-        Yii::$app->session->setFlash('error', 'Yo2');
+        $pad = new \app\models\Pad();
         return $this->render('settings');
     }
 

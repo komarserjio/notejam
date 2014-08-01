@@ -27,10 +27,13 @@ $config = [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            //'suffix' => '/',
             'rules' => [
+                '' => 'note/list',
                 'signup' => 'user/signup',
                 'signin' => 'user/signin',
                 'settings' => 'user/settings',
+                'signout' => 'user/signout',
             ]
         ],
         'mailer' => [

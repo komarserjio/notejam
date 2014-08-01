@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use app\assets\AppAsset;
 
 /* @var $this \yii\web\View */
@@ -28,9 +29,9 @@ AppAsset::register($this);
 
 	<!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css">
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css">
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css">
+	<link rel="stylesheet" href="http://localhost/~komar/notejam/rubyonrails/notejam/app/assets/stylesheets/base.css">
+	<link rel="stylesheet" href="http://localhost/~komar/notejam/rubyonrails/notejam/app/assets/stylesheets/skeleton.css">
+	<link rel="stylesheet" href="http://localhost/~komar/notejam/rubyonrails/notejam/app/assets/stylesheets/layout.css">
 	<link rel="stylesheet" href="css/style.css">
 
 	<!--[if lt IE 9]>
@@ -41,7 +42,11 @@ AppAsset::register($this);
   <div class="container">
     <div class="sixteen columns">
       <div class="sign-in-out-block">
-        komarserjio@gmail.com:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
+        <?php if (Yii::$app->user->isGuest): ?>
+            <a href="#">Sign in</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign up</a>
+        <?php else: ?>
+            <?= Yii::$app->user->identity->email ?>:&nbsp; <a href="<?= Url::toRoute('user/settings') ?>">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
+        <?php endif; ?>
       </div>
     </div>
     <div class="sixteen columns">
@@ -66,6 +71,5 @@ AppAsset::register($this);
       <div><a href="https://github.com/komarserjio/notejam">Github</a>, <a href="https://twitter.com/komarserjio">Twitter</a>, created by <a href="https://github.com/komarserjio/">Serhii Komar</a></div>
     </div>
   </div><!-- container -->
-  <a href="https://github.com/komarserjio/notejam"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 </body>
 </html>
