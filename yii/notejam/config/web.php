@@ -16,7 +16,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\NewUser',
+            'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
             'loginUrl'=>'signin',
         ],
@@ -34,6 +34,8 @@ $config = [
                 'signin' => 'user/signin',
                 'settings' => 'user/settings',
                 'signout' => 'user/signout',
+
+                'pads/create' => 'pad/create',
             ]
         ],
         'mailer' => [

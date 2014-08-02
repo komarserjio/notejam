@@ -11,6 +11,8 @@ use app\models\ContactForm;
 
 class UserController extends Controller
 {
+    public $layout = 'user';
+
     public function behaviors()
     {
         return [

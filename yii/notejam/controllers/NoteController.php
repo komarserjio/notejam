@@ -11,6 +11,8 @@ use app\models\ContactForm;
 
 class NoteController extends Controller
 {
+    public $layout = 'app';
+
     public function behaviors()
     {
         return [

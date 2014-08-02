@@ -31,5 +31,15 @@ class Pad extends \yii\db\ActiveRecord
     {
         return 'pads';
     }
+
+    /**
+     * Get user
+     *
+     * @return app\models\User
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
 }
 

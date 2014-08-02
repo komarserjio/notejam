@@ -1,7 +1,7 @@
 <?php
 namespace app\models;
 
-use app\models\NewUser;
+use app\models\User;
 use Yii;
 
 /**
@@ -22,7 +22,7 @@ class SignupForm extends \yii\base\Model
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
-            ['email', 'unique', 'targetClass' => '\app\models\NewUser', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
@@ -39,7 +39,7 @@ class SignupForm extends \yii\base\Model
     public function signup()
     {
         if ($this->validate()) {
-            $user = new NewUser();
+            $user = new User();
             $user->email = $this->email;
             $user->setPassword($this->password);
             $user->generateAuthKey();

@@ -32,7 +32,7 @@ AppAsset::register($this);
 	<link rel="stylesheet" href="http://localhost/~komar/notejam/rubyonrails/notejam/app/assets/stylesheets/base.css">
 	<link rel="stylesheet" href="http://localhost/~komar/notejam/rubyonrails/notejam/app/assets/stylesheets/skeleton.css">
 	<link rel="stylesheet" href="http://localhost/~komar/notejam/rubyonrails/notejam/app/assets/stylesheets/layout.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="/css/style.css">
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -43,9 +43,9 @@ AppAsset::register($this);
     <div class="sixteen columns">
       <div class="sign-in-out-block">
         <?php if (Yii::$app->user->isGuest): ?>
-            <a href="#">Sign in</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign up</a>
+            <a href="<?= Url::toRoute('user/signin') ?>">Sign in</a>&nbsp;&nbsp;&nbsp;<a href="<?= Url::toRoute('user/signup') ?>">Sign up</a>
         <?php else: ?>
-            <?= Yii::$app->user->identity->email ?>:&nbsp; <a href="<?= Url::toRoute('user/settings') ?>">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
+            <?= Yii::$app->user->identity->email ?>:&nbsp; <a href="<?= Url::toRoute('user/settings') ?>">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="<?= Url::toRoute('user/signout') ?>">Sign out</a>
         <?php endif; ?>
       </div>
     </div>
@@ -54,17 +54,10 @@ AppAsset::register($this);
           <a href="#" class="header">note<span class="jam">jam: </span></a> <span><?= Html::encode($this->title) ?></span>
       </h1>
     </div>
-    <div class="sixteen columns content-area">
-      <div class="alert-area">
-        <?php if (Yii::$app->session->hasFlash('success')): ?>
-            <div class="alert alert-success"><?= Yii::$app->session->getFlash('success') ?></div>
-        <?php endif; ?>
-        <?php if (Yii::$app->session->hasFlash('error')): ?>
-            <div class="alert alert-error"><?= Yii::$app->session->getFlash('success') ?></div>
-        <?php endif; ?>
-      </div>
-      <?= $content ?>
-    </div>
+    <?= $this->blocks['pads'] ?>
+
+    <?= $content ?>
+
     <hr class="footer" />
     <div class="footer">
       <div>Notejam: <strong>Yii</strong> application</div>
