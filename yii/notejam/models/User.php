@@ -120,7 +120,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getNotes()
     {
-        // code...
+        return $this->hasMany(Note::className(), ['user_id' => 'id']);
     }
 
     /**

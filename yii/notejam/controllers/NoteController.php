@@ -6,8 +6,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+use app\models\Note;
 
 class NoteController extends Controller
 {
@@ -29,6 +28,7 @@ class NoteController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'list' => ['get'],
+                    'create' => ['get', 'post'],
                 ],
             ],
         ];
@@ -36,12 +36,23 @@ class NoteController extends Controller
 
     public function actionList()
     {
-        $pad = new \app\models\Pad();
-        //$pad->user_id = 1;
-        ////$pad->save();
-        //var_dump($pad->validate());
-        //var_dump($pad->errors);
         return $this->render('list');
+    }
+
+    public function actionCreate()
+    {
+        $note = new Note();
+
+        if ($note->load(Yii::$app->request->post()) && $note->validate()) {
+            Yii::$app->user->identity->link('notes', $note);
+            Yii::$app->session->setFlash(
+                'success', 'Note is successfully created.'
+            );
+            return $this->redirect('note/list');
+        }
+        return $this->render('create', [
+            'model' => $note,
+        ]);
     }
 }
 

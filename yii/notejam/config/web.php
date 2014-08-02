@@ -36,6 +36,12 @@ $config = [
                 'signout' => 'user/signout',
 
                 'pads/create' => 'pad/create',
+                'pads/<id:\d+>/edit' => 'pad/edit',
+                'pads/<id:\d+>/delete' => 'pad/delete',
+
+                'notes/create' => 'note/create',
+                'notes/<id:\d+>/edit' => 'note/edit',
+                'notes/<id:\d+>/delete' => 'note/delete',
             ]
         ],
         'mailer' => [
