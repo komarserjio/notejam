@@ -1,6 +1,7 @@
 <?php
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 $this->title = 'Sign In';
 
 ?>
@@ -9,14 +10,16 @@ $this->title = 'Sign In';
     'id' => 'login-form',
     'options' => ['class' => 'offset-by-six sign-in'],
     'fieldConfig' => [
-        'template' => "{label}{input}{error}",
+        'template' => "{label}{input}",
     ],
 ]); ?>
 
 <?= $form->field($model, 'email') ?>
+<?= $this->render('/partials/errors', ['model' => $model, 'field' => 'email']) ?>
 
 <?= $form->field($model, 'password')->passwordInput() ?>
+<?= $this->render('/partials/errors', ['model' => $model, 'field' => 'password']) ?>
 
-<?= Html::submitButton('Sign In') ?>
+<?= Html::submitButton('Sign in') ?> or <a href="<?= Url::toRoute('user/signup') ?>">Sign up</a>
 
 <?php ActiveForm::end(); ?>
