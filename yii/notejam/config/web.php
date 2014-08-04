@@ -21,7 +21,7 @@ $config = [
             'loginUrl'=>'signin',
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'note/error',
         ],
         'urlManager' => [
             'class' => 'yii\web\UrlManager',
@@ -30,18 +30,22 @@ $config = [
             //'suffix' => '/',
             'rules' => [
                 '' => 'note/list',
+
                 'signup' => 'user/signup',
                 'signin' => 'user/signin',
                 'settings' => 'user/settings',
                 'signout' => 'user/signout',
+                'forgot-password' => 'user/forgot-password',
 
                 'pads/create' => 'pad/create',
                 'pads/<id:\d+>/edit' => 'pad/edit',
                 'pads/<id:\d+>/delete' => 'pad/delete',
+                'pads/<id:\d+>' => 'pad/view',
 
                 'notes/create' => 'note/create',
                 'notes/<id:\d+>/edit' => 'note/edit',
                 'notes/<id:\d+>/delete' => 'note/delete',
+                'notes/<id:\d+>' => 'note/view',
             ]
         ],
         'mailer' => [

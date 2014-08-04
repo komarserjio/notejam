@@ -1,15 +1,23 @@
+<?php
+use yii\helpers\Url;
+?>
+
 <?php $this->beginBlock('pads'); ?>
     <div class="three columns">
       <h4 id="logo">My pads</h4>
-      <nav>
-          <ul>
-            <?php foreach(Yii::$app->user->identity->pads as $pad): ?>
-                <li><a href="#whatAndWhy"><?= $pad->name; ?></a></li>
-            <?php endforeach; ?>
-          </ul>
-          <hr />
-      <a href="#">New pad</a>
-      </nav>
+          <nav>
+              <?php if (Yii::$app->user->identity->pads): ?>
+                  <ul>
+                    <?php foreach(Yii::$app->user->identity->pads as $pad): ?>
+                        <li><a href="<?= Url::toRoute(['pad/view', 'id' => $pad->id])?>"><?= $pad->name; ?></a></li>
+                    <?php endforeach; ?>
+                  </ul>
+              <?php else: ?>
+                   <p class="empty">No pads</p>
+              <?php endif; ?>
+              <hr />
+              <a href="<?= Url::toRoute('pad/create'); ?>">New pad</a>
+          </nav>
     </div>
 <?php $this->endBlock(); ?>
 
@@ -26,4 +34,3 @@
       <?= $content ?>
     </div>
 <?php $this->endContent(); ?>
-

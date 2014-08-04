@@ -4,11 +4,11 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\Pad;
+use app\controllers\BaseController;
 
-class PadController extends Controller
+class PadController extends BaseController
 {
     public $layout = 'app';
 
@@ -47,7 +47,7 @@ class PadController extends Controller
             return $this->redirect('note/list');
         }
         return $this->render('create', [
-            'model' => $pad,
+            'pad' => $pad,
         ]);
     }
 
@@ -63,7 +63,7 @@ class PadController extends Controller
             return $this->redirect('note/list');
         }
         return $this->render('edit', [
-            'model' => $pad,
+            'pad' => $pad,
         ]);
     }
 
@@ -79,8 +79,15 @@ class PadController extends Controller
             return $this->redirect('note/list');
         }
         return $this->render('delete', [
-            'model' => $pad,
+            'pad' => $pad,
         ]);
+    }
+
+    public function actionView()
+    {
+        $pad = $this->getPad(Yii::$app->request->get('id'));
+        $notes = $pad->getNotes()->orderBy($this->getOrderParam())->all();
+        return $this->render('view', ['pad' => $pad, 'notes' => $notes]);
     }
 
     /**

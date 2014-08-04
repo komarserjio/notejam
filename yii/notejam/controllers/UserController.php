@@ -49,9 +49,38 @@ class UserController extends Controller
 
     public function actionSettings()
     {
-        $pad = new \app\models\Pad();
-        return $this->render('settings');
+        $model = new \app\models\ChangePassword();
+        if ($model->load(Yii::$app->request->post()) &&
+            $model->changePassword(Yii::$app->user->identity)
+        ) {
+            Yii::$app->session->setFlash(
+                'success', 'Password is successfully changed.'
+            );
+            return $this->goHome();
+        } else {
+            return $this->render('settings', [
+                'model' => $model,
+            ]);
+        }
     }
+
+    public function actionForgotPassword()
+    {
+        $model = new \app\models\ForgotPassword();
+        if ($model->load(Yii::$app->request->post()) &&
+            $model->resetPassword()
+        ) {
+            Yii::$app->session->setFlash(
+                'success', 'New password sent. Check your inbox.'
+            );
+            return $this->redirect('signin');
+        } else {
+            return $this->render('forgot-password', [
+                'model' => $model,
+            ]);
+        }
+    }
+
 
     public function actionSignin()
     {

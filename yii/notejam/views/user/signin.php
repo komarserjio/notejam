@@ -21,5 +21,7 @@ $this->title = 'Sign In';
 <?= $this->render('/partials/errors', ['model' => $model, 'field' => 'password']) ?>
 
 <?= Html::submitButton('Sign in') ?> or <a href="<?= Url::toRoute('user/signup') ?>">Sign up</a>
+<hr />
+<a href="<?= Url::toRoute('user/forgot-password') ?>" class="small-red">Forgot password?</a>
 
 <?php ActiveForm::end(); ?>

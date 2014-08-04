@@ -51,7 +51,7 @@ AppAsset::register($this);
     </div>
     <div class="sixteen columns">
       <h1 class="bold-header">
-          <a href="#" class="header">note<span class="jam">jam: </span></a> <span><?= Html::encode($this->title) ?></span>
+          <a href="<?= Url::toRoute('note/list'); ?>" class="header">note<span class="jam">jam: </span></a> <span><?= Html::encode($this->title) ?></span>
       </h1>
     </div>
     <?= $this->blocks['pads'] ?>

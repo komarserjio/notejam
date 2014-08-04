@@ -28,6 +28,9 @@ class Note extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
       return [
@@ -68,6 +71,26 @@ class Note extends \yii\db\ActiveRecord
     public function getPad()
     {
         return $this->hasOne(Pad::className(), ['id' => 'pad_id']);
+    }
+
+    /**
+     *
+     */
+    public function getSmartDate()
+    {
+        # @TODO incorrect
+        $day = 86400;
+        $date = strtotime($this->updated_at);
+        $diff = floor((time() - $date) / $day);
+        if ($diff < 1) {
+            return "Today at " . date("H:i", $date);
+        } elseif ($diff == 1) {
+            return "Yesterday at " . date("H:i", $date);
+        } elseif ($diff > 1 && $diff < 8) {
+            return "{$diff} days ago";
+        } else {
+            return date("d.m.Y", $date);
+        }
     }
 }
 
