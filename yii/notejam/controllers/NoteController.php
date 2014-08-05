@@ -84,7 +84,7 @@ class NoteController extends BaseController
             Yii::$app->session->setFlash(
                 'success', 'Note is successfully updated.'
             );
-            return $this->redirect('note/list');
+            return $this->redirect(['note/edit', 'id' => $note->id]);
         }
         return $this->render('edit', [
             'note' => $note,

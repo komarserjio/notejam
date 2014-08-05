@@ -10,7 +10,7 @@ return yii\helpers\ArrayHelper::merge(
     [
         'components' => [
             'db' => [
-                'dsn' => 'mysql:host=localhost;dbname=yii2_basic_functional',
+                'dsn' => 'sqlite:tests/functional/notejam_test.db',
             ],
         ],
     ]

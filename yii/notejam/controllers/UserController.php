@@ -90,7 +90,7 @@ class UserController extends Controller
 
         $model = new \app\models\SigninForm();
         if ($model->load(Yii::$app->request->post()) && $model->signin()) {
-            return $this->goBack();
+            return $this->goHome();
         } else {
             return $this->render('signin', [
                 'model' => $model,

@@ -11,6 +11,18 @@ modules:
     enabled:
       - Filesystem
       - Yii2
+      #- PhpBrowser
+      - Db
     config:
         Yii2:
             configFile: 'tests/functional/_config.php'
+        #PhpBrowser:
+            #url: 'http://localhost'
+        Db:
+            cleanup: true
+            repopulate: true
+            dsn: 'sqlite:tests/functional/notejam_test.db'
+            user: ''
+            password: ''
+            dump: tests/_data/dump.sql
+

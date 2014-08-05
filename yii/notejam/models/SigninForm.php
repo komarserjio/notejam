@@ -52,10 +52,6 @@ class SigninForm extends Model
     public function signin()
     {
         if ($this->validate()) {
-            //Yii::$app->user->login( $this->getUser(), 36000000);
-            //var_dump(Yii::$app->user->login( $this->getUser(), 36000000));
-            //var_dump(Yii::$app->user->isGuest);
-            //die();
             return Yii::$app->user->login(
                 $this->getUser(), 36000000
             );

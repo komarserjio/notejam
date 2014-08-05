@@ -13,7 +13,7 @@ settings:
 modules:
     config:
         Db:
-            dsn: ''
+            dsn: 'sqlite:tests/functional/notejam_test.db'
             user: ''
             password: ''
             dump: tests/_data/dump.sql
