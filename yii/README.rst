@@ -45,7 +45,7 @@ Create database schema
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/yii/notejam
-    $ yii migrate
+    $ ./yii migrate
 
 
 ------
@@ -70,6 +70,7 @@ Run functional tests:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/yii/notejam/
+    $ ./vendor/bin/codecept build
     $ ./vendor/bin/codecept run functional
 
 

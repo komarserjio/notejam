@@ -33,6 +33,7 @@ Supported frameworks
 
 * `Symfony <https://github.com/komarserjio/notejam/tree/master/symfony>`_
 * `Laravel <https://github.com/komarserjio/notejam/tree/master/laravel>`_
+* `Yii <https://github.com/komarserjio/notejam/tree/master/yii>`_
 
 **Ruby**
 
@@ -46,15 +47,18 @@ In progress
 
 **Javascript (node.js)**
 
+* Sails
 
-* Express.js
+**Python**
 
+* web2py
 
 **PHP**
 
-* Yii
+* Zend
 
-... and more frameworks are coming.
+
+... and more frameworks are coming soon.
 
 ====================
 Application overview
