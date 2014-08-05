@@ -38,6 +38,7 @@ nosetests.xml
 
 # DB
 *.db
+*.db_snapshot
 
 # Django
 /django/notejam/static/

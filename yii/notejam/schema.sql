@@ -18,5 +18,7 @@ CREATE TABLE "pads" (
 CREATE TABLE "users" (
     "id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,
     "email" varchar(75) NOT NULL,
-    "password" varchar(128) NOT NULL
+    "password_hash" varchar(128) NOT NULL,
+    "auth_key" varchar(128) NOT NULL
 );
+
