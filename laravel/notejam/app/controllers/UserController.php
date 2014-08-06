@@ -2,8 +2,8 @@
 
 class UserController extends BaseController {
 
-	public function signup()
-	{
+    public function signup()
+    {
         if (Request::isMethod('post'))
         {
             $validation = Validator::make(
@@ -27,11 +27,11 @@ class UserController extends BaseController {
             return Redirect::route('signin')
                 ->with('success', 'Account is created. Now you can sign in.');
         }
-		return View::make('user/signup');
-	}
+        return View::make('user/signup');
+    }
 
-	public function signin()
-	{
+    public function signin()
+    {
         if (Request::isMethod('post'))
         {
             $validation = Validator::make(
@@ -57,8 +57,8 @@ class UserController extends BaseController {
             return Redirect::route('signin')
                 ->with('error', 'Invalid email or password');
         }
-		return View::make('user/signin');
-	}
+        return View::make('user/signin');
+    }
 
     public function settings()
     {
@@ -91,7 +91,7 @@ class UserController extends BaseController {
                     ->with('error', 'Current password is incorrect');
             }
         }
-		return View::make('user/settings');
+        return View::make('user/settings');
     }
 
     public function forgotPassword()
@@ -122,7 +122,7 @@ class UserController extends BaseController {
             return Redirect::route('signin')
                 ->with('success', 'New password sent to you mail.');
         }
-		return View::make('user/forgot-password');
+        return View::make('user/forgot-password');
     }
 
     private function generatePassword()
