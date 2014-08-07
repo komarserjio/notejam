@@ -39,8 +39,8 @@ $(function () {
       data:   self.serialize(),
       method: method,
       success: function () {
-        dialog.unloading(self);
         if (method == 'FORGOT') {
+          dialog.unloading(self);
           $('.form-selectors a.sign-in').click();
           $('.on-remind').removeClass('hidden');
         }
