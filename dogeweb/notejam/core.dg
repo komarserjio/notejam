@@ -37,7 +37,7 @@ note_create = ~>
   name = @form.get 'name' ''
   text = @form.get 'text' ''
   pad  = @form.get 'pad'  ''
-  not name or not text => abort 400 'Name and text must not be empty.'
+  not name or not text => @abort 400 'Name and text must not be empty.'
   note = data.add_note @user name text pad
   @redirect $ @url_for '.note' note_id: note.id
 
@@ -74,7 +74,7 @@ pad_view = pad_id ~>
 
 pad_edit = pad_id ~>
   name = @form.get 'name' ''
-  not name => abort 400 'Name must be non-empty.'
+  not name => @abort 400 'Name must be non-empty.'
   except err => data.set_pad @user pad_id name
          err :: KeyError => @abort 404
   @redirect $ @url_for '.pad' pad_id: pad_id
