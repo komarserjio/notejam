@@ -4,6 +4,7 @@ import '/os/path'
 
 STATIC_DIR = path.join (path.dirname __file__) 'static'
 MARKUP_DIR = path.join (path.dirname __file__) 'templates'
+DATABASE   = 'sqlite:///' + path.join (path.dirname __file__) path.pardir '_.db'
 
 # This key is used to ensure that nobody can fake being logged in without
 # entering the password. Note that, by default, it's generated at runtime;

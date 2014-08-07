@@ -15,27 +15,21 @@ import '/itertools'
 import '/collections'
 import '/xml/sax/saxutils/escape'
 
-import '/dg'
+import '/sqlalchemy/create_engine'
+import '/sqlalchemy/Column'
+import '/sqlalchemy/String'
+import '/sqlalchemy/Integer'
+import '/sqlalchemy/ForeignKey'
+import '/sqlalchemy/ext/declarative/declarative_base'
+import '/sqlalchemy/orm/sessionmaker'
+import '/sqlalchemy/orm/relationship'
+import '/sqlalchemy/orm/backref'
+
 import '/hoep'
 import '/pygments/lexers'     qualified
 import '/pygments/formatters' qualified
 
-
-RecordMeta = subclass type where
-  __new__ = name bases data ~> type.__new__ self name bases data where
-    fields = data !! 'fields'
-    xattrs = list $ map ('@' +) fields
-    data.update $ dict'
-      '__slots__',  data !! 'fields'
-      '__init__',   eval $ dg.compile $ 'self '                  + ' '.join xattrs + ' -> None'
-      '__iter__',   eval $ dg.compile $ 'self -> iter ('         + ','.join xattrs + ',)'
-      '__reduce__', eval $ dg.compile $ 'self -> (@__class__, (' + ','.join xattrs + ',))'
-
-
-Record = subclass object metaclass: RecordMeta where fields = ()
-User   = subclass Record where fields = 'id', 'email'
-Note   = subclass Record where fields = 'id', 'name', 'text', 'html', 'time', 'pad'
-Pad    = subclass Record where fields = 'id', 'name'
+import 'config'
 
 
 _MdRenderer = subclass hoep.Hoep where block_code = code lang ~> except
@@ -50,92 +44,148 @@ _md_renderer = _MdRenderer
   hoep.HTML_SMARTYPANTS | hoep.HTML_ESCAPE
 
 
-data = dict!
-mono = itertools.count!
+Record = declarative_base!
+RecordMixIn = subclass object where
+  __iter__ = self -> for f in @fields => yield $ getattr self f
 
 
-get_notes = user pad -> data !! user.email !! 'pads' !! pad
-get_note  = user id  -> data !! user.email !! 'objs' !! id
-get_pads  = user -> list $ filter None $ map fst $ (data !! user.email !! 'pads').values!
+User = subclass RecordMixIn Record where
+  __tablename__ = 'users'
+  fields = 'id', 'email'
+  id       = Column Integer primary_key: True
+  email    = Column String
+  password = Column String
 
 
-pop_note = user id ->
-  ctx = data !! user.email !! 'objs'
-  obj = ctx.pop id
-  (data !! user.email !! 'pads' !! None !! 1).remove obj
-  obj.pad =>
-    (data !! user.email !! 'pads' !! obj.pad.id !! 1).remove obj
-    (data !! user.email !! 'pads' !! obj.pad.id !! 1) or
-      data !! user.email !! 'pads' !!~ obj.pad.id
-  obj
+Pad = subclass RecordMixIn Record where
+  __tablename__ = 'pads'
+  fields = 'id', 'name'
+  id    = Column Integer primary_key: True
+  _refs = Column Integer
+  _user = Column Integer $ ForeignKey 'users.id'
+  name  = Column String
+  user  = relationship 'User' backref: (backref 'pads' order_by: id)
 
 
-_find_pad_by_name = user pad_name -> if
-  not pad_name => None, list!
-  otherwise    =>
-    nope = for (pad, store) in (data !! user.email !! 'pads').values! =>
-      pad and pad.name == pad_name =>
-        break!
-    nope =>
-      pad   = Pad (next mono) pad_name
-      store = list!
-      data !! user.email !! 'pads' !! pad.id = pad, store
-    pad, store
+Note = subclass RecordMixIn Record where
+  __tablename__ = 'notes'
+  fields = 'id', 'name', 'text', 'html', 'time', 'pad'
+  id    = Column Integer primary_key: True
+  name  = Column String
+  text  = Column String
+  html  = Column String
+  time  = Column Integer
+  _pad  = Column Integer $ ForeignKey 'pads.id'
+  _user = Column Integer $ ForeignKey 'users.id'
+  pad   = relationship 'Pad'  backref: (backref 'notes' order_by: time)
+  user  = relationship 'User' backref: (backref 'notes' order_by: time)
 
 
-add_note = user name text pad_name ->
-  md = _md_renderer.render text
-  pad, store = _find_pad_by_name user pad_name
-  note = Note (next mono) name text md (int $ time.mktime time.localtime!) pad
-  store.append note
-  (data !! user.email !! 'pads' !! None !! 1).append note
-  (data !! user.email !! 'objs' !! note.id) = note
+engine  = create_engine config.DATABASE
+session = (sessionmaker bind: engine)!
+Record.metadata.create_all engine
 
 
-set_note = user id name text pad_name ->
-  md = _md_renderer.render text
-  note = data !! user.email !! 'objs' !! id
-  note.name = name
-  note.text = text
-  note.html = md
-  note.time = int $ time.mktime time.localtime!
-  if not pad_name and not note.pad => None
-     note.pad and pad_name == note.pad.name => None
-     otherwise =>
-       pop_note user id
-       pad, store = _find_pad_by_name user pad_name
-       note.pad = pad
-       store.append note
-       (data !! user.email !! 'pads' !! None !! 1).append note
-       (data !! user.email !! 'objs' !! note.id) = note
+create_user = email password -> except
+  err => check_user email None
+  err is None     => raise $ KeyError email
+  err :: KeyError =>
+    # FIXME should probably hash it.
+    user = User email: email password: password
+    session.add user
+    session.commit!
+    user
 
 
-set_pad = user id name ->
-  pad, _ = data !! user.email !! 'pads' !! id
-  pad.name = name
-
-
-check_user = email pwd ->
-  user = data !! email
-  if pwd is None          => user !! 'user'
-     pwd == user !! 'pwd' => user !! 'user'
-     otherwise => raise ValueError
-
-
-create_user = email pwd ->
-  email in data => raise KeyError
-  data !! email = dict
-    pwd:  pwd
-    user: (User (next mono) email)
-    pads: (dict' (None, (None, list!)))
-    objs: dict!
-  data !! email !! 'user'
-
-
-update_user = user pwd ->
-  data !! user.email !! 'pwd' = pwd
+check_user = email password ->
+  user = session.query User |>.filter_by email: email |>.first!
+  user is None              => raise $ KeyError email
+  user.password != password => password != None => raise $ ValueError
   user
 
 
-set_user_password = user pwd ->
-  data !! user !! 'pwd' = pwd
+update_user = user password ->
+  user.password = password
+  session.commit!
+  user
+
+
+set_user_password = email password ->
+  user = check_user email None
+  user.password = password
+  session.commit!
+
+
+get_pads  = user     -> user.pads
+get_notes = user pad -> if
+  pad is None => None, user.notes
+  otherwise   =>
+    pad = session.query Pad |>.filter_by _user: user.id id: pad |>.first!
+    pad is None => raise KeyError
+    pad, pad.notes
+
+
+get_note = user id ->
+  note = session.query Note |>.filter_by _user: user.id id: id |>.first!
+  note is None => raise KeyError
+  note
+
+
+_get_pad_by_name = user name -> if
+  not name  => None
+  otherwise =>
+    pad = session.query Pad |>.filter_by _user: user.id name: name |>.first!
+    pad is None =>
+      pad = Pad name: name user: user _refs: 0
+      session.add pad
+    pad
+
+
+_rollback_on_error = f -> *: args -> except
+  err     => f *: args
+  finally => err => session.rollback!
+
+
+pop_note = _rollback_on_error $ user id ->
+  note = get_note user id
+  note.pad =>
+    note.pad._refs -= 1
+    note.pad._refs <= 0 =>
+      session.delete note.pad
+  session.delete note
+  session.commit!
+  note
+
+
+add_note = _rollback_on_error $ user name text pad ->
+  md   = _md_renderer.render text
+  ts   = int $ time.mktime time.localtime!
+  pad  = _get_pad_by_name user pad
+  note = Note name: name text: text html: md time: ts user: user pad: pad
+  note.pad => note.pad._refs += 1
+  session.add note
+  session.commit!
+  note
+
+
+set_note = _rollback_on_error $ user id name text pad ->
+  note = get_note user id
+  note.html = _md_renderer.render text
+  note.time = int $ time.mktime time.localtime!
+  note.text = text
+  note.name = name
+  note.pad =>
+    note.pad._refs -= 1
+    note.pad._refs <= 0 => session.delete note.pad
+  note.pad = _get_pad_by_name user pad
+  note.pad => note.pad._refs += 1
+  session.commit!
+  note
+
+
+set_pad = _rollback_on_error $ user id name ->
+  pad = session.query Pad |>.filter_by _user: user.id id: id |>.first!
+  pad is None => raise KeyError
+  pad.name = name
+  session.commit!
+  pad

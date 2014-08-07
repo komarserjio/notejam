@@ -10,6 +10,7 @@ Other modules used:
   * [itsdangerous](http://pythonhosted.org/itsdangerous/)
   * [hoep](https://github.com/Anomareh/Hoep)
   * [Pygments](http://pygments.org/)
+  * [SQLAlchemy](http://www.sqlalchemy.org/)
 
 ## Differences from the original implementation
 
@@ -38,24 +39,6 @@ Some routes were combined to simplify the routing tree. Here's the complete list
 
 Note that there are no routes to create/remove pads. A pad exists as long as at least one
 note is assigned to it.
-
-### The database
-
-Since the web framework does not provide any kind of ORM, it was assumed that the choice
-of a database is irrelevant. Therefore, this implementation uses a simple in-memory
-storage (i.e. a dict) abstracted behind some functions. A different database (such as
-SQLite) can be easily hidden behind the same set of procedures.
-See `notejam/data.dg` for their signatures.
-
-**Note**: `data.dg` uses a data type called a `Record`, which is basically a `namedtuple`
-optimized for attribute access and pickling. To be drop-in compatible, an alternate
-database backend must satisfy the following conditions:
-
-  * `Record` must exist, and `Note`, etc. must subclass from it.
-  * `Record`s must have the same attributes as the provided implementation.
-  * `Record`s must have an attribute named `fields` that lists all other attributes.
-  * `Record`s must be iterable; the iterator must yield the values of the attributes in the same order as `fields`.
-  * If a field must not be returned in JSON output, its name must start with an underscore (`_`).
 
 ### JSON
 
