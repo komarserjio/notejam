@@ -1,0 +1,107 @@
+doctype html
+html(lang='en')
+head
+    meta(charset='utf-8')
+    title Notejam
+    meta(name='description', content='')
+    meta(name='author', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css')
+    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css')
+    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .container
+      .sixteen.columns
+        .sign-in-out-block
+          | komarserjio@gmail.com:
+          a(href='#') Account settings
+          a(href='#') Sign out
+      .sixteen.columns
+        h1.bold-header
+          a.header(href='#') notejam
+          span 8 notes
+      .three.columns
+        h4#logo My pads
+        nav
+          ul
+            li
+              a(href='#whatAndWhy') Business
+            li
+              a(href='#grid') Personal
+            li
+              a(href='#typography') Sport
+            li
+              a(href='#buttons') Diary
+            li
+              a(href='#forms') Drafts
+          hr
+          a(href='#') Add pad
+      .thirteen.columns.content-area
+        .alert-area
+          .alert.alert-success Note is sucessfully saved
+        table.notes
+          tr
+            th.note
+              | Note
+              a.sort_arrow(href='#') ↑
+              a.sort_arrow(href='#') ↓
+            th Pad
+            th.date
+              | Last modified
+              a.sort_arrow(href='#') ↑
+              a.sort_arrow(href='#') ↓
+          tr
+            td
+              a(href='#') My sport activites
+            td.pad No pad
+            td.hidden-text.date Today at 10:51
+          tr
+            td
+              a(href='#') February reports
+            td.pad
+              a(href='#') Pad
+            td.hidden-text.date Yesterday
+          tr
+            td
+              a(href='#') Budget plan
+            td.pad
+              a(href='#') Pad
+            td.hidden-text.date Feb 10 2013
+          tr
+            td
+              a(href='#') Visit Agenda for all customers
+            td.pad
+              a(href='#') Pad
+            td.hidden-text.date Feb 02 2013
+          tr
+            td
+              a(href='#') Gifts
+            td.pad
+              a(href='#') Pad
+            td.hidden-text.date Jan 29 2013
+          tr
+            td
+              a(href='#') Calendar events
+            td.pad
+              a(href='#') Pad
+            td.hidden-text.date Jan 29 2013
+          tr
+            td
+              a(href='#') TV series
+            td.pad
+              a(href='#') Pad
+            td.hidden-text.date Dec 01 2012
+          tr
+            td
+              a(href='#') Daily post
+            td.pad
+              a(href='#') Pad
+            td.hidden-text.date Nov 28 2012
+        a.button(href='#') Create a note
+      hr.footer
+      footer
+        .footer 2013, notejam project
+    // container
+    a(href='https://github.com/you')
+      img(style='position: absolute; top: 0; right: 0; border: 0;', src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png', alt='Fork me on GitHub')
