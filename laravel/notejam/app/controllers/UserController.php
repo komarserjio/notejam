@@ -6,27 +6,26 @@ class UserController extends BaseController {
     {
         if (Request::isMethod('post'))
         {
-            $validation = Validator::make(
-                Input::all(),
-                array(
-                    'email' => 'required|email|unique:users',
-                    'password' => 'required|min:6|confirmed',
-                    'password_confirmation' => 'required|min:6',
-                )
-            );
+            $validation = Validator::make(Input::all(), array(
+                'email'                 => 'required|email|unique:users',
+                'password'              => 'required|min:6|confirmed',
+                'password_confirmation' => 'required|min:6',
+            ));
+            
             if ($validation->fails())
             {
                 return Redirect::route('signup')->withErrors($validation);
             }
-            $user = User::create(
-                array(
-                    'email'  => Input::get('email'),
-                    'password' => Hash::make(Input::get('password'))
-                )
-            );
+            
+            $user = User::create(array(
+                'email'  => Input::get('email'),
+                'password' => Hash::make(Input::get('password'))
+            ));
+            
             return Redirect::route('signin')
                 ->with('success', 'Account is created. Now you can sign in.');
         }
+        
         return View::make('user/signup');
     }
 
@@ -34,29 +33,31 @@ class UserController extends BaseController {
     {
         if (Request::isMethod('post'))
         {
-            $validation = Validator::make(
-                Input::all(),
-                array(
-                    'email' => 'required|email',
-                    'password' => 'required',
-                )
-            );
+            $validation = Validator::make(Input::all(), array(
+                'email' => 'required|email',
+                'password' => 'required',
+            ));
+            
             if ($validation->fails())
             {
                 return Redirect::route('signin')->withErrors($validation);
             }
+            
             $authParams = array(
-                'email' => Input::get('email'),
+                'email'    => Input::get('email'),
                 'password' => Input::get('password')
             );
+            
             if (Auth::attempt($authParams))
             {
                 return Redirect::route('all_notes')
                     ->with('success', 'Signed in now!');
             }
+            
             return Redirect::route('signin')
                 ->with('error', 'Invalid email or password');
         }
+        
         return View::make('user/signin');
     }
 
@@ -65,32 +66,35 @@ class UserController extends BaseController {
         $user = Auth::user();
         if (Request::isMethod('post'))
         {
-            $validation = Validator::make(
-                Input::all(),
-                array(
-                    'old_password' => 'required',
-                    'password' => 'required|min:6|confirmed',
-                    'password_confirmation' => 'required|min:6',
-                )
-            );
+            $validation = Validator::make(Input::all(), array(
+                'old_password' => 'required',
+                'password' => 'required|min:6|confirmed',
+                'password_confirmation' => 'required|min:6',
+            ));
+            
             if ($validation->fails())
             {
                 return Redirect::route('settings')->withErrors($validation);
             }
+            
             $authParams = array(
-                'email' => $user->email,
+                'email'    => $user->email,
                 'password' => Input::get('old_password')
             );
+            
             if (Auth::validate($authParams))
             {
                 $user->password = Hash::make(Input::get('password'));
                 return Redirect::route('settings')
                     ->with('success', 'Password is successfully changed');
-            } else {
+            } 
+            else
+            {
                 return Redirect::route('settings')
                     ->with('error', 'Current password is incorrect');
             }
         }
+        
         return View::make('user/settings');
     }
 
@@ -98,17 +102,16 @@ class UserController extends BaseController {
     {
         if (Request::isMethod('post'))
         {
-            $validation = Validator::make(
-                Input::all(),
-                array(
-                    'email' => 'required|email|exists:users',
-                )
-            );
+            $validation = Validator::make(Input::all(), array(
+                'email' => 'required|email|exists:users',
+            ));
+            
             if ($validation->fails())
             {
                 return Redirect::route('forgot_password')
                     ->withErrors($validation);
             }
+            
             $user = User::where(
                 'email', '=', Input::get('email')
             )->firstOrFail();
@@ -122,6 +125,7 @@ class UserController extends BaseController {
             return Redirect::route('signin')
                 ->with('success', 'New password sent to you mail.');
         }
+        
         return View::make('user/forgot-password');
     }
 
@@ -136,7 +140,8 @@ class UserController extends BaseController {
             'email' => $user->email,
             'password' => $password
         );
-        Mail::send(array('text' => 'emails.password') , $data,
+        
+        Mail::send(array('text' => 'emails.password'), $data,
             function($message) use ($user)
             {
                 $message->to($user->email)->subject('New password');
