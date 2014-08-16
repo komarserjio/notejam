@@ -6,9 +6,11 @@ class NoteController extends BaseController {
     public function index()
     {
         $orderParams = $this->processOrderParam();
-        $notes = Auth::user()->notes()->orderBy(
-            $orderParams[0], $orderParams[1]
-        )->get();
+        
+        $notes = Auth::user()->notes()
+            ->orderBy($orderParams[0], $orderParams[1])
+            ->get();
+        
         return View::make('note/index', array('notes' => $notes));
     }
 
@@ -21,19 +23,22 @@ class NoteController extends BaseController {
             {
                 return Redirect::route('create_note')->withErrors($validation);
             }
-            $note = new Note(
-                array(
-                    'name' => Input::get('name'),
-                    'text' => Input::get('text')
-                )
-            );
+            
+            $note = new Note(array(
+                'name' => Input::get('name'),
+                'text' => Input::get('text')
+            ));
+            
             $padId = (int)Input::get('pad_id');
             if ($padId) {
                 $pad = Auth::user()->pads()
-                    ->where('id', $padId)->firstOrFail();
+                    ->where('id', $padId)
+                    ->firstOrFail();
                 $note->pad_id = $pad->id;
             }
+            
             Auth::user()->notes()->save($note);
+            
             return Redirect::route('view_note', array('id' => $note->id))
                 ->with('success', 'Note is successfully created.');
         }
@@ -50,12 +55,12 @@ class NoteController extends BaseController {
             {
                 return Redirect::route('edit_note')->withErrors($validation);
             }
-            $note->update(
-                array(
-                    'name' => Input::get('name'),
-                    'text' => Input::get('text')
-                )
-            );
+            
+            $note->update(array(
+                'name' => Input::get('name'),
+                'text' => Input::get('text')
+            ));
+            
             $padId = (int)Input::get('pad_id');
             if ($padId) {
                 $pad = Auth::user()->pads()
@@ -64,6 +69,7 @@ class NoteController extends BaseController {
             } else {
                 $note->pad_id = null;
             }
+            
             Auth::user()->notes()->save($note);
 
             return Redirect::route('view_note', array('id' => $note->id))
@@ -93,17 +99,15 @@ class NoteController extends BaseController {
     private function getNoteOrFail($id)
     {
         return Auth::user()->notes()
-            ->where('id', '=', $id)->firstOrFail();
+            ->where('id', '=', $id)
+            ->firstOrFail();
     }
 
     private function validator()
     {
-        return Validator::make(
-            Input::all(),
-            array(
-                'name' => 'required',
-                'text' => 'required',
-            )
-        );
+        return Validator::make(Input::all(), array(
+            'name' => 'required',
+            'text' => 'required',
+        ));
     }
 }
