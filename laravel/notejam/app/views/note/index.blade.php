@@ -14,7 +14,7 @@ All notes ({{ $notes->count() }})
             </tr>
             @foreach ($notes as $note)
                 <tr>
-                    <td><a href="{{ URL::route('view_note', array('id' => $note->id)) }}">{{ $note->name }}</a></td>
+                    <td><a href="{{ URL::route('notes.show', array('id' => $note->id)) }}">{{ $note->name }}</a></td>
                     <td class="pad">
                         @if ($note->pad)
                             <a href="{{ URL::route('view_pad', array('id' => $note->pad->id)); }}">{{ $note->pad->name }}</a>
@@ -29,5 +29,5 @@ All notes ({{ $notes->count() }})
     @else
         <p class="empty">Create your first note.</p>
     @endif
-    <a href="{{ URL::route('create_note') }}" class="button">New note</a>
+    <a href="{{ URL::route('notes.create') }}" class="button">New note</a>
 @stop

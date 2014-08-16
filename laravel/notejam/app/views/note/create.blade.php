@@ -5,7 +5,7 @@ New note
 @stop
 
 @section('content')
-    {{ Form::open(array("class" => "note")) }}
+    {{ Form::open(array("route" => "notes.store", "class" => "note")) }}
 
     {{ Form::label('name', 'Name') . Form::text('name', Input::old('name'), array('class' => 'thirteen')) }}
     @include('partials.error', array('error' => $errors->first('name')))

@@ -7,10 +7,12 @@
 @section('content')
     <p class="hidden-text">Last edited at {{ $note->smartDate() }}</p>
     <div class="note">
-        {{ $note->text }}
+        <p>
+            {{ $note->text }}
+        </p>
     </div>
-    <a href="{{ URL::route('edit_note', array('id' => $note->id))}}" class="button">Edit</a>
-    <a href="{{ URL::route('delete_note', array('id' => $note->id))}}" class="delete-note">Delete it</a>
+    <a href="{{ URL::route('notes.edit', array('id' => $note->id))}}" class="button">Edit</a>
+    <a href="{{ URL::route('notes.delete', array('id' => $note->id))}}" class="delete-note">Delete it</a>
 @stop
 
 
