@@ -11,8 +11,12 @@ class PadController extends BaseController {
             {
                 return Redirect::route('create_pad')->withErrors($validation);
             }
-            $pad = new Pad(array('name' => Input::get('name')));
+            
+            $pad = new Pad(array(
+                'name' => Input::get('name')
+            ));
             Auth::user()->pads()->save($pad);
+            
             return Redirect::route('view_pad', array('id' => $pad->id))
                 ->with('success', 'Pad is created.');
         }
@@ -30,8 +34,10 @@ class PadController extends BaseController {
                 return Redirect::route('edit_pad', array('id' => $pad->id))
                     ->withErrors($validation);
             }
+            
             $pad->name = Input::get('name');
             $pad->save();
+            
             return Redirect::route('view_pad', array('id' => $pad->id))
                 ->with('success', 'Pad is updated.');
         }
@@ -42,13 +48,15 @@ class PadController extends BaseController {
     {
         $pad = $this->getPadOrFail($id);
         $orderParams = $this->processOrderParam();
-        $notes = $pad->notes()->orderBy(
-            $orderParams[0], $orderParams[1]
-        )->get();
-        return View::make(
-            'pad/view',
-            array('pad' => $pad, 'notes' => $notes)
-        );
+        
+        $notes = $pad->notes()
+            ->orderBy($orderParams[0], $orderParams[1])
+            ->get();
+        
+        return View::make('pad/view', array(
+            'pad' => $pad,
+            'notes' => $notes
+        ));
     }
 
     public function delete($id)
@@ -60,23 +68,22 @@ class PadController extends BaseController {
             return Redirect::route('all_notes')
                 ->with('success', 'Pad is deleted.');
         }
+        
         return View::make('pad/delete', array('pad' => $pad));
     }
 
     private function getPadOrFail($id)
     {
         return Auth::user()->pads()
-            ->where('id', '=', $id)->firstOrFail();
+            ->where('id', '=', $id)
+            ->firstOrFail();
     }
 
     private function validator()
     {
-        return Validator::make(
-            Input::all(),
-            array(
-                'name' => 'required',
-            )
-        );
+        return Validator::make(Input::all(), array(
+            'name' => 'required',
+        ));
     }
 
 }
