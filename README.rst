@@ -47,7 +47,7 @@ In progress
 
 **Javascript (node.js)**
 
-* Sails
+* Express
 
 **Python**
 
