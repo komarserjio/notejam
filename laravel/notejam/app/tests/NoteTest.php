@@ -55,7 +55,7 @@ class NoteTest extends TestCase {
         $user2 = $this->createUser('exists@example.com');
         $pad = $user2->pads()->save(new Pad(array('name' => 'pad')));
 
-        $user = $this->createUser('exists@example.com');
+        $user = $this->createUser('exists2@example.com');
         $data = $this->getNoteData(array('pad_id' => $pad->id));
         $this->be($user);
         $crawler = $this->client->request(
