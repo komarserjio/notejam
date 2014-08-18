@@ -29,9 +29,9 @@ AppAsset::register($this);
 
 	<!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="http://localhost/~komar/notejam/rubyonrails/notejam/app/assets/stylesheets/base.css">
-	<link rel="stylesheet" href="http://localhost/~komar/notejam/rubyonrails/notejam/app/assets/stylesheets/skeleton.css">
-	<link rel="stylesheet" href="http://localhost/~komar/notejam/rubyonrails/notejam/app/assets/stylesheets/layout.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css">
 	<link rel="stylesheet" href="/css/style.css">
 
 	<!--[if lt IE 9]>
