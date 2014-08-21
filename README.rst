@@ -56,6 +56,7 @@ In progress
 **PHP**
 
 * Zend
+* CodeIgniter
 
 
 ... and more frameworks are coming soon.
