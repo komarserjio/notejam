@@ -110,7 +110,7 @@ Typical application covers following topics:
 How to launch
 =============
 
-All implemenations are SQLite based and quiclky launchable by built-in web servers.
+All implementations are SQLite based and quickly launchable by built-in web servers.
 Each implementation has instruction describing easy steps to install environment, launch and run tests.
 
 ============
@@ -124,7 +124,7 @@ or provide new implementation for unsupported framework.
 
 **Do you want to improve one of the existing implementations?**
 
-Each implemenation has its own README with contribution details.
+Each implementation has its own README with contribution details.
 
 **Do you want to add new framework?**
 
