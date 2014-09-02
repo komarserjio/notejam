@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "noreply@notejamapp.com"
+  default from: 'noreply@notejamapp.com'
 
   def send_new_password(user, password)
     @user = user
