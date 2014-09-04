@@ -2,12 +2,10 @@ class PadController < ApplicationController
   before_action :authenticate_user
   def create
     if params[:pad]
-      @pad = current_user.pads.create(pad_params)
-      if @pad.valid?
+      @pad = Pad.new(pad_params.merge(user: current_user))
+      if @pad.save
         redirect_to url_for(:all_notes), flash: { success: 'Pad is successfully created' }
       end
-      # @TODO fix this weirdness
-      current_user.pads.delete(@pad)
     end
   end
 
