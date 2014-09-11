@@ -2,13 +2,13 @@
 <!--[if lt IE 7 ]><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" lang="en" metal:define-macro="base" tal:define="global contentclass 'thirteen'"> <!--<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal" xmlns:metal="http://xml.zope.org/namespaces/metal" lang="en" metal:define-macro="base"> <!--<![endif]-->
 <head>
 
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Notejam</title>
+  <title><tal:block metal:define-slot="title"></tal:block></title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -27,49 +27,43 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
 </head>
 <body>
-	<div class="container">
-        <div class="sixteen columns">
-            <div class="sign-in-out-block" tal:switch="type(logged_in) is unicode">
-                <div tal:case="False"><a href="${request.route_url('signin')}">Sign in</a>&nbsp;&nbsp;&nbsp;<a href="${request.route_url('signup')}">Sign up</a></div>
-                <div tal:case="True">${logged_in}:&nbsp; <a href="${request.route_url('settings')}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="${request.route_url('signout')}">Sign out</a></div>
-            </div>
-        </div>
-        <div class="sixteen columns">
-            <h1 class="bold-header">notejam 
-                <tal:block metal:define-slot="current_page">
-                </tal:block>
-            </h1>
-        </div>
-        <div metal:define-slot="pads">
-            <div class="three columns">
-                <h4 id="logo">My pads</h4>
-                <nav>
-                    <ul tal:condition="pads">
-                        <li tal:repeat="pad pads"><a href="${request.route_url('pad_notes', pad_id=pad.id)}">${pad.name}</a></li>
-                    </ul>
-                    <p class="empty" tal:condition="not pads">No pads yet</p>
-                    <hr />
-                    <a href="${request.route_url('create_pad')}">Add pad</a>
-                </nav>
-            </div>
-        </div>
-        <tal:block metal:define-slot="base_layout">
+  <div class="container">
+    <div class="sixteen columns">
+      <div class="sign-in-out-block" tal:switch="type(logged_in) is unicode">
+        <div tal:case="False"><a href="${request.route_url('signin')}">Sign in</a>&nbsp;&nbsp;&nbsp;<a href="${request.route_url('signup')}">Sign up</a></div>
+        <div tal:case="True">${logged_in}:&nbsp; <a href="${request.route_url('settings')}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="${request.route_url('signout')}">Sign out</a></div>
+      </div>
+    </div>
+    <div class="sixteen columns">
+      <h1 class="bold-header">
+        <a href="${request.route_url('notes')}" class="header">note<span class="jam">jam: </span></a>
+        <tal:block metal:define-slot="page_title">
         </tal:block>
-        <hr class="footer" />
-        <footer>
-            <div class="footer">2013, notejam project</div>
-        </footer>
-	</div><!-- container -->
-    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+      </h1>
+    </div>
+    <div metal:define-slot="pads">
+      <div class="three columns">
+        <h4 id="logo">My pads</h4>
+        <nav>
+        <ul tal:condition="pads">
+          <li tal:repeat="pad pads"><a href="${request.route_url('pad_notes', pad_id=pad.id)}">${pad.name}</a></li>
+        </ul>
+        <p class="empty" tal:condition="not pads">No pads</p>
+        <hr />
+        <a href="${request.route_url('create_pad')}">New pad</a>
+        </nav>
+      </div>
+    </div>
+    <tal:block metal:define-slot="base_layout">
+    </tal:block>
+    <hr class="footer" />
+    <div class="footer">
+      <div>Notejam: <strong>Pyramid</strong> application</div>
+      <div><a href="https://github.com/komarserjio/notejam">Github</a>, <a href="https://twitter.com/komarserjio">Twitter</a>, created by <a href="https://github.com/komarserjio/">Serhii Komar</a></div>
+    </div>
+  </div><!-- container -->
+  <a href="https://github.com/komarserjio/notejam"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 </body>
 </html>

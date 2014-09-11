@@ -6,9 +6,10 @@ class PadController < ApplicationController
       if @pad.valid?
         redirect_to(
           url_for(:all_notes),
-          :flash => {:success => "Pad is created"}
+          :flash => {:success => "Pad is successfully created"}
         )
       end
+      # @TODO fix this weirdness
       current_user.pads.delete(@pad)
     end
   end
@@ -20,7 +21,7 @@ class PadController < ApplicationController
       if @pad.update(pad_params)
         redirect_to(
           view_pad_notes_path(:id => @pad.id),
-          :flash => {:success => "Pad is updated"}
+          :flash => {:success => "Pad is successfully updated"}
         )
       end
     end
@@ -32,7 +33,7 @@ class PadController < ApplicationController
         @pad.destroy
         redirect_to(
           all_notes_path,
-          :flash => {:success => "Pad is deleted"}
+          :flash => {:success => "Pad is successfully deleted"}
         )
     end
   end

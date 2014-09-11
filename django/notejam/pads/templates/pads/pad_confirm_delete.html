@@ -6,7 +6,7 @@
     <form method="POST">
         {% csrf_token %}
         <button class="red">Yes, delete I want to delete it</button>&nbsp;
-        <a href="{% url edit_pad pk=pad.id %}">Cancel</a>
+        <a href="{% url 'edit_pad' pk=pad.id %}">Cancel</a>
     </form>
 {% endblock %}
 

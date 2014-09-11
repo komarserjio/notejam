@@ -1,14 +1,13 @@
 {% form_theme form _self %}
 
 {% block form_errors %}
-{% spaceless %}
+  {% spaceless %}
     {% if errors|length > 0 %}
-    <ul class="errorlist">
+      <ul class="errorlist">
         {% for error in errors %}
-            <li>{{ error.message }}</li>
+          <li>{{ error.message }}</li>
         {% endfor %}
-    </ul>
+      </ul>
     {% endif %}
-{% endspaceless %}
+  {% endspaceless %}
 {% endblock form_errors %}
-

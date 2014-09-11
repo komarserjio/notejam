@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}{{ form.name.data }}{% endblock %}
+{% block page_title %}<span>{{ form.name.data }}</span>{% endblock %}
+
+{% block content %}
+  {% include "notes/form.html" %}
+{% endblock %}
+
+
+

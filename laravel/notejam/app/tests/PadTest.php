@@ -17,10 +17,10 @@ class PadTest extends TestCase {
         $user = $this->createUser('exists@example.com');
         $this->be($user);
         $crawler = $this->client->request(
-            'POST', URL::route('create_pad'), $data
+            'POST', URL::route('pads.store'), $data
         );
         $this->assertRedirectedToRoute(
-            'view_pad',
+            'pads.show',
             array('id' => $user->pads()->first()->id)
         );
         $this->assertEquals(1, $user->pads()->count());
@@ -30,7 +30,7 @@ class PadTest extends TestCase {
     {
         $this->be($this->createUser('exists@example.com'));
         $crawler = $this->client->request(
-            'POST', URL::route('create_pad'), array()
+            'POST', URL::route('pads.store'), array()
         );
         $this->assertSessionHasErrors(
             array('name')
@@ -44,10 +44,10 @@ class PadTest extends TestCase {
         $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
         $crawler = $this->client->request(
             'POST',
-            URL::route('edit_pad', array('id' => $pad->id)),
+            URL::route('pads.update', array('id' => $pad->id)),
             array('name' => 'new name')
         );
-        $this->assertRedirectedToRoute('view_pad', array('id' => $pad->id));
+        $this->assertRedirectedToRoute('pads.show', array('id' => $pad->id));
     }
 
     public function testEditFailRequiredFields()
@@ -57,7 +57,7 @@ class PadTest extends TestCase {
         $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
         $crawler = $this->client->request(
             'POST',
-            URL::route('edit_pad', array('id' => $pad->id)),
+            URL::route('pads.update', array('id' => $pad->id)),
             array()
         );
         $this->assertSessionHasErrors(
@@ -76,7 +76,7 @@ class PadTest extends TestCase {
         $this->be($this->createUser('exists2@example.com'));
         $crawler = $this->client->request(
             'POST',
-            URL::route('edit_pad', array('id' => $pad->id)),
+            URL::route('pads.update', array('id' => $pad->id)),
             array('name' => 'new name')
         );
     }
@@ -88,7 +88,7 @@ class PadTest extends TestCase {
         $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
         $crawler = $this->client->request(
             'GET',
-            URL::route('view_pad', array('id' => $pad->id))
+            URL::route('pads.show', array('id' => $pad->id))
         );
         $this->assertTrue($this->client->getResponse()->isOk());
     }
@@ -103,7 +103,7 @@ class PadTest extends TestCase {
         $this->be($this->createUser('exists2@example.com'));
         $crawler = $this->client->request(
             'GET',
-            URL::route('view_pad', array('id' => $pad->id))
+            URL::route('pads.show', array('id' => $pad->id))
         );
     }
 
@@ -114,7 +114,7 @@ class PadTest extends TestCase {
         $pad = $user->pads()->save(new Pad(array('name' => 'pad')));
         $crawler = $this->client->request(
             'POST',
-            URL::route('delete_pad', array('id' => $pad->id))
+            URL::route('pads.destroy', array('id' => $pad->id))
         );
         $this->assertRedirectedToRoute('all_notes');
         $this->assertEquals(0, $user->pads()->count());
@@ -130,7 +130,7 @@ class PadTest extends TestCase {
         $this->be($this->createUser('exists2@example.com'));
         $crawler = $this->client->request(
             'POST',
-            URL::route('delete_pad', array('id' => $pad->id))
+            URL::route('pads.destroy', array('id' => $pad->id))
         );
     }
 }

@@ -18,10 +18,10 @@ class NoteTest extends TestCase {
         $user = $this->createUser('exists@example.com');
         $this->be($user);
         $crawler = $this->client->request(
-            'POST', URL::route('create_note'), $data
+            'POST', URL::route('notes.store'), $data
         );
         $this->assertRedirectedToRoute(
-            'view_note',
+            'notes.show',
             array('id' => $user->notes()->first()->id)
         );
         $this->assertEquals(1, $user->notes()->count());
@@ -31,7 +31,7 @@ class NoteTest extends TestCase {
     {
         $this->be($this->createUser('exists@example.com'));
         $crawler = $this->client->request(
-            'POST', URL::route('create_note'), array()
+            'POST', URL::route('notes.store'), array()
         );
         $this->assertSessionHasErrors(
             array('name', 'text')
@@ -42,7 +42,7 @@ class NoteTest extends TestCase {
     {
         $data = $this->getNoteData();
         $crawler = $this->client->request(
-            'POST', URL::route('create_note'), $data
+            'POST', URL::route('notes.store'), $data
         );
         $this->assertRedirectedToRoute('signin');
     }
@@ -55,11 +55,11 @@ class NoteTest extends TestCase {
         $user2 = $this->createUser('exists@example.com');
         $pad = $user2->pads()->save(new Pad(array('name' => 'pad')));
 
-        $user = $this->createUser('exists@example.com');
+        $user = $this->createUser('exists2@example.com');
         $data = $this->getNoteData(array('pad_id' => $pad->id));
         $this->be($user);
         $crawler = $this->client->request(
-            'POST', URL::route('create_note'), $data
+            'POST', URL::route('notes.store'), $data
         );
     }
 
@@ -72,10 +72,10 @@ class NoteTest extends TestCase {
         );
         $crawler = $this->client->request(
             'POST',
-            URL::route('edit_note', array('id' => $note->id)),
+            URL::route('notes.update', array('id' => $note->id)),
             array('name' => 'new name', 'text' => 'new text')
         );
-        $this->assertRedirectedToRoute('view_note', array('id' => $note->id));
+        $this->assertRedirectedToRoute('notes.show', array('id' => $note->id));
     }
 
     public function testEditFailRequiredFields()
@@ -87,7 +87,7 @@ class NoteTest extends TestCase {
         );
         $crawler = $this->client->request(
             'POST',
-            URL::route('edit_note', array('id' => $note->id)),
+            URL::route('notes.update', array('id' => $note->id)),
             array()
         );
         $this->assertSessionHasErrors(
@@ -108,7 +108,7 @@ class NoteTest extends TestCase {
 
         $crawler = $this->client->request(
             'POST',
-            URL::route('edit_note', array('id' => $note->id)),
+            URL::route('notes.update', array('id' => $note->id)),
             array('name' => 'new name', 'text' => 'new text')
         );
     }
@@ -122,7 +122,7 @@ class NoteTest extends TestCase {
         $this->be($user);
         $crawler = $this->client->request(
             'GET',
-            URL::route('view_note', array('id' => $note->id))
+            URL::route('notes.show', array('id' => $note->id))
         );
         $this->assertTrue($this->client->getResponse()->isOk());
     }
@@ -139,7 +139,7 @@ class NoteTest extends TestCase {
         $this->be($this->createUser('exists2@example.com'));
         $crawler = $this->client->request(
             'GET',
-            URL::route('view_note', array('id' => $note->id))
+            URL::route('notes.show', array('id' => $note->id))
         );
     }
 
@@ -152,7 +152,7 @@ class NoteTest extends TestCase {
         $this->be($user);
         $crawler = $this->client->request(
             'POST',
-            URL::route('delete_note', array('id' => $note->id))
+            URL::route('notes.destroy', array('id' => $note->id))
         );
         $this->assertRedirectedToRoute('all_notes');
         $this->assertEquals(0, $user->notes()->count());
@@ -170,7 +170,7 @@ class NoteTest extends TestCase {
         $this->be($this->createUser('exists2@example.com'));
         $crawler = $this->client->request(
             'POST',
-            URL::route('delete_note', array('id' => $note->id))
+            URL::route('notes.destroy', array('id' => $note->id))
         );
     }
 }

@@ -4,12 +4,12 @@ use Illuminate\Auth\UserInterface;
 
 class Note extends Eloquent {
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'notes';
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'notes';
 
     protected $fillable = array('name', 'text');
 
@@ -39,5 +39,3 @@ class Note extends Eloquent {
         }
     }
 }
-
-

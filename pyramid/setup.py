@@ -8,6 +8,7 @@ CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
 requires = [
     'pyramid',
+    'pyramid_chameleon',
     'SQLAlchemy',
     'transaction',
     'pyramid_tm',
@@ -17,6 +18,7 @@ requires = [
     'pyramid_simpleform',
     'cryptacular',
     'WebTest',
+    'pyramid-mailer'
     ]
 
 setup(name='notejam',

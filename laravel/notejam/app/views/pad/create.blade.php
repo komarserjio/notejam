@@ -1,16 +1,16 @@
 @extends('user')
 
 @section('page_title')
-Create a Pad
+New pad
 @stop
 
 @section('content')
-    {{ Form::open() }}
+    {{ Form::open(array('route' => 'pads.store')) }}
 
     {{ Form::label('name', 'Name') . Form::text('name', Input::old('name')) }}
     @include('partials.error', array('error' => $errors->first('name')))
 
-    {{ Form::submit('Create') }}
+    {{ Form::submit('Save') }}
 
     {{ Form::close() }}
 

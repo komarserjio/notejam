@@ -1,8 +1,10 @@
-*******************************
-Notejam: Laravel implementation
-******************************
+****************
+Notejam: Laravel
+****************
 
-Notejam application implemented using Laravel framework.
+Notejam application implemented using `Laravel <http://laravel.com/>`_ framework.
+
+Laravel version: 4.1
 
 
 ==========================
@@ -19,11 +21,11 @@ Clone the repo:
 
     $ git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
 
--------------------
-Install environment
--------------------
+-------
+Install
+-------
 
-Install composer
+Install `composer <https://getcomposer.org/>`_
 
 .. code-block:: bash
 
@@ -37,6 +39,13 @@ Install dependencies
     $ cd YOUR_PROJECT_DIR/laravel/notejam/
     $ php composer.phar install
 
+Create database schema
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/laravel/notejam/
+    $ touch app/database/notejam.db
+    $ php artisan migrate
 
 
 ------
@@ -56,7 +65,7 @@ Go to http://localhost:8000/ in your browser.
 Run tests
 ---------
 
-Run tests:
+Run functional and unit tests:
 
 .. code-block:: bash
 
@@ -69,16 +78,13 @@ Run tests:
 Contribution
 ============
 
-Are you laravel guru? You are welcomve to contribute to improve the implementation.
+Do you have php/laravel experience? Help the app to follow php and laravel best practices.
 
-Please send your pull requests in the ``laravel`` branch, not ``master``.
-
-Always prepend your commits with a framework name:
+Please send your pull requests in the ``master`` branch.
+Always prepend your commits with framework name:
 
 .. code-block:: bash
 
-    Symfony: Implemented sign in functionality
-
-Post issues into project github tracker.
+    Laravel: Implemented sign in functionality
 
 Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.

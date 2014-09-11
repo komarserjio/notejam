@@ -26,6 +26,14 @@
         font-weight: normal;
         font-size: 23px;
     }
+    .bold-header a.header {
+        text-decoration: none;
+        color: inherit;
+    }
+    .bold-header span.jam {
+        font-size: 46px;
+        line-height: 50px;
+    }
 	nav ul {
 		float: left;  }
 	nav ul li {
@@ -121,6 +129,53 @@
 
 	.twitter-share-button { margin-bottom: -18px; }
 
+    /* Table stylesheets */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table th, table td {
+        padding: 10px 10px 9px;
+        font-size: 13px;
+        line-height: 18px;
+        text-align: left;
+    }
+
+    table td {
+        vertical-align: top;
+        border-top: solid 1px #ddd;
+    }
+
+    table th {
+        padding-top: 9px;
+        font-weight: bold;
+        vertical-align: middle;
+    }
+
+    table.condensed th, table.condensed td {
+        padding: 5px 5px 4px;
+    }
+
+    table.bordered {
+        border-collapse: separate;
+        border: solid 1px #ddd;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+    }
+
+    table.bordered th + th,
+    table.bordered th + td,
+    table.bordered td + td {
+        border-left: solid 1px #ddd;
+    }
+
+    .zebra-striped tbody tr:nth-child(odd) td,
+    .zebra-striped tbody tr:nth-child(odd) th {
+        background: #f5f5f5;
+    }
+
 .carbonad,
 .carbonad-image,
 .carbonad-text,
@@ -153,8 +208,13 @@ td.date {
     font-style: italic;
 }
 
-form.note input, form.note textarea {
+form.note input[type="text"], form.note textarea {
     width: 100%;
+}
+
+form hr {
+    width: 218px;
+    margin: 10px 0px;
 }
 
 form.note textarea {
@@ -170,7 +230,9 @@ hr.footer {
 }
 
 div.footer {
-   margin-bottom: 10px; 
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 12px;
 }
 
 form.sign-in {
@@ -188,13 +250,18 @@ form.sign-in {
 
 div.sign-in-out-block {
     position: absolute;
-    right: 0;
+    right: 14px;
     top: 8px;
     font-size: 12px;
 }
 
 div.sign-in-out-block a {
     /*text-decoration: none;*/
+}
+
+a.small-red {
+    color: red;
+    font-size: 12px;
 }
 
 table.notes {
@@ -231,15 +298,15 @@ a.delete-note {
     color: red;
 }
 
-.red {
-    color: red;
+.red, input.red {
+    color: red !important;
 }
 
-ul.errorlist {
+ul.errorlist, ul.errors {
     margin: -18px 0 0 0;
 }
 
-ul.errorlist li {
+ul.errorlist li, ul.errors li {
     color: red;
 }
 

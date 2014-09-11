@@ -1,7 +1,7 @@
-<% content_for :page_title do %>Delete pad: <%= @pad.name %><% end %>
+<% content_for :page_title do %><%= @pad.name %><% end %>
 
 <p>Are you sure you want to delete <%= @pad.name %>?</p>
 <%= form_for :pad do |f| %>
-    <%= f.submit "Yes, I want to delete this pad", :class => "red" %>
-    <%= link_to "Cancel", all_notes_path %>
+  <%= f.submit "Yes, I want to delete this pad", :class => "red" %>
+  <%= link_to "Cancel", all_notes_path %>
 <% end %>

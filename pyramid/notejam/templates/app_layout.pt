@@ -1,0 +1,14 @@
+<!-- This is base layout for all "login required" pages -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="load: base.pt">
+
+<tal:block metal:fill-slot="base_layout">
+  <div class="thirteen columns content-area">
+    <div metal:use-macro="snippets.macros['alert_area']"></div>
+    <tal:block metal:define-slot="content"></tal:block>
+  </div>
+</tal:block>
+
+</html>

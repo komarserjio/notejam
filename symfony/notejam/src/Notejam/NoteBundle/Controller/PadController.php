@@ -12,21 +12,20 @@ class PadController extends Controller
     public function listAction()
     {
         $user = $this->get('security.context')->getToken()->getUser();
-        var_dump($user->getId());
         return $this->render(
-            'NotejamNoteBundle:Pad:list.html.twig', 
+            'NotejamNoteBundle:Pad:list.html.twig',
             array('pads' => $user->getPads())
         );
     }
 
-    public function notesAction($id, Request $request) 
+    public function notesAction($id, Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
         $orderBy = $request->query->get('order', 'name');
 
         $pad = $this->getDoctrine()
                     ->getRepository('NotejamNoteBundle:Pad')
-                    ->findOneBy(array('id' => $id, 
+                    ->findOneBy(array('id' => $id,
                                       'user' => $user));
         if (!$pad) {
             throw $this->createNotFoundException('The pad does not exist');
@@ -42,7 +41,7 @@ class PadController extends Controller
         ));
     }
 
-    private function _buildOrderBy($orderBy = 'name') 
+    private function _buildOrderBy($orderBy = 'name')
     {
         return array(
             'name' => array('name' => 'ASC'),
@@ -50,7 +49,7 @@ class PadController extends Controller
         )[$orderBy];
     }
 
-    public function createAction(Request $request) 
+    public function createAction(Request $request)
     {
         $form = $this->createForm(new PadType(), new Pad());
         if ($request->getMethod() == 'POST') {
@@ -67,7 +66,7 @@ class PadController extends Controller
 
                 $this->get('session')->getFlashBag()->add(
                     'success',
-                    'Pad was successfully created'
+                    'Pad is successfully created'
                 );
                 return $this->redirect($this->generateUrl('homepage'));
             }
@@ -78,12 +77,12 @@ class PadController extends Controller
         );
     }
 
-    public function editAction($id, Request $request) 
+    public function editAction($id, Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
         $pad = $this->getDoctrine()
                     ->getRepository('NotejamNoteBundle:Pad')
-                    ->findOneBy(array('id' => $id, 
+                    ->findOneBy(array('id' => $id,
                                       'user' => $user));
         if (!$pad) {
             throw $this->createNotFoundException('The pad does not exist');
@@ -99,7 +98,7 @@ class PadController extends Controller
 
                 $this->get('session')->getFlashBag()->add(
                     'success',
-                    'Pad was successfully updated'
+                    'Pad is successfully updated'
                 );
                 return $this->redirect($this->generateUrl('homepage'));
             }
@@ -111,12 +110,12 @@ class PadController extends Controller
         );
     }
 
-    public function deleteAction($id, Request $request) 
+    public function deleteAction($id, Request $request)
     {
         $user = $this->get('security.context')->getToken()->getUser();
         $pad = $this->getDoctrine()
                     ->getRepository('NotejamNoteBundle:Pad')
-                    ->findOneBy(array('id' => $id, 
+                    ->findOneBy(array('id' => $id,
                                       'user' => $user));
         if (!$pad) {
             throw $this->createNotFoundException('The pad does not exist');
@@ -128,7 +127,7 @@ class PadController extends Controller
 
             $this->get('session')->getFlashBag()->add(
                 'success',
-                'Pad was successfully deleted'
+                'Pad is successfully deleted'
             );
             return $this->redirect($this->generateUrl('homepage'));
         }

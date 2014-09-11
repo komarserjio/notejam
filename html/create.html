@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>Notejam: Create a note</title>
+	<title>Notejam: New note</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -18,68 +18,62 @@
 
 	<!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="css/base.css">
-	<link rel="stylesheet" href="css/skeleton.css">
-	<link rel="stylesheet" href="css/layout.css">
-	<link rel="stylesheet" href="css/tables.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css">
 	<link rel="stylesheet" href="css/style.css">
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
-	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-
 </head>
 <body>
-	<div class="container">
-        <div class="sixteen columns">
-            <div class="sign-in-out-block">
-                komarserjio@gmail.com:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
-            </div>
-        </div>
-        <div class="sixteen columns">
-            <h1 class="bold-header"><a href="#" class="header">notejam</a> <span><a href="#">Personal</a> &raquo; Create a note</span></h1>
-        </div>
-        <div class="three columns content-area">
-            <h4 id="logo">My pads</h4>
-            <nav>
-                <ul>
-                    <li><a href="#whatAndWhy">Business</a></li>
-                    <li><a href="#grid">Personal</a></li>
-                    <li><a href="#typography">Sport</a></li>
-                    <li><a href="#buttons">Diary</a></li>
-                    <li><a href="#forms">Drafts</a></li>
-                </ul>
-                <hr />
-                <a href="#"> Add pad</a>
-            </nav>
-        </div>
-        <div class="thirteen columns">
-            <form class="note">
-                <label for="regularInput">Name</label>
-                <input type="text" class="thirteen" id="regularInput">
-                <label for="regularTextarea">Note</label>
-                <textarea id="regularTextarea"></textarea>
-                <label for="selectList">Select Pad</label>
-                <select id="selectList">
-                    <option value="Option 1">Business</option>
-                    <option value="Option 2">Personal</option>
-                </select>
-                <button type="submit">Save</button>
-            </form>
-        </div>
-        <hr class="footer" />
-        <footer>
-            <div class="footer">2013, notejam project</div>
-        </footer>
-	</div><!-- container -->
-    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+  <div class="container">
+    <div class="sixteen columns">
+      <div class="sign-in-out-block">
+        komarserjio@gmail.com:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
+      </div>
+    </div>
+    <div class="sixteen columns">
+      <h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam:</span></a> <span>New note</span></h1>
+    </div>
+    <div class="three columns">
+      <h4 id="logo">My pads</h4>
+      <nav>
+      <ul>
+        <li><a href="#whatAndWhy">Business</a></li>
+        <li><a href="#grid">Personal</a></li>
+        <li><a href="#typography">Sport</a></li>
+        <li><a href="#buttons">Diary</a></li>
+        <li><a href="#forms">Drafts</a></li>
+      </ul>
+      <hr />
+      <a href="#">New pad</a>
+      </nav>
+    </div>
+    <div class="thirteen columns content-area">
+      <form class="note">
+        <label for="name">Name</label>
+        <input type="text" id="name">
+        <label for="text">Note</label>
+        <textarea id="text"></textarea>
+        <label for="list">Select Pad</label>
+        <select id="list">
+          <option value="0">--------</option>
+          <option value="1">Business</option>
+          <option value="2">Personal</option>
+          <option value="3">Other</option>
+        </select>
+        <input type="submit" value="Save">
+      </form>
+    </div>
+    <hr class="footer" />
+    <div class="footer">
+      <div>Notejam: <strong>Django</strong> application</div>
+      <div><a href="https://github.com/komarserjio/notejam">Github</a>, <a href="https://twitter.com/komarserjio">Twitter</a>, created by <a href="https://github.com/komarserjio/">Serhii Komar</a></div>
+    </div>
+  </div><!-- container -->
+  <a href="https://github.com/komarserjio/notejam"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 </body>
 </html>
 

@@ -9,7 +9,7 @@ Notejam::App.controllers :user do
   post :signup, :map => '/signup' do
     @user = User.new(params[:user])
     if @user.save
-      flash[:success] = 'Now you can sign in'
+      flash[:success] = 'Account is created. Now you can sign in.'
       redirect url(:user, :signin)
     end
     render "user/signup"
@@ -25,7 +25,7 @@ Notejam::App.controllers :user do
       redirect url(:note, :all_notes)
     else
       params[:email] = h(params[:email])
-      flash.now[:error] = "Invalid credentials"
+      flash.now[:error] = "Wrong email or password."
       render "user/signin"
     end
   end

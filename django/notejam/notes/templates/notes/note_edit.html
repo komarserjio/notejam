@@ -1,13 +1,8 @@
 {% extends "base.html" %}
 
-<span>
-    {% if note.pad %}
-        <a href="{% url view_pad_notes pk=note.pad.id %}">{{ note.pad.name }}</a> &raquo;
-    {% endif %}
-    Edit {{note.name}}
-</span>
+{% block title %}{{ note.name }}{% endblock %}
+{% block page_title %}<span>{{ note.name }}</span>{% endblock %}
+
 {% block content %}
-    {% include "notes/note_form.html" %}
+  {% include "notes/note_form.html" %}
 {% endblock %}
-
-

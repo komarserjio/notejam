@@ -33,6 +33,7 @@ def main(global_config, **settings):
         authorization_policy=authz_policy,
         session_factory=session_factory
     )
+    config.include('pyramid_chameleon')
     config.add_static_view('static', 'static', cache_max_age=3600)
     # routes
     config.add_route('notes', '/')

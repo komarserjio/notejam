@@ -39,7 +39,7 @@ class Pad
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Notejam\NoteBundle\Entity\Note", mappedBy="pad")
+     * @ORM\OneToMany(targetEntity="\Notejam\NoteBundle\Entity\Note", mappedBy="pad", cascade={"remove"})
      */
     protected $notes;
 
@@ -47,7 +47,7 @@ class Pad
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,7 +69,7 @@ class Pad
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -81,9 +81,9 @@ class Pad
      *
      * @return User
      */
-    public function getUser() 
+    public function getUser()
     {
-        return $this->user; 
+        return $this->user;
     }
 
 
@@ -93,10 +93,10 @@ class Pad
      * @param User user
      * @return Pad
      */
-    public function setUser($user) 
+    public function setUser($user)
     {
         $this->user = $user;
-        return $this; 
+        return $this;
     }
 
     /**

@@ -1,38 +1,16 @@
-{% extends "base.html" %}
+{% extends "user.html" %}
+{% from "_helpers.html" import render_field %}
 
-{% block breadcrumbs %}<span>Change password</span>{% endblock %}
+{% block title %}Account Settings{% endblock %}
+{% block page_title %}<span>Account Settings</span>{% endblock %}
 
 {% block content %}
-<form method="POST">
-    {{ form.hidden_tag() }}
-    <label for="regularInput">Old Password</label>
-    {{ form.old_password }}
-    {% if form.errors.old_password %}
-        <ul class="errorlist">
-            {% for error in form.errors.old_password %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <label for="regularInput">New Password</label>
-    {{ form.new_password }}
-    {% if form.errors.new_password %}
-        <ul class="errorlist">
-            {% for error in form.errors.new_password %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <label for="regularInput">New Password</label>
-    {{ form.repeat_new_password }}
-    {% if form.errors.repeat_new_password %}
-        <ul class="errorlist">
-            {% for error in form.errors.repeat_new_password %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    <button type="submit">Save</button>
+<form method="POST" class="offset-by-six">
+  {{ form.hidden_tag() }}
+  {{ render_field(form.old_password) }}
+  {{ render_field(form.new_password) }}
+  {{ render_field(form.repeat_new_password) }}
+  <input type="submit" value="Save" />
 </form>
 {% endblock %}
 

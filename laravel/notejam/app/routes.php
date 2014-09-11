@@ -17,72 +17,75 @@ Route::group(array('before' => 'auth'), function()
         'as' => 'all_notes', 'uses' => 'NoteController@index'
         )
     );
+
+    # user related routes (authed)
+    Route::get('settings', array(
+        'as' => 'settings', 'uses' => 'UserController@settings'
+        )
+    );
+    Route::post('settings', array(
+        'as' => 'settings.update', 'uses' => 'UserController@updateSettings'
+        )
+    );
     Route::get('signout', array('as' => 'signout', function() {
         Auth::logout();
         return Redirect::route('signin');
     }));
-    Route::match(array('GET', 'POST'), 'settings', array(
-        'as' => 'settings', 'uses' => 'UserController@settings'
-        )
-    );
 
-    Route::match(array('GET', 'POST'), 'pads/create', array(
-        'as' => 'create_pad', 'uses' => 'PadController@create'
+    # customized pad resource controller
+    Route::post('pads/{id}/update', array(
+        'as' => 'pads.update', 'uses' => 'PadController@update'
         )
     );
-    Route::match(array('GET', 'POST'), 'pads/{id}/edit', array(
-        'as' => 'edit_pad', 'uses' => 'PadController@edit'
+    Route::get('pads/{id}/delete', array(
+        'as' => 'pads.delete', 'uses' => 'PadController@delete'
         )
     );
-    Route::match(array('GET', 'POST'), 'pads/{id}/delete', array(
-        'as' => 'delete_pad', 'uses' => 'PadController@delete'
+    Route::post('pads/{id}/delete', array(
+        'as' => 'pads.destroy', 'uses' => 'PadController@destroy'
         )
     );
-    Route::get('pads/{id}', array(
-        'as' => 'view_pad', 'uses' => 'PadController@view'
-        )
-    );
+    Route::resource('pads', 'PadController',
+        array('except' => array('destroy', 'index', 'update')));
 
-    Route::match(array('GET', 'POST'), 'notes/create', array(
-        'as' => 'create_note', 'uses' => 'NoteController@create'
+    # customized note resource controller
+    Route::post('notes/{id}/update', array(
+        'as' => 'notes.update', 'uses' => 'NoteController@update'
         )
     );
-    Route::match(array('GET', 'POST'), 'notes/{id}/edit', array(
-        'as' => 'edit_note', 'uses' => 'NoteController@edit'
+    Route::get('notes/{id}/delete', array(
+        'as' => 'notes.delete', 'uses' => 'NoteController@delete'
         )
     );
-    Route::match(array('GET', 'POST'), 'notes/{id}/delete', array(
-        'as' => 'delete_note', 'uses' => 'NoteController@delete'
+    Route::post('notes/{id}/delete', array(
+        'as' => 'notes.destroy', 'uses' => 'NoteController@destroy'
         )
     );
-    Route::get('notes/{id}', array(
-        'as' => 'view_note', 'uses' => 'NoteController@view'
-        )
-    );
+    Route::resource('notes', 'NoteController',
+        array('except' => array('destroy', 'index', 'update')));
 });
 
-Route::match(
-    array('GET', 'POST'),
+# user related routes (anonymous)
+Route::get(
     'signup',
-    array(
-        'as' => 'signup',
-        'uses' => 'UserController@signup'
-    )
+    array('as' => 'signup', 'uses' => 'UserController@signup')
 );
-Route::match(
-    array('GET', 'POST'),
+Route::post(
+    'signup',
+    array('as' => 'user.store', 'uses' => 'UserController@store')
+);
+
+Route::get(
     'signin',
-    array(
-        'as' => 'signin',
-        'uses' => 'UserController@signin'
-    )
+    array('as' => 'signin', 'uses' => 'UserController@signin')
+);
+Route::post(
+    'signin',
+    array('as' => 'signin.process', 'uses' => 'UserController@processSignin')
 );
 Route::match(
     array('GET', 'POST'),
     'forgot-password',
-    array(
-        'as' => 'forgot_password',
-        'uses' => 'UserController@forgotPassword'
-    )
+    array('as' => 'forgot_password', 'uses' => 'UserController@forgotPassword')
 );
 

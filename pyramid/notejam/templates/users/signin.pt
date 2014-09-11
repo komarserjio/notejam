@@ -1,23 +1,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
-      metal:use-macro="load: ../wide_layout.pt">
+      metal:use-macro="load: ../user_layout.pt">
 
-<tal:block metal:fill-slot="current_page">
-    <span>Sign In</span>
+<tal:block metal:fill-slot="title">
+  Sign In
+</tal:block>
+<tal:block metal:fill-slot="page_title">
+  <span>Sign In</span>
 </tal:block>
 
 <tal:block metal:fill-slot="content">
-    <form class="offset-by-six sign-in" method="POST">
-        <label for="regularInput">Email</label>
-        ${renderer.text("email", size=30)}
-        ${renderer.errorlist("email")}
-        <label for="regularInput">Password</label>
-        ${renderer.password("password")}
-        ${renderer.errorlist("password")}
-        <button type="submit">Sign In</button>
-        <p><a href="${request.route_url('forgot_password')}">Forgot password?</a></p>
-    </form>
+  <form class="offset-by-six sign-in" method="POST">
+    <label for="email">Email</label>
+    ${renderer.text("email", size=30)}
+    ${renderer.errorlist("email")}
+    <label for="password">Password</label>
+    ${renderer.password("password")}
+    ${renderer.errorlist("password")}
+    <input type="submit" value="Sign in"> or <a href="${request.route_url('signup')}">Sign up</a>
+    <hr />
+    <p><a class="small-red" href="${request.route_url('forgot_password')}">Forgot password?</a></p>
+  </form>
 </tal:block>
 
 </html>

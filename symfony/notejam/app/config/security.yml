@@ -4,14 +4,14 @@ security:
             algorithm: sha512
             encode-as-base64: true
             iterations: 10
- 
+
     role_hierarchy:
         ROLE_ADMIN: [ROLE_USER]
- 
+
     providers:
         user_db:
             entity: { class: Notejam\UserBundle\Entity\User, property: email }
- 
+
     firewalls:
         main:
             pattern: /.*
@@ -37,6 +37,7 @@ security:
         - { path: ^/_wdt, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: /signin, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /signup, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /forgot-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /settings, roles: ROLE_USER }
         - { path: /notes, roles: ROLE_USER }
         - { path: /pads, roles: ROLE_USER }

@@ -1,20 +1,19 @@
-{% extends "base.html" %}
+{% extends "user.html" %}
 
-{% block left_bar %}{% endblock %}
-{% block breadcrumbs %}<span>Sign In</span>{% endblock %}
+{% block title %}Sign In{% endblock %}
+{% block page_title %}<span>Sign In</span>{% endblock %}
 
-{% block content_class %}sixteen columns content-area{% endblock %}
 {% block content %}
-<form class="offset-by-six sign-in" method="POST">
-    <p class="red">{{ fail_message }}</p>
+  <form class="offset-by-six sign-in" method="POST">
     {% csrf_token %}
-    <label for="regularInput">Email</label>
+    <label for="email">Email</label>
     {{ form.email }}
     {{ form.email.errors }}
-    <label for="regularInput">Password</label>
+    <label for="password">Password</label>
     {{ form.password }}
     {{ form.password.errors }}
-    <button type="submit">Sign In</button>
-    <p><a href="{% url forgot_password %}">Forgot password?</a></p>
-</form>
+    <input type="submit" value="Sign in"> or <a href="{% url 'signup' %}">Sign up</a>
+    <hr />
+    <p><a class="small-red" href="{% url 'forgot_password' %}">Forgot password?</a></p>
+  </form>
 {% endblock %}

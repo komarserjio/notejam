@@ -1,19 +1,14 @@
 {% extends "base.html" %}
 {% load date_tags %}
 
-{% block breadcrumbs %}
-<span>
-    {% if note.pad %}
-        <a href="{% url view_pad_notes pk=note.pad.id %}">{{ note.pad.name }}</a> &raquo;
-    {% endif %}
-    {{note.name}}
-</span>
-{%endblock%}
+{% block title %}{{note.name}}{%endblock%}
+{% block page_title %}<span>{{note.name}}</span>{%endblock%}
+
 {% block content %}
-    <p class="hidden-text">Last edited {{ note.updated_at|smart_date }}</p>
-    <div class="note">
-        {{ note.text }}
-    </div>
-    <a href="{% url edit_note pk=note.id %}" class="button">Edit</a>
-    <a href="{% url delete_note pk=note.id %}" class="delete-note">Delete it</a>
+  <p class="hidden-text">Last edited {{ note.updated_at|smart_date }}</p>
+  <div class="note">
+    {{ note.text }}
+  </div>
+  <a href="{% url 'edit_note' pk=note.id %}" class="button">Edit</a>
+  <a href="{% url 'delete_note' pk=note.id %}" class="delete-note">Delete it</a>
 {% endblock %}

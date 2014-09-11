@@ -14,8 +14,7 @@ Sign Up
     {{ Form::label('password_confirmation', 'Confirm password') . Form::password('password_confirmation') }}
     @include('partials.error', array('error' => $errors->first('password_confirmation')))
 
-    {{ Form::submit('Sign Up') }}
-    <p><a href="#">Already have an account?</a></p>
+    {{ Form::submit('Sign Up') }} or <a href="{{ URL::route('signin'); }}">Sign in</a>
 
     {{ Form::close() }}
 

@@ -1,16 +1,18 @@
-******************************
-Notejam: Django implementation
-******************************
+***************
+Notejam: Django
+***************
 
-Notejam application implemented using Django framework.
+Notejam application implemented using `Django <https://www.djangoproject.com/>`_ framework.
+
+Django version: 1.6
 
 ==========================
 Installation and launching
 ==========================
 
--------
-Cloning
--------
+-----
+Clone
+-----
 
 Clone the repo:
 
@@ -18,10 +20,11 @@ Clone the repo:
 
     $ git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
 
--------------------
-Install environment
--------------------
-Using `virtualenv`_ is strongly advised.
+-------
+Install
+-------
+Use `virtualenv <http://www.virtualenv.org>`_ or `virtualenvwrapper <http://virtualenvwrapper.readthedocs.org/>`_
+for `environment management <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_.
 
 Install dependencies:
 
@@ -29,6 +32,14 @@ Install dependencies:
 
     $ cd YOUR_PROJECT_DIR/django/
     $ pip install -r requirements.txt
+
+Create database schema:
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/django/notejam/
+    $ ./manage.py syncdb
+    $ ./manage.py migrate
 
 ------
 Launch
@@ -43,11 +54,11 @@ Start django web server:
 
 Go to http://127.0.0.1:8000/ in your browser.
 
-------------------
-Running unit tests
-------------------
+---------
+Run tests
+---------
 
-Run unit tests:
+Run functional and unit tests:
 
 .. code-block:: bash
 
@@ -55,21 +66,16 @@ Run unit tests:
     $ ./manage.py test
 
 
-
 ============
 Contribution
 ============
+Do you have python/django experience? Help the app to follow python and django best practices.
 
-Please send your pull requests in the ``django`` branch, not ``master``.
-
-Always prepend your commits with a framework name:
+Please send your pull requests in the ``master`` branch.
+Always prepend your commits with framework name:
 
 .. code-block:: bash
 
     Django: Implemented sign in functionality
 
-Post issues into project github tracker. 
-
-Read contribution guide for details.
-
-.. _virtualenv: http://www.virtualenv.org 
+Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.

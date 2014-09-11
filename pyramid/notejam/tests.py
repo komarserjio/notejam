@@ -33,7 +33,6 @@ class BaseTestCase(unittest.TestCase):
             self.signin(email='user@example.com', password='password')
             .... next requests
 
-        Don't like this approach. Sorry.
         Definitely should be better way to sign in user for testing purposes.
         '''
         self.testapp.post(
@@ -49,8 +48,9 @@ class BaseTestCase(unittest.TestCase):
         errors = []
         inputs = response.html.form.find_all(["input", "select", "textarea"])
         for i in inputs:
-            if i.next_sibling.next_sibling.name == "ul":
-                errors.append(i['id'])
+            if i.attrs.get("type") != "submit":
+                if i.next_sibling.next_sibling.name == "ul":
+                    errors.append(i['id'])
         return errors
 
 
@@ -166,7 +166,7 @@ class PadTestCase(BaseTestCase):
         user = create_object(User, **user_data)
         self.signin(**user_data)
 
-        pad = create_object(name='pad', user=user)
+        pad = create_object(Pad, name='pad', user=user)
         new_name = 'new pad name'
         self.testapp.post(
             '/pads/{}/edit/'.format(pad.id), {'name': new_name}, status=302)
