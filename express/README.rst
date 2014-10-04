@@ -4,6 +4,12 @@ Notejam: Express
 
 Notejam application implemented using `Express.js<http://expressjs.com/>`_ microframework.
 
+Extenstions used:
+
+* Passport.js for authentication
+* Node ORM 2 for database interaction
+* connect-flash for flash messages
+
 ==========================
 Installation and launching
 ==========================
@@ -33,7 +39,7 @@ Start built-in web server:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/express/notejam/
-    $ DEBUG=express:* ./bin/www
+    $ DEBUG=* ./bin/www
 
 Go to http://127.0.0.1:3000/ in your browser
 
