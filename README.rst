@@ -4,7 +4,7 @@ Notejam
 
 **The easy way to learn web frameworks**
 
-Do you know django/laravel/symfony/etc and want to try rails/flask/pyramid/etc?
+Do you know framework X and want to try framework Y?
 The easy way to start with a new framework is to compare it with frameworks you already know.
 The goal of the project is to help developers easily learn new frameworks by examples.
 
