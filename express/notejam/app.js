@@ -28,15 +28,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 orm.settings.set("instance.returnAllErrors", true);
 app.use(orm.express("sqlite://notejam.db", {
+    // @TODO move models to separate file(s)
     define: function (db, models, next) {
         models.user = db.define("users", {
             id      : { type: "serial", key: true }, // autoincrementing primary key
             email   : { type: "text" },
-            password: { type: "text" },
+            password: { type: "text" }
         }, {
             validations: {
-                email: orm.validators.patterns.email("Invalid email"),
-                password: orm.validators.notEmptyString("The field is required")
+                email: orm.enforce.patterns.email("Invalid email"),
+                password: orm.enforce.notEmptyString("The field is required"),
+                // @TODO add "match passwords" validation
             }
         }
         );
