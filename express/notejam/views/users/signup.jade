@@ -12,8 +12,7 @@ block content
       input#confirm_password(type='password', name='confirm_password')
       +error('confirm_password', errors)
       input(type='submit', value='Sign Up')
-      | or&nbsp;
-      a(href='/signin') Sign in
+      |  or <a href="/signin">Sign In</a>
       hr
       p
         a.small-red(href='#forgot-password') Forgot password?

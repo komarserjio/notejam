@@ -3,7 +3,7 @@ include mixins.jade
 doctype html
 html(lang='en')
     meta(charset='utf-8')
-    title Notejam
+    title= title
     meta(name='description', content='')
     meta(name='author', content='')
     meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
@@ -21,7 +21,7 @@ html(lang='en')
           a(href='#') Sign out
       .sixteen.columns
         h1.bold-header
-          <a href="#" class="header">note<span class="jam">jam: </span></a> <span>All notes (8)</span>
+            <a href="#" class="header">note<span class="jam">jam: </span></a> <span>#{title}</span>
       block content_area
       hr.footer
       .footer

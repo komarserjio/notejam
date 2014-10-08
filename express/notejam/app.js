@@ -7,6 +7,8 @@ var cookieParser = require('cookie-parser');
 var flash = require('connect-flash');
 var bodyParser = require('body-parser');
 var orm = require('orm');
+var expressValidator = require('express-validator');
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +23,7 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(expressValidator());
 app.use(cookieParser());
 app.use(session({cookie: { maxAge: 60000 }, secret: 'secret'}));
 app.use(flash());
