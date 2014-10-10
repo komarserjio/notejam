@@ -1,8 +1,7 @@
-// render form errors
 mixin error(field, errors)
-    if get_error(field, errors)
+    if errors && (field in errors)
         ul.errors
-            li= get_error(field, errors)
+            li= errors[field]
 
 // render flash messages
 mixin render_flash_messages(messages)
@@ -12,12 +11,3 @@ mixin render_flash_messages(messages)
                 div.alert.alert-success= message
             each message in messages.error
                 div.alert.alert-error= message
-
-
-- var get_error  = function(field, errors){
--   for (var k in errors) {
--     if (errors[k].property == field){
--        return errors[k].msg;
--     }
--   }
-- }

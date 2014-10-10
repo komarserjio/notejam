@@ -16,6 +16,8 @@
     "orm": "~2.1.19",
     "connect-flash": "~0.1.1",
     "express-session": "~1.0.2",
-    "express-validator": "~2.6.0"
+    "express-validator": "~2.6.0",
+    "passport": "0.2.1",
+    "passport-local": "1.0.0"
   }
 }

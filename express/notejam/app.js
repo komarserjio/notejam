@@ -8,6 +8,10 @@ var flash = require('connect-flash');
 var bodyParser = require('body-parser');
 var orm = require('orm');
 var expressValidator = require('express-validator');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+var settings = require('./settings');
 
 
 var routes = require('./routes/index');
@@ -27,29 +31,25 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(session({cookie: { maxAge: 60000 }, secret: 'secret'}));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// DB configuration
 orm.settings.set("instance.returnAllErrors", true);
 app.use(orm.express("sqlite://notejam.db", {
     // @TODO move models to separate file(s)
     define: function (db, models, next) {
-        models.user = db.define("users", {
-            id      : { type: "serial", key: true }, // autoincrementing primary key
-            email   : { type: "text" },
-            password: { type: "text" }
-        }, {
-            validations: {
-                email: orm.enforce.patterns.email("Invalid email"),
-                password: orm.enforce.notEmptyString("The field is required"),
-                // @TODO add "match passwords" validation
-            }
-        }
-        );
-        next();
+        db.load("./models", function (err) {
+            // loaded!
+            models.User = db.models.users;
+            next();
+        });
     }
 }));
 
-// inject flash messages
+
+// Flash Messages
 app.use(function(req, res, next){
     res.locals.flash_messages = {
         'success': req.flash('success'),
