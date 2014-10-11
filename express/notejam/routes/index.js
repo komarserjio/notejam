@@ -4,7 +4,7 @@ var helpers = require('../helpers')
 
 /* GET home page. */
 router.get('/', helpers.loginRequired, function(req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'All notes' });
 });
 
 

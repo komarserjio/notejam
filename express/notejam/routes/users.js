@@ -47,7 +47,7 @@ router.post('/signin', function(req, res, next) {
             }
             req.logIn(user, function(err) {
                 if (err) { return next(err); }
-                return res.redirect('/?' + user.email);
+                return res.redirect('/pads/create');
             });
         })(req, res, next);
     } else {
@@ -121,6 +121,5 @@ function findById(id, fn) {
         });
     });
 }
-
 
 module.exports = router;

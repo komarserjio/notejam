@@ -4,20 +4,15 @@ block content_area
   .three.columns
     h4#logo My pads
     nav
-      ul
-        li
-          a(href='#whatAndWhy') Business
-        li
-          a(href='#grid') Personal
-        li
-          a(href='#typography') Sport
-        li
-          a(href='#buttons') Diary
-        li
-          a(href='#forms') Drafts
+      if pads
+          ul
+            each pad in pads
+                li
+                  a(href='#whatAndWhy') #{pad.name}
+        else
+            p= 'No pads yet'
       hr
       a(href='#') New pad
   .thirteen.columns.content-area
+    +render_flash_messages(flash_messages)
     block content
-
-

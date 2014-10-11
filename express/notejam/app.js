@@ -16,6 +16,7 @@ var settings = require('./settings');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var pads = require('./routes/pads');
 
 var app = express();
 
@@ -43,6 +44,7 @@ app.use(orm.express("sqlite://notejam.db", {
         db.load("./models", function (err) {
             // loaded!
             models.User = db.models.users;
+            models.Pad = db.models.pads;
             next();
         });
     }
@@ -58,14 +60,23 @@ app.use(function(req, res, next){
     next();
 });
 
-// Inject request object in view scope
+// Inject request object and user pads in view scope
 app.use(function(req, res, next){
     res.locals.req = req;
-    next();
+
+    if (req.isAuthenticated()) {
+        req.user.getPads(function(i, pads) {
+            res.locals.pads = pads;
+            next();
+        });
+    } else {
+        next();
+    }
 });
 
 app.use('/', routes);
 app.use('/', users);
+app.use('/', pads);
 
 
 
