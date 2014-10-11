@@ -2,26 +2,31 @@ include mixins.jade
 
 doctype html
 html(lang='en')
-    meta(charset='utf-8')
-    title= title
-    meta(name='description', content='')
-    meta(name='author', content='')
-    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
-    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css')
-    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css')
-    link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css')
-    link(rel='stylesheet', href='stylesheets/style.css')
+  meta(charset='utf-8')
+  title= title
+  meta(name='description', content='')
+  meta(name='author', content='')
+  meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+  link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css')
+  link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css')
+  link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css')
+  link(rel='stylesheet', href='stylesheets/style.css')
   body
     .container
       .sixteen.columns
         .sign-in-out-block
-          | komarserjio@gmail.com: &nbsp;
-          a(href='#') Account settings
-          | &nbsp;
-          a(href='#') Sign out
+          if req.isAuthenticated()
+            | #{req.user.email}: &nbsp;
+            a(href='#') Account settings
+            | &nbsp;&nbsp;&nbsp;
+            a(href='#') Sign out
+          else
+            a(href='#') Sign up
+            | &nbsp;&nbsp;&nbsp;
+            a(href='#') Sign in
       .sixteen.columns
         h1.bold-header
-            <a href="#" class="header">note<span class="jam">jam: </span></a> <span>#{title}</span>
+          <a href="#" class="header">note<span class="jam">jam: </span></a> <span>#{title}</span>
       block content_area
       hr.footer
       .footer

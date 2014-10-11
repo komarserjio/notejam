@@ -57,6 +57,12 @@ router.post('/signin', function(req, res, next) {
 
 });
 
+// Sign Out
+router.get('/signout', function(req, res) {
+    req.logout();
+    res.redirect('/signin');
+});
+
 // Auth settings
 passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -85,6 +91,7 @@ passport.use(new LocalStrategy(
 ));
 
 function findByUsername(username, fn) {
+    // @TODO refactor
     orm.connect("sqlite://notejam.db", function(err, db) {
         db.load("../models", function (err) {
             var User = db.models.users;
@@ -101,6 +108,7 @@ function findByUsername(username, fn) {
 
 
 function findById(id, fn) {
+    // @TODO refactor
     orm.connect("sqlite://notejam.db", function(err, db) {
         db.load("../models", function (err) {
             var User = db.models.users;
@@ -112,14 +120,6 @@ function findById(id, fn) {
             });
         });
     });
-    helpers.onload(function(models) {
-        models.user.get(id, function (err, user) {
-            if (err) {
-                fn(new Error('User ' + id + ' does not exist'));
-            }
-            return fn(null, user);
-        });
-    })
 }
 
 

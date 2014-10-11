@@ -58,6 +58,12 @@ app.use(function(req, res, next){
     next();
 });
 
+// Inject request object in view scope
+app.use(function(req, res, next){
+    res.locals.req = req;
+    next();
+});
+
 app.use('/', routes);
 app.use('/', users);
 
