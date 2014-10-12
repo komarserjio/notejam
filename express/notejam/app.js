@@ -64,6 +64,7 @@ app.use(function(req, res, next){
 app.use(function(req, res, next){
     res.locals.req = req;
 
+    console.log('inject user in req');
     if (req.isAuthenticated()) {
         req.user.getPads(function(i, pads) {
             res.locals.pads = pads;
