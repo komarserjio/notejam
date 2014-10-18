@@ -8,7 +8,7 @@ module.exports = function (db, cb) {
     }, {
         validations: {
             email: orm.enforce.patterns.email("Invalid email"),
-            password: orm.enforce.notEmptyString("The field is required"),
+            password: orm.enforce.notEmptyString("Password is required"),
             // @TODO add "match passwords" validation
         }
     });
@@ -18,7 +18,7 @@ module.exports = function (db, cb) {
         name    : { type: "text" },
     }, {
         validations: {
-            name: orm.enforce.notEmptyString("The field is required"),
+            name: orm.enforce.notEmptyString("Name is required"),
         }
     });
     Pad.hasOne("user", User, { required: true, reverse: 'pads' });
@@ -29,8 +29,8 @@ module.exports = function (db, cb) {
         text    : { type: "text" }
     }, {
         validations: {
-            name: orm.enforce.notEmptyString("The field is required"),
-            text: orm.enforce.notEmptyString("The field is required"),
+            name: orm.enforce.notEmptyString("Name is required"),
+            text: orm.enforce.notEmptyString("Text is required"),
         }
     });
     Note.hasOne("user", User, { required: true, reverse: 'notes' });

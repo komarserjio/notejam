@@ -11,14 +11,14 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var settings = require('./settings');
-
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var pads = require('./routes/pads');
 
 var app = express();
+
+var settings = require('./settings')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,13 +36,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('notejam.db');
+
+
+
+
 // DB configuration
 orm.settings.set("instance.returnAllErrors", true);
-app.use(orm.express("sqlite://notejam.db", {
-    // @TODO move models to separate file(s)
+app.use(orm.express(settings.db, {
     define: function (db, models, next) {
         db.load("./models", function (err) {
-            // loaded!
             models.User = db.models.users;
             models.Pad = db.models.pads;
             next();
@@ -64,7 +70,6 @@ app.use(function(req, res, next){
 app.use(function(req, res, next){
     res.locals.req = req;
 
-    console.log('inject user in req');
     if (req.isAuthenticated()) {
         req.user.getPads(function(i, pads) {
             res.locals.pads = pads;

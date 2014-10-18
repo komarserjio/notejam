@@ -6,13 +6,16 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var helpers = require('../helpers')
 
+var settings = require('../settings');
+
+
 // Sign Up
-router.get('/signup', helpers.loginRequired, function(req, res) {
+router.get('/signup', function(req, res) {
     res.render('users/signup', {title: 'Sign Up'});
 });
 
 router.post('/signup', function(req, res) {
-    req.models.user.create(req.body, function(err, message) {
+    req.models.User.create(req.body, function(err, message) {
         if (err) {
             res.locals.errors = helpers.formatModelErrors(err);
         } else {
@@ -92,10 +95,10 @@ passport.use(new LocalStrategy(
 
 function findByUsername(username, fn) {
     // @TODO refactor
-    orm.connect("sqlite://notejam.db", function(err, db) {
+    orm.connect(settings.db, function(err, db) {
         db.load("../models", function (err) {
             var User = db.models.users;
-            User.find({email: username}, function (err, users) {
+            db.models.users.find({email: username}, function (err, users) {
                 if (users.length) {
                     return fn(null, users[0]);
                 } else {
@@ -109,7 +112,7 @@ function findByUsername(username, fn) {
 
 function findById(id, fn) {
     // @TODO refactor
-    orm.connect("sqlite://notejam.db", function(err, db) {
+    orm.connect(settings.db, function(err, db) {
         db.load("../models", function (err) {
             var User = db.models.users;
             User.get(id, function (err, user) {
