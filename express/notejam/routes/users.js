@@ -23,7 +23,7 @@ router.post('/signup', function(req, res) {
         'success',
         'User is successfully created. Now you can sign in.'
       );
-      res.redirect('/signin');
+      return res.redirect('/signin');
     }
     res.render('users/signup', {title: 'Sign Up'});
   });

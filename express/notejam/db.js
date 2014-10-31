@@ -29,10 +29,10 @@ var functions = {
   },
 
   applyFixtures: function() {
+    this.truncateTables();
     db.run("INSERT INTO users VALUES (1, 'user1@example.com', 'password')");
     db.run("INSERT INTO users VALUES (2, 'user2@example.com', 'password')");
   },
-
 
   truncateTables: function() {
     db.run("DELETE FROM notes;");

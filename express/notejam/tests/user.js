@@ -14,12 +14,20 @@ describe('User', function(){
     db.createTables();
     db.applyFixtures();
   });
-  afterEach(function() {
-    db.truncateTables();
+
+  it('can successfully sign in', function(done){
+    var agent = request.agent();
+    agent
+    .post('http://localhost:3000/signin')
+      .send({email: 'user1@example.com', password: 'password' })
+      .end(function(error, res){
+        res.redirects.should.eql(['http://localhost:3000/pads/create']);
+        done();
+      });
   });
 
   describe('cant sign in', function() {
-    it('with wrong credentials', function(done){
+    it('with wrong credentials', function(done) {
       var agent = request.agent();
       agent
       .post('http://localhost:3000/signin')
@@ -43,12 +51,19 @@ describe('User', function(){
     });
   });
 
-  describe('cant signup', function() {
-    var data = {
-      email: 'user@example.com',
-      password: 'password'
-    };
+  it('can successfully sign up', function(done) {
+    var agent = request.agent();
+    agent
+    .post('http://localhost:3000/signup')
+      .send({email: 'usersadfasdf@example.com', password: 'password'})
+      .end(function(error, res){
+        console.log(error);
+        res.redirects.should.eql(['http://localhost:3000/pads/create']);
+        done();
+      });
+  });
 
+  describe('cant signup', function() {
     it('if email is invalid', function(done) {
       var agent = request.agent();
       agent
@@ -82,6 +97,8 @@ describe('User', function(){
           done();
         });
     });
+
+    // @TODO implement "if passwords do not match" case
   });
 })
 
