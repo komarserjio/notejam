@@ -2,7 +2,7 @@ extends ../main
 
 block content
   form(method='POST')
-      label(for='name') Name
-      input#name(type='text', name='name')
-      +error('name', errors)
-      input(type='submit', value='Create')
+    label(for='name') Name
+    input#name(type='text', name='name')
+    +error('name', errors)
+    input(type='submit', value='Save')

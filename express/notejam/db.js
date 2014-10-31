@@ -32,6 +32,8 @@ var functions = {
     this.truncateTables();
     db.run("INSERT INTO users VALUES (1, 'user1@example.com', 'password')");
     db.run("INSERT INTO users VALUES (2, 'user2@example.com', 'password')");
+
+    db.run("INSERT INTO pads VALUES (1, 'Pad 1', 1)");
   },
 
   truncateTables: function() {

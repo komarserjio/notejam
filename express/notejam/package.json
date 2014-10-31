@@ -22,6 +22,7 @@
     "mocha": "1.*.*",
     "supertest": "0.*.*",
     "superagent": "*",
-    "should": "*"
+    "should": "*",
+    "should-http": "*"
   }
 }

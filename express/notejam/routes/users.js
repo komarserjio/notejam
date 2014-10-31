@@ -99,7 +99,6 @@ function findByUsername(username, fn) {
     db.load("../models", function (err) {
       var User = db.models.users;
       db.models.users.find({email: username}, function (err, users) {
-        console.log(err);
         if (users.length) {
           return fn(null, users[0]);
         } else {
