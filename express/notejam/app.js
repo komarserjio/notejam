@@ -37,47 +37,44 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('notejam.db');
-
-
 
 
 // DB configuration
 orm.settings.set("instance.returnAllErrors", true);
 app.use(orm.express(settings.db, {
-    define: function (db, models, next) {
-        db.load("./models", function (err) {
-            models.User = db.models.users;
-            models.Pad = db.models.pads;
-            next();
-        });
-    }
+  define: function (db, models, next) {
+    db.load("./models", function (err) {
+      models.User = db.models.users;
+      models.Pad = db.models.pads;
+      next();
+    });
+  }
 }));
 
 
 // Flash Messages
 app.use(function(req, res, next){
-    res.locals.flash_messages = {
-        'success': req.flash('success'),
-        'error': req.flash('error')
-    }
-    next();
+  res.locals.flash_messages = {
+    'success': req.flash('success'),
+    'error': req.flash('error')
+  }
+  next();
 });
 
 // Inject request object and user pads in view scope
 app.use(function(req, res, next){
-    res.locals.req = req;
+  res.locals.req = req;
 
-    if (req.isAuthenticated()) {
-        req.user.getPads(function(i, pads) {
-            res.locals.pads = pads;
-            next();
-        });
-    } else {
-        next();
-    }
+  if (req.isAuthenticated()) {
+    req.user.getPads(function(i, pads) {
+      res.locals.pads = pads;
+      next();
+    });
+  } else {
+    next();
+  }
 });
 
 app.use('/', routes);
@@ -88,9 +85,9 @@ app.use('/', pads);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 /// error handlers
@@ -98,23 +95,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
     });
+  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
 });
 
 
