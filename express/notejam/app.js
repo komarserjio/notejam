@@ -11,7 +11,6 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var pads = require('./routes/pads');

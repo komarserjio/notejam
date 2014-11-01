@@ -1,0 +1,7 @@
+extends ../main
+
+block content
+  p Are you sure you want to delete the note?
+  form(method='post')
+    input(type='submit', class="red", value='Yes, delete I want to delete this note')
+    |  &nbsp;<a href="#">Cancel</a>

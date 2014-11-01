@@ -9,6 +9,11 @@ var app = require('../app');
 app.listen(3000);
 
 describe('Pad', function() {
+  beforeEach(function() {
+    db.createTables();
+    db.applyFixtures();
+  });
+
   var agent = request.agent();
   before(
     signInUser(agent, {email: 'user1@example.com', password: 'password'})
@@ -22,6 +27,27 @@ describe('Pad', function() {
           .end(function(error, res){
             res.redirects.should.eql(['http://localhost:3000/']);
             res.text.should.containEql('Pad is successfully created');
+            done();
+          });
+    });
+
+    it('successfully edited', function(done) {
+      agent
+        .post('http://localhost:3000/pads/1/edit')
+          .send({name: 'New pad name'})
+          .end(function(error, res){
+            res.redirects.should.eql(['http://localhost:3000/']);
+            res.text.should.containEql('Pad is successfully updated');
+            done();
+          });
+    });
+
+    it('successfully deleted', function(done) {
+      agent
+        .post('http://localhost:3000/pads/1/delete')
+          .end(function(error, res){
+            res.redirects.should.eql(['http://localhost:3000/']);
+            res.text.should.containEql('Pad is successfully deleted');
             done();
           });
     });

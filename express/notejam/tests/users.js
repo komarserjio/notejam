@@ -57,7 +57,6 @@ describe('User', function(){
     .post('http://localhost:3000/signup')
       .send({email: 'usersadfasdf@example.com', password: 'password'})
       .end(function(error, res){
-        console.log(error);
         res.redirects.should.eql(['http://localhost:3000/signin']);
         done();
       });
