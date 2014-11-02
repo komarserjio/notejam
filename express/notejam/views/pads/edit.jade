@@ -6,4 +6,6 @@ block content
     input#name(type='text', name='name', value='#{pad.name}')
     +error('name', errors)
     input(type='submit', value='Save')
+    div
+      a.red(href="/pads/#{pad.id}/delete") Delete pad
 

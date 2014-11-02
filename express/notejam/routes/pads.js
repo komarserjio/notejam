@@ -39,6 +39,17 @@ router.use('/pads/:id', function(req, res, next) {
   }
 });
 
+// Pad notes
+router.get('/pads/:id', helpers.loginRequired, function(req, res) {
+  req.pad.getNotes(req.param("order", "-updated_at"), function(i, notes) {
+    res.render(
+      'pads/list',
+      {title: req.pad.name + ' (' + notes.length + ')',
+       pad: req.pad, notes: notes}
+    );
+  });
+});
+
 // Edit pad
 router.get('/pads/:id/edit', helpers.loginRequired, function(req, res) {
   res.render('pads/edit', {title: 'Edit pad', pad: req.pad});

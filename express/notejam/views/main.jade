@@ -8,7 +8,7 @@ block content_area
         ul
           each pad in pads
             li
-              a(href='/pads/#{pad.id}/edit') #{pad.name}
+              a(href='/pads/#{pad.id}') #{pad.name}
       else
         p.empty= 'No pads yet'
       hr

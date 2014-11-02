@@ -13,7 +13,10 @@ router.get('/', helpers.loginRequired, function(req, res) {
         return cb(null, item);
       })
     }, function(err, results) {
-      res.render('notes/list', {title: 'All notes', notes: results});
+      res.render(
+        'notes/list',
+        {title: 'All notes (' + results.length + ')', notes: results}
+      );
     });
   })
 });
@@ -34,7 +37,7 @@ router.use('/notes/:id', function(req, res, next) {
 
 // Create new note
 router.get('/notes/create', helpers.loginRequired, function(req, res) {
-  res.render('notes/create', {title: 'New note'});
+  res.render('notes/create', {title: 'New note', padId: req.param('pad')});
 });
 
 router.post('/notes/create', helpers.loginRequired, function(req, res) {
