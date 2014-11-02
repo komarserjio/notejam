@@ -1,4 +1,5 @@
 var orm = require('orm');
+var moment = require('moment');
 
 module.exports = function (db, cb) {
   var User = db.define("users", {
@@ -25,10 +26,17 @@ module.exports = function (db, cb) {
   Pad.hasOne("user", User, { required: true, reverse: 'pads' });
 
   var Note = db.define("notes", {
-    id      : { type: "serial", key: true },
-    name    : { type: "text" },
-    text    : { type: "text" }
+    id         : { type: "serial", key: true },
+    name       : { type: "text" },
+    text       : { type: "text" },
+    created_at : { type: "date", time: true },
+    updated_at : { type: "date", time: true }
   }, {
+    methods: {
+      updatedAt: function () {
+        return moment(this.updated_at).fromNow();
+      }
+    },
     validations: {
       name: orm.enforce.notEmptyString("Name is required"),
       text: orm.enforce.notEmptyString("Text is required"),

@@ -23,6 +23,8 @@
     "supertest": "0.*.*",
     "superagent": "*",
     "should": "*",
-    "should-http": "*"
+    "should-http": "*",
+    "async": "*",
+    "moment": "*"
   }
 }

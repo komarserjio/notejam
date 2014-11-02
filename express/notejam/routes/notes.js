@@ -1,12 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var orm = require('orm');
-var helpers = require('../helpers')
+var helpers = require('../helpers');
+var async = require('async');
 
 // All notes (main page)
 router.get('/', helpers.loginRequired, function(req, res) {
-  req.user.getNotes(function(i, notes) {
-    res.render('notes/list', {title: 'All notes', notes: notes});
+  req.user.getNotes(req.param("order", "-updated_at"), function(i, notes) {
+    async.map(notes, function(item, cb) {
+      item.getPad(function(err, pad) {
+        item.pad = pad;
+        return cb(null, item);
+      })
+    }, function(err, results) {
+      res.render('notes/list', {title: 'All notes', notes: results});
+    });
   })
 });
 
