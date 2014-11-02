@@ -24,8 +24,8 @@ var functions = {
         "user_id INTEGER NOT NULL REFERENCES users(id)," +
         "name VARCHAR(100) NOT NULL," +
         "text text NOT NULL," +
-        "created_at DATETIME NOT NULL," +
-        "updated_at DATETIME NOT NULL);")
+        "created_at default current_timestamp," +
+        "updated_at default current_timestamp);")
   },
 
   applyFixtures: function() {

@@ -11,9 +11,9 @@ var expressValidator = require('express-validator');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var routes = require('./routes/index');
 var users = require('./routes/users');
 var pads = require('./routes/pads');
+var notes = require('./routes/notes');
 
 var app = express();
 
@@ -47,6 +47,7 @@ app.use(orm.express(settings.db, {
     db.load("./models", function (err) {
       models.User = db.models.users;
       models.Pad = db.models.pads;
+      models.Note = db.models.notes;
       next();
     });
   }
@@ -76,9 +77,9 @@ app.use(function(req, res, next){
   }
 });
 
-app.use('/', routes);
 app.use('/', users);
 app.use('/', pads);
+app.use('/', notes);
 
 
 

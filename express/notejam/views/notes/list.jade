@@ -1,0 +1,23 @@
+extends ../main
+
+block content
+  table.notes
+    tr
+      th.note
+        | Note
+        a.sort_arrow(href='#') ↑
+        a.sort_arrow(href='#') ↓
+      th
+        | Pad
+      th.date
+        | Last modified
+        a.sort_arrow(href='#') ↑
+        a.sort_arrow(href='#') ↓
+    each note in notes
+      tr
+        td
+          a(href='#') #{note.name}
+        td.pad #{note.pad_id}
+        td.hidden-text.date #{note.created_at}
+  a.button(href='#') New note
+

@@ -1,3 +1,4 @@
+// @TODO improve structure
 var settings = {
   development: {
     db: "sqlite://notejam.db",
