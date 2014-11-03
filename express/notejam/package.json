@@ -25,6 +25,7 @@
     "should": "*",
     "should-http": "*",
     "async": "*",
-    "moment": "*"
+    "moment": "*",
+    "bcrypt": "*"
   }
 }

@@ -4,6 +4,7 @@ var debug = require('debug')('http')
 var orm = require('orm');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcrypt');
 var helpers = require('../helpers')
 
 var settings = require('../settings');
@@ -15,7 +16,9 @@ router.get('/signup', function(req, res) {
 });
 
 router.post('/signup', function(req, res) {
-  req.models.User.create(req.body, function(err, message) {
+  var data = req.body;
+  data['password'] = generateHash(data['password']);
+  req.models.User.create(data, function(err, message) {
     if (err) {
       res.locals.errors = helpers.formatModelErrors(err);
     } else {
@@ -57,7 +60,6 @@ router.post('/signin', function(req, res, next) {
     res.locals.errors = errors;
     res.render('users/signin', {title: 'Sign In'});
   }
-
 });
 
 // Sign Out
@@ -80,14 +82,16 @@ passport.deserializeUser(function(id, done) {
 passport.use(new LocalStrategy(
   {usernameField: 'email', passwordField: 'password'},
   function(username, password, done) {
-    // Find the user by username.  If there is no user with the given
-    // username, or the password is not correct, set the user to `false` to
-    // indicate failure and set a flash message.  Otherwise, return the
-    // authenticated `user`.
     findByUsername(username, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-      if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false, { message: 'Unknown user ' + username });
+      }
+      if (!bcrypt.compareSync(password, user.password)) {
+        return done(null, false, { message: 'Invalid password' });
+      }
       return done(null, user);
     })
   }
@@ -109,7 +113,6 @@ function findByUsername(username, fn) {
   });
 }
 
-
 function findById(id, fn) {
   // @TODO refactor
   orm.connect(settings.db, function(err, db) {
@@ -123,6 +126,10 @@ function findById(id, fn) {
       });
     });
   });
+}
+
+function generateHash(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 }
 
 module.exports = router;

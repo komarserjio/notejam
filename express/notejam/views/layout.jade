@@ -17,13 +17,13 @@ html(lang='en')
         .sign-in-out-block
           if req.isAuthenticated()
             | #{req.user.email}: &nbsp;
-            a(href='#') Account settings
+            a(href='/settings') Account settings
             | &nbsp;&nbsp;&nbsp;
-            a(href='#') Sign out
+            a(href='/signout') Sign out
           else
-            a(href='#') Sign up
+            a(href='/signup') Sign up
             | &nbsp;&nbsp;&nbsp;
-            a(href='#') Sign in
+            a(href='/signin') Sign in
       .sixteen.columns
         h1.bold-header
           <a href="#" class="header">note<span class="jam">jam: </span></a> <span>#{title}</span>
