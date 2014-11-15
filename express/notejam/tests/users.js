@@ -9,11 +9,13 @@ var db = require('../db');
 var app = require('../app');
 app.listen(3000);
 
-describe('User', function(){
-  beforeEach(function() {
-    db.createTables();
-    db.applyFixtures();
+before(function(done) {
+  db.createTables(function() {
+    db.applyFixtures(done);
   });
+});
+
+describe('User', function(){
 
   it('can successfully sign in', function(done){
     var agent = request.agent();
@@ -21,7 +23,7 @@ describe('User', function(){
     .post('http://localhost:3000/signin')
       .send({email: 'user1@example.com', password: 'password' })
       .end(function(error, res){
-        res.redirects.should.eql(['http://localhost:3000/pads/create']);
+        res.redirects.should.eql(['http://localhost:3000/']);
         done();
       });
   });
@@ -100,6 +102,3 @@ describe('User', function(){
     // @TODO implement "if passwords do not match" case
   });
 })
-
-
-

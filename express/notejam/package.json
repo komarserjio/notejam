@@ -26,6 +26,8 @@
     "should-http": "*",
     "async": "*",
     "moment": "*",
-    "bcrypt": "*"
+    "bcrypt": "*",
+    "nodemailer": "*",
+    "nodemailer-stub-transport": "*"
   }
 }

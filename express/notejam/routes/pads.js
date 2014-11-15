@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var orm = require('orm');
+
 var helpers = require('../helpers')
 
 // Create new pad
@@ -31,6 +32,10 @@ router.use('/pads/:id', function(req, res, next) {
     req.models.Pad.one(
       {id: req.param('id'), user_id: req.user.id},
       function(err, pad) {
+        if (pad == null) {
+          res.send(404);
+          return;
+        };
         req.pad = pad;
         next();
       });
@@ -59,7 +64,7 @@ router.post('/pads/:id/edit', helpers.loginRequired, function(req, res) {
   req.pad.save({name: req.param('name')}, function(err) {
     if (err) {
       res.locals.errors = helpers.formatModelErrors(err);
-      res.render('pads/edit', {title: 'Edit pad', pad: pad});
+      res.render('pads/edit', {title: 'Edit pad', pad: req.pad});
     } else {
       req.flash(
         'success',

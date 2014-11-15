@@ -12,7 +12,7 @@ block content_area
       else
         p.empty= 'No pads yet'
       hr
-      a(href='#') New pad
+      a(href='/pads/create') New pad
   .thirteen.columns.content-area
     +render_flash_messages(flash_messages)
     block content

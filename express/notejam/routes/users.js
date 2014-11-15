@@ -5,8 +5,10 @@ var orm = require('orm');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt');
-var helpers = require('../helpers')
+var nodemailer = require('nodemailer');
+var stubTransport = require('nodemailer-stub-transport');
 
+var helpers = require('../helpers')
 var settings = require('../settings');
 
 
@@ -17,7 +19,9 @@ router.get('/signup', function(req, res) {
 
 router.post('/signup', function(req, res) {
   var data = req.body;
-  data['password'] = generateHash(data['password']);
+  if (data['password']) {
+    data['password'] = generateHash(data['password']);
+  };
   req.models.User.create(data, function(err, message) {
     if (err) {
       res.locals.errors = helpers.formatModelErrors(err);
@@ -62,6 +66,79 @@ router.post('/signin', function(req, res, next) {
   }
 });
 
+// Account settings
+router.get('/settings', helpers.loginRequired, function(req, res) {
+  res.render('users/settings', {title: 'Account settings'});
+});
+
+router.post('/settings', function(req, res, next) {
+  req.checkBody('password', 'Password is required').notEmpty();
+  req.checkBody('new_password', 'New password is required').notEmpty();
+  req.checkBody('confirm_new_password', 'Passwords do not match').equals(
+    req.body.new_password
+  );
+  if (req.validationErrors()) {
+    var errors = helpers.formatFormErrors(req.validationErrors());
+  }
+
+  if (!errors) {
+    if (!checkPassword(req.user, req.param('password'))) {
+      req.flash(
+        'error',
+        'Current password is not correct'
+      );
+      return res.redirect('/settings');
+    }
+    var hash = generateHash(req.param('password'));
+    req.user.save({password: hash}, function(err) {
+      req.flash(
+        'success',
+        'Password is successfully changed'
+      );
+      return res.redirect('/');
+    })
+  } else {
+    res.locals.errors = errors;
+    res.render('users/settings', {title: 'Account settings'});
+  }
+});
+
+// Forgot password
+router.get('/forgot-password', function(req, res) {
+  res.render('users/forgot-password', {title: 'Forgot password?'});
+});
+
+router.post('/forgot-password', function(req, res) {
+  req.checkBody('email', 'Email is required').notEmpty();
+  if (req.validationErrors()) {
+    res.locals.errors = helpers.formatFormErrors(req.validationErrors());
+    res.render('users/forgot-password', {title: 'Forgot password?'});
+    return;
+  }
+  if (req.models.User.one({email: req.param('email')}, function(err, user) {
+    if (user) {
+      var password = generateRandomPassword();
+      var hash = generateHash(password);
+      user.save({password: hash}, function() {
+        sendNewPassword(user, password);
+        req.flash(
+          'success',
+          'New password sent to your inbox'
+        );
+        return res.redirect('/signin');
+      });
+    } else {
+      req.flash(
+        'error',
+        'No user with given email found'
+      );
+      return res.redirect('/forgot-password');
+    }
+  }));
+});
+
+
+
 // Sign Out
 router.get('/signout', function(req, res) {
   req.logout();
@@ -89,7 +166,7 @@ passport.use(new LocalStrategy(
       if (!user) {
         return done(null, false, { message: 'Unknown user ' + username });
       }
-      if (!bcrypt.compareSync(password, user.password)) {
+      if (!checkPassword(user, password)) {
         return done(null, false, { message: 'Invalid password' });
       }
       return done(null, user);
@@ -98,7 +175,6 @@ passport.use(new LocalStrategy(
 ));
 
 function findByUsername(username, fn) {
-  // @TODO refactor
   orm.connect(settings.db, function(err, db) {
     db.load("../models", function (err) {
       var User = db.models.users;
@@ -114,7 +190,6 @@ function findByUsername(username, fn) {
 }
 
 function findById(id, fn) {
-  // @TODO refactor
   orm.connect(settings.db, function(err, db) {
     db.load("../models", function (err) {
       var User = db.models.users;
@@ -130,6 +205,27 @@ function findById(id, fn) {
 
 function generateHash(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+}
+
+function checkPassword(user, password) {
+  return bcrypt.compareSync(password, user.password);
+}
+
+function generateRandomPassword() {
+  return Math.random().toString(36).replace(/[^a-z]+/g, '');
+}
+
+function sendNewPassword(user, password) {
+  var mailer = nodemailer.createTransport(stubTransport());
+  mailer.sendMail({
+    from: 'norepy@notejamapp.com',
+    to: user.email,
+    subject: 'New notejam password',
+    text: 'Your new password: ' + password
+  }, function(err, info) {
+    // sent mail to console output
+    console.log(info.response.toString());
+  });
 }
 
 module.exports = router;

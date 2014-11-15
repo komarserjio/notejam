@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var orm = require('orm');
-var helpers = require('../helpers');
 var async = require('async');
+
+var helpers = require('../helpers');
 
 // All notes (main page)
 router.get('/', helpers.loginRequired, function(req, res) {
@@ -21,12 +22,21 @@ router.get('/', helpers.loginRequired, function(req, res) {
   })
 });
 
+// Create new note
+router.get('/notes/create', helpers.loginRequired, function(req, res) {
+  res.render('notes/create', {title: 'New note', padId: req.param('pad')});
+});
+
 // Inject note in request
 router.use('/notes/:id', function(req, res, next) {
   if (req.user) {
     req.models.Note.one(
       {id: req.param('id'), user_id: req.user.id},
       function(err, note) {
+        if (note == null) {
+          res.send(404);
+          return;
+        };
         req.note = note;
         next();
       });
@@ -35,10 +45,12 @@ router.use('/notes/:id', function(req, res, next) {
   }
 });
 
-// Create new note
-router.get('/notes/create', helpers.loginRequired, function(req, res) {
-  res.render('notes/create', {title: 'New note', padId: req.param('pad')});
+
+// View note
+router.get('/notes/:id', helpers.loginRequired, function(req, res) {
+  res.render('notes/view', {title: req.note.name, note: req.note});
 });
+
 
 router.post('/notes/create', helpers.loginRequired, function(req, res) {
   var data = req.body;
