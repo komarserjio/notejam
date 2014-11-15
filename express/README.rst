@@ -4,11 +4,11 @@ Notejam: Express
 
 Notejam application implemented using `Express.js<http://expressjs.com/>`_ microframework.
 
-Extenstions used:
+Middlewares/extentions used:
 
 * Passport.js for authentication
 * Node ORM 2 for database interaction
-* connect-flash for flash messages
+* Superagent for testing
 
 ==========================
 Installation and launching
@@ -49,7 +49,10 @@ Running unit tests
 
 Run unit tests:
 
-TBD
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/express/notejam/
+    $ ./node_modules/mocha/bin/mocha tests
 
 ============
 Contribution
