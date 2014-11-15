@@ -14,10 +14,10 @@ var LocalStrategy = require('passport-local').Strategy;
 var users = require('./routes/users');
 var pads = require('./routes/pads');
 var notes = require('./routes/notes');
+var settings = require('./settings')
 
 var app = express();
 
-var settings = require('./settings')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,14 +35,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('notejam.db');
-
-
 // DB configuration
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database(settings.db);
+
 orm.settings.set("instance.returnAllErrors", true);
-app.use(orm.express(settings.db, {
+app.use(orm.express(settings.dsn, {
   define: function (db, models, next) {
     db.load("./models", function (err) {
       models.User = db.models.users;
@@ -53,8 +51,7 @@ app.use(orm.express(settings.db, {
   }
 }));
 
-
-// Flash Messages
+// Flash Messages configuration
 app.use(function(req, res, next){
   res.locals.flash_messages = {
     'success': req.flash('success'),
@@ -81,16 +78,12 @@ app.use('/', users);
 app.use('/', pads);
 app.use('/', notes);
 
-
-
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
-/// error handlers
 
 // development error handler
 // will print stacktrace
@@ -113,6 +106,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

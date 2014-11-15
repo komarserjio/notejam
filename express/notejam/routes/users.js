@@ -11,10 +11,9 @@ var stubTransport = require('nodemailer-stub-transport');
 var helpers = require('../helpers')
 var settings = require('../settings');
 
-
 // Sign Up
 router.get('/signup', function(req, res) {
-  res.render('users/signup', {title: 'Sign Up'});
+  res.render('users/signup');
 });
 
 router.post('/signup', function(req, res) {
@@ -32,13 +31,13 @@ router.post('/signup', function(req, res) {
       );
       return res.redirect('/signin');
     }
-    res.render('users/signup', {title: 'Sign Up'});
+    res.render('users/signup');
   });
 });
 
 // Sign In
 router.get('/signin', function(req, res) {
-  res.render('users/signin', {title: 'Sign In'});
+  res.render('users/signin');
 });
 
 router.post('/signin', function(req, res, next) {
@@ -62,13 +61,13 @@ router.post('/signin', function(req, res, next) {
     })(req, res, next);
   } else {
     res.locals.errors = errors;
-    res.render('users/signin', {title: 'Sign In'});
+    res.render('users/signin');
   }
 });
 
 // Account settings
 router.get('/settings', helpers.loginRequired, function(req, res) {
-  res.render('users/settings', {title: 'Account settings'});
+  res.render('users/settings');
 });
 
 router.post('/settings', function(req, res, next) {
@@ -99,20 +98,20 @@ router.post('/settings', function(req, res, next) {
     })
   } else {
     res.locals.errors = errors;
-    res.render('users/settings', {title: 'Account settings'});
+    res.render('users/settings');
   }
 });
 
 // Forgot password
 router.get('/forgot-password', function(req, res) {
-  res.render('users/forgot-password', {title: 'Forgot password?'});
+  res.render('users/forgot-password');
 });
 
 router.post('/forgot-password', function(req, res) {
   req.checkBody('email', 'Email is required').notEmpty();
   if (req.validationErrors()) {
     res.locals.errors = helpers.formatFormErrors(req.validationErrors());
-    res.render('users/forgot-password', {title: 'Forgot password?'});
+    res.render('users/forgot-password');
     return;
   }
   if (req.models.User.one({email: req.param('email')}, function(err, user) {
@@ -137,14 +136,14 @@ router.post('/forgot-password', function(req, res) {
   }));
 });
 
-
-
 // Sign Out
 router.get('/signout', function(req, res) {
   req.logout();
   res.redirect('/signin');
 });
 
+
+// Helper user functions
 // Auth settings
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -175,7 +174,7 @@ passport.use(new LocalStrategy(
 ));
 
 function findByUsername(username, fn) {
-  orm.connect(settings.db, function(err, db) {
+  orm.connect(settings.dsn, function(err, db) {
     db.load("../models", function (err) {
       var User = db.models.users;
       db.models.users.find({email: username}, function (err, users) {
@@ -190,7 +189,7 @@ function findByUsername(username, fn) {
 }
 
 function findById(id, fn) {
-  orm.connect(settings.db, function(err, db) {
+  orm.connect(settings.dsn, function(err, db) {
     db.load("../models", function (err) {
       var User = db.models.users;
       User.get(id, function (err, user) {

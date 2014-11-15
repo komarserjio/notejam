@@ -1,13 +1,17 @@
-// @TODO improve structure
 var settings = {
   development: {
-    db: "sqlite://notejam.db",
-    dbfile: "notejam.db"
+    db: "notejam.db",
+    dsn: "sqlite://notejam.db"
   },
   test: {
     db: "sqlite://notejam_test.db",
-    dbfile: "notejam_test.db"
+    dsn: "notejam_test.db"
   }
 };
 
-module.exports = settings[process.env.NODE_ENV];
+
+var env = process.env.NODE_ENV
+if (!env) {
+  env = 'development'
+};
+module.exports = settings[env];
