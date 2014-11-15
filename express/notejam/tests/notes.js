@@ -6,9 +6,10 @@ var should = require('should');
 require('should-http');
 
 var db = require('../db');
-
+var config = require('./config')
 var app = require('../app');
-app.listen(3000);
+
+app.listen(config.port);
 
 before(function(done) {
   db.createTables(function() {
@@ -20,16 +21,18 @@ describe('Note', function() {
 
   var agent = request.agent();
   before(
-    signInUser(agent, {email: 'user1@example.com', password: 'password'})
+    config.signInUser(
+      agent, {email: 'user1@example.com', password: 'password'}
+    )
   );
 
   describe('can be', function() {
     it('successfully created', function(done) {
       agent
-        .post('http://localhost:3000/notes/create')
+        .post(config.url('/notes/create'))
           .send({name: 'New note', text: 'text', pad_id: 1})
           .end(function(error, res){
-            res.redirects.should.eql(['http://localhost:3000/']);
+            res.redirects.should.eql([config.url('/')]);
             res.text.should.containEql('Note is successfully created');
             done();
           });
@@ -37,10 +40,10 @@ describe('Note', function() {
 
     it('successfully edited', function(done) {
       agent
-        .post('http://localhost:3000/notes/1/edit')
+        .post(config.url('/notes/1/edit'))
           .send({name: 'New name', text: 'New text'})
           .end(function(error, res){
-            res.redirects.should.eql(['http://localhost:3000/notes/1']);
+            res.redirects.should.eql([config.url('/notes/1')]);
             res.text.should.containEql('Note is successfully updated');
             done();
           });
@@ -48,9 +51,9 @@ describe('Note', function() {
 
     it('successfully deleted', function(done) {
       agent
-        .post('http://localhost:3000/notes/2/delete')
+        .post(config.url('/notes/2/delete'))
           .end(function(error, res){
-            res.redirects.should.eql(['http://localhost:3000/']);
+            res.redirects.should.eql([config.url('/')]);
             res.text.should.containEql('Note is successfully deleted');
             done();
           });
@@ -58,7 +61,7 @@ describe('Note', function() {
 
     it('successfully viewed', function(done) {
       agent
-        .get('http://localhost:3000/notes/1')
+        .get(config.url('/notes/1'))
           .end(function(error, res){
             res.should.have.status(200);
             done();
@@ -69,7 +72,7 @@ describe('Note', function() {
   describe('can not be', function() {
     it('created if required fields are missing', function(done) {
       agent
-        .post('http://localhost:3000/notes/create')
+        .post(config.url('/notes/create'))
           .send({name: '', text: ''})
           .end(function(error, res){
             res.text.should.containEql('Name is required');
@@ -80,7 +83,7 @@ describe('Note', function() {
 
     it('edited if required fields are missing', function(done) {
       agent
-        .post('http://localhost:3000/notes/1/edit')
+        .post(config.url('/notes/1/edit'))
           .send({name: '', text: ''})
           .end(function(error, res){
             res.text.should.containEql('Name is required');
@@ -91,12 +94,12 @@ describe('Note', function() {
 
     it('edited by not an owner', function(done) {
       var agent = request.agent();
-      var signed = signInUser(
+      var signed = config.signInUser(
         agent, {email: 'user2@example.com', password: 'password'}
       );
       signed(function() {
         agent
-          .post('http://localhost:3000/notes/1/edit')
+          .post(config.url('/notes/1/edit'))
             .send({name: 'new name', text: 'new text'})
             .end(function(error, res){
               res.should.have.status(404);
@@ -107,12 +110,12 @@ describe('Note', function() {
 
     it('deleted by not an owner', function(done) {
       var agent = request.agent();
-      var signed = signInUser(
+      var signed = config.signInUser(
         agent, {email: 'user2@example.com', password: 'password'}
       );
       signed(function() {
         agent
-          .post('http://localhost:3000/notes/1/delete')
+          .post(config.url('/notes/1/delete'))
             .end(function(error, res){
               res.should.have.status(404);
               done();
@@ -122,12 +125,12 @@ describe('Note', function() {
 
     it('viewed by not an owner', function(done) {
       var agent = request.agent();
-      var signed = signInUser(
+      var signed = config.signInUser(
         agent, {email: 'user2@example.com', password: 'password'}
       );
       signed(function() {
         agent
-          .get('http://localhost:3000/notes/1')
+          .get(config.url('/notes/1'))
             .end(function(error, res){
               res.should.have.status(404);
               done();
@@ -136,18 +139,3 @@ describe('Note', function() {
     });
   });
 });
-
-
-function signInUser(agent, user) {
-  return function(done) {
-    agent
-      .post('http://localhost:3000/signin')
-      .send(user)
-      .end(onResponse);
-
-    function onResponse(err, res) {
-      res.should.have.status(200);
-      return done();
-    }
-  };
-}
