@@ -27,6 +27,23 @@ router.get('/notes/create', helpers.loginRequired, function(req, res) {
   res.render('notes/create', {title: 'New note', padId: req.param('pad')});
 });
 
+router.post('/notes/create', helpers.loginRequired, function(req, res) {
+  var data = req.body;
+  data['user_id'] = req.user.id;
+  req.models.Note.create(data, function(err, message) {
+    if (err) {
+      res.locals.errors = helpers.formatModelErrors(err);
+    } else {
+      req.flash(
+        'success',
+        'Note is successfully created'
+      );
+      return res.redirect('/');
+    }
+    res.render('notes/create', {title: 'New note'});
+  });
+});
+
 // Inject note in request
 router.use('/notes/:id', function(req, res, next) {
   if (req.user) {
@@ -52,22 +69,6 @@ router.get('/notes/:id', helpers.loginRequired, function(req, res) {
 });
 
 
-router.post('/notes/create', helpers.loginRequired, function(req, res) {
-  var data = req.body;
-  data['user_id'] = req.user.id;
-  req.models.Note.create(data, function(err, message) {
-    if (err) {
-      res.locals.errors = helpers.formatModelErrors(err);
-    } else {
-      req.flash(
-        'success',
-        'Note is successfully created'
-      );
-      return res.redirect('/');
-    }
-    res.render('notes/create', {title: 'New note'});
-  });
-});
 
 // Edit note
 router.get('/notes/:id/edit', helpers.loginRequired, function(req, res) {
@@ -75,16 +76,16 @@ router.get('/notes/:id/edit', helpers.loginRequired, function(req, res) {
 });
 
 router.post('/notes/:id/edit', helpers.loginRequired, function(req, res) {
-  req.note.save({name: req.param('name')}, function(err) {
+  req.note.save(req.body, function(err) {
     if (err) {
       res.locals.errors = helpers.formatModelErrors(err);
-      res.render('notes/edit', {title: 'Edit note', note: note});
+      res.render('notes/edit', {title: 'Edit note', note: req.note});
     } else {
       req.flash(
         'success',
         'Note is successfully updated'
       );
-      res.redirect('/');
+      res.redirect('/notes/' + req.note.id);
     }
   });
 });

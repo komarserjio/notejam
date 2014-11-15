@@ -59,6 +59,14 @@ var functions = {
         function(callback) {
           db.run("INSERT INTO pads VALUES (2, 'Pad 2', 1)", [],
                 function() { callback(null) });
+        },
+        function(callback) {
+          db.run("INSERT INTO notes VALUES (1, 1, 1, 'Note 1', 'Text', 1, 1)", [],
+                function() { callback(null) });
+        },
+        function(callback) {
+          db.run("INSERT INTO notes VALUES (2, 1, 1, 'Note 2', 'Text', 1, 1)", [],
+                function() { callback(null) });
         }
       ], function(err, results) {
         next();
