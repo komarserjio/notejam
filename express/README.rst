@@ -12,7 +12,7 @@ Middlewares/extentions used:
 * `Node ORM 2 <http://dresende.github.io/node-orm2/>`_ for database
 * `Superagent <http://visionmedia.github.io/superagent/>`_ for testing
 
-and `others <https://github.com/komarserjio/notejam/blob/express/express/notejam/package.json>_`
+and `others <https://github.com/komarserjio/notejam/blob/express/express/notejam/package.json>`_
 
 ==========================
 Installation and launching
