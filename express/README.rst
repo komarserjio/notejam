@@ -10,7 +10,7 @@ Middlewares/extentions used:
 
 * `Passport.js <http://passportjs.org/>`_ for authentication
 * `Node ORM 2 <http://dresende.github.io/node-orm2/>`_ for database
-* `Superagent <http://visionmedia.github.io/superagent/>`_ for testing
+* `Mocha <http://mochajs.org/>`_ and `Superagent <http://visionmedia.github.io/superagent/>`_ for testing
 * ... and `others <https://github.com/komarserjio/notejam/blob/express/express/notejam/package.json>`_
 
 ==========================

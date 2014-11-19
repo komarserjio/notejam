@@ -41,13 +41,13 @@ Supported frameworks
 * `Ruby on Rails <https://github.com/komarserjio/notejam/tree/master/rubyonrails>`_
 * `Padrino <https://github.com/komarserjio/notejam/tree/master/padrino>`_
 
+**Javascript (node.js)**
+
+* `Express <https://github.com/komarserjio/notejam/tree/master/express>`_
+
 
 In progress
 -----------
-
-**Javascript (node.js)**
-
-* Express
 
 **Python**
 
