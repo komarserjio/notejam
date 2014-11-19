@@ -2,7 +2,7 @@
 Notejam: Express
 ****************
 
-Notejam application implemented using `Express.js<http://expressjs.com/>`_ microframework.
+Notejam application implemented using `Express.js <http://expressjs.com/>`_ microframework.
 
 Middlewares/extentions used:
 
