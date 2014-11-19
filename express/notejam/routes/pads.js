@@ -6,7 +6,7 @@ var helpers = require('../helpers')
 
 // Create new pad
 router.get('/pads/create', helpers.loginRequired, function(req, res) {
-  res.render('pads/create', {title: 'New pad'});
+  res.render('pads/create');
 });
 
 router.post('/pads/create', helpers.loginRequired, function(req, res) {
@@ -22,7 +22,7 @@ router.post('/pads/create', helpers.loginRequired, function(req, res) {
       );
       return res.redirect('/');
     }
-    res.render('pads/create', {title: 'New pad'});
+    res.render('pads/create');
   });
 });
 
@@ -57,14 +57,14 @@ router.get('/pads/:id', helpers.loginRequired, function(req, res) {
 
 // Edit pad
 router.get('/pads/:id/edit', helpers.loginRequired, function(req, res) {
-  res.render('pads/edit', {title: 'Edit pad', pad: req.pad});
+  res.render('pads/edit', {pad: req.pad});
 });
 
 router.post('/pads/:id/edit', helpers.loginRequired, function(req, res) {
   req.pad.save({name: req.param('name')}, function(err) {
     if (err) {
       res.locals.errors = helpers.formatModelErrors(err);
-      res.render('pads/edit', {title: 'Edit pad', pad: req.pad});
+      res.render('pads/edit', {pad: req.pad});
     } else {
       req.flash(
         'success',
@@ -77,7 +77,7 @@ router.post('/pads/:id/edit', helpers.loginRequired, function(req, res) {
 
 // Delete pad
 router.get('/pads/:id/delete', helpers.loginRequired, function(req, res) {
-  res.render('pads/delete', {title: 'Delete pad', pad: req.pad});
+  res.render('pads/delete', {pad: req.pad});
 });
 
 router.post('/pads/:id/delete', helpers.loginRequired, function(req, res) {

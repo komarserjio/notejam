@@ -1,5 +1,8 @@
 extends ../main
 
+block title
+  | #{note.name}
+
 block content
   p Are you sure you want to delete the note?
   form(method='post')
