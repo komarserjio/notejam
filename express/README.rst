@@ -28,7 +28,12 @@ Clone the repo:
 Install environment
 -------------------
 
-TBD
+Install dependencies
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/express/notejam/
+    $ npm install
 
 ------
 Launch
