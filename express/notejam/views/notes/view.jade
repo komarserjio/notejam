@@ -1,5 +1,8 @@
 extends ../main
 
+block title
+  | #{note.name}
+
 block content
   p.hidden-text Last edited #{note.updatedAt()}
   div.note

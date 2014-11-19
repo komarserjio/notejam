@@ -1,5 +1,8 @@
 extends ../main
 
+block title
+  | #{note.name}
+
 block content
   form.note(method='POST')
     label(for='name') Name

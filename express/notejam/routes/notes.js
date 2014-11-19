@@ -24,7 +24,7 @@ router.get('/', helpers.loginRequired, function(req, res) {
 
 // Create new note
 router.get('/notes/create', helpers.loginRequired, function(req, res) {
-  res.render('notes/create', {title: 'New note', padId: req.param('pad')});
+  res.render('notes/create', {padId: req.param('pad')});
 });
 
 router.post('/notes/create', helpers.loginRequired, function(req, res) {
@@ -40,7 +40,7 @@ router.post('/notes/create', helpers.loginRequired, function(req, res) {
       );
       return res.redirect('/');
     }
-    res.render('notes/create', {title: 'New note'});
+    res.render('notes/create');
   });
 });
 
@@ -65,21 +65,21 @@ router.use('/notes/:id', function(req, res, next) {
 
 // View note
 router.get('/notes/:id', helpers.loginRequired, function(req, res) {
-  res.render('notes/view', {title: req.note.name, note: req.note});
+  res.render('notes/view', {note: req.note});
 });
 
 
 
 // Edit note
 router.get('/notes/:id/edit', helpers.loginRequired, function(req, res) {
-  res.render('notes/edit', {title: 'Edit note', note: req.note});
+  res.render('notes/edit', {note: req.note});
 });
 
 router.post('/notes/:id/edit', helpers.loginRequired, function(req, res) {
   req.note.save(req.body, function(err) {
     if (err) {
       res.locals.errors = helpers.formatModelErrors(err);
-      res.render('notes/edit', {title: 'Edit note', note: req.note});
+      res.render('notes/edit', {note: req.note});
     } else {
       req.flash(
         'success',
@@ -92,7 +92,7 @@ router.post('/notes/:id/edit', helpers.loginRequired, function(req, res) {
 
 // Delete note
 router.get('/notes/:id/delete', helpers.loginRequired, function(req, res) {
-  res.render('notes/delete', {title: 'Delete note', note: req.note});
+  res.render('notes/delete', {note: req.note});
 });
 
 router.post('/notes/:id/delete', helpers.loginRequired, function(req, res) {
