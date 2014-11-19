@@ -9,7 +9,7 @@ The easy way to start with a new framework is to compare it with frameworks you 
 The goal of the project is to help developers easily learn new frameworks by examples.
 
 Notejam is a unified sample web application (more than just "Hello World") implemented using different server-side frameworks.
-Currently most popular python, php and ruby frameworks are supported.
+Currently python, php, ruby and javascript frameworks are supported.
 
 
 **Is it like TodoMVC in Javascript?**
