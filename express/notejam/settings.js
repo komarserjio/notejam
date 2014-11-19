@@ -4,8 +4,8 @@ var settings = {
     dsn: "sqlite://notejam.db"
   },
   test: {
-    db: "sqlite://notejam_test.db",
-    dsn: "notejam_test.db"
+    db: "notejam_test.db",
+    dsn: "sqlite://notejam_test.db"
   }
 };
 
