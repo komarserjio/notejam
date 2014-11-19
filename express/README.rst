@@ -4,11 +4,15 @@ Notejam: Express
 
 Notejam application implemented using `Express.js <http://expressjs.com/>`_ microframework.
 
+Express version: 4.2
+
 Middlewares/extentions used:
 
-* Passport.js for authentication
-* Node ORM 2 for database interaction
-* Superagent for testing
+* `Passport.js <http://passportjs.org/>`_ for authentication
+* `Node ORM 2 <http://dresende.github.io/node-orm2/>`_ for database
+* `Superagent <http://visionmedia.github.io/superagent/>`_ for testing
+
+and `others <https://github.com/komarserjio/notejam/blob/express/express/notejam/package.json>_`
 
 ==========================
 Installation and launching
@@ -27,6 +31,7 @@ Clone the repo:
 -------------------
 Install environment
 -------------------
+Use `npm <https://www.npmjs.org/>`_ to manage dependencies.
 
 Install dependencies
 
@@ -34,6 +39,13 @@ Install dependencies
 
     $ cd YOUR_PROJECT_DIR/express/notejam/
     $ npm install
+
+Create database schema
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/express/notejam/
+    $ node db.js
 
 ------
 Launch
