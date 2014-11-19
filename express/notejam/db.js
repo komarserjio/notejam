@@ -2,7 +2,7 @@ var sqlite3 = require('sqlite3').verbose();
 var async = require('async');
 
 var settings = require('./settings');
-var db = new sqlite3.Database(settings.dbfile);
+var db = new sqlite3.Database(settings.db);
 
 var functions = {
   createTables: function(next) {
@@ -97,7 +97,9 @@ var functions = {
 
 
 if (require.main === module) {
-  functions.createTables();
+  functions.createTables(function() {
+    console.log("DB successfully initialized");
+  });
 }
 
 module.exports = functions;
