@@ -54,7 +54,7 @@
         <% if current_user.pads.count.nonzero? %>
           <ul>
             <% current_user.pads.each do |pad| -%>
-              <li><%= link_to pad.name, view_pad_notes_path(:id => pad.id) %></li>
+              <li><%= link_to pad.name, pad_path(:id => pad.id) %></li>
             <% end -%>
           </ul>
         <% else %>

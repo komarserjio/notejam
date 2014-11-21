@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PadControllerTest < ActionController::TestCase
+class PadsControllerTest < ActionController::TestCase
   test 'pad should be created' do
     login_as(:existent_user)
     assert_difference('Pad.count') do
@@ -31,7 +31,7 @@ class PadControllerTest < ActionController::TestCase
     pad = pads(:existent_pad)
     new_name = 'new_name'
     post :edit, id: pad.id, pad: { name: new_name }
-    assert_redirected_to view_pad_notes_path id: pad.id
+    assert_redirected_to pad_path id: pad.id
     assert_equal new_name, Pad.first.name
   end
 
@@ -46,14 +46,14 @@ class PadControllerTest < ActionController::TestCase
   test 'pad notes should be viewd by an owner' do
     login_as(:existent_user)
     pad = pads(:existent_pad)
-    get :view, id: pad.id
+    get :show, id: pad.id
     assert_response :success
   end
 
   test 'pad notes should not be viewed by not an owner' do
     login_as(:existent_user2)
     pad = pads(:existent_pad)
-    get :view, id: pad.id
+    get :show, id: pad.id
     assert_response :missing
   end
 

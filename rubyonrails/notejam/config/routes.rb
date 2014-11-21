@@ -3,16 +3,15 @@ Notejam::Application.routes.draw do
   root 'note#list', as: :all_notes
 
   # Pad urls
-  get 'pads/:id/edit' => 'pad#edit', as: :edit_pad
-  post 'pads/:id/edit' => 'pad#edit'
+  post 'pads/:id/edit' => 'pads#edit'
 
-  get 'pads/:id/delete' => 'pad#delete', as: :delete_pad
-  post 'pads/:id/delete' => 'pad#delete'
+  get 'pads/:id/delete' => 'pads#delete', as: :delete_pad
+  post 'pads/:id/delete' => 'pads#delete'
 
-  get 'pads/create' => 'pad#create', as: :create_pad
-  post 'pads/create' => 'pad#create'
+  get 'pads/create' => 'pads#create', as: :create_pad
+  post 'pads/create' => 'pads#create'
 
-  get 'pads/:id/' => 'pad#view', as: :view_pad_notes
+  resources :pads, only: [:edit, :show]
 
   # Note urls
   get 'notes/create' => 'note#create', as: :create_note

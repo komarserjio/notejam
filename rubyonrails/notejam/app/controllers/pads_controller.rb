@@ -1,4 +1,4 @@
-class PadController < ApplicationController
+class PadsController < ApplicationController
   before_action :authenticate_user
   def create
     if params[:pad]
@@ -14,7 +14,7 @@ class PadController < ApplicationController
     @current_name = @pad.name
     if params[:pad]
       if @pad.update(pad_params)
-        redirect_to view_pad_notes_path(id: @pad.id), flash: { success: 'Pad is successfully updated' }
+        redirect_to pad_path(id: @pad.id), flash: { success: 'Pad is successfully updated' }
       end
     end
   end
@@ -27,7 +27,7 @@ class PadController < ApplicationController
     end
   end
 
-  def view
+  def show
     @pad = current_user.pads.find(params[:id])
     @notes = @pad.notes.order(order_param)
   end
