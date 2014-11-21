@@ -1,6 +1,6 @@
 Notejam::Application.routes.draw do
   # You can have the root of your site routed with "root"
-  root 'notes#list', as: :all_notes
+  # root 'notes#list', as: :notes
 
   # Pad urls
   post 'pads/:id/edit' => 'pads#edit'
@@ -22,7 +22,7 @@ Notejam::Application.routes.draw do
   get 'notes/:id/delete' => 'notes#delete', as: :delete_note
   post 'notes/:id/delete' => 'notes#delete'
 
-  resources :notes, only: [:edit, :show]
+  resources :notes, only: [:edit, :show, :index]
 
   # User urls
   get 'signup/' => 'users#signup', as: :signup
@@ -38,6 +38,8 @@ Notejam::Application.routes.draw do
 
   get 'forgot-password/' => 'users#forgot_password', as: :forgot_password
   post 'forgot-password/' => 'users#forgot_password'
+
+  root "notes#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

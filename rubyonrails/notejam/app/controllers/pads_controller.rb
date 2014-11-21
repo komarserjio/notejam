@@ -4,7 +4,7 @@ class PadsController < ApplicationController
     if params[:pad]
       @pad = Pad.new(pad_params.merge(user: current_user))
       if @pad.save
-        redirect_to url_for(:all_notes), flash: { success: 'Pad is successfully created' }
+        redirect_to url_for(:notes), flash: { success: 'Pad is successfully created' }
       end
     end
   end
@@ -23,7 +23,7 @@ class PadsController < ApplicationController
     @pad = current_user.pads.find(params[:id])
     if request.post?
       @pad.destroy
-      redirect_to all_notes_path, flash: { success: 'Pad is successfully deleted' }
+      redirect_to notes_path, flash: { success: 'Pad is successfully deleted' }
     end
   end
 

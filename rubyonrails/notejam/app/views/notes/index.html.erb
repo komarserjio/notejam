@@ -2,9 +2,9 @@
 <% if @notes.count.nonzero? %>
   <table class="notes">
     <tr>
-      <th class="note">Note <a href="<%= all_notes_path + "?order=name" %>" class="sort_arrow">↑</a><a href="<%= all_notes_path + "?order=-name" %>" class="sort_arrow">↓</a></th>
+      <th class="note">Note <a href="<%= notes_path + "?order=name" %>" class="sort_arrow">↑</a><a href="<%= notes_path + "?order=-name" %>" class="sort_arrow">↓</a></th>
       <th>Pad</th>
-      <th class="date">Last modified <a href="<%= all_notes_path + "?order=updated_at" %>" class="sort_arrow">↑</a><a href="<%= all_notes_path + "?order=-updated_at" %>" class="sort_arrow">↓</a></th>
+      <th class="date">Last modified <a href="<%= notes_path + "?order=updated_at" %>" class="sort_arrow">↑</a><a href="<%= notes_path + "?order=-updated_at" %>" class="sort_arrow">↓</a></th>
     </tr>
     <% @notes.each do |note|  -%>
     <tr>

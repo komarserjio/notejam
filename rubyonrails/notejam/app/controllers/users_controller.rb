@@ -16,7 +16,7 @@ class UsersController < ApplicationController
       user = User.find_by_email(params[:email])
       if user && user.authenticate(params[:password])
         session[:user_id] = user.id
-        redirect_to all_notes_path, flash: { success: 'Successfully signed in' }
+        redirect_to notes_path, flash: { success: 'Successfully signed in' }
       else
         flash.now[:error] = 'Invalid email or password'
       end

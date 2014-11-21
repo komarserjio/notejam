@@ -81,4 +81,10 @@ class NotesControllerTest < ActionController::TestCase
     post :delete, id: note.id
     assert_response :missing
   end
+
+  test 'note should be listed in index page' do
+    login_as(:existent_user)
+    get :index
+    assert_response :success
+  end
 end
