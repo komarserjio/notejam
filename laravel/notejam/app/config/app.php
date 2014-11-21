@@ -80,6 +80,8 @@ return array(
 
     'key' => 'J5263afFApteAj79OGkWSpGnBf0h76kF',
 
+    'crypt' => MCRYPT_RIJNDAEL_256,
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
