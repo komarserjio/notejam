@@ -14,16 +14,15 @@ Notejam::Application.routes.draw do
   resources :pads, only: [:edit, :show]
 
   # Note urls
-  get 'notes/create' => 'note#create', as: :create_note
-  post 'notes/create' => 'note#create'
+  get 'notes/create' => 'notes#create', as: :create_note
+  post 'notes/create' => 'notes#create'
 
-  get 'notes/:id/edit' => 'note#edit', as: :edit_note
-  post 'notes/:id/edit' => 'note#edit'
+  post 'notes/:id/edit' => 'notes#edit'
 
-  get 'notes/:id/delete' => 'note#delete', as: :delete_note
-  post 'notes/:id/delete' => 'note#delete'
+  get 'notes/:id/delete' => 'notes#delete', as: :delete_note
+  post 'notes/:id/delete' => 'notes#delete'
 
-  get 'notes/:id/' => 'note#view', as: :view_note
+  resources :notes, only: [:edit, :show]
 
   # User urls
   get 'signup/' => 'user#signup', as: :signup

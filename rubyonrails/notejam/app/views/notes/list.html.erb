@@ -8,10 +8,10 @@
     </tr>
     <% @notes.each do |note|  -%>
     <tr>
-      <td><%= link_to note.name, view_note_path(:id => note.id) %></td>
+      <td><%= link_to note.name, note_path(:id => note.id) %></td>
       <td class="pad">
         <% if note.pad %>
-          <%= link_to note.pad.name, view_pad_notes_path(:id => note.pad.id) %>
+          <%= link_to note.pad.name, pad_path(:id => note.pad.id) %>
         <% else %>
           No pad
         <% end %>
