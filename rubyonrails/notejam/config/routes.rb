@@ -25,19 +25,19 @@ Notejam::Application.routes.draw do
   resources :notes, only: [:edit, :show]
 
   # User urls
-  get 'signup/' => 'user#signup', as: :signup
-  post 'signup/' => 'user#signup'
+  get 'signup/' => 'users#signup', as: :signup
+  post 'signup/' => 'users#signup'
 
-  get 'signin/' => 'user#signin', as: :signin
-  post 'signin/' => 'user#signin'
+  get 'signin/' => 'users#signin', as: :signin
+  post 'signin/' => 'users#signin'
 
-  get 'settings/' => 'user#settings', as: :settings
-  post 'settings/' => 'user#settings'
+  get 'settings/' => 'users#settings', as: :settings
+  post 'settings/' => 'users#settings'
 
-  get 'signout/' => 'user#signout', as: :signout
+  get 'signout/' => 'users#signout', as: :signout
 
-  get 'forgot-password/' => 'user#forgot_password', as: :forgot_password
-  post 'forgot-password/' => 'user#forgot_password'
+  get 'forgot-password/' => 'users#forgot_password', as: :forgot_password
+  post 'forgot-password/' => 'users#forgot_password'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

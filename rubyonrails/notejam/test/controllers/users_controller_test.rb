@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserControllerTest < ActionController::TestCase
+class UsersControllerTest < ActionController::TestCase
   test 'should successfully signup' do
     assert_difference('User.count') do
       post :signup, user: {

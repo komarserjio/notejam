@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
   before_action :authenticate_user, only: [:settings]
 
   def signup
@@ -41,7 +41,7 @@ class UserController < ApplicationController
 
   def signout
     session[:user_id] = nil
-    redirect_to url_for :signin
+    redirect_to signin_path
   end
 
   def settings

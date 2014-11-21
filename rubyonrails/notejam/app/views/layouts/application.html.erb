@@ -35,7 +35,7 @@
         <% if current_user %>
           <%= current_user.email %>:&nbsp; <%= link_to "Account Settings", settings_path %>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signout) %>">Sign out</a>
         <% else %>
-          <a href="<%= url_for(:signin) %>">Sign In</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signup) %>">Sign Up</a>
+          <a href="<%= signin_path %>">Sign In</a>&nbsp;&nbsp;&nbsp;<a href="<%= url_for(:signup) %>">Sign Up</a>
         <% end %>
       </div>
     </div>
@@ -51,7 +51,7 @@
       <div class="three columns">
         <h4 id="logo">My pads</h4>
         <nav>
-        <% if current_user.pads.count.nonzero? %>
+        <% if current_user && current_user.pads.count.nonzero? %>
           <ul>
             <% current_user.pads.each do |pad| -%>
               <li><%= link_to pad.name, pad_path(:id => pad.id) %></li>
