@@ -1,6 +1,6 @@
 Notejam::Application.routes.draw do
   # You can have the root of your site routed with "root"
-  root 'note#list', as: :all_notes
+  root 'notes#list', as: :all_notes
 
   # Pad urls
   post 'pads/:id/edit' => 'pads#edit'
