@@ -12,11 +12,6 @@ Notejam is a unified sample web application (more than just "Hello World") imple
 Currently python, php, ruby and javascript frameworks are supported.
 
 
-**Is it like TodoMVC in Javascript?**
-
-Yes, the idea is very similar.
-
-
 ====================
 Supported frameworks
 ====================
@@ -51,12 +46,12 @@ In progress
 
 **Python**
 
-* web2py
+* web.py
 
 **PHP**
 
+* Zend
 * CakePHP
-* CodeIgniter
 
 
 ... and more frameworks are coming soon.
