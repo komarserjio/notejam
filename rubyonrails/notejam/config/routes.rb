@@ -1,45 +1,45 @@
 Notejam::Application.routes.draw do
   # You can have the root of your site routed with "root"
-  root 'note#list', as: :all_notes
+  # root 'notes#list', as: :notes
 
   # Pad urls
-  get 'pads/:id/edit' => 'pad#edit', as: :edit_pad
-  post 'pads/:id/edit' => 'pad#edit'
+  post 'pads/:id/edit' => 'pads#edit'
 
-  get 'pads/:id/delete' => 'pad#delete', as: :delete_pad
-  post 'pads/:id/delete' => 'pad#delete'
+  get 'pads/:id/delete' => 'pads#delete', as: :delete_pad
+  post 'pads/:id/delete' => 'pads#delete'
 
-  get 'pads/create' => 'pad#create', as: :create_pad
-  post 'pads/create' => 'pad#create'
+  get 'pads/create' => 'pads#create', as: :create_pad
+  post 'pads/create' => 'pads#create'
 
-  get 'pads/:id/' => 'pad#view', as: :view_pad_notes
+  resources :pads, only: [:edit, :show]
 
   # Note urls
-  get 'notes/create' => 'note#create', as: :create_note
-  post 'notes/create' => 'note#create'
+  get 'notes/create' => 'notes#create', as: :create_note
+  post 'notes/create' => 'notes#create'
 
-  get 'notes/:id/edit' => 'note#edit', as: :edit_note
-  post 'notes/:id/edit' => 'note#edit'
+  post 'notes/:id/edit' => 'notes#edit'
 
-  get 'notes/:id/delete' => 'note#delete', as: :delete_note
-  post 'notes/:id/delete' => 'note#delete'
+  get 'notes/:id/delete' => 'notes#delete', as: :delete_note
+  post 'notes/:id/delete' => 'notes#delete'
 
-  get 'notes/:id/' => 'note#view', as: :view_note
+  resources :notes, only: [:edit, :show, :index]
 
   # User urls
-  get 'signup/' => 'user#signup', as: :signup
-  post 'signup/' => 'user#signup'
+  get 'signup/' => 'users#signup', as: :signup
+  post 'signup/' => 'users#signup'
 
-  get 'signin/' => 'user#signin', as: :signin
-  post 'signin/' => 'user#signin'
+  get 'signin/' => 'users#signin', as: :signin
+  post 'signin/' => 'users#signin'
 
-  get 'settings/' => 'user#settings', as: :settings
-  post 'settings/' => 'user#settings'
+  get 'settings/' => 'users#settings', as: :settings
+  post 'settings/' => 'users#settings'
 
-  get 'signout/' => 'user#signout', as: :signout
+  get 'signout/' => 'users#signout', as: :signout
 
-  get 'forgot-password/' => 'user#forgot_password', as: :forgot_password
-  post 'forgot-password/' => 'user#forgot_password'
+  get 'forgot-password/' => 'users#forgot_password', as: :forgot_password
+  post 'forgot-password/' => 'users#forgot_password'
+
+  root "notes#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

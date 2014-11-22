@@ -2,16 +2,16 @@
 <% if @notes.count.nonzero? %>
   <table class="notes">
     <tr>
-      <th class="note">Note <a href="<%= all_notes_path + "?order=name" %>" class="sort_arrow">↑</a><a href="<%= all_notes_path + "?order=-name" %>" class="sort_arrow">↓</a></th>
+      <th class="note">Note <a href="<%= notes_path + "?order=name" %>" class="sort_arrow">↑</a><a href="<%= notes_path + "?order=-name" %>" class="sort_arrow">↓</a></th>
       <th>Pad</th>
-      <th class="date">Last modified <a href="<%= all_notes_path + "?order=updated_at" %>" class="sort_arrow">↑</a><a href="<%= all_notes_path + "?order=-updated_at" %>" class="sort_arrow">↓</a></th>
+      <th class="date">Last modified <a href="<%= notes_path + "?order=updated_at" %>" class="sort_arrow">↑</a><a href="<%= notes_path + "?order=-updated_at" %>" class="sort_arrow">↓</a></th>
     </tr>
     <% @notes.each do |note|  -%>
     <tr>
-      <td><%= link_to note.name, view_note_path(:id => note.id) %></td>
+      <td><%= link_to note.name, note_path(:id => note.id) %></td>
       <td class="pad">
         <% if note.pad %>
-          <%= link_to note.pad.name, view_pad_notes_path(:id => note.pad.id) %>
+          <%= link_to note.pad.name, pad_path(:id => note.pad.id) %>
         <% else %>
           No pad
         <% end %>

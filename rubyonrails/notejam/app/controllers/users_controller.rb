@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
   before_action :authenticate_user, only: [:settings]
 
   def signup
@@ -16,7 +16,7 @@ class UserController < ApplicationController
       user = User.find_by_email(params[:email])
       if user && user.authenticate(params[:password])
         session[:user_id] = user.id
-        redirect_to all_notes_path, flash: { success: 'Successfully signed in' }
+        redirect_to notes_path, flash: { success: 'Successfully signed in' }
       else
         flash.now[:error] = 'Invalid email or password'
       end
@@ -41,7 +41,7 @@ class UserController < ApplicationController
 
   def signout
     session[:user_id] = nil
-    redirect_to url_for :signin
+    redirect_to signin_path
   end
 
   def settings

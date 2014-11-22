@@ -1,0 +1,19 @@
+<% content_for :page_title do %><%= @pad.name %> (<%= @notes.count %>)<% end %>
+<% if @notes.count.nonzero? %>
+  <table class="notes">
+    <tr>
+      <th class="note">Note <a href="<%= pad_path(:id => @pad.id) + "?order=name" %>" class="sort_arrow">↑</a><a href="<%= pad_path(:id => @pad.id) + "?order=-name" %>" class="sort_arrow">↓</a></th>
+      <th class="date">Last modified <a href="<%= pad_path(:id => @pad.id) + "?order=updated_at" %>" class="sort_arrow">↑</a><a href="<%= pad_path(:id => @pad.id) + "?order=-updated_at" %>" class="sort_arrow">↓</a></th>
+    </tr>
+    <% @notes.each do |note| -%>
+    <tr>
+      <td><%= link_to note.name, note_path(:id => note.id) %></td>
+      <td class="hidden-text date"><%= smart_date note.updated_at %></td>
+    </tr>
+    <% end -%>
+  </table>
+<% else %>
+  <p class="empty">Create first note in the pad.</p>
+<% end %>
+<%= link_to "New note", create_note_path + "?pad=" + @pad.id.to_s, :class => "button" %>
+

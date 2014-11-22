@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UserControllerTest < ActionController::TestCase
+class UsersControllerTest < ActionController::TestCase
   test 'should successfully signup' do
     assert_difference('User.count') do
       post :signup, user: {
@@ -49,7 +49,7 @@ class UserControllerTest < ActionController::TestCase
     post :signin,
          email: email, password: 'secure_password'
 
-    assert_redirected_to all_notes_path
+    assert_redirected_to notes_path
   end
 
   test 'should not signin if wrong email/password' do

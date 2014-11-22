@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NoteControllerTest < ActionController::TestCase
+class NotesControllerTest < ActionController::TestCase
   test 'note should be successfully created' do
     assert_response :success
     login_as(:existent_user)
@@ -26,7 +26,7 @@ class NoteControllerTest < ActionController::TestCase
     new_name = 'new name'
     new_text = 'new text'
     post :edit, id: note.id, note: { name: new_name, text: new_text, pad_id: 0 }
-    assert_redirected_to view_note_path id: note.id
+    assert_redirected_to note_path id: note.id
     assert_equal [new_name, new_text], [Note.first.name, Note.first.text]
   end
 
@@ -56,14 +56,14 @@ class NoteControllerTest < ActionController::TestCase
   test 'note should be viewed by an owner' do
     login_as(:existent_user)
     note = notes(:existent_note)
-    get :view, id: note.id
+    get :show, id: note.id
     assert_response :success
   end
 
   test 'note should not be viewed by not an owner' do
     login_as(:existent_user2)
     note = notes(:existent_note)
-    get :view, id: note.id
+    get :show, id: note.id
     assert_response :missing
   end
 
@@ -80,5 +80,11 @@ class NoteControllerTest < ActionController::TestCase
     note = notes(:existent_note)
     post :delete, id: note.id
     assert_response :missing
+  end
+
+  test 'note should be listed in index page' do
+    login_as(:existent_user)
+    get :index
+    assert_response :success
   end
 end
