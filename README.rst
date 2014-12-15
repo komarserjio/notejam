@@ -44,9 +44,13 @@ Supported frameworks
 In progress
 -----------
 
-**Python**
+**Scala**
 
-* web.py
+* Play
+
+**Clojure**
+
+* Luminus
 
 **PHP**
 
