@@ -50,7 +50,7 @@ In progress
 
 **Clojure**
 
-* Luminus
+* Compojure
 
 **PHP**
 
