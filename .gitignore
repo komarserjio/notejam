@@ -46,5 +46,8 @@ nosetests.xml
 # Node.js modules
 node_modules
 
+# Bowe components
+bower_components
+
 #.phar archives
 *.phar
