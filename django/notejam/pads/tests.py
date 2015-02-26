@@ -22,7 +22,7 @@ class PadTest(TestCase):
 
     def test_create_success(self):
         self.client.post(reverse('create_pad'), {'name': 'pad'})
-        self.assertEquals(1, Pad.objects.count())
+        self.assertEqual(1, Pad.objects.count())
 
     def test_create_fail_required_name(self):
         response = self.client.post(reverse('create_pad'), {})
@@ -33,7 +33,7 @@ class PadTest(TestCase):
         data = {'name': 'new name'}
         response = self.client.post(reverse('edit_pad', args=(id,)), data)
         self.assertRedirects(response, reverse('view_pad_notes', args=(id,)))
-        self.assertEquals(data['name'], Pad.objects.get(id=id).name)
+        self.assertEqual(data['name'], Pad.objects.get(id=id).name)
 
     def test_another_user_cant_edit_pad(self):
         user_data = {
@@ -46,4 +46,4 @@ class PadTest(TestCase):
         client.login(**user_data)
         id = self._create_pads(['pad'])[0]
         response = client.post(reverse('edit_pad', args=(id,)), {})
-        self.assertEquals(404, response.status_code)
+        self.assertEqual(404, response.status_code)
