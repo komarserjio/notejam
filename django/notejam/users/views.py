@@ -1,4 +1,4 @@
-import md5
+import hashlib
 from datetime import datetime
 
 from django.conf import settings
@@ -61,7 +61,7 @@ class ForgotPasswordView(FormView):
     success_message = 'New password is sent in your email inbox'
 
     def form_valid(self, form):
-        m = md5.new()
+        m = hashlib.md5()
         m.update(
             "{email}{secret}{date}".format(
                 email=form.cleaned_data['email'],
