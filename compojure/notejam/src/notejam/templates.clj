@@ -52,7 +52,8 @@
           [:h1 {:class "bold-header"}
             [:a {:href "#" :class "header"} (str "note" (html [:span {:class "jam"} "jam:"]))]
             [:span {:class "page-title"} (str " " title)]]]
-        (html menu)
+        (if-let [current-user (friend/current-authentication request)]
+          (html (build-pad-menu current-user)))
         [:div {:class  (str size " columns content-area")}
           (render-flash-messages request)
           content]
@@ -94,3 +95,5 @@
     (f/password-field :password)
 
     (f/submit-button "Sign In")))
+
+(defn build-pad-menu [user])

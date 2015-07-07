@@ -18,7 +18,9 @@
     (fn [req]
       "Settings"))
   (GET "/pads/create" req
-       "Create a pad page"))
+       "Create a pad page")
+  (POST "/pads/create" req
+       "Pad is created"))
 
 ; Routes
 (defroutes app-routes
@@ -26,6 +28,7 @@
   (GET "/signup" req
        (html (user-layout {:request req
                            :title "Sign up"
+                           :menu [:p "this is menu"]
                            :content (user-signup)})))
   (POST "/signup" []
         (fn [req]

@@ -11,6 +11,9 @@
 (defentity users
   (entity-fields :id :email :password))
 
+(defentity pads
+  (entity-fields :id :user_id :name))
+
 (defn find-user [username]
   (-> (select* users)
       (where {:email username})
@@ -19,3 +22,8 @@
 
 (defn create-user [user-data]
   (insert users (values user-data)))
+
+(defn get-user-pads [user]
+  (-> (select* pads)
+      (where {:user_id (:id user)})
+      (exec)))
