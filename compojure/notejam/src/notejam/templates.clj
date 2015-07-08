@@ -3,7 +3,8 @@
             [clojure.string :refer [join]]
             [hiccup.form :as f]
             [cemerick.friend :as friend]
-            [hiccup.core :refer [html]]))
+            [hiccup.core :refer [html]])
+  (:use [notejam.entities :only [get-user-pads]]))
 
 (defn- render-flash-messages [request]
   "Render flash messages"
@@ -20,8 +21,16 @@
                 (for [error (errors field)]
                   [:li error])])))))
 
-(defn- render-pad-menu [request]
-  ())
+(defn- render-pad-menu [user]
+  [:div {:class "three columns"}
+    [:h4 {:id "logo"} "My pads"]
+    (if-let [pads (get-user-pads user)]
+      [:nav
+        [:ul
+          (for [pad pads]
+            [:li
+              [:a {:href "test"} (:name pad)]])]]
+      [:p "No pads yet"])])
 
 (defn base-layout
   "Base layout"
@@ -53,7 +62,7 @@
             [:a {:href "#" :class "header"} (str "note" (html [:span {:class "jam"} "jam:"]))]
             [:span {:class "page-title"} (str " " title)]]]
         (if-let [current-user (friend/current-authentication request)]
-          (html (build-pad-menu current-user)))
+          (html (render-pad-menu current-user)))
         [:div {:class  (str size " columns content-area")}
           (render-flash-messages request)
           content]
@@ -95,5 +104,3 @@
     (f/password-field :password)
 
     (f/submit-button "Sign In")))
-
-(defn build-pad-menu [user])

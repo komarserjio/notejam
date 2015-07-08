@@ -38,7 +38,7 @@
               (do
                 (create-user {:email (:email user-data)
                               :password (creds/hash-bcrypt (:password user-data))})
-                (redirect-response "/signup"
+                (redirect-response "/signin"
                                    {:flash {:success "Now you can sign in"}}))
               (render-response
                 (html (user-layout {:request req
