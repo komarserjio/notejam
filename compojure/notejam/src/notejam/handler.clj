@@ -7,7 +7,7 @@
             [hiccup.core :refer [html]]
             [ring.util.response]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]])
-  (:use [notejam.templates :only [user-layout user-signup user-signin]]
+  (:use [notejam.templates :only [user-layout base-layout user-signup user-signin pad-form]]
         [notejam.validators :only [validate-user]]
         [notejam.utils]
         [notejam.entities :only [find-user create-user]]))
@@ -18,7 +18,9 @@
     (fn [req]
       "Settings"))
   (GET "/pads/create" req
-       "Create a pad page")
+    (render-response (html (base-layout {:request req
+                                        :title "Create pad"
+                                        :content (pad-form)}))))
   (POST "/pads/create" req
        "Pad is created"))
 

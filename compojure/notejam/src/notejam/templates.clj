@@ -24,17 +24,20 @@
 (defn- render-pad-menu [user]
   [:div {:class "three columns"}
     [:h4 {:id "logo"} "My pads"]
-    (if-let [pads (get-user-pads user)]
-      [:nav
-        [:ul
-          (for [pad pads]
-            [:li
-              [:a {:href "test"} (:name pad)]])]]
-      [:p "No pads yet"])])
+    [:nav
+      (let [pads (get-user-pads user)]
+        (if (not (empty? pads))
+          [:ul
+            (for [pad pads]
+              [:li
+                [:a {:href "test"} (:name pad)]])]
+          [:p "No pads yet"]))
+      [:hr]
+      [:a {:href "#"} "Create pad"]]])
 
 (defn base-layout
   "Base layout"
-  [{:keys [size menu title content request]}]
+  [{:keys [size title content request]:or {size "thirteen"}}]
   [:html
     [:head
       [:title title]
@@ -56,13 +59,13 @@
                 (html [:a {:href "/signup"} "Sign up"])
                 "&nbsp;&nbsp;&nbsp;"
                 (html [:a {:href "/signin"} "Sign in"])))
-            ]
+            ]]
         [:div {:class "sixteen columns"}
           [:h1 {:class "bold-header"}
             [:a {:href "#" :class "header"} (str "note" (html [:span {:class "jam"} "jam:"]))]
             [:span {:class "page-title"} (str " " title)]]]
-        (if-let [current-user (friend/current-authentication request)]
-          (html (render-pad-menu current-user)))
+        (if (= size "thirteen")
+          (html (render-pad-menu (friend/current-authentication request))))
         [:div {:class  (str size " columns content-area")}
           (render-flash-messages request)
           content]
@@ -74,7 +77,7 @@
               ", "
               (list (html [:a {:href "https://github.com/komarserjio/notejam"} "Github"])
                     (html [:a {:href "https://twitter.com/komarserjio"} "Twitter"])
-                    (str "created by " (html [:a {:href "https://github.com/komarserjio/"} "Serhii Komar"]))))]]]]]]])
+                    (str "created by " (html [:a {:href "https://github.com/komarserjio/"} "Serhii Komar"]))))]]]]]])
 
 
 (defn user-layout [params]
@@ -104,3 +107,10 @@
     (f/password-field :password)
 
     (f/submit-button "Sign In")))
+
+(defn pad-form []
+  (f/form-to {:class "pad"} [:post ""]
+    (f/label :name "Name")
+    (f/text-field :name)
+
+    (f/submit-button "Save")))
