@@ -1,0 +1,18 @@
+language: php
+
+sudo: false
+
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+
+before_script:
+  - sh -c "composer require 'cakephp/cakephp-codesniffer:dev-master'"
+  - phpenv rehash
+
+script:
+  - sh -c "vendor/bin/phpcs -p --extensions=php --standard=vendor/cakephp/cakephp-codesniffer/CakePHP ./src ./tests ./config ./webroot"
+
+notifications:
+  email: false
