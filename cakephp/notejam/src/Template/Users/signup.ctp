@@ -1,3 +1,4 @@
+<?php $this->assign('title', 'Sign up'); ?>
 <?php echo $this->Form->create($user, ['class' => 'offset-by-six sign-in']); ?>
     <?php echo $this->Form->input('email'); ?>
     <?php echo $this->Form->input('password', ['label' => 'Password']); ?>

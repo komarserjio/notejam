@@ -50,7 +50,17 @@ class UsersTable extends Table
 
         $validator
             ->requirePresence('password', 'create')
-            ->notEmpty('password');
+            ->notEmpty('password')
+            ->add('password', [
+                'length' => [
+                    'rule' => ['minLength', 6]
+                ],
+                'compare' => [
+                    'rule' => ['compareWith', 'confirm_password'],
+                    'message' => 'Passwords do not match'
+                ],
+            ]);
+
 
         return $validator;
     }

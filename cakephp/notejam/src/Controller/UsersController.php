@@ -11,6 +11,8 @@ use App\Controller\AppController;
 class UsersController extends AppController
 {
 
+    protected $layout = 'user';
+
     /**
      * Index method
      *
@@ -105,6 +107,13 @@ class UsersController extends AppController
 
     public function signin()
     {
-        die('signin');
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error('Your username or password is incorrect.');
+        }
     }
 }

@@ -302,11 +302,11 @@ a.delete-note {
     color: red !important;
 }
 
-ul.errorlist, ul.errors {
+ul.errorlist, ul.errors, .error-message {
     margin: -18px 0 0 0;
 }
 
-ul.errorlist li, ul.errors li {
+ul.errorlist li, ul.errors li, .error-message {
     color: red;
 }
 
