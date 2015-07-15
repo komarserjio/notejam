@@ -11,6 +11,8 @@ use App\Controller\AppController;
 class NotesController extends AppController
 {
 
+    protected $layout = 'signedin';
+
     /**
      * Index method
      *
