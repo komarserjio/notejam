@@ -11,18 +11,12 @@ use App\Controller\AppController;
 class UsersController extends AppController
 {
 
-    protected $layout = 'user';
-
     /**
-     * Index method
+     * Layout setting
      *
-     * @return void
+     * @var string
      */
-    public function index()
-    {
-        $this->set('users', $this->paginate($this->Users));
-        $this->set('_serialize', ['users']);
-    }
+    protected $layout = 'user';
 
     /**
      * View method

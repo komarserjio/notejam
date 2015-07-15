@@ -38,19 +38,20 @@ class AppController extends Controller
     {
         parent::initialize();
         $this->loadComponent('Flash');
-        //$this->loadComponent('Auth', [
-            //'authenticate' => [
-                //'Form' => [
-                    //'fields' => [
-                        //'username' => 'email',
-                        //'password' => 'password'
-                    //]
-                //]
-            //],
-            //'loginAction' => [
-                //'controller' => 'Users',
-                //'action' => 'signin'
-            //]
-        //]);
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginAction' => [
+                'controller' => 'Users',
+                'action' => 'signin'
+            ]
+        ]);
+        $this->Auth->allow(['signup']);
     }
 }

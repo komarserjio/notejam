@@ -1,1 +1,3 @@
-<div class="message error"><?= h($message) ?></div>
+<div class="alert-area">
+    <div class="alert alert-error"><?= h($message) ?></div>
+</div>
