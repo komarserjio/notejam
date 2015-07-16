@@ -18,7 +18,7 @@
   <div class="container">
     <div class="sixteen columns">
       <div class="sign-in-out-block">
-        komarserjio@gmail.com:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
+        <?php echo $this->request->session()->read('Auth.User.email') ?>:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign out</a>
       </div>
     </div>
     <div class="sixteen columns">
