@@ -7,6 +7,6 @@
         <?php endforeach; ?>
       </ul>
       <hr />
-      <a href="#">New pad</a>
+      <?= $this->Html->link("New pad", ['_name' => 'create_pad']); ?>
   </nav>
 </div>

@@ -100,13 +100,12 @@ class PadsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $pad = $this->Pads->get($id);
-        if ($this->Pads->delete($pad)) {
+        if ($this->request->is('post')) {
+            $this->Pads->delete($pad);
             $this->Flash->success(__('The pad has been deleted.'));
-        } else {
-            $this->Flash->error(__('The pad could not be deleted. Please, try again.'));
+            return $this->redirect(['_name' => 'create_pad']);
         }
-        return $this->redirect(['action' => 'index']);
+        $this->set(compact('pad'));
     }
 }
