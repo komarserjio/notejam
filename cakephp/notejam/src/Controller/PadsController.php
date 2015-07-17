@@ -12,6 +12,13 @@ class PadsController extends AppController
 {
 
     /**
+     * Layout setting
+     *
+     * @var string
+     */
+    protected $layout = 'signedin';
+
+    /**
      * Index method
      *
      * @return void
@@ -42,25 +49,24 @@ class PadsController extends AppController
     }
 
     /**
-     * Add method
+     * Create a pad
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function create()
     {
         $pad = $this->Pads->newEntity();
         if ($this->request->is('post')) {
-            $pad = $this->Pads->patchEntity($pad, $this->request->data);
+            $pad = $this->Pads->patchEntity($pad, array_merge(
+                $this->request->data,
+                ['user_id' => $this->Auth->user('id')]
+            ));
             if ($this->Pads->save($pad)) {
                 $this->Flash->success(__('The pad has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The pad could not be saved. Please, try again.'));
+                return $this->redirect(['action' => 'create']);
             }
         }
-        $users = $this->Pads->Users->find('list', ['limit' => 200]);
-        $this->set(compact('pad', 'users'));
-        $this->set('_serialize', ['pad']);
+        $this->set(compact('pad'));
     }
 
     /**
@@ -72,21 +78,17 @@ class PadsController extends AppController
      */
     public function edit($id = null)
     {
-        $pad = $this->Pads->get($id, [
-            'contain' => []
-        ]);
+        $pad = $this->Pads->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $pad = $this->Pads->patchEntity($pad, $this->request->data);
             if ($this->Pads->save($pad)) {
                 $this->Flash->success(__('The pad has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'create']);
             } else {
                 $this->Flash->error(__('The pad could not be saved. Please, try again.'));
             }
         }
-        $users = $this->Pads->Users->find('list', ['limit' => 200]);
-        $this->set(compact('pad', 'users'));
-        $this->set('_serialize', ['pad']);
+        $this->set(compact('pad'));
     }
 
     /**

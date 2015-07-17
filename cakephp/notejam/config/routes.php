@@ -57,6 +57,12 @@ Router::scope('/', function ($routes) {
     $routes->connect('/signup', ['controller' => 'Users', 'action' => 'signup'], ['_name' => 'signup']);
     $routes->connect('/signin', ['controller' => 'Users', 'action' => 'signin'], ['_name' => 'signin']);
 
+
+    $routes->scope('/pads', function($routes) {
+        $routes->connect('/create', ['controller' => 'Pads', 'action' => 'create'], ['_name' => 'create_pad']);
+        $routes->connect('/:id/edit', ['controller' => 'Pads', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'edit_pad']);
+    });
+
     /**
      * Connect catchall routes for all controllers.
      *
