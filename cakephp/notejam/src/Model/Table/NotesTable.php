@@ -27,6 +27,14 @@ class NotesTable extends Table
         $this->table('notes');
         $this->displayField('name');
         $this->primaryKey('id');
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created_at' => 'new',
+                    'updated_at' => 'always'
+                ]
+            ]
+        ]);
         $this->belongsTo('Pads', [
             'foreignKey' => 'pad_id'
         ]);
@@ -47,24 +55,14 @@ class NotesTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create');
-            
+
         $validator
             ->requirePresence('name', 'create')
             ->notEmpty('name');
-            
+
         $validator
             ->requirePresence('text', 'create')
             ->notEmpty('text');
-            
-        $validator
-            ->add('created_at', 'valid', ['rule' => 'datetime'])
-            ->requirePresence('created_at', 'create')
-            ->notEmpty('created_at');
-            
-        $validator
-            ->add('updated_at', 'valid', ['rule' => 'datetime'])
-            ->requirePresence('updated_at', 'create')
-            ->notEmpty('updated_at');
 
         return $validator;
     }

@@ -47,7 +47,7 @@ Router::scope('/', function ($routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+    $routes->connect('/', ['controller' => 'Notes', 'action' => 'index']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
@@ -62,6 +62,10 @@ Router::scope('/', function ($routes) {
         $routes->connect('/create', ['controller' => 'Pads', 'action' => 'create'], ['_name' => 'create_pad']);
         $routes->connect('/:id/edit', ['controller' => 'Pads', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'edit_pad']);
         $routes->connect('/:id/delete', ['controller' => 'Pads', 'action' => 'delete'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'delete_pad']);
+    });
+
+    $routes->scope('/notes', function($routes) {
+        $routes->connect('/create', ['controller' => 'Notes', 'action' => 'create'], ['_name' => 'create_note']);
     });
 
     /**

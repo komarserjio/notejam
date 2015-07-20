@@ -15,6 +15,7 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -53,5 +54,18 @@ class AppController extends Controller
             ]
         ]);
         $this->Auth->allow(['signup']);
+    }
+
+    /**
+     * Get authenticated user
+     *
+     * @return App\Model\Entity\User
+     */
+    protected function getUser()
+    {
+        $id = $this->request->session()->read('Auth.User.id');
+        return TableRegistry::get('Users')->get($id, [
+            'contain' => ['Pads', 'Notes']
+        ]);
     }
 }
