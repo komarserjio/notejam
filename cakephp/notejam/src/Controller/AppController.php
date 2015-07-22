@@ -68,4 +68,21 @@ class AppController extends Controller
             'contain' => ['Pads', 'Notes']
         ]);
     }
+
+    /**
+     * Build order statetment
+     *
+     * @param string $order Order param
+     * @return array
+     */
+    public function buildOrderBy($order = '-updated_at')
+    {
+        $config = [
+            'name' => ['Notes.name' => 'ASC'],
+            '-name' => ['Notes.name' => 'DESC'],
+            'updated_at' => ['Notes.updated_at' => 'ASC'],
+            '-updated_at' => ['Notes.updated_at' => 'DESC'],
+        ];
+        return $config[$order];
+    }
 }

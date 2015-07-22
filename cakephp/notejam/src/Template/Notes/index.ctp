@@ -1,12 +1,12 @@
   <table class="notes">
     <tr>
-      <th class="note">Note <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+    <th class="note">Note <?= $this->Html->link('↑', ['_name' => 'index', 'order' => '-name'], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'index', 'order' => 'name'], ['class' => 'sort_arrow']) ?></th>
       <th>Pad</th>
-      <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+      <th class="date">Last modified <?= $this->Html->link('↑', ['_name' => 'index', 'order' => '-updated_at'], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'index', 'order' => 'updated_at'], ['class' => 'sort_arrow']) ?></th>
     </tr>
     <?php foreach($notes as $note): ?>
         <tr>
-          <td><a href="#"><?= $note->name; ?></a></td>
+          <td><?= $this->Html->link($note->name, ['id' => $note->id, '_name' => 'edit_note']) ?></td>
           <td class="pad"><?= $note->pad ? $note->pad->name : 'No pad'; ?></td>
           <td class="hidden-text date"><?= $note->updated_at; ?></td>
         </tr>

@@ -26,6 +26,7 @@ class NotesController extends AppController
             'notes',
             $this->Notes->find('all', ['contain' => 'Pads'])
                         ->where(['Notes.user_id' => $this->getUser()->id])
+                        ->order($this->buildOrderBy($this->request->query('order')))
         );
     }
 
