@@ -12,3 +12,4 @@
         </tr>
     <?php endforeach; ?>
   </table>
+  <?= $this->Html->link("New note", ["_name" => "create_note"], ["class" => "button"]); ?>

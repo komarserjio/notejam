@@ -56,6 +56,7 @@ Router::scope('/', function ($routes) {
 
     $routes->connect('/signup', ['controller' => 'Users', 'action' => 'signup'], ['_name' => 'signup']);
     $routes->connect('/signin', ['controller' => 'Users', 'action' => 'signin'], ['_name' => 'signin']);
+    $routes->connect('/signout', ['controller' => 'Users', 'action' => 'signout'], ['_name' => 'signout']);
 
 
     $routes->scope('/pads', function($routes) {
@@ -66,6 +67,7 @@ Router::scope('/', function ($routes) {
 
     $routes->scope('/notes', function($routes) {
         $routes->connect('/create', ['controller' => 'Notes', 'action' => 'create'], ['_name' => 'create_note']);
+        $routes->connect('/:id/edit', ['controller' => 'Notes', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'edit_note']);
     });
 
     /**

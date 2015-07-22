@@ -71,7 +71,7 @@ class NotesController extends AppController
 
 
     /**
-     * Edit method
+     * Edit note
      *
      * @param string|null $id Note id.
      * @return void Redirects on successful edit, renders view otherwise.
@@ -79,9 +79,7 @@ class NotesController extends AppController
      */
     public function edit($id = null)
     {
-        $note = $this->Notes->get($id, [
-            'contain' => []
-        ]);
+        $note = $this->Notes->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $note = $this->Notes->patchEntity($note, $this->request->data);
             if ($this->Notes->save($note)) {
@@ -91,10 +89,8 @@ class NotesController extends AppController
                 $this->Flash->error(__('The note could not be saved. Please, try again.'));
             }
         }
-        $pads = $this->Notes->Pads->find('list', ['limit' => 200]);
-        $users = $this->Notes->Users->find('list', ['limit' => 200]);
-        $this->set(compact('note', 'pads', 'users'));
-        $this->set('_serialize', ['note']);
+        $pads = (new Collection($this->getUser()->pads))->combine('id', 'name')->toArray();
+        $this->set(compact('note', 'pads'));
     }
 
     /**

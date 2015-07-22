@@ -76,7 +76,6 @@ class NotesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['pad_id'], 'Pads'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
     }
