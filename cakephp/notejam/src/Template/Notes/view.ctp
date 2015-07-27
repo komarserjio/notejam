@@ -6,4 +6,4 @@
     </p>
 </div>
 <?= $this->Html->link('Edit note', ['id' => $note->id, '_name' => 'edit_note'], ['class' => 'button']) ?>
-<a href="#" class="delete-note">Delete it</a>
+<?= $this->Html->link('Delete it', ['id' => $note->id, '_name' => 'delete_note'], ['class' => 'delete-note']) ?>

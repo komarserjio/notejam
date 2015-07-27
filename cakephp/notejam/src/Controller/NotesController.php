@@ -103,13 +103,12 @@ class NotesController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $note = $this->Notes->get($id);
-        if ($this->Notes->delete($note)) {
+        if ($this->request->is('post')) {
+            $this->Notes->delete($note);
             $this->Flash->success(__('The note has been deleted.'));
-        } else {
-            $this->Flash->error(__('The note could not be deleted. Please, try again.'));
+            return $this->redirect(['action' => 'index']);
         }
-        return $this->redirect(['action' => 'index']);
+        $this->set(compact('note'));
     }
 }
