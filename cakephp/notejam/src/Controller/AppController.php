@@ -75,7 +75,7 @@ class AppController extends Controller
      * @param string $order Order param
      * @return array
      */
-    public function buildOrderBy($order = '-updated_at')
+    public function buildOrderBy($order)
     {
         $config = [
             'name' => ['Notes.name' => 'ASC'],
@@ -83,6 +83,6 @@ class AppController extends Controller
             'updated_at' => ['Notes.updated_at' => 'ASC'],
             '-updated_at' => ['Notes.updated_at' => 'DESC'],
         ];
-        return $config[$order];
+        return $config[$order ? $order : 'updated_at'];
     }
 }
