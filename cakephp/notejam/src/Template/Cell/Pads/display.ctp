@@ -3,7 +3,7 @@
   <nav>
       <ul>
         <?php foreach($pads as $pad): ?>
-          <li><a href="#"><?= $pad->name ?></a></li>
+          <li><?= $this->Html->link($pad->name, ['id' => $pad->id, '_name' => 'view_pad']) ?></li>
         <?php endforeach; ?>
       </ul>
       <hr />

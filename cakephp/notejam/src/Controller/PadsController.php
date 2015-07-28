@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Pads Controller
@@ -19,20 +20,6 @@ class PadsController extends AppController
     protected $layout = 'signedin';
 
     /**
-     * Index method
-     *
-     * @return void
-     */
-    public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Users']
-        ];
-        $this->set('pads', $this->paginate($this->Pads));
-        $this->set('_serialize', ['pads']);
-    }
-
-    /**
      * View method
      *
      * @param string|null $id Pad id.
@@ -41,11 +28,14 @@ class PadsController extends AppController
      */
     public function view($id = null)
     {
-        $pad = $this->Pads->get($id, [
-            'contain' => ['Users', 'Notes']
-        ]);
+        $pad = $this->Pads->get($id);
+        $notes = TableRegistry::get('Notes')->find('all', ['contain' => 'Pads'])
+                    ->where(['Notes.pad_id' => $id])
+                    ->where(['Notes.user_id' => $this->getUser()->id])
+                    ->order($this->buildOrderBy($this->request->query('order')));
+
         $this->set('pad', $pad);
-        $this->set('_serialize', ['pad']);
+        $this->set('notes', $notes);
     }
 
     /**
