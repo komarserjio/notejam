@@ -66,7 +66,7 @@ class NotesController extends AppController
             }
         }
 
-        $pads = (new Collection($this->getUser()->pads))->combine('id', 'name')->toArray();
+        $pads = (new collection($this->getuser()->pads))->combine('id', 'name')->toArray();
         $this->set(compact('note', 'pads'));
     }
 

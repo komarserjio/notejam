@@ -24,4 +24,20 @@ class Note extends Entity
         'pad' => true,
         'user' => true,
     ];
+
+    public function _getUpdatedAt()
+    {
+        $day = 86400;
+        $date = strtotime($this->_properties['updated_at']);
+        $diff = floor((time() - $date) / $day);
+        if ($diff < 1) {
+            return "Today at " . date("H:i", $date);
+        } elseif ($diff == 1) {
+            return "Yesterday at " . date("H:i", $date);
+        } elseif ($diff > 1 && $diff < 8) {
+            return "{$diff} days ago";
+        } else {
+            return date("d.m.Y", $date);
+        }
+    }
 }

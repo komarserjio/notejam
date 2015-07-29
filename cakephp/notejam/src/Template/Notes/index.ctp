@@ -7,7 +7,7 @@
     <?php foreach($notes as $note): ?>
         <tr>
           <td><?= $this->Html->link($note->name, ['id' => $note->id, '_name' => 'view_note']) ?></td>
-          <td class="pad"><?= $note->pad ? $note->pad->name : 'No pad'; ?></td>
+          <td class="pad"><?= $note->pad ? $this->Html->link($note->pad->name, ['id' => $note->pad->id, '_name' => 'view_pad']) : 'No pad'; ?></td>
           <td class="hidden-text date"><?= $note->updated_at; ?></td>
         </tr>
     <?php endforeach; ?>
