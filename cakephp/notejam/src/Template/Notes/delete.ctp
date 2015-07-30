@@ -3,5 +3,5 @@
     <!-- cake's post link should be used -->
     <input type="submit" class="red" value="Yes, I want to delete this note" ?>
     &nbsp;
-    <?= $this->Html->link('Cancel', '#') ?>
+    <?= $this->Html->link('Cancel', ['_name' => 'view_note', 'id' => $note->id]) ?>
 <?= $this->Form->end(); ?>

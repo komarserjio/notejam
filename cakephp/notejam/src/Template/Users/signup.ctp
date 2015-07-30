@@ -3,5 +3,5 @@
     <?php echo $this->Form->input('email'); ?>
     <?php echo $this->Form->input('password', ['label' => 'Password']); ?>
     <?php echo $this->Form->input('confirm_password', ['label' => 'Confirm password', 'type' => 'password']); ?>
-    <input type="submit" value="Sign up" /> or <?php echo $this->Html->link('Sign in', ['_name' => 'signin']); ?>
+    <input type="submit" value="Sign up" /> or <?= $this->Html->link('Sign In', ['_name' => 'signin']) ?>
 <?php echo $this->Form->end(); ?>
