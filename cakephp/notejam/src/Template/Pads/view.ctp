@@ -2,8 +2,8 @@
 <?php if ($notes->count()): ?>
     <table class="notes">
         <tr>
-          <th class="note">Note <?= $this->Html->link('↑', ['_name' => 'index', 'order' => '-name'], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'index', 'order' => 'name'], ['class' => 'sort_arrow']) ?></th>
-          <th class="date">Last modified <?= $this->Html->link('↑', ['_name' => 'index', 'order' => '-updated_at'], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'index', 'order' => 'updated_at'], ['class' => 'sort_arrow']) ?></th>
+          <th class="note">Note <?= $this->Html->link('↑', ['_name' => 'view_pad', 'order' => '-name', 'id' => $pad->id], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'view_pad', 'order' => 'name', 'id' => $pad->id], ['class' => 'sort_arrow']) ?></th>
+          <th class="date">Last modified <?= $this->Html->link('↑', ['_name' => 'view_pad', 'order' => '-updated_at', 'id' => $pad->id], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'view_pad', 'order' => 'updated_at', 'id' => $pad->id], ['class' => 'sort_arrow']) ?></th>
         </tr>
         <?php foreach($notes as $note): ?>
             <tr>
