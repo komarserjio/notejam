@@ -25,7 +25,7 @@ class Note extends Entity
         'user' => true,
     ];
 
-    public function _getUpdatedAt()
+    public function getPrettyDate()
     {
         $day = 86400;
         $date = strtotime($this->_properties['updated_at']);

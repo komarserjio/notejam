@@ -1,5 +1,5 @@
 <?php $this->assign('title', $note->name); ?>
-<p class="hidden-text">Last edited at <?= $note->updated_at; ?></p>
+<p class="hidden-text">Last edited at <?= $note->getPrettyDate(); ?></p>
 <div class="note">
     <p>
         <?= $note->text; ?>

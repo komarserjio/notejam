@@ -8,7 +8,7 @@
         <?php foreach($notes as $note): ?>
             <tr>
               <td><?= $this->Html->link($note->name, ['id' => $note->id, '_name' => 'view_note']) ?></td>
-              <td class="hidden-text date"><?= $note->updated_at; ?></td>
+              <td class="hidden-text date"><?= $note->getPrettyDate(); ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
