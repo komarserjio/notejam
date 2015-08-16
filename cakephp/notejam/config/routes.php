@@ -58,6 +58,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('/signin', ['controller' => 'Users', 'action' => 'signin'], ['_name' => 'signin']);
     $routes->connect('/signout', ['controller' => 'Users', 'action' => 'signout'], ['_name' => 'signout']);
     $routes->connect('/settings', ['controller' => 'Users', 'action' => 'settings'], ['_name' => 'settings']);
+    $routes->connect('/forgot-password', ['controller' => 'Users', 'action' => 'forgotpassword'], ['_name' => 'forgot_password']);
 
 
     $routes->scope('/pads', function($routes) {

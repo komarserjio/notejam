@@ -1,8 +1,12 @@
 <?php
 namespace App\Controller;
 
+use Cake\Network\Email\Email;
+use Cake\Core\Configure;
 use App\Controller\AppController;
 use App\Form\SettingsForm;
+use App\Form\ForgotPasswordForm;
+
 
 /**
  * Users Controller
@@ -88,5 +92,42 @@ class UsersController extends AppController
             $this->Flash->error('Current password is not correct.');
         }
         $this->set(compact('settings'));
+    }
+
+    /**
+     * Forgot password action
+     *
+     * @return void
+     */
+    public function forgotPassword()
+    {
+        $form = new ForgotPasswordForm();
+        if ($this->request->is('post') &&
+            $form->validate($this->request->data)) {
+
+            $user = $this->Users->find()
+                         ->where(['email' => $this->request->data['email']])
+                         ->first();
+            if ($user) {
+                // primitive way to generate temporary password
+                $user->password = substr(
+                    sha1(time() . rand() . Configure::read('Security.salt')), 0, 8
+                );
+                $this->Users->save($user);
+                $this->Flash->success('New temp password is sent to your inbox.');
+
+                Email::deliver(
+                    $user->email,
+                    'New notejam password',
+                    // template?
+                    "Your new temporary password is {$password}. You should change it after login.",
+                    ['from' => 'noreply@notejamapp.com', 'transport' => 'default']
+                );
+
+                return $this->redirect(['_name' => 'index']);
+            }
+            $this->Flash->error('User with given email does not exist.');
+        }
+        $this->set(compact('form'));
     }
 }

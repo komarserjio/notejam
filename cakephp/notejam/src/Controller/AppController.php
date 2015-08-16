@@ -53,7 +53,7 @@ class AppController extends Controller
                 'action' => 'signin'
             ]
         ]);
-        $this->Auth->allow(['signup']);
+        $this->Auth->allow(['signup', 'forgotpassword']);
     }
 
     /**
