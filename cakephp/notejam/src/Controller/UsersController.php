@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Form\SettingsForm;
 
 /**
  * Users Controller
@@ -64,5 +65,28 @@ class UsersController extends AppController
     public function signout()
     {
         return $this->redirect($this->Auth->logout());
+    }
+
+    /**
+     * Account settings action
+     *
+     * @return void
+     */
+    public function settings()
+    {
+        $settings = new SettingsForm();
+        if ($this->request->is('post') &&
+            $settings->validate($this->request->data)) {
+
+            $user = $this->getUser();
+            if ($user->checkPassword($this->request->data['current_password'])) {
+                $user->password = $this->request->data['new_password'];
+                $this->Users->save($user);
+                $this->Flash->success('Password is successfully changed.');
+                return $this->redirect(['_name' => 'index']);
+            }
+            $this->Flash->error('Current password is not correct.');
+        }
+        $this->set(compact('settings'));
     }
 }

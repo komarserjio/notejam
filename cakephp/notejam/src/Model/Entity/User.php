@@ -29,4 +29,16 @@ class User extends Entity
         $hasher = new DefaultPasswordHasher();
         return $hasher->hash($value);
     }
+
+    /**
+     * Check if passwords matches
+     *
+     * @param string $password Password
+     * @return boolean
+     */
+    public function checkPassword($password)
+    {
+        $hasher = new DefaultPasswordHasher();
+        return $hasher->check($password, $this->password);
+    }
 }

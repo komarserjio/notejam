@@ -19,7 +19,7 @@
     <div class="sixteen columns">
       <div class="sign-in-out-block">
         <?php if ($this->request->session()->read('Auth.User')): ?>
-          <?= $this->request->session()->read('Auth.User.email') ?>:&nbsp; <a href="#">Account settings</a>&nbsp;&nbsp;&nbsp;<?= $this->Html->link('Sign out', ['_name' => 'signout'])?>
+          <?= $this->request->session()->read('Auth.User.email') ?>:&nbsp; <?= $this->Html->link('Account settings', ['_name' => 'settings'])?>&nbsp;&nbsp;&nbsp;<?= $this->Html->link('Sign out', ['_name' => 'signout'])?>
         <?php else: ?>
           <?= $this->Html->link('Sign up', ['_name' => 'signup'])?>&nbsp;&nbsp;&nbsp;<?= $this->Html->link('Sign in', ['_name' => 'signin'])?>
         <?php endif; ?>

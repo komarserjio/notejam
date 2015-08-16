@@ -57,6 +57,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('/signup', ['controller' => 'Users', 'action' => 'signup'], ['_name' => 'signup']);
     $routes->connect('/signin', ['controller' => 'Users', 'action' => 'signin'], ['_name' => 'signin']);
     $routes->connect('/signout', ['controller' => 'Users', 'action' => 'signout'], ['_name' => 'signout']);
+    $routes->connect('/settings', ['controller' => 'Users', 'action' => 'settings'], ['_name' => 'settings']);
 
 
     $routes->scope('/pads', function($routes) {
