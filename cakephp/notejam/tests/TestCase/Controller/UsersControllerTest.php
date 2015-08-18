@@ -2,6 +2,7 @@
 namespace App\Test\TestCase\Controller;
 
 use App\Controller\UsersController;
+use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
@@ -16,19 +17,26 @@ class UsersControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.users',
-        'app.notes',
-        'app.pads'
+        'app.users'
     ];
 
     /**
-     * Test index method
+     * Test success signup
      *
      * @return void
      */
-    public function testIndex()
+    public function testSignupSuccess()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = [
+            'email' => 'user@example.com',
+            'password' => 'user@example.com',
+            'confirm_password' => 'user@example.com'
+        ];
+        $this->post('/signup', $data);
+        $this->assertResponseSuccess();
+        $users = TableRegistry::get('Users');
+        $query = $users->find()->where(['email' => $data['email']]);
+        $this->assertEquals(1, $query->count());
     }
 
     /**

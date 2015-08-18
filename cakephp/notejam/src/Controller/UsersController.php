@@ -120,7 +120,8 @@ class UsersController extends AppController
                     $user->email,
                     'New notejam password',
                     // template?
-                    "Your new temporary password is {$password}. You should change it after login.",
+                    "Your new temporary password is {$password}.
+                     We recommend you to change it after login.",
                     ['from' => 'noreply@notejamapp.com', 'transport' => 'default']
                 );
 
