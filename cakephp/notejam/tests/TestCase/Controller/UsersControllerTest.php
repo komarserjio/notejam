@@ -137,6 +137,7 @@ class UsersControllerTest extends IntegrationTestCase
         $this->post('/signin', $data);
         $this->assertResponseSuccess();
         $this->assertRedirect(['controller' => 'Notes', 'action' => 'index']);
+        $this->assertSession('user1@example.com', 'Auth.User.email');
 
     }
 
