@@ -21,6 +21,24 @@ class UsersControllerTest extends IntegrationTestCase
     ];
 
     /**
+     * Sign in user
+     *
+     * @param array $user User
+     * @return void
+     */
+    public function signin($user)
+    {
+        $this->session([
+            'Auth' => [
+                'User' => [
+                    'id' => $user['id'],
+                    'username' => $user['email']
+                ]
+            ]
+        ]);
+    }
+
+    /**
      * Test success signup
      *
      * @return void
@@ -29,8 +47,8 @@ class UsersControllerTest extends IntegrationTestCase
     {
         $data = [
             'email' => 'user@example.com',
-            'password' => 'user@example.com',
-            'confirm_password' => 'user@example.com'
+            'password' => 'pa$$word',
+            'confirm_password' => 'pa$$word'
         ];
         $this->post('/signup', $data);
         $this->assertResponseSuccess();
@@ -40,42 +58,100 @@ class UsersControllerTest extends IntegrationTestCase
     }
 
     /**
-     * Test view method
+     * Test if signup fails if required fields are missing
      *
      * @return void
      */
-    public function testView()
+    public function testSignupFailRequiredFields()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = [
+            'email' => '',
+            'password' => '',
+            'confirm_password' => ''
+        ];
+        $this->post('/signup', $data);
+        $this->assertResponseSuccess();
+        $this->assertResponseContains('This field cannot be left empty');
     }
 
     /**
-     * Test add method
+     * Test if signup fails if email is invalid
      *
      * @return void
      */
-    public function testAdd()
+    public function testSignupFailInvalidEmail()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = [
+            'email' => 'invalid email'
+        ];
+        $this->post('/signup', $data);
+        $this->assertResponseSuccess();
+        $this->assertResponseContains('The provided value is invalid');
     }
 
     /**
-     * Test edit method
+     * Test if signup fails if email already exists
      *
      * @return void
      */
-    public function testEdit()
+    public function testSignupFailEmailExists()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = [
+            'email' => 'user1@example.com',
+            'password' => 'pa$$word',
+            'confirm_password' => 'pa$$word'
+        ];
+        $this->post('/signup', $data);
+        $this->assertResponseSuccess();
+        $this->assertResponseContains('This value is already in use');
     }
 
     /**
-     * Test delete method
+     * Test if signup fails if passwords do not match
      *
      * @return void
      */
-    public function testDelete()
+    public function testSignupFailPasswordsNotMatch()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $data = [
+            'email' => 'user1@example.com',
+            'password' => 'pa$$word1',
+            'confirm_password' => 'pa$$word2'
+        ];
+        $this->post('/signup', $data);
+        $this->assertResponseSuccess();
+        $this->assertResponseContains('Passwords do not match');
+    }
+
+    /**
+     * Test if signin success
+     *
+     * @return void
+     */
+    public function testSigninSuccess()
+    {
+        $data = [
+            'email' => 'user1@example.com',
+            'password' => '111111'
+        ];
+        $this->post('/signin', $data);
+        $this->assertResponseSuccess();
+        $this->assertRedirect(['controller' => 'Notes', 'action' => 'index']);
+
+    }
+
+    /**
+     * Test if signin fails if provided credentials are wroing
+     *
+     * @return void
+     */
+    public function testSigninFailWrongCredentials()
+    {
+        $data = [
+            'email' => 'user2@example.com',
+            'password' => 'wrong password'
+        ];
+        $this->post('/signin', $data);
+        $this->assertResponseContains('Your username or password is incorrect.');
     }
 }
