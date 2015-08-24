@@ -10,7 +10,6 @@ use Cake\TestSuite\IntegrationTestCase;
  */
 class UsersControllerTest extends IntegrationTestCase
 {
-
     /**
      * Fixtures
      *
@@ -19,24 +18,6 @@ class UsersControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.users'
     ];
-
-    /**
-     * Sign in user
-     *
-     * @param array $user User
-     * @return void
-     */
-    public function signin($user)
-    {
-        $this->session([
-            'Auth' => [
-                'User' => [
-                    'id' => $user['id'],
-                    'username' => $user['email']
-                ]
-            ]
-        ]);
-    }
 
     /**
      * Test success signup

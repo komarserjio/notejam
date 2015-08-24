@@ -52,8 +52,8 @@ class PadsController extends AppController
                 ['user_id' => $this->Auth->user('id')]
             ));
             if ($this->Pads->save($pad)) {
-                $this->Flash->success(__('The pad has been saved.'));
-                return $this->redirect(['action' => 'create']);
+                $this->Flash->success(__('The pad has been created.'));
+                return $this->redirect(['action' => 'view', 'id' => $pad->id]);
             }
         }
         $this->set(compact('pad'));

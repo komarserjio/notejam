@@ -1,13 +1,14 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
+use Cake\ORM\TableRegistry;
 use App\Controller\PadsController;
-use Cake\TestSuite\IntegrationTestCase;
+use App\Test\TestCase\NotejamTestCase;
 
 /**
- * App\Controller\PadsController Test Case
+ * Pads test case
  */
-class PadsControllerTest extends IntegrationTestCase
+class PadsControllerTest extends NotejamTestCase
 {
 
     /**
@@ -21,53 +22,57 @@ class PadsControllerTest extends IntegrationTestCase
         'app.notes'
     ];
 
-    /**
-     * Test index method
-     *
-     * @return void
-     */
-    public function testIndex()
+    public function testCreateSuccess()
+    {
+        $this->signin($this->user);
+        $data = ['name' => 'New pad'];
+        $this->post('/pads/create', $data);
+        $this->assertResponseSuccess();
+        $this->assertRedirect('/pads/2');
+        $this->assertEquals(
+            TableRegistry::get('Pads')->get(2)->name,
+            $data['name']
+        );
+    }
+
+    public function testCreateFailRequiredFields()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
-    /**
-     * Test view method
-     *
-     * @return void
-     */
-    public function testView()
+    public function testEditSuccess()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
-    /**
-     * Test add method
-     *
-     * @return void
-     */
-    public function testAdd()
+    public function testEditFailRequiredFields()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
-    /**
-     * Test edit method
-     *
-     * @return void
-     */
-    public function testEdit()
+    public function testEditFailNotAnOwner()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
 
-    /**
-     * Test delete method
-     *
-     * @return void
-     */
-    public function testDelete()
+    public function testViewSuccess()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    public function testViewFailNotAnOwner()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    public function testDeleteSuccess()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    public function testDeleteFailNotAnOwner()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
 }
