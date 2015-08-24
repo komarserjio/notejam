@@ -37,17 +37,29 @@ class PadsControllerTest extends NotejamTestCase
 
     public function testCreateFailRequiredFields()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin($this->user);
+        $this->post('/pads/create', ['name' => '']);
+        $this->assertResponseContains('This field cannot be left empty');
     }
 
     public function testEditSuccess()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin($this->user);
+        $data = ['name' => 'New pad name'];
+        $this->post('/pads/1/edit', $data);
+        $this->assertResponseSuccess();
+        $this->assertRedirect('/pads/1');
+        $this->assertEquals(
+            TableRegistry::get('Pads')->get(1)->name,
+            $data['name']
+        );
     }
 
     public function testEditFailRequiredFields()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin($this->user);
+        $this->post('/pads/1/edit', ['name' => '']);
+        $this->assertResponseContains('This field cannot be left empty');
     }
 
     public function testEditFailNotAnOwner()

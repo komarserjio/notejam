@@ -73,7 +73,7 @@ class PadsController extends AppController
             $pad = $this->Pads->patchEntity($pad, $this->request->data);
             if ($this->Pads->save($pad)) {
                 $this->Flash->success(__('The pad has been saved.'));
-                return $this->redirect(['action' => 'create']);
+                return $this->redirect(['action' => 'view', 'id' => $pad->id]);
             } else {
                 $this->Flash->error(__('The pad could not be saved. Please, try again.'));
             }
