@@ -29,6 +29,7 @@ Supported frameworks
 * `Symfony <https://github.com/komarserjio/notejam/tree/master/symfony>`_
 * `Laravel <https://github.com/komarserjio/notejam/tree/master/laravel>`_
 * `Yii <https://github.com/komarserjio/notejam/tree/master/yii>`_
+* `CakePHP <https://github.com/komarserjio/notejam/tree/master/cakephp`_
 
 **Ruby**
 
