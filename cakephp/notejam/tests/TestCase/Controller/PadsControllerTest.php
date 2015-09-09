@@ -22,6 +22,11 @@ class PadsControllerTest extends NotejamTestCase
         'app.notes'
     ];
 
+    /**
+     * Test if pad can be successfully created
+     *
+     * @return void
+     */
     public function testCreateSuccess()
     {
         $this->signin($this->user);
@@ -35,6 +40,11 @@ class PadsControllerTest extends NotejamTestCase
         );
     }
 
+    /**
+     * Test if validation works when create a pad
+     *
+     * @return void
+     */
     public function testCreateFailRequiredFields()
     {
         $this->signin($this->user);
@@ -42,6 +52,11 @@ class PadsControllerTest extends NotejamTestCase
         $this->assertResponseContains('This field cannot be left empty');
     }
 
+    /**
+     * Test if pad can be successfully edited
+     *
+     * @return void
+     */
     public function testEditSuccess()
     {
         $this->signin($this->user);
@@ -55,6 +70,11 @@ class PadsControllerTest extends NotejamTestCase
         );
     }
 
+    /**
+     * Test if validation works when edit a pad
+     *
+     * @return void
+     */
     public function testEditFailRequiredFields()
     {
         $this->signin($this->user);
@@ -67,9 +87,17 @@ class PadsControllerTest extends NotejamTestCase
         $this->markTestIncomplete('Not implemented yet.');
     }
 
+    /**
+     * Test if pad can be successfully viewed
+     *
+     * @return void
+     */
     public function testViewSuccess()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin($this->user);
+        $this->get('/pads/1');
+        $this->assertResponseSuccess();
+        $this->assertResponseContains('Pad (1)');
     }
 
     public function testViewFailNotAnOwner()
@@ -77,14 +105,25 @@ class PadsControllerTest extends NotejamTestCase
         $this->markTestIncomplete('Not implemented yet.');
     }
 
+    /**
+     * Test if pad can be successfully deleted
+     *
+     * @return void
+     */
     public function testDeleteSuccess()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin($this->user);
+        $this->post('/pads/1/delete', []);
+        $this->assertResponseSuccess();
+        $this->assertRedirect('/');
+        $this->assertEquals(
+            TableRegistry::get('Pads')->find('all')->count(),
+            0
+        );
     }
 
     public function testDeleteFailNotAnOwner()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
-
 }

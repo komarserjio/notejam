@@ -94,8 +94,21 @@ class PadsController extends AppController
         if ($this->request->is('post')) {
             $this->Pads->delete($pad);
             $this->Flash->success(__('The pad has been deleted.'));
-            return $this->redirect(['_name' => 'create_pad']);
+            return $this->redirect(['_name' => 'index']);
         }
         $this->set(compact('pad'));
+    }
+
+    /**
+     * Get pad
+     *
+     * @param int $id Pad id
+     * @return Pad
+     */
+    protected function getPad($id)
+    {
+        $pad = TableRegistry::get('Pads')->find('first')
+                    ->where(['id' => $id])
+                    ->where(['user_id' => $this->getUser()->id]);
     }
 }
