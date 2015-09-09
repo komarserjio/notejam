@@ -71,7 +71,7 @@ Router::scope('/', function ($routes) {
     $routes->scope('/notes', function($routes) {
         $routes->connect('/create', ['controller' => 'Notes', 'action' => 'create'], ['_name' => 'create_note']);
         $routes->connect('/:id/edit', ['controller' => 'Notes', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'edit_note']);
-        $routes->connect('/:id/view', ['controller' => 'Notes', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'view_note']);
+        $routes->connect('/:id', ['controller' => 'Notes', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'view_note']);
         $routes->connect('/:id/delete', ['controller' => 'Notes', 'action' => 'delete'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'delete_note']);
     });
 
