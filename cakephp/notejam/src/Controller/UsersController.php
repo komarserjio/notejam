@@ -1,12 +1,11 @@
 <?php
 namespace App\Controller;
 
-use Cake\Network\Email\Email;
-use Cake\Core\Configure;
 use App\Controller\AppController;
 use App\Form\SettingsForm;
 use App\Form\ForgotPasswordForm;
-
+use Cake\Core\Configure;
+use Cake\Network\Email\Email;
 
 /**
  * Users Controller
@@ -121,7 +120,7 @@ class UsersController extends AppController
                     'New notejam password',
                     // template?
                     "Your new temporary password is {$password}.
-                     We recommend you to change it after login.",
+                     We recommend you to change it after signing in.",
                     ['from' => 'noreply@notejamapp.com', 'transport' => 'default']
                 );
 

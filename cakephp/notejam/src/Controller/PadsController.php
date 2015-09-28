@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -28,7 +29,7 @@ class PadsController extends AppController
      */
     public function view($id = null)
     {
-        $pad = $this->Pads->get($id);
+        $pad = $this->getPad($id);
         $notes = TableRegistry::get('Notes')->find('all', ['contain' => 'Pads'])
                     ->where(['Notes.pad_id' => $id])
                     ->where(['Notes.user_id' => $this->getUser()->id])
@@ -68,7 +69,7 @@ class PadsController extends AppController
      */
     public function edit($id = null)
     {
-        $pad = $this->Pads->get($id);
+        $pad = $this->getPad($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $pad = $this->Pads->patchEntity($pad, $this->request->data);
             if ($this->Pads->save($pad)) {
@@ -90,7 +91,7 @@ class PadsController extends AppController
      */
     public function delete($id = null)
     {
-        $pad = $this->Pads->get($id);
+        $pad = $this->getPad($id);
         if ($this->request->is('post')) {
             $this->Pads->delete($pad);
             $this->Flash->success(__('The pad has been deleted.'));
@@ -107,8 +108,14 @@ class PadsController extends AppController
      */
     protected function getPad($id)
     {
-        $pad = TableRegistry::get('Pads')->find('first')
-                    ->where(['id' => $id])
-                    ->where(['user_id' => $this->getUser()->id]);
+        $pad = TableRegistry::get('Pads')->find()
+                    ->contain(['Users'])
+                    ->where(['Pads.id' => $id])
+                    ->where(['Pads.user_id' => $this->getUser()->id])
+                    ->first();
+        if ($pad) {
+            return $pad;
+        }
+        throw new RecordNotFoundException('Pad not found');
     }
 }

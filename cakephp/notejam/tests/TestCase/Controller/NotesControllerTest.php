@@ -78,14 +78,21 @@ class NotesControllerTest extends NotejamTestCase
     public function testEditFailRequiredFields()
     {
         $this->signin($this->user);
-        // @TODO why not text here?
         $this->post('/notes/1/edit', ['name' => '']);
         $this->assertResponseContains('This field cannot be left empty');
     }
 
+    /**
+     * Test if note cannot be successfully viewed by not an owner
+     *
+     * @return void
+     */
     public function testEditFailNotAnOwner()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin(['id' => 2, 'email' => 'user2@example.com']);
+        $data = ['name' => 'New note name'];
+        $this->post('/notes/1/edit', $data);
+        $this->assertResponseError();
     }
 
     /**
@@ -101,9 +108,16 @@ class NotesControllerTest extends NotejamTestCase
         $this->assertResponseContains('Note #1');
     }
 
+    /**
+     * Test if note cannot be viewed by not an owner
+     *
+     * @return void
+     */
     public function testViewFailNotAnOwner()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin(['id' => 2, 'email' => 'user2@example.com']);
+        $this->get('/notes/1/');
+        $this->assertResponseError();
     }
 
     /**
@@ -123,8 +137,15 @@ class NotesControllerTest extends NotejamTestCase
         );
     }
 
+    /**
+     * Test if note cannot be deleted by not an owner
+     *
+     * @return void
+     */
     public function testDeleteFailNotAnOwner()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin(['id' => 2, 'email' => 'user2@example.com']);
+        $this->post('/notes/1/delete', []);
+        $this->assertResponseError();
     }
 }

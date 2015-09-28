@@ -38,5 +38,11 @@ class UsersFixture extends TestFixture
             // password is 111111
             'password' => '$2y$10$0hoGWxcL.dC6WWrhCDQUVezLFlxMkguhXDziDi.yQSLjhoBaI9FDO'
         ],
+        [
+            'id' => 2,
+            'email' => 'user2@example.com',
+            // password is 111111
+            'password' => '$2y$10$0hoGWxcL.dC6WWrhCDQUVezLFlxMkguhXDziDi.yQSLjhoBaI9FDO'
+        ],
     ];
 }

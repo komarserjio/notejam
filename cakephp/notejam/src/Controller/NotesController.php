@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Collection\Collection;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -39,9 +40,7 @@ class NotesController extends AppController
      */
     public function view($id = null)
     {
-        $note = $this->Notes->get($id, [
-            'contain' => ['Pads', 'Users']
-        ]);
+        $note = $this->getNote($id);
         $this->set('note', $note);
     }
 
@@ -66,7 +65,7 @@ class NotesController extends AppController
             }
         }
 
-        $pads = (new collection($this->getuser()->pads))->combine('id', 'name')->toArray();
+        $pads = (new collection($this->getUser()->pads))->combine('id', 'name')->toArray();
         $this->set(compact('note', 'pads'));
     }
 
@@ -80,7 +79,7 @@ class NotesController extends AppController
      */
     public function edit($id = null)
     {
-        $note = $this->Notes->get($id);
+        $note = $this->getNote($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $note = $this->Notes->patchEntity($note, $this->request->data);
             if ($this->Notes->save($note)) {
@@ -103,12 +102,31 @@ class NotesController extends AppController
      */
     public function delete($id = null)
     {
-        $note = $this->Notes->get($id);
+        $note = $this->getNote($id);
         if ($this->request->is('post')) {
             $this->Notes->delete($note);
             $this->Flash->success(__('The note has been deleted.'));
             return $this->redirect(['action' => 'index']);
         }
         $this->set(compact('note'));
+    }
+
+    /**
+     * Get note
+     *
+     * @param int $id Note id
+     * @return Note
+     */
+    protected function getNote($id)
+    {
+        $note = TableRegistry::get('Notes')->find()
+                    ->contain(['Pads', 'Users'])
+                    ->where(['Notes.id' => $id])
+                    ->where(['Notes.user_id' => $this->getUser()->id])
+                    ->first();
+        if ($note) {
+            return $note;
+        }
+        throw new RecordNotFoundException('Note not found');
     }
 }

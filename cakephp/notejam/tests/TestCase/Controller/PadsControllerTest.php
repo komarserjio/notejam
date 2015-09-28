@@ -1,9 +1,9 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use Cake\ORM\TableRegistry;
 use App\Controller\PadsController;
 use App\Test\TestCase\NotejamTestCase;
+use Cake\ORM\TableRegistry;
 
 /**
  * Pads test case
@@ -82,9 +82,17 @@ class PadsControllerTest extends NotejamTestCase
         $this->assertResponseContains('This field cannot be left empty');
     }
 
+    /**
+     * Test if pad cannot be edited by not an owner
+     *
+     * @return void
+     */
     public function testEditFailNotAnOwner()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin(['id' => 2, 'email' => 'user2@example.com']);
+        $data = ['name' => 'New pad name'];
+        $this->post('/pads/1/edit', $data);
+        $this->assertResponseError();
     }
 
     /**
@@ -100,9 +108,16 @@ class PadsControllerTest extends NotejamTestCase
         $this->assertResponseContains('Pad (1)');
     }
 
+    /**
+     * Test if pad cannot be viewed by not an owner
+     *
+     * @return void
+     */
     public function testViewFailNotAnOwner()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin(['id' => 2, 'email' => 'user2@example.com']);
+        $this->get('/pads/1');
+        $this->assertResponseError();
     }
 
     /**
@@ -122,8 +137,15 @@ class PadsControllerTest extends NotejamTestCase
         );
     }
 
+    /**
+     * Test if pad cannot be deleted by not an owner
+     *
+     * @return void
+     */
     public function testDeleteFailNotAnOwner()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->signin(['id' => 2, 'email' => 'user2@example.com']);
+        $this->post('/pads/1/delete', []);
+        $this->assertResponseError();
     }
 }
