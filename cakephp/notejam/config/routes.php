@@ -75,22 +75,6 @@ Router::scope('/', function ($routes) {
         $routes->connect('/:id/delete', ['controller' => 'Notes', 'action' => 'delete'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'delete_note']);
     });
 
-    /**
-     * Connect catchall routes for all controllers.
-     *
-     * Using the argument `InflectedRoute`, the `fallbacks` method is a shortcut for
-     *    `$routes->connect('/:controller', ['action' => 'index'], ['routeClass' => 'InflectedRoute']);`
-     *    `$routes->connect('/:controller/:action/*', [], ['routeClass' => 'InflectedRoute']);`
-     *
-     * Any route class can be used with this method, such as:
-     * - DashedRoute
-     * - InflectedRoute
-     * - Route
-     * - Or your own route class
-     *
-     * You can remove these routes once you've connected the
-     * routes you want in your application.
-     */
     $routes->fallbacks('InflectedRoute');
 });
 
