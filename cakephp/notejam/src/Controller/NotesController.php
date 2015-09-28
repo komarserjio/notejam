@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-use Cake\Collection\Collection;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\ORM\TableRegistry;
 
@@ -14,6 +13,11 @@ use Cake\ORM\TableRegistry;
 class NotesController extends AppController
 {
 
+    /**
+     * Layout name
+     *
+     * @var string
+     */
     protected $layout = 'signedin';
 
     /**
@@ -65,7 +69,7 @@ class NotesController extends AppController
             }
         }
 
-        $pads = (new collection($this->getUser()->pads))->combine('id', 'name')->toArray();
+        $pads = collection($this->getUser()->pads)->combine('id', 'name')->toArray();
         $this->set(compact('note', 'pads'));
     }
 
@@ -89,7 +93,7 @@ class NotesController extends AppController
                 $this->Flash->error(__('The note could not be saved. Please, try again.'));
             }
         }
-        $pads = (new Collection($this->getUser()->pads))->combine('id', 'name')->toArray();
+        $pads = collection($this->getUser()->pads)->combine('id', 'name')->toArray();
         $this->set(compact('note', 'pads'));
     }
 

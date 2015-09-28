@@ -16,7 +16,7 @@ class UsersController extends AppController
 {
 
     /**
-     * Layout setting
+     * Layout name
      *
      * @var string
      */
@@ -108,26 +108,35 @@ class UsersController extends AppController
                          ->where(['email' => $this->request->data['email']])
                          ->first();
             if ($user) {
-                // primitive way to generate temporary password
-                $user->password = substr(
-                    sha1(time() . rand() . Configure::read('Security.salt')), 0, 8
-                );
-                $this->Users->save($user);
+                $this->resetPassword($user);
                 $this->Flash->success('New temp password is sent to your inbox.');
-
-                Email::deliver(
-                    $user->email,
-                    'New notejam password',
-                    // template?
-                    "Your new temporary password is {$password}.
-                     We recommend you to change it after signing in.",
-                    ['from' => 'noreply@notejamapp.com', 'transport' => 'default']
-                );
-
                 return $this->redirect(['_name' => 'index']);
             }
             $this->Flash->error('User with given email does not exist.');
         }
         $this->set(compact('form'));
+    }
+
+    /**
+     * Reset user's password
+     *
+     * @param App\Model\Entity\User $user User
+     * @return void
+     */
+    protected function resetPassword($user)
+    {
+        // primitive way to generate temporary password
+        $user->password = $password = substr(
+            sha1(time() . rand() . Configure::read('Security.salt')), 0, 8
+        );
+        $this->Users->save($user);
+
+        Email::deliver(
+            $user->email,
+            'New notejam password',
+            "Your new temporary password is {$password}.
+             We recommend you to change it after signing in.",
+            ['from' => 'noreply@notejamapp.com', 'transport' => 'default']
+        );
     }
 }

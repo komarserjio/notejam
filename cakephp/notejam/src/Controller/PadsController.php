@@ -14,7 +14,7 @@ class PadsController extends AppController
 {
 
     /**
-     * Layout setting
+     * Layout name
      *
      * @var string
      */
