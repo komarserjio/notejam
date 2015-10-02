@@ -8,7 +8,7 @@ author:
   url: "twitter.com/komarserjio"
 
 # Build settings
-baseurl: /notejam/ # Change this to your relative path (ex: /blog/), or leave just a /
+baseurl: / # Change this to your relative path (ex: /blog/), or leave just a /
 markdown: kramdown
 source: .
 destination: ./_site
