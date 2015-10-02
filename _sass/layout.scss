@@ -1,0 +1,260 @@
+/* -- General Layout -- */
+
+/* Navigation */
+
+#nav, #nav-left {
+  a {
+    display: block;
+    color: $background-color;
+    padding: 0.33334em 0;
+    font-size: 1.5em;
+    font-weight: 400;
+    @media (min-width: 940px) {
+      font-size: 1em;
+    }
+    &:hover {
+      background-color: lighten($main-color, 5%);
+    }
+  }
+  span {
+      font-weight: 200;
+    }
+}
+
+#nav {
+  @include nav-position(right);
+}
+
+#nav-left {
+  @include nav-position(left);
+}
+
+/* Toggle class to open menu */
+
+#nav.menu-open {
+  @include open(-14rem);
+}
+
+#nav-left.menu-open-left {
+  @include open(14rem);
+}
+
+/* Separator after menu */
+
+#nav-list:after {
+  display: block;
+  content: '';
+  width: 5rem;
+  height: 1px;
+  margin: 23px auto;
+  background-color: $background-color;
+}
+
+/* Icon menu */
+
+#nav-menu {
+  @include icon-position(right);
+}
+
+#nav-menu-left {
+  @include icon-position(left);
+}
+
+#menu {
+  height: 4px;
+  width: 1.5em;
+  background-color: lighten($text-color, 35%);
+  margin-top: 8px;
+  &:after, &:before {
+    content: "";
+    display: block;
+    position: relative;
+    height: 4px;
+    width: 1.5em;
+    background-color: lighten($text-color, 35%);
+    transition: all 0.3s ease-in;
+  }
+  &:before {
+    top: -8px;
+  }
+  &:after {
+    top: 4px;
+  }
+  &.btn-close {
+    background: none;
+  }
+  &.btn-close:before {
+    top: 0;
+    -webkit-transform: rotate(-45deg);
+       -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    background-color: $background-color;
+  }
+  &.btn-close:after {
+    top: -4px;
+    -webkit-transform: rotate(45deg);
+       -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+    background-color: $background-color;
+  }
+}
+
+/* Main content */
+
+.fixed {
+  position: fixed;
+  @media (min-width: 940px) {
+    position: static;
+  }
+}
+
+#container {
+	margin:0 auto;
+	max-width: 730px;
+	padding: 0 1.5rem;
+}
+
+#header {
+	text-align: center;
+  padding: 24px 0;
+  position: relative;
+  a {
+  	text-decoration: none;
+  	color: $text-color;
+  	display: inline-block;
+  }
+  img {
+  	max-height: 72px;
+  	margin: 0 auto;
+  	display: block;
+  }
+  h1 {
+  	font-family: 'Signika', sans-serif; //Emerald logo font
+    font-weight: 600;
+  }
+  &:after {
+  	display: block;
+    content: '';
+    width: 5rem;
+    height: 1px;
+    margin: 23px auto;
+    background-color: lighten($text-color, 70%);
+  }
+}
+
+/* Posts */
+
+#posts {
+  li {
+    list-style-type: none;
+  }
+}
+
+#post-page {
+  margin-bottom: 1.5em;
+  @media (min-width: 940px) {
+      margin-bottom: 1.3334em;
+    }
+}
+
+.post+.post:before {
+    display: block;
+    content: '';
+    width: 5rem;
+    height: 1px;
+    margin: 23px auto;
+    background-color: lighten($text-color, 70%);
+  }
+
+.by-line {
+  display: block;
+  color: lighten($text-color, 25%);
+  line-height: 1.5em; /* 24px/16px */
+  margin-bottom: 1.5em; /* 24px/16px */
+  font-weight: 200;
+  @media (min-width: 940px) {
+    display: block;
+    color: lighten($text-color, 25%);
+    line-height: 1.3334em; /* 24px/18px */
+    margin-bottom: 1.3334em; /* 24px/18px */
+    font-weight: 200;
+  }
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 24px;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+      -ms-border-radius: 4px;
+          border-radius: 4px;
+}
+
+img[title="Emerald"] {
+    box-shadow: 0 2px 6px #ddd;
+  }
+
+code {
+  color: lighten($text-color, 35%);
+  background-color: lighten($background-color, 35%);
+}
+
+/* Set the vertical rhythm (and padding-left) for lists inside post content */
+
+.content ul, .content ol {
+  line-height: 1.5em; /* 24px/16px */
+  padding-left: 1.5em;
+  @media (min-width: 940px) {
+    line-height: 1.33334em; /* 24px/18px */
+  }
+}
+
+/* Pages */
+
+#page ul, #page ol {
+  padding-left: 1.5em;
+}
+
+/* Paginator */
+
+.pagination {
+  text-align: center;
+  margin: 2.666668em;
+  span {
+    background-color: darken($background-color, 5%);
+    color: $text-color;
+  }
+  a:hover {
+    background-color: lighten($main-color, 5%);
+  }
+}
+.page-item {
+  background-color: $main-color;
+  color: $background-color;
+  padding: 4px 8px;
+  font-weight: 400;
+  padding: 0.5em 1em;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+      -ms-border-radius: 4px;
+          border-radius: 4px;
+}
+
+/* Footer */
+
+footer {
+  background-color: $main-color;
+  color: $background-color;
+  text-align: center;
+  padding: 0.6667em 0;
+  a {
+    color: white;
+    &:hover {
+      color: white;
+    }
+  }
+}

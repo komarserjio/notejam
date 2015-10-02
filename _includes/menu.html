@@ -1,0 +1,23 @@
+<nav {% if site.reverse == true %}id="nav-left"{% else %}id="nav"{% endif %}>
+	<div id="nav-list">
+
+		<!-- Nav pages -->
+	  {% for page in site.pages %}
+	    {% if page.layout == "page" %}
+	      <a href="{% if site.baseurl == "/" %}{{ page.url }}{% else %}{{ page.url | prepend: site.baseurl }}{% endif %}" title="{{ page.title }}">{{ page.title }}</a>
+	    {% endif %}
+	  {% endfor %}
+
+    <!-- Nav links -->
+	  {% include link.html %}
+
+	</div>
+
+  <!-- Nav footer -->
+	{% if site.custom_nav_footer == true %}
+	  {% include nav-footer-custom.html %}
+	{% else %}
+	  {% include nav-footer.html %}
+	{% endif %}
+
+</nav>

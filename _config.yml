@@ -1,0 +1,34 @@
+# Site settings
+title: Notejam | Unified sample web app
+description: "Unified sample web app"
+url: "http://komarserjio.github.io/notejam/"
+author:
+  name: "Serhii Komar"
+  email: "komaserjio@gmail.com"
+  url: "twitter.com/komarserjio"
+
+# Build settings
+baseurl: / # Change this to your relative path (ex: /blog/), or leave just a /
+markdown: kramdown
+source: .
+destination: ./_site
+permalink: /:title
+paginate: 8
+paginate_path: /blog/page:num/
+
+# Default values
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+# Custom variables
+version: "1.4.0"
+
+# Options
+custom_header: false
+custom_nav_footer: false
+reverse: false

@@ -1,7 +1,0 @@
-notejam_note:
-    resource: "@NotejamNoteBundle/Resources/config/routing.yml"
-    prefix:   /
-
-notejam_user:
-    resource: "@NotejamUserBundle/Resources/config/routing.yml"
-    prefix:   /

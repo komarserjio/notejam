@@ -1,0 +1,43 @@
+/*- Custom style -*/
+
+// -- Put custom style under this point -- //
+div.block-wrapper {
+    div.block-holder {
+        width: 20%;
+        float: left;
+        a {
+            font-weight: 500;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0em !important;
+        }
+    }
+}
+
+.clearfix {
+    clear: both;
+}
+
+#header {
+    a {
+        span {
+            font-weight: normal;
+            font-size: 16px;
+        }
+    }
+}
+
+@media only screen and (max-width: 940px) {
+    div.block-wrapper {
+        div.block-holder {
+            float: none;
+            ul {
+                list-style-type: disc;
+                padding-left: 1.5em !important;
+            }
+        }
+    }
+}
+
