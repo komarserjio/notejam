@@ -49,11 +49,6 @@ Router::scope('/', function ($routes) {
      */
     $routes->connect('/', ['controller' => 'Notes', 'action' => 'index'], ['_name' => 'index']);
 
-    /**
-     * ...and connect the rest of 'Pages' controller's URLs.
-     */
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
-
     $routes->connect('/signup', ['controller' => 'Users', 'action' => 'signup'], ['_name' => 'signup']);
     $routes->connect('/signin', ['controller' => 'Users', 'action' => 'signin'], ['_name' => 'signin']);
     $routes->connect('/signout', ['controller' => 'Users', 'action' => 'signout'], ['_name' => 'signout']);

@@ -1,9 +1,9 @@
-<?php $this->assign('title', $pad->name . " ({$notes->count()})"); ?>
+<?php $this->assign('title', __($pad->name . " ({$notes->count()})")); ?>
 <?php if ($notes->count()): ?>
     <table class="notes">
         <tr>
-            <th class="note">Note <?= $this->Html->link('↑', ['_name' => 'view_pad', 'order' => '-name', 'id' => $pad->id], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'view_pad', 'order' => 'name', 'id' => $pad->id], ['class' => 'sort_arrow']) ?></th>
-            <th class="date">Last modified <?= $this->Html->link('↑', ['_name' => 'view_pad', 'order' => '-updated_at', 'id' => $pad->id], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'view_pad', 'order' => 'updated_at', 'id' => $pad->id], ['class' => 'sort_arrow']) ?></th>
+            <th class="note"><?= __("Note") ?> <?= $this->Html->link('↑', ['_name' => 'view_pad', 'order' => '-name', 'id' => $pad->id], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'view_pad', 'order' => 'name', 'id' => $pad->id], ['class' => 'sort_arrow']) ?></th>
+            <th class="date"><?= __("Last modified") ?> <?= $this->Html->link('↑', ['_name' => 'view_pad', 'order' => '-updated_at', 'id' => $pad->id], ['class' => 'sort_arrow']) ?><?= $this->Html->link('↓', ['_name' => 'view_pad', 'order' => 'updated_at', 'id' => $pad->id], ['class' => 'sort_arrow']) ?></th>
         </tr>
         <?php foreach($notes as $note): ?>
             <tr>
@@ -13,6 +13,6 @@
         <?php endforeach; ?>
     </table>
 <?php else: ?>
-    <p class="empty">Create your first note in the pad.</p>
+    <p class="empty"><?= __("Create your first note in the pad") ?></p>
 <?php endif; ?>
-<?= $this->Html->link("New note", ["_name" => "create_note", "pad" => $pad->id], ["class" => "button"]); ?>
+<?= $this->Html->link(__("New note"), ["_name" => "create_note", "pad" => $pad->id], ["class" => "button"]); ?>
