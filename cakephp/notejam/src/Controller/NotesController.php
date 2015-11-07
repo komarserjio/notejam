@@ -18,7 +18,7 @@ class NotesController extends AppController
      *
      * @var string
      */
-    protected $layout = 'signedin';
+    protected $layout = 'user';
 
     /**
      * Index method
@@ -68,9 +68,11 @@ class NotesController extends AppController
                 $this->Flash->error(__('The note could not be saved. Please, try again.'));
             }
         }
+        // current pad
+        $pad = $this->request->query('pad');
 
         $pads = collection($this->getUser()->pads)->combine('id', 'name')->toArray();
-        $this->set(compact('note', 'pads'));
+        $this->set(compact('note', 'pads', 'pad'));
     }
 
 

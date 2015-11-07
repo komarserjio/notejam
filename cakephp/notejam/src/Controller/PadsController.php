@@ -18,7 +18,7 @@ class PadsController extends AppController
      *
      * @var string
      */
-    protected $layout = 'signedin';
+    protected $layout = 'user';
 
     /**
      * View method

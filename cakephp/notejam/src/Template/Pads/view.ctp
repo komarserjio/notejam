@@ -15,4 +15,5 @@
 <?php else: ?>
     <p class="empty"><?= __("Create your first note in the pad") ?></p>
 <?php endif; ?>
-<?= $this->Html->link(__("New note"), ["_name" => "create_note", "pad" => $pad->id], ["class" => "button"]); ?>
+<?= $this->Html->link(__("New note"), ["_name" => "create_note", "pad" => $pad->id], ["class" => "button"]); ?><br/>
+<?= $this->Html->link(__("Pad settings"), ["_name" => "edit_pad", "id" => $pad->id]); ?>

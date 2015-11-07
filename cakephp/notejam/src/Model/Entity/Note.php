@@ -25,6 +25,11 @@ class Note extends Entity
         'user' => true,
     ];
 
+    /**
+     * Get pretty date like "Yesterday", "2 days ago", "etc"
+     *
+     * @return string
+     */
     public function getPrettyDate()
     {
         $day = 86400;

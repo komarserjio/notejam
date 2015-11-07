@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="sixteen columns">
-            <h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam: </span></a> <span><?= $this->fetch('title') ?></span></h1>
+            <h1 class="bold-header"><a href="/" class="header">note<span class="jam">jam: </span></a> <span><?= $this->fetch('title') ?></span></h1>
         </div>
 
         <?= $this->fetch('content') ?>

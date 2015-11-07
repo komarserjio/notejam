@@ -20,7 +20,7 @@ class UsersController extends AppController
      *
      * @var string
      */
-    protected $layout = 'user';
+    protected $layout = 'anonymous';
 
     /**
      * Signup action
@@ -29,7 +29,6 @@ class UsersController extends AppController
      */
     public function signup()
     {
-        $this->layout = 'user';
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -133,10 +132,10 @@ class UsersController extends AppController
 
         Email::deliver(
             $user->email,
-            'New notejam password',
+            "New notejam password",
             "Your new temporary password is {$password}.
              We recommend you to change it after signing in.",
-            ['from' => 'noreply@notejamapp.com', 'transport' => 'default']
+            ["from" => "noreply@notejamapp.com", "transport" => "default"]
         );
     }
 }
