@@ -34,8 +34,8 @@ class NotesController extends AppController
         $this->set(
             'notes',
             $this->Notes->find('all', ['contain' => 'Pads'])
-                        ->where(['Notes.user_id' => $this->getUser()->id])
-                        ->order($this->buildOrderBy($this->request->query('order')))
+                ->where(['Notes.user_id' => $this->getUser()->id])
+                ->order($this->buildOrderBy($this->request->query('order')))
         );
     }
 
@@ -130,10 +130,10 @@ class NotesController extends AppController
     protected function getNote($id)
     {
         $note = TableRegistry::get('Notes')->find()
-                    ->contain(['Pads', 'Users'])
-                    ->where(['Notes.id' => $id])
-                    ->where(['Notes.user_id' => $this->getUser()->id])
-                    ->first();
+            ->contain(['Pads', 'Users'])
+            ->where(['Notes.id' => $id])
+            ->where(['Notes.user_id' => $this->getUser()->id])
+            ->first();
         if ($note) {
             return $note;
         }

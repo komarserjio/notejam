@@ -25,7 +25,7 @@ class PadsController extends AppController
     }
 
     /**
-     * View method
+     * View pad
      *
      * @param string|null $id Pad id.
      * @return void
@@ -35,9 +35,9 @@ class PadsController extends AppController
     {
         $pad = $this->getPad($id);
         $notes = TableRegistry::get('Notes')->find('all', ['contain' => 'Pads'])
-                    ->where(['Notes.pad_id' => $id])
-                    ->where(['Notes.user_id' => $this->getUser()->id])
-                    ->order($this->buildOrderBy($this->request->query('order')));
+            ->where(['Notes.pad_id' => $id])
+            ->where(['Notes.user_id' => $this->getUser()->id])
+            ->order($this->buildOrderBy($this->request->query('order')));
 
         $this->set('pad', $pad);
         $this->set('notes', $notes);
@@ -65,7 +65,7 @@ class PadsController extends AppController
     }
 
     /**
-     * Edit method
+     * Edit pad
      *
      * @param string|null $id Pad id.
      * @return void Redirects on successful edit, renders view otherwise.
@@ -113,10 +113,10 @@ class PadsController extends AppController
     protected function getPad($id)
     {
         $pad = TableRegistry::get('Pads')->find()
-                    ->contain(['Users'])
-                    ->where(['Pads.id' => $id])
-                    ->where(['Pads.user_id' => $this->getUser()->id])
-                    ->first();
+            ->contain(['Users'])
+            ->where(['Pads.id' => $id])
+            ->where(['Pads.user_id' => $this->getUser()->id])
+            ->first();
         if ($pad) {
             return $pad;
         }
