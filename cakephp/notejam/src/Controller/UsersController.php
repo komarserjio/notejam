@@ -16,11 +16,15 @@ class UsersController extends AppController
 {
 
     /**
-     * Layout name
+     * Set layout
      *
-     * @var string
+     * @param \Cake\Event\Event $event Event object
+     * @return void
      */
-    protected $layout = 'anonymous';
+    public function beforeRender(\Cake\Event\Event $event)
+    {
+        $this->viewBuilder()->layout('anonymous');
+    }
 
     /**
      * Signup action

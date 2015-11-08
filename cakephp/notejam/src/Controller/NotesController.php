@@ -14,11 +14,15 @@ class NotesController extends AppController
 {
 
     /**
-     * Layout name
+     * Set layout
      *
-     * @var string
+     * @param \Cake\Event\Event $event Event object
+     * @return void
      */
-    protected $layout = 'user';
+    public function beforeRender(\Cake\Event\Event $event)
+    {
+        $this->viewBuilder()->layout('user');
+    }
 
     /**
      * Index method
