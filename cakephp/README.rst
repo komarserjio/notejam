@@ -2,7 +2,7 @@
 Notejam: Cakephp
 ****************
 
-Notejam application implemented using `CakePHP <http://www.cakephp.org`_ framework.
+Notejam application implemented using `CakePHP <http://www.cakephp.org/>`_ framework.
 
 CakePHP version: 3.1
 
