@@ -4,7 +4,7 @@ Notejam: Cakephp
 
 Notejam application implemented using `CakePHP <http://www.cakephp.org`_ framework.
 
-CakePHP version: 3.0
+CakePHP version: 3.1
 
 PHP version required: 5.5+
 
@@ -30,7 +30,7 @@ Install `composer <https://getcomposer.org/>`_
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/yii/notejam
+    $ cd YOUR_PROJECT_DIR/cakephp/notejam
     $ curl -s https://getcomposer.org/installer | php
 
 Install dependencies
@@ -86,5 +86,3 @@ Always prepend your commits with framework name:
     CakePHP: Implemented sign in functionality
 
 Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.
-
-
