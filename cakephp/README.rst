@@ -1,5 +1,5 @@
 ****************
-Notejam: Cakephp
+Notejam: CakePHP
 ****************
 
 Notejam application implemented using `CakePHP <http://www.cakephp.org/>`_ framework.
