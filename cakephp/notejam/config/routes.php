@@ -56,21 +56,19 @@ Router::scope('/', function ($routes) {
     $routes->connect('/forgot-password', ['controller' => 'Users', 'action' => 'forgotpassword'], ['_name' => 'forgot_password']);
 
 
-    $routes->scope('/pads', function($routes) {
+    $routes->scope('/pads', ['controller' => 'Pads'], function($routes) {
         $routes->connect('/create', ['controller' => 'Pads', 'action' => 'create'], ['_name' => 'create_pad']);
         $routes->connect('/:id/edit', ['controller' => 'Pads', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'edit_pad']);
         $routes->connect('/:id/delete', ['controller' => 'Pads', 'action' => 'delete'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'delete_pad']);
         $routes->connect('/:id', ['controller' => 'Pads', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'view_pad']);
     });
 
-    $routes->scope('/notes', function($routes) {
+    $routes->scope('/notes', ['controller' => 'Notes'], function($routes) {
         $routes->connect('/create', ['controller' => 'Notes', 'action' => 'create'], ['_name' => 'create_note']);
         $routes->connect('/:id/edit', ['controller' => 'Notes', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'edit_note']);
         $routes->connect('/:id', ['controller' => 'Notes', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'view_note']);
         $routes->connect('/:id/delete', ['controller' => 'Notes', 'action' => 'delete'], ['id' => '\d+', 'pass' => ['id'], '_name' => 'delete_note']);
     });
-
-    $routes->fallbacks('InflectedRoute');
 });
 
 /**

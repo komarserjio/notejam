@@ -129,14 +129,10 @@ class NotesController extends AppController
      */
     protected function getNote($id)
     {
-        $note = TableRegistry::get('Notes')->find()
+        return TableRegistry::get('Notes')->find()
             ->contain(['Pads', 'Users'])
             ->where(['Notes.id' => $id])
             ->where(['Notes.user_id' => $this->getUser()->id])
-            ->first();
-        if ($note) {
-            return $note;
-        }
-        throw new RecordNotFoundException('Note not found');
+            ->firstOrFail();
     }
 }

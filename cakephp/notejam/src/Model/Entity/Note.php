@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\i18n\Time;
 
 /**
  * Note Entity.
@@ -32,17 +33,9 @@ class Note extends Entity
      */
     public function getPrettyDate()
     {
-        $day = 86400;
-        $date = strtotime($this->_properties['updated_at']);
-        $diff = floor((time() - $date) / $day);
-        if ($diff < 1) {
-            return "Today at " . date("H:i", $date);
-        } elseif ($diff == 1) {
-            return "Yesterday at " . date("H:i", $date);
-        } elseif ($diff > 1 && $diff < 8) {
-            return "{$diff} days ago";
-        } else {
-            return date("d.m.Y", $date);
-        }
+        $time = new Time($this->_properties['updated_at']);
+        return $time->timeAgoInWords([
+            'format' => 'd'
+        ]);
     }
 }

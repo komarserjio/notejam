@@ -112,14 +112,10 @@ class PadsController extends AppController
      */
     protected function getPad($id)
     {
-        $pad = TableRegistry::get('Pads')->find()
+         return TableRegistry::get('Pads')->find()
             ->contain(['Users'])
             ->where(['Pads.id' => $id])
             ->where(['Pads.user_id' => $this->getUser()->id])
-            ->first();
-        if ($pad) {
-            return $pad;
-        }
-        throw new RecordNotFoundException('Pad not found');
+            ->firstOrFail();
     }
 }
