@@ -53,12 +53,6 @@ In progress
 
 * Compojure
 
-**PHP**
-
-* Zend
-* CakePHP
-
-
 ... and more frameworks are coming soon.
 
 ====================
