@@ -2,6 +2,9 @@
 namespace app\models;
 
 use Yii;
+use yii\base\NotSupportedException;
+use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
 /**
  * User model
@@ -12,12 +15,10 @@ use Yii;
  * @property string $auth_key
  * @property string $password write-only password
  */
-class User extends \yii\db\ActiveRecord
-           implements \yii\web\IdentityInterface
+class User extends ActiveRecord implements IdentityInterface
 {
     /**
-     * @return string the name of the table associated with
-     *         this ActiveRecord class.
+     * @inheritdoc
      */
     public static function tableName()
     {
@@ -25,11 +26,7 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * Finds an identity by the given ID.
-     *
-     * @param string|integer $id the ID to be looked for
-     * @return IdentityInterface|null the identity object that
-     *         matches the given ID.
+     * @inheritdoc
      */
     public static function findIdentity($id)
     {
@@ -37,11 +34,8 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * Finds an identity by the given token.
-     *
-     * @param string $token the token to be looked for
-     * @return IdentityInterface|null the identity object that
-     *         matches the given token.
+     * @inheritdoc
+     * @throws NotSupportedException
      */
     public static function findIdentityByAccessToken($token, $type = NULL)
     {
@@ -49,7 +43,7 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return int|string current user ID
+     * @inheritdoc
      */
     public function getId()
     {

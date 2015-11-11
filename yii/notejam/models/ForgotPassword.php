@@ -25,9 +25,9 @@ class ForgotPassword extends \yii\base\Model
     }
 
     /**
-     * Set new password.
+     * Set new password
      *
-     * @return User|null
+     * @return User
      */
     public function resetPassword()
     {
@@ -52,13 +52,13 @@ class ForgotPassword extends \yii\base\Model
      */
     protected function generatePassword()
     {
-        return substr(md5(time()), 0, 8);
+        return Yii::$app->security->generateRandomString(8);
     }
 
     /**
      * Send new password
-     *
-     * @return void
+     * @param User $user
+     * @param string $password
      */
     public function sendPassword($user, $password)
     {

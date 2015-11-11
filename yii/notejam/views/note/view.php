@@ -1,6 +1,5 @@
 <?php
-use yii\widgets\ActiveForm;
-use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
 $this->title = $note->name;
 ?>
@@ -8,7 +7,7 @@ $this->title = $note->name;
 <p class="hidden-text">Last edited at <?= $note->getSmartDate(); ?></p>
 <div class="note">
     <p>
-        <?= $note->text ?>
+        <?= HtmlPurifier::process($note->text) ?>
     </p>
 </div>
 <a href="<?= Url::toRoute(['note/edit', 'id' => $note->id]) ?>" class="button">Edit</a>

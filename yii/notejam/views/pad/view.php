@@ -11,7 +11,7 @@ $this->title = $pad->name . ' (' . count($notes) . ')';
     </tr>
     <?php foreach($notes as $note): ?>
         <tr>
-          <td><a href="<?= Url::toRoute(['note/view', 'id' => $note->id]) ?>"><?= $note->name; ?></a></td>
+          <td><a href="<?= Url::toRoute(['note/view', 'id' => $note->id]) ?>"><?= Html::encode($note->name); ?></a></td>
           <td class="hidden-text date"><?= $note->getSmartDate(); ?></td>
         </tr>
     <?php endforeach; ?>
