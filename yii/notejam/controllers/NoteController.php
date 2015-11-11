@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -52,19 +53,23 @@ class NoteController extends BaseController
 
     public function actionList()
     {
-        $notes = Yii::$app->user->identity
-            ->getNotes()->orderBy($this->getOrderParam())->all();
+        $notes = Note::find()
+            ->where(['user_id' => Yii::$app->user->identity->getId()])
+            ->orderBy($this->getOrderParam())
+            ->all();
+
         return $this->render('list', ['notes' => $notes]);
     }
 
-    public function actionCreate()
+    public function actionCreate($pad)
     {
         $note = new Note();
-        # to make value in dropdown selected, strange yii2 behavior
-        $note->pad_id = Yii::$app->request->get('pad');
+        $note->pad_id = $pad;
 
         if ($note->load(Yii::$app->request->post()) && $note->validate()) {
-            Yii::$app->user->identity->link('notes', $note);
+            /** @var User $user */
+            $user = Yii::$app->user->identity;
+            $user->link('notes', $note);
             Yii::$app->session->setFlash(
                 'success', 'Note is successfully created.'
             );
@@ -75,12 +80,14 @@ class NoteController extends BaseController
         ]);
     }
 
-    public function actionEdit()
+    public function actionEdit($id)
     {
-        $note = $this->getNote(Yii::$app->request->get('id'));
+        $note = $this->getNote($id);
 
         if ($note->load(Yii::$app->request->post()) && $note->validate()) {
-            Yii::$app->user->identity->link('notes', $note);
+            /** @var User $user */
+            $user = Yii::$app->user->identity;
+            $user->link('notes', $note);
             Yii::$app->session->setFlash(
                 'success', 'Note is successfully updated.'
             );
@@ -91,18 +98,18 @@ class NoteController extends BaseController
         ]);
     }
 
-    public function actionView()
+    public function actionView($id)
     {
-        $note = $this->getNote(Yii::$app->request->get('id'));
+        $note = $this->getNote($id);
 
         return $this->render('view', [
             'note' => $note,
         ]);
     }
 
-    public function actionDelete()
+    public function actionDelete($id)
     {
-        $note = $this->getNote(Yii::$app->request->get('id'));
+        $note = $this->getNote($id);
 
         if (Yii::$app->request->getIsPost()) {
             $note->delete();
@@ -119,12 +126,16 @@ class NoteController extends BaseController
     /**
      * Get note or raise 404
      *
-     * @return app\models\Note
+     * @param integer $id note id
+     * @return Note
+     * @throws \yii\web\HttpException
      */
     private function getNote($id)
     {
-        $user = Yii::$app->user->identity;
-        $note = $user->getNotes()->where(['id' => $id])->one();
+        $note = Note::findOne([
+            'id' => $id,
+            'user_id' => Yii::$app->user->identity->getId(),
+        ]);
         if (!$note) {
             throw new \yii\web\HttpException(404, 'Not Found');
         }

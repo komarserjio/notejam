@@ -12,10 +12,10 @@ $this->title = 'All notes(' . count($notes) . ')';
     </tr>
     <?php foreach($notes as $note): ?>
         <tr>
-          <td><a href="<?= Url::toRoute(['note/view', 'id' => $note->id]) ?>"><?= $note->name; ?></a></td>
+          <td><a href="<?= Url::toRoute(['note/view', 'id' => $note->id]) ?>"><?= Html::encode($note->name); ?></a></td>
           <td class="pad">
             <?php if ($note->pad): ?>
-                <a href="<?= Url::toRoute(['pad/view', 'id' => $note->pad->id]) ?>"><?= $note->pad->name; ?></a>
+                <a href="<?= Url::toRoute(['pad/view', 'id' => $note->pad->id]) ?>"><?= Html::encode($note->pad->name); ?></a>
             <?php else: ?>
                 No pad
             <?php endif; ?>

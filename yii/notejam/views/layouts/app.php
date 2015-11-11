@@ -1,4 +1,5 @@
 <?php
+use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 
@@ -9,7 +10,7 @@ use yii\helpers\Url;
               <?php if (Yii::$app->user->identity->pads): ?>
                   <ul>
                     <?php foreach(Yii::$app->user->identity->pads as $pad): ?>
-                        <li><a href="<?= Url::toRoute(['pad/view', 'id' => $pad->id])?>"><?= $pad->name; ?></a></li>
+                        <li><a href="<?= Url::toRoute(['pad/view', 'id' => $pad->id])?>"><?= Html::encode($pad->name) ?></a></li>
                     <?php endforeach; ?>
                   </ul>
               <?php else: ?>

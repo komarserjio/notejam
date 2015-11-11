@@ -45,7 +45,7 @@ AppAsset::register($this);
         <?php if (Yii::$app->user->isGuest): ?>
             <a href="<?= Url::toRoute('user/signin') ?>">Sign in</a>&nbsp;&nbsp;&nbsp;<a href="<?= Url::toRoute('user/signup') ?>">Sign up</a>
         <?php else: ?>
-            <?= Yii::$app->user->identity->email ?>:&nbsp; <a href="<?= Url::toRoute('user/settings') ?>">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="<?= Url::toRoute('user/signout') ?>">Sign out</a>
+            <?= Html::encode(Yii::$app->user->identity->email) ?>:&nbsp; <a href="<?= Url::toRoute('user/settings') ?>">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="<?= Url::toRoute('user/signout') ?>">Sign out</a>
         <?php endif; ?>
       </div>
     </div>

@@ -3,11 +3,12 @@ namespace app\models;
 
 use app\models\User;
 use Yii;
+use yii\base\Model;
 
 /**
  * Signup form
  */
-class ChangePassword extends \yii\base\Model
+class ChangePassword extends Model
 {
     public $currentPassword;
     public $password;
@@ -24,13 +25,14 @@ class ChangePassword extends \yii\base\Model
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
 
-            ['passwordConfirmation', 'compare', 'compareAttribute'=>'password', 'message'=>"Passwords don't match"],
+            ['passwordConfirmation', 'compare', 'compareAttribute' => 'password', 'message' => "Passwords don't match"],
         ];
     }
 
     /**
-     * Signs user up.
+     * Signs user up
      *
+     * @param User $user
      * @return User|null the saved model or null if saving fails
      */
     public function changePassword($user)
@@ -39,12 +41,14 @@ class ChangePassword extends \yii\base\Model
             if ($user->validatePassword($this->currentPassword)) {
                 $user->setPassword($this->password);
                 $user->generateAuthKey();
-                $user->save();
-                return $user;
+                if ($user->save()) {
+                    return $user;
+                }
+            } else {
+                $this->addError(
+                    'currentPassword', 'Current password is incorrect'
+                );
             }
-            $this->addError(
-                'currentPassword', 'Current password is incorrect'
-            );
         }
 
         return null;
