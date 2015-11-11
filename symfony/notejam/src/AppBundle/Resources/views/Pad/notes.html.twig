@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ pad.name }} ({{ notes|length}} notes){% endblock %}
+{% block page_title %}<span>{{ pad.name }} ({{ notes|length}})</span>{% endblock %}
+
+{% block body %}
+{% if notes|length %}
+  <table class="notes">
+    <tr>
+      <th class="note">Note <a href="{{ path('pad_notes', {'id': pad.id})}}?order=-name" class="sort_arrow" >&uarr;</a><a href="{{ path('pad_notes', {'id': pad.id})}}?order=name" class="sort_arrow" >&darr;</a></th>
+      <th>Pad</th>
+      <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+    </tr>
+    {% for note in notes %}
+    <tr>
+      <td><a href="{{ path('note_view', {'id': note.id})  }}">{{ note.name }}</a></td>
+      <td class="pad">
+        {% if note.pad %}
+          <a href="#">{{ note.pad }}</a>
+        {% else %}
+          No pad
+        {% endif %}
+      </td>
+      <td class="hidden-text date">{{ note.getUpdatedAt }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p class="empty">Create first note in the pad.</p>
+{% endif %}
+
+<a href="{{ path('note_create') }}?pad={{ pad.id }}" class="button">New note</a>&nbsp;
+<a href="{{ path('pad_edit', {'id': pad.id})  }}">Pad settings</a>
+{% endblock %}
+

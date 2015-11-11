@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ pad.name }}{% endblock %}
+{% block page_title %}<span>{{ pad.name }}</span>{% endblock %}
+
+{% block body %}
+  <p>Are you sure you want to delete {{ pad.name }} and all related notes?</p>
+  <form method="POST">
+    <button type="submit" class="red">Yes, delete I want to delete it</button>&nbsp;
+    <a href="{{ path('pad_edit', {'id': pad.id})  }}">Cancel</a>
+  </form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'user.html.twig' %}
+
+{% block title %}Sign Up{% endblock %}
+{% block page_title %}<span>Sign Up</span>{% endblock %}
+
+{% block body %}
+  {{ form_start(form, {'attr': {'class': 'offset-by-six sign-in'}}) }}
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email) }}
+    {{ form_errors(form.email) }}
+
+    {{ form_label(form.password.password) }}
+    {{ form_widget(form.password.password) }}
+    {{ form_errors(form.password.password , {'attr': {'class': 'errorlist'}}) }}
+
+    {{ form_label(form.password.confirm) }}
+    {{ form_widget(form.password.confirm) }}
+    {{ form_errors(form.password.confirm) }}
+
+    <button type="submit" id="user_save" name="user[save]">Sign up</button>
+  {{ form_end(form) }}
+{% endblock %}
+

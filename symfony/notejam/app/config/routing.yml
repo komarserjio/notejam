@@ -1,7 +1,7 @@
-notejam_note:
-    resource: "@NotejamNoteBundle/Resources/config/routing.yml"
-    prefix:   /
+app:
+    resource: "@AppBundle/Controller"
+    type: annotation
+    prefix: /
 
-notejam_user:
-    resource: "@NotejamUserBundle/Resources/config/routing.yml"
-    prefix:   /
+logout:
+    path: /signout

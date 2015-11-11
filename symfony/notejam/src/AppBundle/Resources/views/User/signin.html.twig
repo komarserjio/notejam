@@ -1,0 +1,22 @@
+{% extends 'user.html.twig' %}
+
+{% block title %}Sign In{% endblock %}
+{% block page_title %}<span>Sign In</span>{% endblock %}
+
+{% block body %}
+  {{ form_start(form, {'attr': {'class': 'offset-by-six sign-in'}}) }}
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email) }}
+    {{ form_errors(form.email) }}
+
+    {{ form_label(form.password) }}
+    {{ form_widget(form.password) }}
+    {{ form_errors(form.password) }}
+
+    {{ form_widget(form.save) }} or <a href="{{ path('user_signup') }}">Sign up</a>
+    <hr />
+    <a class="small-red" href="{{ path('user_forgot_password') }}">Forgot Password?</a>
+  {{ form_end(form) }}
+{% endblock %}
+
+

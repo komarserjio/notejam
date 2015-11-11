@@ -1,0 +1,15 @@
+services:
+    app.repository.note:
+        class: AppBundle\Repository\NoteRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: "getRepository"
+        arguments:
+            - "AppBundle:Note"
+
+    app.repository.pad:
+        class: AppBundle\Repository\PadRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: "getRepository"
+        arguments:
+            - "AppBundle:Pad"
+

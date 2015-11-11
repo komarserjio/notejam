@@ -19,7 +19,7 @@ doctrine:
 framework:
     test: ~
     session:
-        storage_id: session.storage.filesystem
+        storage_id: session.storage.mock_file
 
 liip_functional_test: ~
 
@@ -29,3 +29,5 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+liip_functional_test: ~
