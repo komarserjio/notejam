@@ -34,9 +34,9 @@
     <div class="sixteen columns">
       <div class="sign-in-out-block">
         {% if app.user %}
-        {{ app.user.email }}:&nbsp; <a href="{{ path('settings') }}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{{ path('signout') }}">Sign out</a>
+        {{ app.user.email }}:&nbsp; <a href="{{ path('user_settings') }}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{{ logout_path('main') }}">Sign out</a>
         {% else %}
-        <a href="{{ path('signup')}}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="#">Sign in</a>
+        <a href="{{ path('user_signup')}}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{{ path('user_signin')}}">Sign in</a>
         {% endif %}
       </div>
     </div>
@@ -49,7 +49,7 @@
       </h1>
     </div>
     {% block pads %}
-      {{ render(controller('NotejamNoteBundle:Pad:list')) }}
+      {{ render(controller('AppBundle:Pad:list')) }}
     {% endblock %}
     <div class="{% block content_class %}thirteen columns content-area{% endblock %}">
       <div class="alert-area">

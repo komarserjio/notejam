@@ -1,6 +1,6 @@
 security:
     encoders:
-        Notejam\UserBundle\Entity\User:
+        AppBundle\Entity\User:
             algorithm: sha512
             encode-as-base64: true
             iterations: 10
@@ -10,11 +10,11 @@ security:
 
     providers:
         user_db:
-            entity: { class: Notejam\UserBundle\Entity\User, property: email }
+            entity: { class: AppBundle\Entity\User, property: email }
 
     firewalls:
         main:
-            pattern: /.*
+            pattern: ^/*
             provider: user_db
             form_login:
                 login_path: /signin

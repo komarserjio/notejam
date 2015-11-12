@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ note.name }}{% endblock %}
+{% block page_title %}<span>{{ note.name }}</span>{% endblock %}
+
+{% block body %}
+  {{ form_start(form, {'attr': {'class': 'note'} }) }}
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name) }}
+    {{ form_errors(form.name) }}
+
+    {{ form_label(form.text) }}
+    {{ form_widget(form.text) }}
+    {{ form_errors(form.text) }}
+
+    {{ form_label(form.pad) }}
+    {{ form_widget(form.pad) }}
+    {{ form_errors(form.pad) }}
+
+    <button type="submit">Save</button>
+  {{ form_end(form) }}
+{% endblock %}
+
+

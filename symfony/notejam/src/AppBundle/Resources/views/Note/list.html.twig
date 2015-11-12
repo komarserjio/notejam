@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All notes ({{ notes|length }}){% endblock %}
+{% block page_title %}<span>All notes ({{ notes|length }})</span>{% endblock %}
+
+{% block body %}
+{% if notes|length %}
+  <table class="notes">
+    <tr>
+      <th class="note">Note <a href="{{ path ('homepage') }}?order=-name" class="sort_arrow" >&uarr;</a><a href="{{ path ('homepage') }}?order=name" class="sort_arrow" >&darr;</a></th>
+      <th>Pad</th>
+      <th class="date">Last modified <a href="#" class="sort_arrow" >&uarr;</a><a href="#" class="sort_arrow" >&darr;</a></th>
+    </tr>
+    {% for note in notes %}
+      <tr>
+        <td><a href="{{ path('note_view', {'id': note.id})  }}">{{ note.name }}</a></td>
+        <td class="pad">
+          {% if note.pad %}
+            <a href="{{ path('pad_notes', {'id': note.pad.id})  }}">{{ note.pad }}</a>
+          {% else %}
+            No pad
+          {% endif %}
+        </td>
+        <td class="hidden-text date">{{ note.getUpdatedAt }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p class="empty">Create your first note.</p>
+{% endif %}
+<a href="{{ path('note_create') }}" class="button">New note</a>
+{% endblock %}

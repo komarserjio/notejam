@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ pad.name }}{% endblock %}
+{% block page_title %}<span>{{ pad.name }}</span>{% endblock %}
+
+{% block body %}
+  {{ form_start(form) }}
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name) }}
+    {{ form_errors(form.name) }}
+
+    <button type="submit">Save</button>
+  {{ form_end(form) }}
+  <a class="red" href="{{ path('pad_delete', {'id': pad.id})  }}">Delete pad</a>
+{% endblock %}
