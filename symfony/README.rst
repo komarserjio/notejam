@@ -6,7 +6,7 @@ Notejam application implemented using `Symfony <http://symfony.com>`_ framework.
 
 Symfony version: 2.7
 
-The application is maintained by `@aminemat <https://twitter.com/aminemat>_`.
+The application is maintained by `@aminemat <https://twitter.com/aminemat>`_.
 
 ==========================
 Installation and launching
