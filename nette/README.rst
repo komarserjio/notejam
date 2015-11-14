@@ -45,7 +45,7 @@ Create database schema
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/nette/notejam
-    $ php app/console doctrine:schema:update --force
+    $ php www/index.php orm:schema:up --force
 
 
 ------
@@ -57,7 +57,7 @@ Start built-in php web server:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/nette/notejam/
-    $ php app/console server:run
+    $ php -t `pwd`/www -S 127.0.0.1:8000 `pwd`/www/index.php
 
 Go to http://localhost:8000/ in your browser.
 
