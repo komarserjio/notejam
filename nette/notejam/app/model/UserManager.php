@@ -11,6 +11,7 @@ use Nette\Security\Passwords;
  */
 class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 {
+
 	const
 		TABLE_NAME = 'users',
 		COLUMN_ID = 'id',
@@ -22,15 +23,18 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	/** @var Nette\Database\Context */
 	private $database;
 
-
+	/**
+	 * UserManager constructor.
+	 * @param Nette\Database\Context $database
+	 */
 	public function __construct(Nette\Database\Context $database)
 	{
 		$this->database = $database;
 	}
 
-
 	/**
 	 * Performs an authentication.
+	 * @param array $credentials
 	 * @return Nette\Security\Identity
 	 * @throws Nette\Security\AuthenticationException
 	 */
@@ -60,15 +64,15 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 
 	/**
 	 * Adds new user.
-	 * @param  string
-	 * @param  string
-	 * @return void
+	 * @param string $username
+	 * @param string $password
+	 * @throws DuplicateNameException
 	 */
 	public function add($username, $password)
 	{
 		try {
 			$this->database->table(self::TABLE_NAME)->insert(array(
-				self::COLUMN_NAME => $username,
+				self::COLUMN_NAME          => $username,
 				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
 			));
 		} catch (Nette\Database\UniqueConstraintViolationException $e) {
@@ -79,6 +83,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 }
 
 
-
 class DuplicateNameException extends \Exception
-{}
+{
+
+}
