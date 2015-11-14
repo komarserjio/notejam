@@ -9,7 +9,7 @@ use App\Model\PadManager;
 use Nette\Utils\ArrayHash;
 
 
-class DeletePadFormFactory extends Nette\Object
+class NewPadFormFactory extends Nette\Object
 {
 
 	/** @var PadManager */
@@ -25,15 +25,15 @@ class DeletePadFormFactory extends Nette\Object
 	}
 
 	/**
-	 * @param $id
 	 * @return Form
 	 */
-	public function create($id)
+	public function create()
 	{
 		$form = new Form;
-		$form->addHidden('id', $id);
+		$form->addText('name', 'Name')
+			->setRequired('Name is required');
 
-		$form->addSubmit('submit', 'Yes, I want to delete this pad');
+		$form->addSubmit('submit', 'Save');
 
 		$form->onSuccess[] = array($this, 'formSucceeded');
 		return $form;
@@ -45,8 +45,8 @@ class DeletePadFormFactory extends Nette\Object
 	 */
 	public function formSucceeded(Form $form, $values)
 	{
-		if (!$this->padManager->delete($values->id)) {
-			$form->addError("Failed to delete pad");
+		if (!$this->padManager->add($values->name)) {
+			$form->addError("Failed to create new pad");
 		}
 	}
 

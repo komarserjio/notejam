@@ -58,10 +58,11 @@ class PadManager extends Nette\Object
 	/**
 	 * Adds new pad.
 	 * @param string $name
+	 * @return bool|int|Nette\Database\Table\IRow
 	 */
 	public function add($name)
 	{
-		$this->database->table(self::TABLE_NAME)->insert([
+		return $this->database->table(self::TABLE_NAME)->insert([
 			self::COLUMN_NAME => $name,
 			self::COLUMN_USER => $this->user->getId(),
 		]);
@@ -71,10 +72,11 @@ class PadManager extends Nette\Object
 	 * Updates pad with given id.
 	 * @param int    $id
 	 * @param string $name
+	 * @return int
 	 */
 	public function update($id, $name)
 	{
-		$this->database->table(self::TABLE_NAME)->where([
+		return $this->database->table(self::TABLE_NAME)->where([
 			self::COLUMN_ID   => $id,
 			self::COLUMN_USER => $this->user->getId(),
 		])->update([
@@ -85,10 +87,11 @@ class PadManager extends Nette\Object
 	/**
 	 * Deletes pad with given id.
 	 * @param int $id
+	 * @return int
 	 */
 	public function delete($id)
 	{
-		$this->database->table(self::TABLE_NAME)->where([
+		return $this->database->table(self::TABLE_NAME)->where([
 			self::COLUMN_ID   => $id,
 			self::COLUMN_USER => $this->user->getId(),
 		])->delete();

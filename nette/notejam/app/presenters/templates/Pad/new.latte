@@ -1,17 +1,18 @@
-{block title}{$pad->name}{/block}
-
+{block title}New pad{/block}
 {block content}
+	<div class="sixteen columns">
+		<h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam:</span></a> <span>New pad</span>
+		</h1>
+	</div>
 	{control pads}
 	<div class="thirteen columns content-area">
-		{form editPadForm}
+		{form newPadForm 'class' => 'pad'}
 			<div class="alert-area" n:if="$form->hasErrors()">
 				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
 			</div>
-			{label name /}
+			{label name}
 			{input name}
 			{input submit}
-
-			<div><a n:href="Pad:delete $pad->id" class="red">Delete pad</a></div>
 		{/form}
 	</div>
 {/block}

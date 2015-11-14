@@ -1,44 +1,15 @@
+{block title}All notes ({count($notes)}){/block}
 {block content}
 	<div class="sixteen columns">
-		<div class="sign-in-out-block">
-			{$user->identity->data['email']}:&nbsp; <a n:href="Account:settings">Account
-				settings</a>&nbsp;&nbsp;&nbsp;<a n:href="Sign:out">Sign out</a>
-		</div>
-	</div>
-	<div class="sixteen columns">
 		<h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam: </span></a>
-			<span>All notes (8)</span></h1>
+			<span>All notes ({count($notes)})</span></h1>
 	</div>
-	<div class="three columns">
-		<h4 id="logo">My pads</h4>
-		<nav>
-			<ul n:if="count($pads) > 0">
-				<li n:foreach="$pads as $pad"><a n:href="Pad: $pad->id">{$pad->name}</a></li>
-			</ul>
-			<p n:if="count($pads) <= 0" class="empty">No pads yet</p>
-			<hr/>
-			<a href="Pad:new">New pad</a>
-		</nav>
-	</div>
+	{control pads}
 	<div class="thirteen columns content-area">
 		<!--<div class="alert-area">-->
 		<!--<div class="alert alert-success">Note is sucessfully saved</div>-->
 		<!--</div>-->
-		<table class="notes">
-			<tr>
-				<th class="note">Note <a href="#" class="sort_arrow">&uarr;</a><a href="#" class="sort_arrow">&darr;</a>
-				</th>
-				<th>Pad</th>
-				<th class="date">Last modified <a href="#" class="sort_arrow">&uarr;</a><a href="#"
-				                                                                           class="sort_arrow">&darr;</a>
-				</th>
-			</tr>
-			<tr n:foreach="$notes as $note">
-				<td><a href="Note: $note->id">{$note->text}</a></td>
-				<td class="pad">{$note->pad ? $note->pad->id : "No pad"}</td>
-				<td class="hidden-text date">{$note->updated_at|date:'d. M. Y'}</td>
-			</tr>
-		</table>
+		{control notes}
 		<a href="#" class="button">New note</a>
 	</div>
 {/block}

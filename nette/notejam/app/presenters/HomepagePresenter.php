@@ -2,31 +2,42 @@
 
 namespace App\Presenters;
 
+use App\Components\Notes\INotesFactory;
 use App\Model\NoteManager;
-use App\Model\PadManager;
 use Nette;
 
 
 class HomepagePresenter extends BasePresenter
 {
 
-	/** @var PadManager @inject */
-	public $padManager;
-
 	/** @var NoteManager @inject */
 	public $noteManager;
+
+	/** @var INotesFactory @inject */
+	public $notesFactory;
+
+	/** @var object[] */
+	protected $notes;
+
+	/**
+	 * @return \App\Components\Notes\Notes
+	 */
+	protected function createComponentNotes()
+	{
+		return $this->notesFactory->create($this->notes);
+	}
 
 	public function actionDefault()
 	{
 		if (!$this->user->isLoggedIn()) {
 			$this->redirect('Sign:in');
 		}
+		$this->notes = $this->noteManager->findAll();
 	}
 
 	public function renderDefault()
 	{
-		$this->template->pads = $this->padManager->findAll();
-		$this->template->notes = $this->noteManager->findAll();
+		$this->template->notes = $this->notes;
 	}
 
 }

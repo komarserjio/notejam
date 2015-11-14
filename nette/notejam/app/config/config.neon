@@ -23,11 +23,15 @@ services:
 	- App\Model\UserManager
 	- App\Model\NoteManager
 	- App\Model\PadManager
+	- App\Components\Notes\INotesFactory
+	- App\Components\Pads\IPadsFactory
+	- App\Components\UserBar\IUserBarFactory
 	- App\Forms\Account\AccountSettingsFormFactory
 	- App\Forms\Note\DeleteNoteFormFactory
 	- App\Forms\Note\EditNoteFormFactory
 	- App\Forms\Pad\DeletePadFormFactory
 	- App\Forms\Pad\EditPadFormFactory
+	- App\Forms\Pad\NewPadFormFactory
 	- App\Forms\Sign\SignInFormFactory
 	- App\Forms\Sign\SignUpFormFactory
 	router: App\RouterFactory::createRouter

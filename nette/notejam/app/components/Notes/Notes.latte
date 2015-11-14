@@ -1,0 +1,14 @@
+<table class="notes">
+	<tr>
+		<th class="note">Note <a href="#" class="sort_arrow">&uarr;</a><a href="#" class="sort_arrow">&darr;</a>
+		</th>
+		<th>Pad</th>
+		<th class="date">Last modified <a href="#" class="sort_arrow">&uarr;</a><a href="#" class="sort_arrow">&darr;</a>
+		</th>
+	</tr>
+	<tr n:foreach="$notes as $note">
+		<td><a n:href="Note: $note->id">{$note->text}</a></td>
+		<td class="pad">{$note->pad ? $note->pad->id : "No pad"}</td>
+		<td class="hidden-text date">{$note->updated_at|date:'d. M. Y'}</td>
+	</tr>
+</table>

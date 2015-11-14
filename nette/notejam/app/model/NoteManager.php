@@ -13,7 +13,7 @@ class NoteManager extends Nette\Object
 {
 
 	const
-		TABLE_NAME = 'users',
+		TABLE_NAME = 'notes',
 		COLUMN_ID = 'id',
 		COLUMN_NAME = 'name',
 		COLUMN_TEXT = 'text',

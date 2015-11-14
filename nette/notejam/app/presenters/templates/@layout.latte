@@ -33,7 +33,12 @@
 </head>
 <body>
 <div class="container">
+	{if $user->isLoggedIn()}
+		{control userBar}
+	{/if}
+
 	{include content}
+
 	<hr class="footer"/>
 	<div class="footer">
 		<div>Notejam: <strong>Django</strong> application</div>

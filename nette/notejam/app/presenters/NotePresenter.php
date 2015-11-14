@@ -7,7 +7,12 @@ use Nette;
 use App\Model;
 
 
-class NotesPresenter extends BasePresenter
+class NotePresenter extends BasePresenter
 {
+
+	public function actionNew($pad = null)
+	{
+
+	}
 
 }
