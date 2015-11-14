@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9becf04-6ba4-49d1-9167-f82883cbdd47" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/presenters/templates/Note/delete.latte" afterPath="$PROJECT_DIR$/app/presenters/templates/Note/delete.latte" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/presenters/templates/Account/settings.latte" afterPath="$PROJECT_DIR$/app/presenters/templates/Account/settings.latte" />
     </list>
     <ignored path="notejam.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,11 +73,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="delete.latte" pinned="false" current-in-tab="true">
+      <file leaf-file-name="delete.latte" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/presenters/templates/Note/delete.latte">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42222223">
+            <state vertical-scroll-proportion="-9.851851">
               <caret line="14" column="61" selection-start-line="14" selection-start-column="61" selection-end-line="14" selection-end-column="61" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.latte" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/presenters/templates/Account/settings.latte">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.06031746">
+              <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -128,7 +138,6 @@
         <option value="$PROJECT_DIR$/app/forms/SignInFormFactory.php" />
         <option value="$PROJECT_DIR$/app/forms/SignUpFormFactory.php" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Sign/up.latte" />
-        <option value="$PROJECT_DIR$/app/presenters/templates/Account/settings.latte" />
         <option value="$PROJECT_DIR$/app/forms/AccountSettingsFormFactory.php" />
         <option value="$PROJECT_DIR$/app/model/UserManager.php" />
         <option value="$PROJECT_DIR$/app/forms/EditNoteFormFactory.php" />
@@ -172,6 +181,7 @@
         <option value="$PROJECT_DIR$/app/presenters/templates/Pad/default.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Note/new.latte" />
         <option value="$PROJECT_DIR$/app/presenters/templates/Note/delete.latte" />
+        <option value="$PROJECT_DIR$/app/presenters/templates/Account/settings.latte" />
       </list>
     </option>
   </component>
@@ -879,14 +889,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Account/settings.latte">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.3333335">
-          <caret line="9" column="52" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/model/UserManager.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.259259">
@@ -1310,8 +1312,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/templates/Note/delete.latte">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42222223">
+        <state vertical-scroll-proportion="-9.851851">
           <caret line="14" column="61" selection-start-line="14" selection-start-column="61" selection-end-line="14" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/templates/Account/settings.latte">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06031746">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
           <folding />
         </state>
       </provider>
