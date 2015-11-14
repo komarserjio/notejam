@@ -122,8 +122,8 @@ class PadPresenter extends BasePresenter
 		}
 
 		$control = $this->padsControlFactory->create();
-		$control->onSuccess[] = function () {
-			$this->redirect('Note:');
+		$control->onSuccess[] = function ($control, Pad $createdPad) {
+			$this->redirect('Pad:detail', ['id' => $createdPad->getId()]);
 		};
 
 		return $control;

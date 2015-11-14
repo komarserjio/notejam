@@ -86,7 +86,7 @@ class PadsControl extends Nette\Application\UI\Control
 		$pad->setName($values->name);
 		$this->em->flush($pad);
 
-		$this->onSuccess($this);
+		$this->onSuccess($this, $pad);
 	}
 
 }
