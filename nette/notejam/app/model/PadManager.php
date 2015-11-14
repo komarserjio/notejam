@@ -9,7 +9,7 @@ use Nette;
 /**
  * Pads management.
  */
-class PadManager
+class PadManager extends Nette\Object
 {
 
 	const

@@ -9,7 +9,7 @@ use Nette;
 /**
  * Notes management.
  */
-class NoteManager
+class NoteManager extends Nette\Object
 {
 
 	const

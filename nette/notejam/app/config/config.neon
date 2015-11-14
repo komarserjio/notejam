@@ -23,5 +23,6 @@ services:
 	- App\Model\UserManager
 	- App\Model\NoteManager
 	- App\Model\PadManager
-	- App\Forms\SignFormFactory
+	- App\Forms\SignInFormFactory
+	- App\Forms\SignUpFormFactory
 	router: App\RouterFactory::createRouter

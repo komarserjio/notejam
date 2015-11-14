@@ -1,14 +1,13 @@
 <?php
 
 
-namespace App\Aresenters;
+namespace App\Presenters;
 
-/**
- * @package   App\Aresenters
- * @author    Filip Klimes <filipklimes@startupjobs.cz>
- * @copyright 2015, Startupedia s.r.o.
- */
-class NotesPresenter
+use Nette;
+use App\Model;
+
+
+class NotesPresenter extends BasePresenter
 {
 
 }
