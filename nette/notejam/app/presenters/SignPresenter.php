@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use Nette;
+use App\Forms\Sign\ForgottenPasswordFormFactory;
 use App\Forms\Sign\SignInFormFactory;
 use App\Forms\Sign\SignUpFormFactory;
 
@@ -10,11 +11,29 @@ use App\Forms\Sign\SignUpFormFactory;
 class SignPresenter extends BasePresenter
 {
 
+	/** @var ForgottenPasswordFormFactory @inject */
+	public $forgottenPasswordFormFactory;
+
 	/** @var SignInFormFactory @inject */
 	public $signInFormFactory;
 
 	/** @var SignUpFormFactory @inject */
 	public $signUpFormFactory;
+
+
+	/**
+	 * Sign-in form factory.
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentForgottenPasswordForm()
+	{
+		$form = $this->forgottenPasswordFormFactory->create();
+		$form->onSuccess[] = function ($form) {
+			$this->flashMessage('Email with new password sent', 'success');
+			$form->getPresenter()->redirect('this');
+		};
+		return $form;
+	}
 
 
 	/**

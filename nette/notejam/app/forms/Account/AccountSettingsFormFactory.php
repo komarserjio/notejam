@@ -59,11 +59,10 @@ class AccountSettingsFormFactory extends Nette\Object
 	 */
 	public function formSucceeded(Form $form, $values)
 	{
-		try {
-			$this->userManager->setNewPassword($this->user->getId(), $values->current, $values->new);
-		} catch (CurrentPasswordMismatch $e) {
-			$form->addError($e->getMessage());
+		if (!$this->userManager->checkPassword($this->user->getId(), $values->current)) {
+			$form->addError("Invalid current password");
 		}
+		$this->userManager->setNewPassword($this->user->getId(), $values->new);
 	}
 
 }

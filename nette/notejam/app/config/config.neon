@@ -33,6 +33,7 @@ services:
 	- App\Forms\Pad\DeletePadFormFactory
 	- App\Forms\Pad\EditPadFormFactory
 	- App\Forms\Pad\NewPadFormFactory
+	- App\Forms\Sign\ForgottenPasswordFormFactory
 	- App\Forms\Sign\SignInFormFactory
 	- App\Forms\Sign\SignUpFormFactory
 	router: App\RouterFactory::createRouter
