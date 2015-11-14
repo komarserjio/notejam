@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Presenters;
+namespace Notejam\Presenters;
 
 use Nette;
 

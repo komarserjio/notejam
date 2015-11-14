@@ -2,6 +2,7 @@
 # https://nette.org/security-warning
 
 parameters:
+	srcDir: %appDir%/../src
 
 
 php:
@@ -11,12 +12,12 @@ php:
 application:
 	errorPresenter: Error
 	mapping:
-		*: App\*Module\Presenters\*Presenter
+		*: Notejam\*Module\Presenters\*Presenter
 
 
 session:
 	expiration: 14 days
 
 
-services:
-	router: App\RouterFactory::createRouter
+includes:
+	- services.neon
