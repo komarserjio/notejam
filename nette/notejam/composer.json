@@ -8,7 +8,6 @@
 		"nette/application": "~2.3.6",
 		"nette/bootstrap": "~2.3.0",
 		"nette/caching": "~2.3.0",
-		"nette/database": "~2.3.0",
 		"nette/di": "~2.3.0",
 		"nette/finder": "~2.3.0",
 		"nette/forms": "~2.3.0",
@@ -19,7 +18,15 @@
 		"nette/security": "~2.3.0",
 		"nette/utils": "~2.3.0",
 		"latte/latte": "~2.3.0",
-		"tracy/tracy": "~2.3.0"
+		"tracy/tracy": "~2.3.0",
+		"nextras/static-router": "^1.0",
+		"kdyby/doctrine": "^3.0"
+	},
+	"autoload": {
+		"classmap": ["app/"],
+		"psr-4": {
+			"Notejam\\": "src/Notejam"
+		}
 	},
 	"require-dev": {
 		"nette/tester": "~1.4"

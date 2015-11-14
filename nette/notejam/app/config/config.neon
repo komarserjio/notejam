@@ -9,6 +9,13 @@ php:
 	date.timezone: Europe/Prague
 
 
+extensions:
+    console: Kdyby\Console\DI\ConsoleExtension
+    events: Kdyby\Events\DI\EventsExtension
+    annotations: Kdyby\Annotations\DI\AnnotationsExtension
+    doctrine: Kdyby\Doctrine\DI\OrmExtension
+
+
 application:
 	errorPresenter: Error
 	mapping:
@@ -17,6 +24,13 @@ application:
 
 session:
 	expiration: 14 days
+
+
+doctrine:
+    driver: pdo_sqlite
+    path: %appDir%/../notejam.db
+    metadata:
+        Notejam: %srcDir%/Notejam
 
 
 includes:
