@@ -1,0 +1,7 @@
+parameters:
+
+
+database:
+	dsn: 'sqlite:%appDir%/../notejam.db'
+	options:
+		lazy: yes
