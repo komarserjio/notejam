@@ -6,7 +6,9 @@
 		</h1>
 	</div>
 	{control pads}
-	<div class="thirteen columns content-area"><p>Are you sure you want to delete the pad?</p>
+	<div class="thirteen columns content-area">
+		{control flashes}
+		<p>Are you sure you want to delete the pad?</p>
 		{form deletePadForm}
 			<div class="alert-area" n:if="$form->hasErrors()">
 				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>

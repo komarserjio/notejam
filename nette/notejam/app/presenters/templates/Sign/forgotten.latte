@@ -11,7 +11,7 @@
 		</h1>
 	</div>
 	<div class="sixteen columns content-area">
-
+		{control flashes}
 		{form forgottenPasswordForm 'class' => 'offset-by-six sign-in'}
 			<div class="alert-area" n:if="$form->hasErrors()">
 				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>

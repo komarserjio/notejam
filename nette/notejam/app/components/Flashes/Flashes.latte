@@ -1,0 +1,5 @@
+<div class="alert-area">
+	{foreach $flashes as $flash}
+		<div n:if="$flash" class="alert alert-{$flash[0]->type}">{$flash[0]->message}</div>
+	{/foreach}
+</div>

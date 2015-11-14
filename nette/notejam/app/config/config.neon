@@ -23,6 +23,7 @@ services:
 	- App\Model\UserManager
 	- App\Model\NoteManager
 	- App\Model\PadManager
+	- App\Components\Flashes\IFlashesFactory
 	- App\Components\Notes\INotesFactory
 	- App\Components\Pads\IPadsFactory
 	- App\Components\UserBar\IUserBarFactory

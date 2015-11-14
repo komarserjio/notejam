@@ -7,8 +7,8 @@
 	</div>
 	{control pads}
 	<div class="thirteen columns content-area">
+		{control flashes}
 		<p class="hidden-text">Last edited {$note->updated_at|date:'d. M. Y'}</p>
-
 		<div class="note"><p>{$note->text}</p>
 		</div>
 		<a n:href="Note:edit $note->id" class="button">Edit</a>
