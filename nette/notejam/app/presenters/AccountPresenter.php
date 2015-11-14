@@ -4,7 +4,7 @@
 namespace App\Presenters;
 
 use Nette;
-use App\Forms\AccountSettingsFormFactory;
+use App\Forms\Account\AccountSettingsFormFactory;
 
 
 class AccountPresenter extends BasePresenter

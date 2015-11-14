@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Forms;
+namespace App\Forms\Sign;
 
 use App\Model\DuplicateNameException;
 use App\Model\UserManager;

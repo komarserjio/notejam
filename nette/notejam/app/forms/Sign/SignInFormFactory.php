@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Forms;
+namespace App\Forms\Sign;
 
 use Nette;
 use Nette\Application\UI\Form;

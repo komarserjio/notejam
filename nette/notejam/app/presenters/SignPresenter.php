@@ -3,8 +3,8 @@
 namespace App\Presenters;
 
 use Nette;
-use App\Forms\SignInFormFactory;
-use App\Forms\SignUpFormFactory;
+use App\Forms\Sign\SignInFormFactory;
+use App\Forms\Sign\SignUpFormFactory;
 
 
 class SignPresenter extends BasePresenter

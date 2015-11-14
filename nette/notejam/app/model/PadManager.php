@@ -37,12 +37,22 @@ class PadManager extends Nette\Object
 	}
 
 	/**
+	 * Finds pad with given id.
+	 * @param int $id
+	 * @return Nette\Database\Table\IRow|bool The pad or FALSE if not found.
+	 */
+	public function find($id)
+	{
+		return $this->database->table(self::TABLE_NAME)->get($id);
+	}
+
+	/**
 	 * Finds all pads.
 	 * @return Nette\Database\Table\Selection
 	 */
 	public function findAll()
 	{
-		return $this->database->table(self::TABLE_NAME);
+		return $this->database->table(self::TABLE_NAME)->where(self::COLUMN_USER, $this->user->getId());
 	}
 
 	/**
@@ -64,7 +74,10 @@ class PadManager extends Nette\Object
 	 */
 	public function update($id, $name)
 	{
-		$this->database->table(self::TABLE_NAME)->where(self::COLUMN_ID, $id)->update([
+		$this->database->table(self::TABLE_NAME)->where([
+			self::COLUMN_ID   => $id,
+			self::COLUMN_USER => $this->user->getId(),
+		])->update([
 			self::COLUMN_NAME => $name,
 		]);
 	}
@@ -75,7 +88,10 @@ class PadManager extends Nette\Object
 	 */
 	public function delete($id)
 	{
-		$this->database->table(self::TABLE_NAME)->where(self::COLUMN_ID, $id)->delete();
+		$this->database->table(self::TABLE_NAME)->where([
+			self::COLUMN_ID   => $id,
+			self::COLUMN_USER => $this->user->getId(),
+		])->delete();
 	}
 
 }

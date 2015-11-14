@@ -23,7 +23,11 @@ services:
 	- App\Model\UserManager
 	- App\Model\NoteManager
 	- App\Model\PadManager
-	- App\Forms\AccountSettingsFormFactory
-	- App\Forms\SignInFormFactory
-	- App\Forms\SignUpFormFactory
+	- App\Forms\Account\AccountSettingsFormFactory
+	- App\Forms\Note\DeleteNoteFormFactory
+	- App\Forms\Note\EditNoteFormFactory
+	- App\Forms\Pad\DeletePadFormFactory
+	- App\Forms\Pad\EditPadFormFactory
+	- App\Forms\Sign\SignInFormFactory
+	- App\Forms\Sign\SignUpFormFactory
 	router: App\RouterFactory::createRouter

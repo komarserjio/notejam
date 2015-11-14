@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Forms;
+namespace App\Forms\Account;
 
 use App\Model\CurrentPasswordMismatch;
 use App\Model\UserManager;

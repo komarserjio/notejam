@@ -1,7 +1,8 @@
 {block content}
 	<div class="sixteen columns">
 		<div class="sign-in-out-block">
-			{$user->identity->data['email']}:&nbsp; <a n:href="Account:settings">Account settings</a>&nbsp;&nbsp;&nbsp;<a n:href="Sign:out">Sign out</a>
+			{$user->identity->data['email']}:&nbsp; <a n:href="Account:settings">Account
+				settings</a>&nbsp;&nbsp;&nbsp;<a n:href="Sign:out">Sign out</a>
 		</div>
 	</div>
 	<div class="sixteen columns">
@@ -11,15 +12,12 @@
 	<div class="three columns">
 		<h4 id="logo">My pads</h4>
 		<nav>
-			<ul>
-				<li><a href="#whatAndWhy">Business</a></li>
-				<li><a href="#grid">Personal</a></li>
-				<li><a href="#typography">Sport</a></li>
-				<li><a href="#buttons">Diary</a></li>
-				<li><a href="#forms">Drafts</a></li>
+			<ul n:if="count($pads) > 0">
+				<li n:foreach="$pads as $pad"><a n:href="Pad: $pad->id">{$pad->name}</a></li>
 			</ul>
+			<p n:if="count($pads) <= 0" class="empty">No pads yet</p>
 			<hr/>
-			<a href="#">New pad</a>
+			<a href="Pad:new">New pad</a>
 		</nav>
 	</div>
 	<div class="thirteen columns content-area">
@@ -35,45 +33,10 @@
 				                                                                           class="sort_arrow">&darr;</a>
 				</th>
 			</tr>
-			<tr>
-				<td><a href="#">My sport activites</a></td>
-				<td class="pad">No pad</td>
-				<td class="hidden-text date">Today at 10:51</td>
-			</tr>
-			<tr>
-				<td><a href="#">February reports</a></td>
-				<td class="pad"><a href="#">Pad</a></td>
-				<td class="hidden-text date">Yesterday</td>
-			</tr>
-			<tr>
-				<td><a href="#">Budget plan</a></td>
-				<td class="pad"><a href="#">Pad</a></td>
-				<td class="hidden-text date">2 days ago</td>
-			</tr>
-			<tr>
-				<td><a href="#">Visit Agenda for all customers</a></td>
-				<td class="pad"><a href="#">Pad</a></td>
-				<td class="hidden-text date">02 Feb. 2013</td>
-			</tr>
-			<tr>
-				<td><a href="#">Gifts</a></td>
-				<td class="pad"><a href="#">Pad</a></td>
-				<td class="hidden-text date">29 Jan. 2013</td>
-			</tr>
-			<tr>
-				<td><a href="#">Calendar events</a></td>
-				<td class="pad"><a href="#">Pad</a></td>
-				<td class="hidden-text date">29 Jan. 2013</td>
-			</tr>
-			<tr>
-				<td><a href="#">TV series</a></td>
-				<td class="pad"><a href="#">Pad</a></td>
-				<td class="hidden-text date">01 Dec. 2012</td>
-			</tr>
-			<tr>
-				<td><a href="#">Daily post</a></td>
-				<td class="pad"><a href="#">Pad</a></td>
-				<td class="hidden-text date">28 Nov. 2012</td>
+			<tr n:foreach="$notes as $note">
+				<td><a href="Note: $note->id">{$note->text}</a></td>
+				<td class="pad">{$note->pad ? $note->pad->id : "No pad"}</td>
+				<td class="hidden-text date">{$note->updated_at|date:'d. M. Y'}</td>
 			</tr>
 		</table>
 		<a href="#" class="button">New note</a>

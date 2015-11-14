@@ -2,12 +2,19 @@
 
 namespace App\Presenters;
 
+use App\Model\NoteManager;
+use App\Model\PadManager;
 use Nette;
-use App\Model;
 
 
 class HomepagePresenter extends BasePresenter
 {
+
+	/** @var PadManager @inject */
+	public $padManager;
+
+	/** @var NoteManager @inject */
+	public $noteManager;
 
 	public function actionDefault()
 	{
@@ -18,6 +25,8 @@ class HomepagePresenter extends BasePresenter
 
 	public function renderDefault()
 	{
+		$this->template->pads = $this->padManager->findAll();
+		$this->template->notes = $this->noteManager->findAll();
 	}
 
 }
