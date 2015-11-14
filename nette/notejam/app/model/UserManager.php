@@ -71,18 +71,42 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	{
 		try {
 			$this->database->table(self::TABLE_NAME)->insert(array(
-					self::COLUMN_EMAIL         => $username,
-					self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
+				self::COLUMN_EMAIL         => $username,
+				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
 			));
 		} catch (Nette\Database\UniqueConstraintViolationException $e) {
 			throw new DuplicateNameException;
 		}
 	}
 
+	/**
+	 * Changes password of the user with given id. You must provide the current one.
+	 * @param int    $id
+	 * @param string $current The current password.
+	 * @param string $new     The new password.
+	 * @throws CurrentPasswordMismatch
+	 */
+	public function setNewPassword($id, $current, $new)
+	{
+		$user = $this->database->table(self::TABLE_NAME)->get($id);
+		if (!$user || !Passwords::verify($current, $user->{self::COLUMN_PASSWORD_HASH})) {
+			throw new CurrentPasswordMismatch("Invalid old password");
+		}
+		$this->database->table(self::TABLE_NAME)->where(self::COLUMN_ID, $id)->update([
+			self::COLUMN_PASSWORD_HASH => Passwords::hash($new)
+		]);
+	}
+
 }
 
 
 class DuplicateNameException extends \Exception
+{
+
+}
+
+
+class CurrentPasswordMismatch extends \Exception
 {
 
 }

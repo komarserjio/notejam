@@ -3,12 +3,67 @@
 
 namespace App\Forms;
 
-/**
- * @package   App\Forms
- * @author    Filip Klimes <filipklimes@startupjobs.cz>
- * @copyright 2015, Startupedia s.r.o.
- */
-class AccountSettingsFormFactory
+use App\Model\CurrentPasswordMismatch;
+use App\Model\UserManager;
+use Nette;
+use Nette\Application\UI\Form;
+use Nette\Utils\ArrayHash;
+
+
+class AccountSettingsFormFactory extends Nette\Object
 {
+
+	/** @var UserManager */
+	private $userManager;
+
+	/** @var Nette\Security\User */
+	private $user;
+
+	/**
+	 * AccountSettingsFormFactory constructor.
+	 * @param UserManager         $userManager
+	 * @param Nette\Security\User $user
+	 */
+	public function __construct(UserManager $userManager, Nette\Security\User $user)
+	{
+		$this->userManager = $userManager;
+		$this->user = $user;
+	}
+
+	/**
+	 * @return Form
+	 */
+	public function create()
+	{
+		$form = new Form;
+		$form->addPassword('current', 'Current password')
+			->setRequired('Current password is required');
+
+		$form->addPassword('new', 'New password')
+			->setRequired('New password is required');
+
+		$form->addPassword('confirm', 'Confirm new password')
+			->setRequired('New password is required')
+			->addRule(Form::EQUAL, 'New passwords must match', $form['new']);
+
+		$form->addSubmit('submit', 'Save');
+
+		$form->onSuccess[] = array($this, 'formSucceeded');
+		return $form;
+	}
+
+	/**
+	 * @param Form      $form
+	 * @param ArrayHash $values
+	 * @throws \App\Model\DuplicateNameException
+	 */
+	public function formSucceeded(Form $form, $values)
+	{
+		try {
+			$this->userManager->setNewPassword($this->user->getId(), $values->current, $values->new);
+		} catch (CurrentPasswordMismatch $e) {
+			$form->addError($e->getMessage());
+		}
+	}
 
 }

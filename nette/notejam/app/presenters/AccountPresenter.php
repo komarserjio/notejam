@@ -3,12 +3,29 @@
 
 namespace App\Presenters;
 
-/**
- * @package   App\Presenters
- * @author    Filip Klimes <filipklimes@startupjobs.cz>
- * @copyright 2015, Startupedia s.r.o.
- */
-class AccountPresenter
+use Nette;
+use App\Forms\AccountSettingsFormFactory;
+
+
+class AccountPresenter extends BasePresenter
 {
+
+	/** @var AccountSettingsFormFactory @inject */
+	public $formFactory;
+
+
+	/**
+	 * Sign-in form factory.
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentAccountSettingsForm()
+	{
+		$form = $this->formFactory->create();
+		$form->onSuccess[] = function ($form) {
+			$this->flashMessage('Password is successfully changed', 'success');
+			$form->getPresenter()->redirect('this');
+		};
+		return $form;
+	}
 
 }
