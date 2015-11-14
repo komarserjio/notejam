@@ -40,6 +40,13 @@ Install dependencies
     $ cd YOUR_PROJECT_DIR/nette/notejam
     $ php composer.phar install
 
+Create empty ``config.local.neon``
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/nette/notejam
+    $ cp app/config/config.local.example.neon app/config/config.local.neon
+
 Create database schema
 
 .. code-block:: bash
