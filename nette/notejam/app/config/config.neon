@@ -14,6 +14,7 @@ extensions:
     events: Kdyby\Events\DI\EventsExtension
     annotations: Kdyby\Annotations\DI\AnnotationsExtension
     doctrine: Kdyby\Doctrine\DI\OrmExtension
+    doctrine2identity: Majkl578\NetteAddons\Doctrine2Identity\DI\IdentityExtension
 
 
 application:
@@ -31,6 +32,10 @@ doctrine:
     path: %appDir%/../notejam.db
     metadata:
         Notejam: %srcDir%/Notejam
+
+
+events:
+	debugger: off
 
 
 includes:

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "78843ef494139376fad0e45a9334537a",
-    "content-hash": "4b62066eea59e628b7bc5fa60ab98983",
+    "hash": "bb6f2c138c70ad9fa93769f99515f73b",
+    "content-hash": "d6ad558ac25b4827d0fe93d30c51dad2",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1085,6 +1085,64 @@
             "time": "2015-11-07 22:54:05"
         },
         {
+            "name": "majkl578/nette-identity-doctrine",
+            "version": "dev-devel",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fprochazka/nette-identity-doctrine.git",
+                "reference": "bb44ec22df46c72c8f7173ef0a9cb94fa294d943"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fprochazka/nette-identity-doctrine/zipball/bb44ec22df46c72c8f7173ef0a9cb94fa294d943",
+                "reference": "bb44ec22df46c72c8f7173ef0a9cb94fa294d943",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "~2.5",
+                "nette/http": "~2.3",
+                "nette/security": "~2.3",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "kdyby/doctrine": "~3.0@dev",
+                "nette/bootstrap": "~2.3",
+                "nette/di": "~2.3"
+            },
+            "type": "nette-addon",
+            "autoload": {
+                "psr-4": {
+                    "Majkl578\\NetteAddons\\Doctrine2Identity\\": "lib"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Majkl578\\NetteAddons\\Doctrine2Identity\\Tests\\": "tests"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Moravec"
+                }
+            ],
+            "description": "Integration of entities implementing IIdentity in Nette 2",
+            "keywords": [
+                "authentication",
+                "doctrine",
+                "identity",
+                "nette",
+                "orm",
+                "security"
+            ],
+            "support": {
+                "source": "https://github.com/fprochazka/nette-identity-doctrine/tree/devel"
+            },
+            "time": "2015-10-12 18:01:09"
+        },
+        {
             "name": "nette/application",
             "version": "v2.3.7",
             "source": {
@@ -1950,6 +2008,63 @@
             "time": "2015-10-05 12:18:24"
         },
         {
+            "name": "nextras/secured-links",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nextras/secured-links.git",
+                "reference": "244b85fb33fa8e582e3144a592a1a8adf8884aa0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nextras/secured-links/zipball/244b85fb33fa8e582e3144a592a1a8adf8884aa0",
+                "reference": "244b85fb33fa8e582e3144a592a1a8adf8884aa0",
+                "shasum": ""
+            },
+            "require": {
+                "nette/application": "~2.2",
+                "nette/utils": "~2.2",
+                "php": ">=5.4"
+            },
+            "replace": {
+                "nextras/application": "self.version"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "nette/tester": "~1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Nextras\\Application\\UI\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Skrasek",
+                    "email": "hrach.cz@gmail.com",
+                    "homepage": "http://jan.skrasek.com"
+                }
+            ],
+            "description": "Package secures Nette Framework signals against CSRF attack.",
+            "keywords": [
+                "application",
+                "nette",
+                "nextras",
+                "secured signals"
+            ],
+            "time": "2015-06-21 16:18:06"
+        },
+        {
             "name": "nextras/static-router",
             "version": "v1.0.1",
             "source": {
@@ -2172,7 +2287,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "majkl578/nette-identity-doctrine": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
