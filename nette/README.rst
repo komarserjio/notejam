@@ -1,0 +1,90 @@
+************************
+Notejam: Nette Framework
+************************
+
+Notejam application implemented using `Nette framework <https://nette.org>`_.
+
+Nette version: 2.3
+
+The application is maintained by `@fprochazka <https://twitter.com/prochazkafilip>`_.
+
+==========================
+Installation and launching
+==========================
+
+-----
+Clone
+-----
+
+Clone the repo:
+
+.. code-block:: bash
+
+    $ git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
+
+-------
+Install
+-------
+
+Install `composer <https://getcomposer.org/>`_
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/nette/notejam
+    $ curl -s https://getcomposer.org/installer | php
+
+Install dependencies
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/nette/notejam
+    $ php composer.phar install
+
+Create database schema
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/nette/notejam
+    $ php app/console doctrine:schema:update --force
+
+
+------
+Launch
+------
+
+Start built-in php web server:
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/nette/notejam/
+    $ php app/console server:run
+
+Go to http://localhost:8000/ in your browser.
+
+---------
+Run tests
+---------
+
+Run tests:
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/nette/notejam/
+    $ ./bin/phpunit -c app/
+
+
+============
+Contribution
+============
+
+
+Do you have php/nette experience? Help the app to follow php and Nette Framework best practices.
+
+Please send your pull requests in the ``master`` branch.
+Always prepend your commits with framework name:
+
+.. code-block:: bash
+
+    Nette: Implemented sign in functionality
+
+Read `contribution guide <https://github.com/komarserjio/notejam/blob/master/contribute.rst>`_ for details.
