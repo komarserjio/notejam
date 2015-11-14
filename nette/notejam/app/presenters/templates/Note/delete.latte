@@ -1,0 +1,18 @@
+{block title}{$note->name}{/block}
+{block content}
+	<div class="sixteen columns">
+		<h1 class="bold-header">
+			<a n:href="Homepage:" class="header">note<span class="jam">jam:&nbsp;</span><span>{$note->name}</span></a>
+		</h1>
+	</div>
+	{control pads}
+	<div class="thirteen columns content-area">
+		<p>Are you sure you want to delete the note?</p>
+		{form deleteNoteForm}
+			<div class="alert-area" n:if="$form->hasErrors()">
+				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
+			</div>
+		{input submit 'class' => 'red'}&nbsp;<a n:href="Note: $note->id">Cancel</a>
+		{/form}
+	</div>
+{/block}

@@ -3,12 +3,50 @@
 
 namespace App\Forms\Note;
 
-/**
- * @package   App\Forms
- * @author    Filip Klimes <filipklimes@startupjobs.cz>
- * @copyright 2015, Startupedia s.r.o.
- */
+use App\Model\NoteManager;
+use Nette\Application\UI\Form;
+use Nette\Utils\ArrayHash;
+
+
 class DeleteNoteFormFactory
 {
+
+	/** @var NoteManager */
+	private $noteManager;
+
+	/**
+	 * EditPadFormFactory constructor.
+	 * @param NoteManager $noteManager
+	 */
+	public function __construct(NoteManager $noteManager)
+	{
+		$this->noteManager = $noteManager;
+	}
+
+	/**
+	 * @param int $id
+	 * @return Form
+	 */
+	public function create($id)
+	{
+		$form = new Form;
+		$form->addHidden('id', $id);
+
+		$form->addSubmit('submit', 'Yes, I want to delete this note');
+
+		$form->onSuccess[] = array($this, 'formSucceeded');
+		return $form;
+	}
+
+	/**
+	 * @param Form      $form
+	 * @param ArrayHash $values
+	 */
+	public function formSucceeded(Form $form, $values)
+	{
+		if (!$this->noteManager->delete($values->id)) {
+			$form->addError("Failed to delete note");
+		}
+	}
 
 }

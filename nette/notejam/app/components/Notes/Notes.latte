@@ -7,8 +7,8 @@
 		</th>
 	</tr>
 	<tr n:foreach="$notes as $note">
-		<td><a n:href="Note: $note->id">{$note->text}</a></td>
-		<td class="pad">{$note->pad ? $note->pad->id : "No pad"}</td>
+		<td><a href="{plink Note: $note->id}">{$note->text}</a></td>
+		<td class="pad">{$note->pad_id ? $note->pad->name : "No pad"}</td>
 		<td class="hidden-text date">{$note->updated_at|date:'d. M. Y'}</td>
 	</tr>
 </table>

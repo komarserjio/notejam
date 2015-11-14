@@ -75,7 +75,7 @@ class PadPresenter extends BasePresenter
 	{
 		$form = $this->newPadFormFactory->create();
 		$form->onSuccess[] = function ($form) {
-			$this->flashMessage('Pad successfully deleted', 'success');
+			$this->flashMessage('Pad successfully created', 'success');
 			$form->getPresenter()->redirect('Homepage:');
 		};
 		return $form;

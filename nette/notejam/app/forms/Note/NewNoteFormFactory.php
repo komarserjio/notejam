@@ -10,7 +10,7 @@ use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
 
 
-class EditNoteFormFactory extends Nette\Object
+class NewNoteFormFactory extends Nette\Object
 {
 
 	/** @var PadManager */
@@ -33,28 +33,21 @@ class EditNoteFormFactory extends Nette\Object
 	}
 
 	/**
-	 * @param int    $id
-	 * @param string $name
-	 * @param string $text
-	 * @param int    $pad
+	 * @param int $pad
 	 * @return Form
 	 */
-	public function create($id, $name, $text, $pad)
+	public function create($pad)
 	{
 		$form = new Form;
 		$form->addText('name', 'Name')
-			->setDefaultValue($name)
 			->setRequired('Name is required');
 
 		$form->addTextArea('text', 'Text')
-			->setDefaultValue($text)
 			->setRequired('Text is required');
 
 		$form->addSelect('pad', 'Pad', $this->padManager->findAll()->fetchPairs('id', 'name'))
 			->setPrompt('Select pad')
 			->setDefaultValue($pad);
-
-		$form->addHidden('id', $id);
 
 		$form->addSubmit('submit', 'Save');
 
@@ -68,8 +61,8 @@ class EditNoteFormFactory extends Nette\Object
 	 */
 	public function formSucceeded(Form $form, $values)
 	{
-		if (!$this->noteManager->update($values->id, $values->name, $values->text, $values->pad)) {
-			$form->addError("Failed to edit pad");
+		if (!$this->noteManager->add($values->name, $values->text, $values->pad)) {
+			$form->addError("Failed to create pad");
 		}
 	}
 

@@ -43,7 +43,7 @@ class PadManager extends Nette\Object
 	 */
 	public function find($id)
 	{
-		return $this->database->table(self::TABLE_NAME)->get($id);
+		return $this->findAll()->where(self::COLUMN_ID, $id)->fetch();
 	}
 
 	/**

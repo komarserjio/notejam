@@ -29,6 +29,7 @@ services:
 	- App\Forms\Account\AccountSettingsFormFactory
 	- App\Forms\Note\DeleteNoteFormFactory
 	- App\Forms\Note\EditNoteFormFactory
+	- App\Forms\Note\NewNoteFormFactory
 	- App\Forms\Pad\DeletePadFormFactory
 	- App\Forms\Pad\EditPadFormFactory
 	- App\Forms\Pad\NewPadFormFactory

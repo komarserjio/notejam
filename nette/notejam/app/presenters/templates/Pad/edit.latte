@@ -1,6 +1,10 @@
 {block title}{$pad->name}{/block}
 
 {block content}
+	<div class="sixteen columns">
+		<h1 class="bold-header"><a n:href="Homepage:" class="header">note<span class="jam">jam:</span></a> <span>{$pad->name}</span>
+		</h1>
+	</div>
 	{control pads}
 	<div class="thirteen columns content-area">
 		{form editPadForm}

@@ -1,7 +1,7 @@
 {block title}New pad{/block}
 {block content}
 	<div class="sixteen columns">
-		<h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam:</span></a> <span>New pad</span>
+		<h1 class="bold-header"><a n:href="Homepage:" class="header">note<span class="jam">jam:</span></a> <span>{$pad->name}</span>
 		</h1>
 	</div>
 	{control pads}
@@ -10,7 +10,7 @@
 			<div class="alert-area" n:if="$form->hasErrors()">
 				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
 			</div>
-			{label name}
+			{label name /}
 			{input name}
 			{input submit}
 		{/form}

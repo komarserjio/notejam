@@ -1,5 +1,10 @@
 {block title}{$pad->name}{/block}
 {block content}
+	<div class="sixteen columns">
+		<h1 class="bold-header">
+			<a n:href="Homepage:" class="header">note<span class="jam">jam:&nbsp;</span><span>{$pad->name}</span></a>
+		</h1>
+	</div>
 	{control pads}
 	<div class="thirteen columns content-area"><p>Are you sure you want to delete the pad?</p>
 		{form deletePadForm}

@@ -41,12 +41,22 @@ class NoteManager extends Nette\Object
 	}
 
 	/**
+	 * Finds note with given id.
+	 * @param int $id
+	 * @return bool|mixed|Nette\Database\Table\IRow
+	 */
+	public function find($id)
+	{
+		return $this->findAll()->where(self::COLUMN_ID, $id)->fetch();
+	}
+
+	/**
 	 * Finds all notes.
 	 * @return Nette\Database\Table\Selection
 	 */
 	public function findAll()
 	{
-		return $this->database->table(self::TABLE_NAME);
+		return $this->database->table(self::TABLE_NAME)->where(self::COLUMN_USER, $this->user->getId());
 	}
 
 	/**
@@ -64,10 +74,11 @@ class NoteManager extends Nette\Object
 	 * @param string $name
 	 * @param string $text
 	 * @param int    $padId
+	 * @return bool|int|Nette\Database\Table\IRow
 	 */
 	public function add($name, $text, $padId)
 	{
-		$this->database->table(self::TABLE_NAME)->insert([
+		return $this->database->table(self::TABLE_NAME)->insert([
 			self::COLUMN_NAME       => $name,
 			self::COLUMN_TEXT       => $text,
 			self::COLUMN_PAD        => $padId,
@@ -83,10 +94,14 @@ class NoteManager extends Nette\Object
 	 * @param string $name
 	 * @param string $text
 	 * @param int    $padId
+	 * @return int
 	 */
 	public function update($id, $name, $text, $padId)
 	{
-		$this->database->table(self::TABLE_NAME)->where(self::COLUMN_ID, $id)->update([
+		return $this->database->table(self::TABLE_NAME)->where([
+			self::COLUMN_ID   => $id,
+			self::COLUMN_USER => $this->user->getId(),
+		])->update([
 			self::COLUMN_NAME       => $name,
 			self::COLUMN_TEXT       => $text,
 			self::COLUMN_PAD        => $padId,
@@ -97,10 +112,14 @@ class NoteManager extends Nette\Object
 	/**
 	 * Deletes note with given id.
 	 * @param int $id
+	 * @return int
 	 */
 	public function delete($id)
 	{
-		$this->database->table(self::TABLE_NAME)->where(self::COLUMN_ID, $id)->delete();
+		return $this->database->table(self::TABLE_NAME)->where([
+			self::COLUMN_ID   => $id,
+			self::COLUMN_USER => $this->user->getId(),
+		])->delete();
 	}
 
 }
