@@ -38,7 +38,7 @@ class SignUpFormFactory extends Nette\Object
 		$form->addPassword('password', 'Password')
 			->setRequired('Password is required');
 
-		$form->addPassword('confirm', 'Confirm password')
+		$form->addPassword('confirm', 'Confirm Password')
 			->setRequired('Please confirm password')
 			->addRule(Form::EQUAL, 'Passwords must match', $form['password']);
 

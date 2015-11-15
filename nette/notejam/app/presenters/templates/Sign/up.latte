@@ -7,12 +7,14 @@
 			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
 		</div>
 
-		<label for="email" n:name="email">Email</label>
-		<input type="text" n:name="email" id="email">
-		<label for="password" n:name="password">Password</label>
-		<input type="password" n:name="password" id="password">
-		<label for="confirm-password" n:name="confirm">Confirm password</label>
-		<input type="password" n:name="confirm" id="confirm">
-		<input type="submit" n:name="submit" value="Sign Up"> or <a n:href='Sign:in'>Sign in</a>
+		{label email /}
+		{input email}
+		{label password /}
+		{input password}
+		{label confirm /}
+		{input confirm}
+		{input submit} or <a n:href='Sign:in'>Sign in</a>
+		<hr>
+		<p><a n:href="Sign:forgotten" class="small-red">Forgot password?</a></p>
 	</form>
 {/block}

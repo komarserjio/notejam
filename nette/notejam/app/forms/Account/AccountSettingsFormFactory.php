@@ -39,14 +39,14 @@ class AccountSettingsFormFactory extends Nette\Object
 		$form->addPassword('current', 'Current password')
 			->setRequired('Current password is required');
 
-		$form->addPassword('new', 'New password')
+		$form->addPassword('new', 'New Password')
 			->setRequired('New password is required');
 
-		$form->addPassword('confirm', 'Confirm new password')
+		$form->addPassword('confirm', 'Confirm New Password')
 			->setRequired('New password is required')
 			->addRule(Form::EQUAL, 'New passwords must match', $form['new']);
 
-		$form->addSubmit('submit', 'Save');
+		$form->addSubmit('submit', 'Change Password');
 
 		$form->onSuccess[] = array($this, 'formSucceeded');
 		return $form;

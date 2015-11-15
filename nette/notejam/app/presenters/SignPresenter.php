@@ -32,8 +32,8 @@ class SignPresenter extends BasePresenter
 	{
 		$form = $this->forgottenPasswordFormFactory->create();
 		$form->onSuccess[] = function ($form) {
-			$this->flashMessage('Email with new password sent', 'success');
-			$form->getPresenter()->redirect('this');
+			$this->flashMessage('New password sent to your inbox', 'success');
+			$form->getPresenter()->redirect('Sign:in');
 		};
 		return $form;
 	}

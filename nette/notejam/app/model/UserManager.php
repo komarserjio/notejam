@@ -87,7 +87,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	public function checkPassword($id, $password)
 	{
 		$user = $this->database->table(self::TABLE_NAME)->get($id);
-		return $user && !Passwords::verify($password, $user->{self::COLUMN_PASSWORD_HASH});
+		return $user && Passwords::verify($password, $user->{self::COLUMN_PASSWORD_HASH});
 	}
 
 	/**

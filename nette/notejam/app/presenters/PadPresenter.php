@@ -50,7 +50,7 @@ class PadPresenter extends SecuredBasePresenter
 		$form = $this->editPadFormFactory->create($this->id, $this->pad->name);
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Pad successfully updated', 'success');
-			$form->getPresenter()->redirect('default', ['id' => $this->id]);
+			$form->getPresenter()->redirect('Homepage:');
 		};
 		return $form;
 	}

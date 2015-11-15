@@ -23,7 +23,7 @@ class AccountPresenter extends BasePresenter
 		$form = $this->formFactory->create();
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Password is successfully changed', 'success');
-			$form->getPresenter()->redirect('this');
+			$form->getPresenter()->redirect('Homepage:');
 		};
 		return $form;
 	}
