@@ -61,6 +61,10 @@ class ForgottenPasswordFormFactory extends Nette\Object
 		$this->userManager->setNewPassword($user->id, $password);
 
 		try {
+			// !!! Never send passwords through email !!!
+			// This is only for demonstration purposes of Notejam.
+			// Ideally, you can create a unique link where user can change his password
+			// himself for limited amount of time, and then send the link.
 			$mail = new Nette\Mail\Message();
 			$mail->setFrom('norepy@notejamapp.com', 'Notejamapp');
 			$mail->addTo($user->email);
