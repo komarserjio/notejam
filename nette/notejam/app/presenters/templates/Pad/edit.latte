@@ -1,22 +1,13 @@
 {block title}{$pad->name}{/block}
-
+{block header}{$pad->name}{/block}
 {block content}
-	<div class="sixteen columns">
-		<h1 class="bold-header"><a n:href="Homepage:" class="header">note<span class="jam">jam:</span></a> <span>{$pad->name}</span>
-		</h1>
-	</div>
-	{control pads}
-	<div class="thirteen columns content-area">
-		{control flashes}
-		{form editPadForm}
-			<div class="alert-area" n:if="$form->hasErrors()">
-				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-			</div>
-			{label name /}
-			{input name}
-			{input submit}
-
-			<div><a n:href="Pad:delete $pad->id" class="red">Delete pad</a></div>
-		{/form}
-	</div>
+	{form editPadForm}
+		<div class="alert-area" n:if="$form->hasErrors()">
+			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
+		</div>
+	{label name /}
+	{input name}
+	{input submit}
+		<div><a n:href="Pad:delete $pad->id" class="red">Delete pad</a></div>
+	{/form}
 {/block}

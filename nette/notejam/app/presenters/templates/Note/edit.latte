@@ -1,24 +1,16 @@
 {block title}{$note->name}{/block}
+{block header}{$note->name}{/block}
 {block content}
-	<div class="sixteen columns">
-		<h1 class="bold-header">
-			<a n:href="Homepage:" class="header">note<span class="jam">jam:&nbsp;</span><span>{$note->name}</span></a>
-		</h1>
-	</div>
-	{control pads}
-	<div class="thirteen columns content-area">
-		{control flashes}
-		{form editNoteForm 'class' => 'note'}
-			<div class="alert-area" n:if="$form->hasErrors()">
-				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-			</div>
-		{label name /}
-		{input name}
-		{label text /}
-		{input text}
-		{label pad /}
-		{input pad}
-		{input submit}
-		{/form}
-	</div>
+	{form editNoteForm 'class' => 'note'}
+		<div class="alert-area" n:if="$form->hasErrors()">
+			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
+		</div>
+	{label name /}
+	{input name}
+	{label text /}
+	{input text}
+	{label pad /}
+	{input pad}
+	{input submit}
+	{/form}
 {/block}

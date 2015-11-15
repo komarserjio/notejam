@@ -1,13 +1,8 @@
 {block title}New pad{/block}
+{block header}New pad{/block}
 {block content}
-	<div class="sixteen columns">
-		<h1 class="bold-header"><a n:href="Homepage:" class="header">note<span class="jam">jam:</span></a> <span>{$pad->name}</span>
-		</h1>
-	</div>
-	{control pads}
-	<div class="thirteen columns content-area">
-		{control flashes}
-		{control notes}
-		<a n:href="Note:new $pad->id" class="button">New note</a>&nbsp;<a n:href="Pad:edit $pad->id">Pad settings</a>
-	</div>
+	{control notes}
+	<a n:href="Note:new $pad->id" class="button">New note</a>
+	&nbsp;
+	<a n:href="Pad:edit $pad->id">Pad settings</a>
 {/block}

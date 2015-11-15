@@ -1,13 +1,6 @@
 {block title}All notes ({count($notes)}){/block}
+{block header}All notes ({count($notes)}){/block}
 {block content}
-	<div class="sixteen columns">
-		<h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam: </span></a>
-			<span>All notes ({count($notes)})</span></h1>
-	</div>
-	{control pads}
-	<div class="thirteen columns content-area">
-		{control flashes}
-		{control notes}
-		<a n:href="Note:new" class="button">New note</a>
-	</div>
+	{control notes}
+	<a n:href="Note:new" class="button">New note</a>
 {/block}

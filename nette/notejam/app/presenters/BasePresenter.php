@@ -2,7 +2,6 @@
 
 namespace App\Presenters;
 
-use App\Components\Flashes\IFlashesFactory;
 use App\Components\Pads\IPadsFactory;
 use App\Components\UserBar\IUserBarFactory;
 use App\Model\PadManager;
@@ -16,9 +15,6 @@ use App\Model;
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 
-	/** @var IFlashesFactory @inject */
-	public $flashesFactory;
-
 	/** @var IUserBarFactory @inject */
 	public $userBarFactory;
 
@@ -30,14 +26,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 	/** @var object[] */
 	protected $pads;
-
-	/**
-	 * @return \App\Components\UserBar\UserBar
-	 */
-	protected function createComponentFlashes()
-	{
-		return $this->flashesFactory->create([]/*$this->flashSession->getIterator()->getArrayCopy()*/);
-	}
 
 	/**
 	 * @return \App\Components\UserBar\UserBar

@@ -1,23 +1,16 @@
 {block title}{/block}
-
+{block header}Account Settings{/block}
 {block content}
-	<div class="sixteen columns">
-		<h1 class="bold-header"><a n:href="Homepage:" class="header">note<span class="jam">jam:</span></a>
-			<span>Account Settings</span></h1>
-	</div>
-	<div class="sixteen columns content-area">
-		{control flashes}
-		<form class="offset-by-six sign-in" n:name="accountSettingsForm">
-			<div class="alert-area" n:if="$form->hasErrors()">
-				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-			</div>
-			<label for="current-password" n:name="current">Current password</label>
-			<input type="password" n:name="current" id="current-password">
-			<label for="new-password" n:name="new">New password</label>
-			<input type="password" n:name="new" id="new-password">
-			<label for="confirm-new-password" n:name="confirm">Confirm new password</label>
-			<input type="password" n:name="confirm" id="confirm-new-password">
-			<input type="submit" n:name="submit" value="Save">
-		</form>
-	</div>
+	<form class="offset-by-six sign-in" n:name="accountSettingsForm">
+		<div class="alert-area" n:if="$form->hasErrors()">
+			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
+		</div>
+		<label for="current-password" n:name="current">Current password</label>
+		<input type="password" n:name="current" id="current-password">
+		<label for="new-password" n:name="new">New password</label>
+		<input type="password" n:name="new" id="new-password">
+		<label for="confirm-new-password" n:name="confirm">Confirm new password</label>
+		<input type="password" n:name="confirm" id="confirm-new-password">
+		<input type="submit" n:name="submit" value="Save">
+	</form>
 {/block}

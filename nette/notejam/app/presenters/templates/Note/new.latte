@@ -1,23 +1,16 @@
-{block title}New bite{/block}
+{block title}New note{/block}
+{block header}New note{/block}
 {block content}
-	<div class="sixteen columns">
-		<h1 class="bold-header"><a n:href="Homepage:" class="header">note<span class="jam">jam:</span></a> <span>New note</span>
-		</h1>
-	</div>
-	{control pads}
-	<div class="thirteen columns content-area">
-		{control flashes}
-		{form newNoteForm 'class' => 'note'}
-			<div class="alert-area" n:if="$form->hasErrors()">
-				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-			</div>
-		{label name /}
-		{input name}
-		{label text /}
-		{input text}
-		{label pad /}
-		{input pad}
-		{input submit}
-		{/form}
-	</div>
+	{form newNoteForm 'class' => 'note'}
+		<div class="alert-area" n:if="$form->hasErrors()">
+			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
+		</div>
+	{label name /}
+	{input name}
+	{label text /}
+	{input text}
+	{label pad /}
+	{input pad}
+	{input submit}
+	{/form}
 {/block}

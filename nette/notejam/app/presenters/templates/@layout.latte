@@ -32,9 +32,32 @@
 <div class="container">
 	{if $user->isLoggedIn()}
 		{control userBar}
+	{else}
+		<div class="sixteen columns">
+			<div class="sign-in-out-block">
+				<a n:href="Sign:up">Sign up</a>&nbsp;&nbsp;&nbsp;<a n:href="Sign:in">Sign in</a>
+			</div>
+		</div>
 	{/if}
 
-	{include content}
+	<div class="sixteen columns">
+		<h1 class="bold-header"><a n:href="Homepage:" class="header">note<span class="jam">jam: </span></a>
+			<span>{include header}</span>
+		</h1>
+	</div>
+
+	{if $user->isLoggedIn()}
+		{control pads}
+	{/if}
+
+	<div class="thirteen columns content-area">
+		<div class="alert-area">
+			{foreach $flashes as $flash}
+				<div n:if="$flash" class="alert alert-{$flash->type}">{$flash->message}</div>
+			{/foreach}
+		</div>
+		{include content}
+	</div>
 
 	<hr class="footer"/>
 	<div class="footer">

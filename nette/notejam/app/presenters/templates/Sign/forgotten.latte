@@ -1,24 +1,12 @@
 {block title}Frogotten password{/block}
-
+{block header}Fogotten password?{/block}
 {block content}
-	<div class="sixteen columns">
-		<div class="sign-in-out-block">
-			<a n:href="Sign:up">Sign up</a>&nbsp;&nbsp;&nbsp;<a n:href="Sign:in">Sign in</a>
+	{form forgottenPasswordForm 'class' => 'offset-by-six sign-in'}
+		<div class="alert-area" n:if="$form->hasErrors()">
+			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
 		</div>
-	</div>
-	<div class="sixteen columns">
-		<h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam:</span></a> <span> Forgotten password?</span>
-		</h1>
-	</div>
-	<div class="sixteen columns content-area">
-		{control flashes}
-		{form forgottenPasswordForm 'class' => 'offset-by-six sign-in'}
-			<div class="alert-area" n:if="$form->hasErrors()">
-				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-			</div>
-			{label email /}
-			{input email}
-			{input submit}
-		{/form}
-	</div>
+	{label email /}
+	{input email}
+	{input submit}
+	{/form}
 {/block}

@@ -1,30 +1,18 @@
 {block title}Sign Up{/block}
-
+{block header}Sign Up{/block}
 {block content}
-	<div class="sixteen columns">
-		<div class="sign-in-out-block">
-			<a n:href=":Sign:up">Sign up</a>&nbsp;&nbsp;&nbsp;<a n:href="Sign:in">Sign in</a>
+	<form class="offset-by-six sign-in" n:name="signUpForm">
+
+		<div class="alert-area" n:if="$form->hasErrors()">
+			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
 		</div>
-	</div>
-	<div class="sixteen columns">
-		<h1 class="bold-header"><a n:href="Homepage:" class="header">note<span class="jam">jam:</span></a> <span> Sign Up</span>
-		</h1>
-	</div>
-	<div class="thirteen columns content-area">
-		{control flashes}
-		<form class="offset-by-six sign-in" n:name="signUpForm">
 
-			<div class="alert-area" n:if="$form->hasErrors()">
-				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-			</div>
-
-			<label for="email" n:name="email">Email</label>
-			<input type="text" n:name="email" id="email">
-			<label for="password" n:name="password">Password</label>
-			<input type="password" n:name="password" id="password">
-			<label for="confirm-password" n:name="confirm">Confirm password</label>
-			<input type="password" n:name="confirm" id="confirm">
-			<input type="submit" n:name="submit" value="Sign Up"> or <a n:href='Sign:in'>Sign in</a>
-		</form>
-	</div>
+		<label for="email" n:name="email">Email</label>
+		<input type="text" n:name="email" id="email">
+		<label for="password" n:name="password">Password</label>
+		<input type="password" n:name="password" id="password">
+		<label for="confirm-password" n:name="confirm">Confirm password</label>
+		<input type="password" n:name="confirm" id="confirm">
+		<input type="submit" n:name="submit" value="Sign Up"> or <a n:href='Sign:in'>Sign in</a>
+	</form>
 {/block}
