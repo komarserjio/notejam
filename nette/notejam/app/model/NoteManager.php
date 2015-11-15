@@ -83,8 +83,8 @@ class NoteManager extends Nette\Object
 			self::COLUMN_TEXT       => $text,
 			self::COLUMN_PAD        => $padId,
 			self::COLUMN_USER       => $this->user->getId(),
-			self::COLUMN_CREATED_AT => new \DateTime(),
-			self::COLUMN_UPDATED_AT => new \DateTime(),
+			self::COLUMN_CREATED_AT => date('Y-m-d H:i:s'),
+			self::COLUMN_UPDATED_AT => date('Y-m-d H:i:s'),
 		]);
 	}
 
@@ -105,7 +105,7 @@ class NoteManager extends Nette\Object
 			self::COLUMN_NAME       => $name,
 			self::COLUMN_TEXT       => $text,
 			self::COLUMN_PAD        => $padId,
-			self::COLUMN_UPDATED_AT => new \DateTime(),
+			self::COLUMN_UPDATED_AT => date('Y-m-d H:i:s'),
 		]);
 	}
 

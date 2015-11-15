@@ -1,14 +1,19 @@
-<table class="notes">
+<table class="notes" n:snippet="notes">
 	<tr>
-		<th class="note">Note <a href="#" class="sort_arrow">&uarr;</a><a href="#" class="sort_arrow">&darr;</a>
+		<th class="note">
+			Note <a n:href="order! 'order' => 'name DESC'" class="ajax sort_arrow">&uarr;</a>
+			<a n:href="order! 'order' => 'name ASC'" class="ajax sort_arrow">&darr;</a>
 		</th>
 		<th>Pad</th>
-		<th class="date">Last modified <a href="#" class="sort_arrow">&uarr;</a><a href="#" class="sort_arrow">&darr;</a>
+		<th class="date">
+			Last modified <a n:href="order! 'order' => 'updated_at DESC'" class="ajax sort_arrow">&uarr;</a>
+			<a n:href="order! 'order' => 'updated_at ASC'" class="ajax sort_arrow">&darr;</a>
 		</th>
 	</tr>
 	<tr n:foreach="$notes as $note">
-		<td><a href="{plink Note: $note->id}">{$note->text}</a></td>
+		<td><a href="{plink Note: $note->id}">{$note->name}</a></td>
 		<td class="pad">{$note->pad_id ? $note->pad->name : "No pad"}</td>
+		{dump $note->updated_at}
 		<td class="hidden-text date">{$note->updated_at|date:'d. M. Y'}</td>
 	</tr>
 </table>
