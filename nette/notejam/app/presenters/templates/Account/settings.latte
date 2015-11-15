@@ -8,6 +8,9 @@
 	<div class="sixteen columns content-area">
 		{control flashes}
 		<form class="offset-by-six sign-in" n:name="accountSettingsForm">
+			<div class="alert-area" n:if="$form->hasErrors()">
+				<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
+			</div>
 			<label for="current-password" n:name="current">Current password</label>
 			<input type="password" n:name="current" id="current-password">
 			<label for="new-password" n:name="new">New password</label>
