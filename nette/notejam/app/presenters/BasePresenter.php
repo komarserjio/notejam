@@ -36,7 +36,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 	 */
 	protected function createComponentFlashes()
 	{
-		return $this->flashesFactory->create($this->flashSession->getIterator()->getArrayCopy());
+		return $this->flashesFactory->create([]/*$this->flashSession->getIterator()->getArrayCopy()*/);
 	}
 
 	/**

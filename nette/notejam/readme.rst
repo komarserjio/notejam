@@ -75,7 +75,7 @@ Run tests:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/nette/notejam/
-    $ ./vendor/bin/tester tests/
+    $ ./vendor/bin/codecept run
 
 
 ============
