@@ -12,7 +12,7 @@ use App\Forms\Pad\EditPadFormFactory;
 use Nette\Application\BadRequestException;
 
 
-class PadPresenter extends BasePresenter
+class PadPresenter extends SecuredBasePresenter
 {
 
 	/** @var PadManager @inject */

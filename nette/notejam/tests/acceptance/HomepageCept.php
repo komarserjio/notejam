@@ -2,7 +2,7 @@
 $I = new AcceptanceTester($scenario);
 $I->wantTo('see homepage');
 $I->amOnPage('/');
-$I->seeCurrentUrlEquals('/signin');
+$I->seeInCurrentUrl('/signin');
 $I->testLogin();
-$I->amOnPage('/');
+$I->seeCurrentUrlEquals('/');
 $I->see('My pads');

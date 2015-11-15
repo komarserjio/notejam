@@ -11,6 +11,9 @@ use App\Forms\Sign\SignUpFormFactory;
 class SignPresenter extends BasePresenter
 {
 
+	/** @var string @persistent */
+	public $backlink;
+
 	/** @var ForgottenPasswordFormFactory @inject */
 	public $forgottenPasswordFormFactory;
 
@@ -44,6 +47,7 @@ class SignPresenter extends BasePresenter
 	{
 		$form = $this->signInFormFactory->create();
 		$form->onSuccess[] = function ($form) {
+			$form->getPresenter()->restoreRequest($this->backlink);
 			$form->getPresenter()->redirect('Homepage:');
 		};
 		return $form;
@@ -65,10 +69,24 @@ class SignPresenter extends BasePresenter
 	}
 
 
+	public function actionIn()
+	{
+		if ($this->user->isLoggedIn()) {
+			$this->redirect('Homepage:');
+		}
+	}
+
+	public function actionUp()
+	{
+		if ($this->user->isLoggedIn()) {
+			$this->redirect('Homepage:');
+		}
+	}
+
 	public function actionOut()
 	{
 		$this->getUser()->logout(true);
-		$this->flashMessage('You have been signed out.');
+		$this->flashMessage('You have been signed out.', 'info');
 		$this->redirect('in');
 	}
 

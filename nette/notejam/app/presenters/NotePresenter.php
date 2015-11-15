@@ -13,7 +13,7 @@ use App\Model;
 use Nette\Application\BadRequestException;
 
 
-class NotePresenter extends BasePresenter
+class NotePresenter extends SecuredBasePresenter
 {
 
 	/** @var PadManager @inject */

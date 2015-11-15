@@ -7,7 +7,7 @@ use App\Model\NoteManager;
 use Nette;
 
 
-class HomepagePresenter extends BasePresenter
+class HomepagePresenter extends SecuredBasePresenter
 {
 
 	/** @var NoteManager @inject */
@@ -29,9 +29,6 @@ class HomepagePresenter extends BasePresenter
 
 	public function actionDefault()
 	{
-		if (!$this->user->isLoggedIn()) {
-			$this->redirect('Sign:in');
-		}
 		$this->notes = $this->noteManager->findAll();
 	}
 
