@@ -13,7 +13,6 @@
 	<tr n:foreach="$notes as $note">
 		<td><a href="{plink Note: $note->id}">{$note->name}</a></td>
 		<td class="pad">{$note->pad_id ? $note->pad->name : "No pad"}</td>
-		{dump $note->updated_at}
 		<td class="hidden-text date">{$note->updated_at|date:'d. M. Y'}</td>
 	</tr>
 </table>
