@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('sign in without required fields');
+$I->wantTo('see user can not sign in without required fields');
 $I->amOnPage('/signin');
 $I->see('Sign in');
 $I->fillField("Email", '');

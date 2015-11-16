@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('see homepage');
+$I->wantTo('see notes can be viewed successfully');
 $I->amOnPage('/');
 $I->seeInCurrentUrl('/signin');
 $I->testLogin();

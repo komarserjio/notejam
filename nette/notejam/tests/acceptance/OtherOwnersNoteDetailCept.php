@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('see other owner\'s note detail');
+$I->wantTo('see note can not be viewed by not an owner');
 $I->testLogin();
 $I->amOnPage('/notes/5');
 $I->dontSee('Other Note');

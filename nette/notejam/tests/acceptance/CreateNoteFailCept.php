@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('create a note without required fields');
+$I->wantTo('see note can not be created without required fields');
 $I->testLogin();
 $I->amOnPage('/notes/create');
 $I->click('Save');

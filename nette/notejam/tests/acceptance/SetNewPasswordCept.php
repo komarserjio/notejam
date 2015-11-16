@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('set new password');
+$I->wantTo('see user can successfully set new password');
 $I->testLogin();
 $I->amOnPage('/settings');
 $I->fillField('Current password', 'pass');

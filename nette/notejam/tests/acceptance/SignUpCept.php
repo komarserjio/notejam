@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('sign up');
+$I->wantTo('see user can successfully sign up');
 $I->amOnPage('/signup');
 $I->fillField('Email', 'test@example.com');
 $I->fillField('Password', 'qwerty');

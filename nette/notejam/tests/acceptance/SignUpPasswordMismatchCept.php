@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('sign up with passwords that don\'t match');
+$I->wantTo('see user can not sign up without confirming password');
 $I->amOnPage('/signup');
 $I->fillField('Email', 'test@example.com');
 $I->fillField('Password', 'pass');

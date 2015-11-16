@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('sign up with invalid email');
+$I->wantTo('see user can not sign up with invalid email');
 $I->amOnPage('/signup');
 $I->fillField('Email', 'abcd');
 $I->fillField('Password', 'pass');

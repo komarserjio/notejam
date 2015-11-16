@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('create a note');
+$I->wantTo('see note can be successfully created');
 $I->testLogin();
 $I->amOnPage('/notes/create');
 $I->fillField('Name', 'Example note');

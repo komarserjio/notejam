@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('edit a note');
+$I->wantTo('see note can be successfully edited');
 $I->testLogin();
 $I->amOnPage('/notes/1/edit');
 $I->fillField('Name', 'Note 1 - edited');

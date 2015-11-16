@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('sign up with already registered email');
+$I->wantTo('see user can not sign up with already registered email');
 $I->amOnPage('/signup');
 $I->fillField('Email', 'john.doe@example.com');
 $I->fillField('Password', 'pass');

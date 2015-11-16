@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('edit pad without required fields');
+$I->wantTo('see pad cannot be edited without required fields');
 $I->testLogin();
 $I->amOnPage('/pads/1/edit');
 $I->fillField('Name', '');

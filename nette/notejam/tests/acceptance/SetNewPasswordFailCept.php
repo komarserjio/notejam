@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('set new password without required fields');
+$I->wantTo('see user can not set new password without required fields');
 $I->testLogin();
 $I->amOnPage('/settings');
 $I->fillField('Current password', '');

@@ -1,5 +1,5 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('sign in');
+$I->wantTo('see user can successfully sign in');
 $I->testLogin();
 $I->see("My pads");

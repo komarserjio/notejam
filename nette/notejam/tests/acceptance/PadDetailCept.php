@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('see pad detail');
+$I->wantTo('see pad can be viewed');
 $I->testLogin();
 $I->amOnPage('/pads/1');
 $I->see('Pad 1');

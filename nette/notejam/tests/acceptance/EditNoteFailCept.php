@@ -1,6 +1,6 @@
 <?php
 $I = new AcceptanceTester($scenario);
-$I->wantTo('edit a note without required fields');
+$I->wantTo('see note can not be edited without required fields');
 $I->testLogin();
 $I->amOnPage('/notes/1/edit');
 $I->fillField('Name', '');
