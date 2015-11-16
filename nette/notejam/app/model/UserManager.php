@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Model;
 
 use Nette;
@@ -11,13 +12,6 @@ use Nette\Security\Passwords;
  */
 class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 {
-
-	const
-		TABLE_NAME = 'users',
-		COLUMN_ID = 'id',
-		COLUMN_EMAIL = 'email',
-		COLUMN_PASSWORD_HASH = 'password';
-
 
 	/** @var Nette\Database\Context */
 	private $database;
@@ -46,18 +40,18 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		if (!$row) {
 			throw new Nette\Security\AuthenticationException(sprintf('Unknown user %s', $email), self::IDENTITY_NOT_FOUND);
 
-		} elseif (!Passwords::verify($password, $row[self::COLUMN_PASSWORD_HASH])) {
+		} elseif (!Passwords::verify($password, $row['password'])) {
 			throw new Nette\Security\AuthenticationException('Invalid password', self::INVALID_CREDENTIAL);
 
-		} elseif (Passwords::needsRehash($row[self::COLUMN_PASSWORD_HASH])) {
+		} elseif (Passwords::needsRehash($row['password'])) {
 			$row->update(array(
-				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
+				'password' => Passwords::hash($password),
 			));
 		}
 
 		$arr = $row->toArray();
-		unset($arr[self::COLUMN_PASSWORD_HASH]);
-		return new Nette\Security\Identity($row[self::COLUMN_ID], null, $arr);
+		unset($arr['password']);
+		return new Nette\Security\Identity($row['id'], null, $arr);
 	}
 
 
@@ -70,9 +64,9 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	public function add($username, $password)
 	{
 		try {
-			$this->database->table(self::TABLE_NAME)->insert(array(
-				self::COLUMN_EMAIL         => $username,
-				self::COLUMN_PASSWORD_HASH => Passwords::hash($password),
+			$this->getTable()->insert(array(
+				'email'         => $username,
+				'password' => Passwords::hash($password),
 			));
 		} catch (Nette\Database\UniqueConstraintViolationException $e) {
 			throw new DuplicateNameException("User with given email already registered");
@@ -86,8 +80,8 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	 */
 	public function checkPassword($id, $password)
 	{
-		$user = $this->database->table(self::TABLE_NAME)->get($id);
-		return $user && Passwords::verify($password, $user->{self::COLUMN_PASSWORD_HASH});
+		$user = $this->getTable()->get($id);
+		return $user && Passwords::verify($password, $user->{'password'});
 	}
 
 	/**
@@ -98,8 +92,8 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	 */
 	public function setNewPassword($id,  $new)
 	{
-		return $this->database->table(self::TABLE_NAME)->where(self::COLUMN_ID, $id)->update([
-			self::COLUMN_PASSWORD_HASH => Passwords::hash($new)
+		return $this->getTable()->where('id', $id)->update([
+			'password' => Passwords::hash($new)
 		]);
 	}
 
@@ -110,7 +104,15 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	 */
 	public function findByEmail($email)
 	{
-		return $this->database->table(self::TABLE_NAME)->where(self::COLUMN_EMAIL, $email)->fetch();
+		return $this->getTable()->where('email', $email)->fetch();
+	}
+
+	/**
+	 * @return Nette\Database\Table\Selection
+	 */
+	protected function getTable()
+	{
+		return $this->database->table('users');
 	}
 
 }

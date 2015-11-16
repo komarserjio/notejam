@@ -12,13 +12,6 @@ use Nette;
 class PadManager extends Nette\Object
 {
 
-	const
-		TABLE_NAME = 'pads',
-		COLUMN_ID = 'id',
-		COLUMN_NAME = 'name',
-		COLUMN_USER = 'user_id';
-
-
 	/** @var Nette\Database\Context */
 	private $database;
 
@@ -26,7 +19,7 @@ class PadManager extends Nette\Object
 	private $user;
 
 	/**
-	 * NoteManager constructor.
+	 * PadManager constructor.
 	 * @param Nette\Database\Context $database
 	 * @param Nette\Security\User    $user
 	 */
@@ -43,7 +36,7 @@ class PadManager extends Nette\Object
 	 */
 	public function find($id)
 	{
-		return $this->findAll()->where(self::COLUMN_ID, $id)->fetch();
+		return $this->findAll()->where('id', $id)->fetch();
 	}
 
 	/**
@@ -52,7 +45,7 @@ class PadManager extends Nette\Object
 	 */
 	public function findAll()
 	{
-		return $this->database->table(self::TABLE_NAME)->where(self::COLUMN_USER, $this->user->getId());
+		return $this->getTable()->where('user_id', $this->user->getId());
 	}
 
 	/**
@@ -62,9 +55,9 @@ class PadManager extends Nette\Object
 	 */
 	public function add($name)
 	{
-		return $this->database->table(self::TABLE_NAME)->insert([
-			self::COLUMN_NAME => $name,
-			self::COLUMN_USER => $this->user->getId(),
+		return $this->getTable()->insert([
+			'name'    => $name,
+			'user_id' => $this->user->getId(),
 		]);
 	}
 
@@ -76,11 +69,11 @@ class PadManager extends Nette\Object
 	 */
 	public function update($id, $name)
 	{
-		return $this->database->table(self::TABLE_NAME)->where([
-			self::COLUMN_ID   => $id,
-			self::COLUMN_USER => $this->user->getId(),
+		return $this->getTable()->where([
+			'id'      => $id,
+			'user_id' => $this->user->getId(),
 		])->update([
-			self::COLUMN_NAME => $name,
+			'name' => $name,
 		]);
 	}
 
@@ -91,10 +84,18 @@ class PadManager extends Nette\Object
 	 */
 	public function delete($id)
 	{
-		return $this->database->table(self::TABLE_NAME)->where([
-			self::COLUMN_ID   => $id,
-			self::COLUMN_USER => $this->user->getId(),
+		return $this->getTable()->where([
+			'id'      => $id,
+			'user_id' => $this->user->getId(),
 		])->delete();
+	}
+
+	/**
+	 * @return Nette\Database\Table\Selection
+	 */
+	protected function getTable()
+	{
+		return $this->database->table('pads');
 	}
 
 }

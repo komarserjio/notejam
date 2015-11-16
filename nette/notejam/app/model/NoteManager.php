@@ -12,17 +12,6 @@ use Nette;
 class NoteManager extends Nette\Object
 {
 
-	const
-		TABLE_NAME = 'notes',
-		COLUMN_ID = 'id',
-		COLUMN_NAME = 'name',
-		COLUMN_TEXT = 'text',
-		COLUMN_CREATED_AT = 'created_at',
-		COLUMN_UPDATED_AT = 'updated_at',
-		COLUMN_USER = 'user_id',
-		COLUMN_PAD = 'pad_id';
-
-
 	/** @var Nette\Database\Context */
 	private $database;
 
@@ -47,7 +36,7 @@ class NoteManager extends Nette\Object
 	 */
 	public function find($id)
 	{
-		return $this->findAll()->where(self::COLUMN_ID, $id)->fetch();
+		return $this->findAll()->where('id', $id)->fetch();
 	}
 
 	/**
@@ -56,7 +45,7 @@ class NoteManager extends Nette\Object
 	 */
 	public function findAll()
 	{
-		return $this->database->table(self::TABLE_NAME)->where(self::COLUMN_USER, $this->user->getId());
+		return $this->getTable()->where('user_id', $this->user->getId());
 	}
 
 	/**
@@ -66,7 +55,7 @@ class NoteManager extends Nette\Object
 	 */
 	public function findByPad($padId)
 	{
-		return $this->findAll()->where(self::COLUMN_PAD, $padId);
+		return $this->findAll()->where('pad_id', $padId);
 	}
 
 	/**
@@ -78,13 +67,13 @@ class NoteManager extends Nette\Object
 	 */
 	public function add($name, $text, $padId)
 	{
-		return $this->database->table(self::TABLE_NAME)->insert([
-			self::COLUMN_NAME       => $name,
-			self::COLUMN_TEXT       => $text,
-			self::COLUMN_PAD        => $padId,
-			self::COLUMN_USER       => $this->user->getId(),
-			self::COLUMN_CREATED_AT => date('Y-m-d H:i:s'),
-			self::COLUMN_UPDATED_AT => date('Y-m-d H:i:s'),
+		return $this->getTable()->insert([
+			'name'       => $name,
+			'text'       => $text,
+			'pad_id'        => $padId,
+			'user_id'       => $this->user->getId(),
+			'created_at' => date('Y-m-d H:i:s'),
+			'updated_at' => date('Y-m-d H:i:s'),
 		]);
 	}
 
@@ -98,14 +87,14 @@ class NoteManager extends Nette\Object
 	 */
 	public function update($id, $name, $text, $padId)
 	{
-		return $this->database->table(self::TABLE_NAME)->where([
-			self::COLUMN_ID   => $id,
-			self::COLUMN_USER => $this->user->getId(),
+		return $this->getTable()->where([
+			'id'   => $id,
+			'user_id' => $this->user->getId(),
 		])->update([
-			self::COLUMN_NAME       => $name,
-			self::COLUMN_TEXT       => $text,
-			self::COLUMN_PAD        => $padId,
-			self::COLUMN_UPDATED_AT => date('Y-m-d H:i:s'),
+			'name'       => $name,
+			'text'       => $text,
+			'pad_id'        => $padId,
+			'updated_at' => date('Y-m-d H:i:s'),
 		]);
 	}
 
@@ -116,10 +105,18 @@ class NoteManager extends Nette\Object
 	 */
 	public function delete($id)
 	{
-		return $this->database->table(self::TABLE_NAME)->where([
-			self::COLUMN_ID   => $id,
-			self::COLUMN_USER => $this->user->getId(),
+		return $this->getTable()->where([
+			'id'   => $id,
+			'user_id' => $this->user->getId(),
 		])->delete();
+	}
+
+	/**
+	 * @return Nette\Database\Table\Selection
+	 */
+	protected function getTable()
+	{
+		return $this->database->table('notes');
 	}
 
 }
