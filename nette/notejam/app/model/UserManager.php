@@ -38,7 +38,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		$row = $this->findByEmail($email);
 
 		if (!$row) {
-			throw new Nette\Security\AuthenticationException(sprintf('Unknown user %s', $email), self::IDENTITY_NOT_FOUND);
+			throw new Nette\Security\AuthenticationException(sprintf('Unknown user', $email), self::IDENTITY_NOT_FOUND);
 
 		} elseif (!Passwords::verify($password, $row['password'])) {
 			throw new Nette\Security\AuthenticationException('Invalid password', self::INVALID_CREDENTIAL);
@@ -57,20 +57,20 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 
 	/**
 	 * Adds new user.
-	 * @param string $username
+	 * @param string $email
 	 * @param string $password
 	 * @throws DuplicateNameException
 	 */
-	public function add($username, $password)
+	public function add($email, $password)
 	{
-		try {
-			$this->getTable()->insert(array(
-				'email'         => $username,
-				'password' => Passwords::hash($password),
-			));
-		} catch (Nette\Database\UniqueConstraintViolationException $e) {
+		if ($this->getTable()->where('email', $email)->count() > 0) {
 			throw new DuplicateNameException("User with given email already registered");
 		}
+
+		$this->getTable()->insert(array(
+			'email'    => $email,
+			'password' => Passwords::hash($password),
+		));
 	}
 
 	/**
@@ -90,7 +90,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	 * @param string $new
 	 * @return int
 	 */
-	public function setNewPassword($id,  $new)
+	public function setNewPassword($id, $new)
 	{
 		return $this->getTable()->where('id', $id)->update([
 			'password' => Passwords::hash($new)
