@@ -6,11 +6,6 @@ namespace App\Components\UserBar;
 use Nette;
 
 
-/**
- * @package   App\Components\UserBar
- * @author    Filip Klimes <filipklimes@startupjobs.cz>
- * @copyright 2015, Startupedia s.r.o.
- */
 class UserBar extends Nette\Application\UI\Control
 {
 
