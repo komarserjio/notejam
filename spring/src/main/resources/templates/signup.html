@@ -1,0 +1,30 @@
+Sign up
+
+<form action="#" th:object="${user}" method="post">
+	<ul th:if="${#fields.hasGlobalErrors()}">
+	  	<li th:each="err : ${#fields.globalErrors()}" th:text="${err}" />
+	</ul>
+
+	<label>
+		Email <input type="email" th:field="*{email}" th:errorclass="error" />
+	</label>
+	<ul>
+		<li th:each="err : ${#fields.errors('email')}" th:text="${err}" />
+	</ul>
+
+	<label>
+		Password <input type="password" th:field="*{password}" th:errorclass="error" />
+	</label>
+	<ul>
+		<li th:each="err : ${#fields.errors('password')}" th:text="${err}" />
+	</ul>
+
+	<label>
+		Repeat the password <input type="password" th:field="*{repeatedPassword}" th:errorclass="error" />
+	</label>
+	<ul>
+		<li th:each="err : ${#fields.errors('repeatedPassword')}" th:text="${err}" />
+	</ul>
+	
+	<button type="submit">Sign up</button>
+</form>
