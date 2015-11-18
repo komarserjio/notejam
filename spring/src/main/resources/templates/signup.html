@@ -5,7 +5,7 @@
 	</ul>
 
 	<label th:inline="text">
-		[[#{Email}]]
+		[[#{signup.Email}]]
 		<input type="email" th:field="*{email}" th:errorclass="error" />
 	</label>
 	<ul>
@@ -13,7 +13,7 @@
 	</ul>
 
 	<label th:inline="text">
-		[[#{Password}]]
+		[[#{signup.Password}]]
 		<input type="password" th:field="*{password}" th:errorclass="error" />
 	</label>
 	<ul>
@@ -21,12 +21,12 @@
 	</ul>
 
 	<label th:inline="text">
-		[[#{Password2}]]
+		[[#{signup.Password2}]]
 		<input type="password" th:field="*{repeatedPassword}" th:errorclass="error" />
 	</label>
 	<ul>
 		<li th:each="err : ${#fields.errors('repeatedPassword')}" th:text="${err}" />
 	</ul>
 	
-	<button type="submit" th:text="#{Signup}" />
+	<button type="submit" th:text="#{signup.Signup}" />
 </form>
