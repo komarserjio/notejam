@@ -18,6 +18,16 @@ public class UserService {
 	private UserRepository repository;
 	
 	/**
+	 * Checks if an email is already registered.
+	 * 
+	 * @param email The email.
+	 * @return True, if the email is already registered.
+	 */
+	public boolean isEmailRegistered(String email) {
+		return repository.findByEmail(email) != null;
+	}
+	
+	/**
 	 * Signs up a new user
 	 * 
 	 * @param signupUser The new user
@@ -27,7 +37,7 @@ public class UserService {
 		User user = new User();
 		user.setEmail(signupUser.getEmail());
 		
-		repository.saveAndFlush(user);
+		repository.save(user);
 	}
 	
 }

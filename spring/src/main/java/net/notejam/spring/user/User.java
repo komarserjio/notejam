@@ -8,6 +8,9 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import net.notejam.spring.user.validator.UniqueEmail;
+import net.notejam.spring.user.validator.UniqueEmail.UserInput;
+
 /**
  * The user
  *
@@ -21,6 +24,7 @@ public class User extends AbstractPersistable<Integer> {
 
 	@NotEmpty
 	@Email
+	@UniqueEmail(groups=UserInput.class)
 	@Size(max=75)
 	@Column(unique=true)
 	private String email;
