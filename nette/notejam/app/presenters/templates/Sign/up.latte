@@ -2,11 +2,6 @@
 {block header}Sign Up{/block}
 {block content}
 	<form class="offset-by-six sign-in" n:name="signUpForm">
-
-		<div class="alert-area" n:if="$form->hasErrors()">
-			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-		</div>
-
 		{label email /}
 		{input email}
 		{label password /}

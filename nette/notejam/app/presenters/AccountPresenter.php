@@ -21,6 +21,11 @@ class AccountPresenter extends BasePresenter
 	protected function createComponentAccountSettingsForm()
 	{
 		$form = $this->formFactory->create();
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Password is successfully changed', 'success');
 			$form->getPresenter()->redirect('Homepage:');

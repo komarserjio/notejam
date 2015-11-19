@@ -2,11 +2,6 @@
 {block header}Sign In{/block}
 {block content}
 	<form class="offset-by-six sign-in" n:name="signInForm">
-
-		<div class="alert-area" n:if="$form->hasErrors()">
-			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-		</div>
-
 		<label for="email" n:name="email">Email</label>
 		<input type="text" n:name="email" id="email">
 		<label for="password" n:name="password">Password</label>

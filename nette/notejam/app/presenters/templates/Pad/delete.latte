@@ -3,9 +3,6 @@
 {block content}
 	<p>Are you sure you want to delete the pad?</p>
 	{form deletePadForm}
-		<div class="alert-area" n:if="$form->hasErrors()">
-			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-		</div>
 	{input submit 'class' => 'red'}&nbsp;
 		<a n:href="Pad:edit $pad->id">Cancel</a>
 	{/form}

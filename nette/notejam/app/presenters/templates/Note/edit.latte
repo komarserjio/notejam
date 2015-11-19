@@ -2,9 +2,6 @@
 {block header}{$note->name}{/block}
 {block content}
 	{form editNoteForm 'class' => 'note'}
-		<div class="alert-area" n:if="$form->hasErrors()">
-			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-		</div>
 	{label name /}
 	{input name}
 	{label text /}

@@ -49,6 +49,11 @@ class NotePresenter extends SecuredBasePresenter
 	protected function createComponentEditNoteForm()
 	{
 		$form = $this->editPadFormFactory->create($this->id, $this->note->name, $this->note->text, $this->note->pad_id);
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Note successfully updated', 'success');
 			$form->getPresenter()->redirect('default', ['id' => $this->id]);
@@ -62,6 +67,11 @@ class NotePresenter extends SecuredBasePresenter
 	protected function createComponentDeleteNoteForm()
 	{
 		$form = $this->deletePadFormFactory->create($this->id);
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Note successfully deleted', 'success');
 			$form->getPresenter()->redirect('Homepage:');
@@ -75,6 +85,11 @@ class NotePresenter extends SecuredBasePresenter
 	protected function createComponentNewNoteForm()
 	{
 		$form = $this->newPadFormFactory->create($this->padId);
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Note successfully created', 'success');
 			$form->getPresenter()->redirect('Homepage:');

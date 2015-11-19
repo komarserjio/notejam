@@ -2,9 +2,6 @@
 {block header}Forgot password?{/block}
 {block content}
 	{form forgottenPasswordForm 'class' => 'offset-by-six sign-in'}
-		<div class="alert-area" n:if="$form->hasErrors()">
-			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-		</div>
 	{label email /}
 	{input email}
 	{input submit}

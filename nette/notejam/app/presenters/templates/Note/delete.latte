@@ -3,9 +3,6 @@
 {block content}
 	<p>Are you sure you want to delete the note?</p>
 	{form deleteNoteForm}
-		<div class="alert-area" n:if="$form->hasErrors()">
-			<div n:foreach="$form->errors as $error" class="alert alert-error">{$error}</div>
-		</div>
 	{input submit 'class' => 'red'}&nbsp;
 		<a n:href="Note: $note->id">Cancel</a>
 	{/form}

@@ -49,6 +49,11 @@ class PadPresenter extends SecuredBasePresenter
 	protected function createComponentEditPadForm()
 	{
 		$form = $this->editPadFormFactory->create($this->id, $this->pad->name);
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Pad successfully updated', 'success');
 			$form->getPresenter()->redirect('Homepage:');
@@ -62,6 +67,11 @@ class PadPresenter extends SecuredBasePresenter
 	protected function createComponentDeletePadForm()
 	{
 		$form = $this->deletePadFormFactory->create($this->id);
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Pad successfully deleted', 'success');
 			$form->getPresenter()->redirect('Homepage:');
@@ -75,6 +85,11 @@ class PadPresenter extends SecuredBasePresenter
 	protected function createComponentNewPadForm()
 	{
 		$form = $this->newPadFormFactory->create();
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Pad successfully created', 'success');
 			$form->getPresenter()->redirect('Homepage:');

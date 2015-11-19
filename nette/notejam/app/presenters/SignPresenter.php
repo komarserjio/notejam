@@ -31,6 +31,11 @@ class SignPresenter extends BasePresenter
 	protected function createComponentForgottenPasswordForm()
 	{
 		$form = $this->forgottenPasswordFormFactory->create();
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('New password sent to your inbox', 'success');
 			$form->getPresenter()->redirect('Sign:in');
@@ -46,6 +51,11 @@ class SignPresenter extends BasePresenter
 	protected function createComponentSignInForm()
 	{
 		$form = $this->signInFormFactory->create();
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$form->getPresenter()->restoreRequest($this->backlink);
 			$form->getPresenter()->redirect('Homepage:');
@@ -61,6 +71,11 @@ class SignPresenter extends BasePresenter
 	protected function createComponentSignUpForm()
 	{
 		$form = $this->signUpFormFactory->create();
+		$form->onError[] = function ($form) {
+			foreach ($form->getErrors() as $error) {
+				$this->flashMessage($error, 'error');
+			}
+		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('User is successfully created. Now you can sign in.', 'success');
 			$form->getPresenter()->redirect('Sign:in');
