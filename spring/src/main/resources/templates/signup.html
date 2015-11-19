@@ -39,7 +39,7 @@
       <h1 class="bold-header"><a href="#" class="header">note<span class="jam">jam:</span></a> <span th:text="#{signup.title}">Sign Up</span></h1>
     </div>
     <div class="thirteen columns content-area">
-      <form class="offset-by-six sign-in" action="#" th:object="${user}" method="post">
+      <form class="offset-by-six sign-in" th:action="@{#}" action="#" th:object="${user}" method="post">
         <label th:inline="text">
 			[[#{signup.Email}]]
 			<input type="email" th:field="*{email}" th:errorclass="red" />
@@ -64,9 +64,8 @@
 			<li th:each="err : ${#fields.errors('repeatedPassword')}" th:text="${err}" />
 		</ul>
 	
-        <input type="submit" th:value="#{signup.Signup}" th:inline="text">
-        	[[#{signup.or}]] <a href='#' th:text="#{signup.Signin}">Sign in</a>
-        </input>
+        <input type="submit" th:value="#{signup.Signup}" th:inline="text" />
+        	<span th:text="#{signup.or}">or</span> <a href='#' th:text="#{signup.Signin}">Sign in</a>
       </form>
     </div>
     <hr class="footer" />
