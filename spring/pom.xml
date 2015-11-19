@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.2.7.RELEASE</version>
+		<version>1.3.0.RELEASE</version>
 	</parent>
 
 	<groupId>net.notejam</groupId>
@@ -14,7 +14,6 @@
 	<description>Implements Notejam with Spring</description>
 
 	<properties>
-		<spring-data-jpa.version>1.9.0</spring-data-jpa.version>
 		<java.version>1.8</java.version>
 	</properties>
 
