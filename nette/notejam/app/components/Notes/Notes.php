@@ -14,13 +14,18 @@ class Notes extends Nette\Application\UI\Control
 	/** @var Selection */
 	private $notes;
 
+	/** @var object */
+	private $pad;
+
 	/**
 	 * Pads constructor.
 	 * @param Selection $notes
+	 * @param object    $pad
 	 */
-	public function __construct($notes)
+	public function __construct($notes, $pad = null)
 	{
 		$this->notes = $notes;
+		$this->pad = $pad;
 	}
 
 
@@ -32,11 +37,13 @@ class Notes extends Nette\Application\UI\Control
 		$template = $this->createTemplate();
 		$template->setFile(__DIR__ . '/Notes.latte');
 		$template->notes = $this->notes;
+		$template->pad = $this->pad;
 		$template->render();
 	}
 
 	/**
-	 * Handles subreqest for ordering the notes.
+	 * Handles sub-request for ordering the notes.
+	 * @param string $order
 	 */
 	public function handleOrder($order)
 	{

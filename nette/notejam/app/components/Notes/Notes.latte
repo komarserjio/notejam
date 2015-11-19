@@ -4,7 +4,7 @@
 			Note <a n:href="order! 'order' => 'name DESC'" class="ajax sort_arrow">&uarr;</a>
 			<a n:href="order! 'order' => 'name ASC'" class="ajax sort_arrow">&darr;</a>
 		</th>
-		<th>Pad</th>
+		<th n:if="!$pad">Pad</th>
 		<th class="date">
 			Last modified <a n:href="order! 'order' => 'updated_at DESC'" class="ajax sort_arrow">&uarr;</a>
 			<a n:href="order! 'order' => 'updated_at ASC'" class="ajax sort_arrow">&darr;</a>
@@ -12,7 +12,13 @@
 	</tr>
 	<tr n:foreach="$notes as $note">
 		<td><a href="{plink Note: $note->id}">{$note->name}</a></td>
-		<td class="pad">{$note->pad_id ? $note->pad->name : "No pad"}</td>
+		<td class="pad" n:if="!$pad">
+			{if $note->pad_id}
+				<a href="{plink Pad: $note->pad->id}">{$note->pad->name}</a>
+			{else}
+				No pad
+			{/if}
+		</td>
 		<td class="hidden-text date">{$note->updated_at|date:'d. M. Y'}</td>
 	</tr>
 </table>

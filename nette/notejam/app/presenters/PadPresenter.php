@@ -86,7 +86,7 @@ class PadPresenter extends SecuredBasePresenter
 	 */
 	protected function createComponentNotes()
 	{
-		return $this->notesFactory->create($this->notes);
+		return $this->notesFactory->create($this->notes, $this->pad);
 	}
 
 
