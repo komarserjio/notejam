@@ -56,6 +56,7 @@ class ForgottenPasswordFormFactory extends Nette\Object
 		$user = $this->userManager->findByEmail($values->email);
 		if (!$user) {
 			$form->addError('No user with given email found');
+			return;
 		}
 		$password = Nette\Utils\Random::generate(10);
 		$this->userManager->setNewPassword($user->id, $password);
