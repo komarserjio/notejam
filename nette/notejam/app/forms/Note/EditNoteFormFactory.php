@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Forms\Note;
 
 use App\Model\NoteManager;

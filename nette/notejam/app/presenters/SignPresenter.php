@@ -23,6 +23,7 @@ class SignPresenter extends BasePresenter
 	/** @var SignUpFormFactory @inject */
 	public $signUpFormFactory;
 
+	/********************* Controls ***********************************************************************************/
 
 	/**
 	 * Sign-in form factory.
@@ -42,7 +43,6 @@ class SignPresenter extends BasePresenter
 		};
 		return $form;
 	}
-
 
 	/**
 	 * Sign-in form factory.
@@ -83,7 +83,11 @@ class SignPresenter extends BasePresenter
 		return $form;
 	}
 
+	/********************* Actions ************************************************************************************/
 
+	/**
+	 * Sign:in.
+	 */
 	public function actionIn()
 	{
 		if ($this->user->isLoggedIn()) {
@@ -91,6 +95,9 @@ class SignPresenter extends BasePresenter
 		}
 	}
 
+	/**
+	 * Sign:up.
+	 */
 	public function actionUp()
 	{
 		if ($this->user->isLoggedIn()) {
@@ -98,9 +105,12 @@ class SignPresenter extends BasePresenter
 		}
 	}
 
+	/**
+	 * Sign:out.
+	 */
 	public function actionOut()
 	{
-		$this->getUser()->logout(TRUE);
+		$this->getUser()->logout(true);
 		$this->flashMessage('You have been signed out.', 'info');
 		$this->redirect('in');
 	}

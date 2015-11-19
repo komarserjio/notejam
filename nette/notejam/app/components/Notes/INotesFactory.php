@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Components\Notes;
 
 use Nette\Database\Table\Selection;

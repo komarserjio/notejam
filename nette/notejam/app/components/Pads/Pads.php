@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Components\Pads;
 
 use Nette\Application\UI\Control;

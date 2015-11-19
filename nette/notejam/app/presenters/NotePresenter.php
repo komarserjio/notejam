@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Presenters;
 
 use App\Forms\Note\DeleteNoteFormFactory;
@@ -42,6 +41,9 @@ class NotePresenter extends SecuredBasePresenter
 
 	/** @var object[] */
 	private $notes;
+
+
+	/********************* Controls ***********************************************************************************/
 
 	/**
 	 * @return \Nette\Application\UI\Form
@@ -97,44 +99,74 @@ class NotePresenter extends SecuredBasePresenter
 		return $form;
 	}
 
+	/********************* Actions ************************************************************************************/
 
+	/**
+	 * Note:default.
+	 * @param int $id
+	 * @throws BadRequestException
+	 */
 	public function actionDefault($id)
 	{
 		$this->loadNote($id);
 		$this->notes = $this->noteManager->findByPad($id);
 	}
 
+	/**
+	 * Note:default render.
+	 */
 	public function renderDefault()
 	{
 		$this->template->note = $this->note;
 	}
 
+	/**
+	 * Note:edit.
+	 * @param int $id
+	 * @throws BadRequestException
+	 */
 	public function actionEdit($id)
 	{
 		$this->loadNote($id);
 	}
 
+	/**
+	 * Note:edit render.
+	 */
 	public function renderEdit()
 	{
 		$this->template->note = $this->note;
 	}
 
+	/**
+	 * Note:delete.
+	 * @param int $id
+	 * @throws BadRequestException
+	 */
 	public function actionDelete($id)
 	{
 		$this->loadNote($id);
 	}
 
+	/**
+	 * Note:delete render.
+	 */
 	public function renderDelete()
 	{
 		$this->template->note = $this->note;
 	}
 
+	/**
+	 * Note:new.
+	 * @param int $pad
+	 */
 	public function actionNew($pad)
 	{
 		$this->padId = $pad;
 	}
 
 	/**
+	 * Loads note with given id and if not found, throws BadRequestException.
 	 * @param int $id
 	 * @throws BadRequestException
 	 */
@@ -146,6 +178,5 @@ class NotePresenter extends SecuredBasePresenter
 			throw new BadRequestException("Pad with given id not found");
 		}
 	}
-
 
 }

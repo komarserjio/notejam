@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Presenters;
 
 use Nette;
@@ -12,7 +11,6 @@ class AccountPresenter extends BasePresenter
 
 	/** @var AccountSettingsFormFactory @inject */
 	public $formFactory;
-
 
 	/**
 	 * Sign-in form factory.

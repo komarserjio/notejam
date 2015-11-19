@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Forms\Account;
 
 use App\Model\CurrentPasswordMismatch;

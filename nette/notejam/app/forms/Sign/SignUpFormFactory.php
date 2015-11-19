@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Forms\Sign;
 
 use App\Model\DuplicateNameException;

@@ -8,15 +8,18 @@ use Tracy\ILogger;
 
 class ErrorPresenter extends Nette\Object implements Nette\Application\IPresenter
 {
+
 	/** @var ILogger */
 	private $logger;
 
-
+	/**
+	 * ErrorPresenter constructor.
+	 * @param ILogger $logger
+	 */
 	public function __construct(ILogger $logger)
 	{
 		$this->logger = $logger;
 	}
-
 
 	/**
 	 * @return Nette\Application\IResponse

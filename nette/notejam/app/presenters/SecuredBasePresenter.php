@@ -1,12 +1,14 @@
 <?php
 
-
 namespace App\Presenters;
 
 
 class SecuredBasePresenter extends BasePresenter
 {
 
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function startup()
 	{
 		parent::startup();

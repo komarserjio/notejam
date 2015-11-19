@@ -20,6 +20,9 @@ class HomepagePresenter extends SecuredBasePresenter
 	/** @var object[] */
 	protected $notes;
 
+
+	/********************* Controls ***********************************************************************************/
+
 	/**
 	 * @return \App\Components\Notes\Notes
 	 */
@@ -28,6 +31,12 @@ class HomepagePresenter extends SecuredBasePresenter
 		return $this->notesFactory->create($this->notes);
 	}
 
+	/********************* Actions ************************************************************************************/
+
+	/**
+	 * Homepage:default.
+	 * @param string $order
+	 */
 	public function actionDefault($order)
 	{
 		$this->notes = $this->noteManager->findAll();
@@ -36,6 +45,9 @@ class HomepagePresenter extends SecuredBasePresenter
 		}
 	}
 
+	/**
+	 * Homepage:default render.
+	 */
 	public function renderDefault()
 	{
 		$this->template->notes = $this->notes;

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Presenters;
 
 use App\Components\Notes\INotesFactory;
@@ -42,6 +41,8 @@ class PadPresenter extends SecuredBasePresenter
 
 	/** @var object[] */
 	private $notes;
+
+	/********************* Controls ***********************************************************************************/
 
 	/**
 	 * @return \Nette\Application\UI\Form
@@ -106,6 +107,14 @@ class PadPresenter extends SecuredBasePresenter
 	}
 
 
+	/********************* Actions ************************************************************************************/
+
+	/**
+	 * Pad:default.
+	 * @param int         $id
+	 * @param string|null $order
+	 * @throws BadRequestException
+	 */
 	public function actionDefault($id, $order)
 	{
 		$this->loadPad($id);
@@ -115,32 +124,52 @@ class PadPresenter extends SecuredBasePresenter
 		}
 	}
 
+	/**
+	 * Pad:default render.
+	 */
 	public function renderDefault()
 	{
 		$this->template->pad = $this->pad;
 	}
 
+	/**
+	 * Pad:edit.
+	 * @param int $id
+	 * @throws BadRequestException
+	 */
 	public function actionEdit($id)
 	{
 		$this->loadPad($id);
 	}
 
+	/**
+	 * Pad:edit render.
+	 */
 	public function renderEdit()
 	{
 		$this->template->pad = $this->pad;
 	}
 
+	/**
+	 * Pad:delete.
+	 * @param int $id
+	 * @throws BadRequestException
+	 */
 	public function actionDelete($id)
 	{
 		$this->loadPad($id);
 	}
 
+	/**
+	 * Pad:delete render.
+	 */
 	public function renderDelete()
 	{
 		$this->template->pad = $this->pad;
 	}
 
 	/**
+	 * Loads pad with given id and if not found, throws BadRequestException.
 	 * @param int $id
 	 * @throws BadRequestException
 	 */

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Forms\Pad;
 
 use Nette;
