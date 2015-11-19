@@ -43,7 +43,7 @@ class ForgottenPasswordFormFactory extends Nette\Object
 
 		$form->addSubmit('submit', 'Get new password');
 
-		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->onSuccess[] = [$this, 'formSucceeded'];
 		return $form;
 	}
 

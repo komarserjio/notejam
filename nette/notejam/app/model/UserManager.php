@@ -44,9 +44,9 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 			throw new Nette\Security\AuthenticationException('Invalid password', self::INVALID_CREDENTIAL);
 
 		} elseif (Passwords::needsRehash($row['password'])) {
-			$row->update(array(
+			$row->update([
 				'password' => Passwords::hash($password),
-			));
+			]);
 		}
 
 		$arr = $row->toArray();
@@ -67,10 +67,10 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 			throw new DuplicateNameException("User with given email already registered");
 		}
 
-		$this->getTable()->insert(array(
+		$this->getTable()->insert([
 			'email'    => $email,
 			'password' => Passwords::hash($password),
-		));
+		]);
 	}
 
 	/**

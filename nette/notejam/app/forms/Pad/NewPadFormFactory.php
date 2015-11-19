@@ -35,7 +35,7 @@ class NewPadFormFactory extends Nette\Object
 
 		$form->addSubmit('submit', 'Save');
 
-		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->onSuccess[] = [$this, 'formSucceeded'];
 		return $form;
 	}
 

@@ -44,7 +44,7 @@ class SignUpFormFactory extends Nette\Object
 
 		$form->addSubmit('submit', 'Sign Up');
 
-		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->onSuccess[] = [$this, 'formSucceeded'];
 		return $form;
 	}
 

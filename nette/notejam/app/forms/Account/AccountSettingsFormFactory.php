@@ -48,7 +48,7 @@ class AccountSettingsFormFactory extends Nette\Object
 
 		$form->addSubmit('submit', 'Change Password');
 
-		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->onSuccess[] = [$this, 'formSucceeded'];
 		return $form;
 	}
 

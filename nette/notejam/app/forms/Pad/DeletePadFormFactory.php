@@ -35,7 +35,7 @@ class DeletePadFormFactory extends Nette\Object
 
 		$form->addSubmit('submit', 'Yes, I want to delete this pad');
 
-		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->onSuccess[] = [$this, 'formSucceeded'];
 		return $form;
 	}
 

@@ -34,7 +34,7 @@ class DeleteNoteFormFactory
 
 		$form->addSubmit('submit', 'Yes, I want to delete this note');
 
-		$form->onSuccess[] = array($this, 'formSucceeded');
+		$form->onSuccess[] = [$this, 'formSucceeded'];
 		return $form;
 	}
 
