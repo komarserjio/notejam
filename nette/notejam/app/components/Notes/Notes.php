@@ -41,14 +41,4 @@ class Notes extends Nette\Application\UI\Control
 		$template->render();
 	}
 
-	/**
-	 * Handles sub-request for ordering the notes.
-	 * @param string $order
-	 */
-	public function handleOrder($order)
-	{
-		$this->notes->order($order);
-		$this->redrawControl('notes');
-	}
-
 }

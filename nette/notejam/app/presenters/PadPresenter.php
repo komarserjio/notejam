@@ -6,6 +6,7 @@ namespace App\Presenters;
 use App\Components\Notes\INotesFactory;
 use App\Forms\Pad\DeletePadFormFactory;
 use App\Forms\Pad\NewPadFormFactory;
+use App\Helpers\OrderHelper;
 use App\Model\NoteManager;
 use App\Model\PadManager;
 use App\Forms\Pad\EditPadFormFactory;
@@ -90,10 +91,13 @@ class PadPresenter extends SecuredBasePresenter
 	}
 
 
-	public function actionDefault($id)
+	public function actionDefault($id, $order)
 	{
 		$this->loadPad($id);
 		$this->notes = $this->noteManager->findByPad($id);
+		if ($order) {
+			$this->notes->order(OrderHelper::translateParameterToColumns($order));
+		}
 	}
 
 	public function renderDefault()

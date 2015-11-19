@@ -1,13 +1,13 @@
 <table class="notes" n:snippet="notes">
 	<tr>
 		<th class="note">
-			Note <a n:href="order! 'order' => 'name DESC'" class="ajax sort_arrow">&uarr;</a>
-			<a n:href="order! 'order' => 'name ASC'" class="ajax sort_arrow">&darr;</a>
+			Note <a href="{plink this 'order' => '-name'}" class="sort_arrow">&uarr;</a>
+			<a href="{plink this 'order' => 'name'}" class="sort_arrow">&darr;</a>
 		</th>
 		<th n:if="!$pad">Pad</th>
 		<th class="date">
-			Last modified <a n:href="order! 'order' => 'updated_at DESC'" class="ajax sort_arrow">&uarr;</a>
-			<a n:href="order! 'order' => 'updated_at ASC'" class="ajax sort_arrow">&darr;</a>
+			Last modified <a href="{plink this 'order' => '-updated_at'}" class="sort_arrow">&uarr;</a>
+			<a href="{plink this 'order' => 'updated_at'}" class="sort_arrow">&darr;</a>
 		</th>
 	</tr>
 	<tr n:foreach="$notes as $note">

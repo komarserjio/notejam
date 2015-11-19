@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Components\Notes\INotesFactory;
+use App\Helpers\OrderHelper;
 use App\Model\NoteManager;
 use Nette;
 
@@ -27,9 +28,12 @@ class HomepagePresenter extends SecuredBasePresenter
 		return $this->notesFactory->create($this->notes);
 	}
 
-	public function actionDefault()
+	public function actionDefault($order)
 	{
 		$this->notes = $this->noteManager->findAll();
+		if ($order) {
+			$this->notes->order(OrderHelper::translateParameterToColumns($order));
+		}
 	}
 
 	public function renderDefault()
