@@ -21,18 +21,18 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
-@Target( { METHOD, FIELD, ANNOTATION_TYPE })
+@Target({ METHOD, FIELD, ANNOTATION_TYPE })
 @Retention(RUNTIME)
 @Documented
-@Size(min=8, max=128)
+@Size(min = 8, max = 128)
 @NotEmpty
 @Constraint(validatedBy = {})
 public @interface Password {
 
-	String message() default "{Password}";
+    String message() default "{Password}";
 
-    Class<?>[] groups() default {};
+    Class<?>[]groups() default {};
 
-    Class<? extends Payload>[] payload() default {};
-	
+    Class<? extends Payload>[]payload() default {};
+
 }

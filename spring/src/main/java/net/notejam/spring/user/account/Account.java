@@ -14,41 +14,41 @@ import net.notejam.spring.user.constraints.Password;
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
-@EqualProperties(value = {"repeatedPassword", "newPassword"}, violationOnPropery = true)
+@EqualProperties(value = { "repeatedPassword", "newPassword" }, violationOnPropery = true)
 public class Account {
 
-	@NotEmpty
-	@CurrentPassword
-	private String currentPassword;
-	
-	@Password
-	private String newPassword;
+    @NotEmpty
+    @CurrentPassword
+    private String currentPassword;
 
-	@NotNull
-	private String repeatedPassword;
+    @Password
+    private String newPassword;
 
-	public String getCurrentPassword() {
-		return currentPassword;
-	}
+    @NotNull
+    private String repeatedPassword;
 
-	public void setCurrentPassword(String currentPassword) {
-		this.currentPassword = currentPassword;
-	}
+    public String getCurrentPassword() {
+	return currentPassword;
+    }
 
-	public String getNewPassword() {
-		return newPassword;
-	}
+    public void setCurrentPassword(String currentPassword) {
+	this.currentPassword = currentPassword;
+    }
 
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
+    public String getNewPassword() {
+	return newPassword;
+    }
 
-	public String getRepeatedPassword() {
-		return repeatedPassword;
-	}
+    public void setNewPassword(String newPassword) {
+	this.newPassword = newPassword;
+    }
 
-	public void setRepeatedPassword(String repeatedPassword) {
-		this.repeatedPassword = repeatedPassword;
-	}
-	
+    public String getRepeatedPassword() {
+	return repeatedPassword;
+    }
+
+    public void setRepeatedPassword(String repeatedPassword) {
+	this.repeatedPassword = repeatedPassword;
+    }
+
 }

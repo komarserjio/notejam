@@ -10,20 +10,20 @@ import net.notejam.spring.user.UserService;
 
 @Configurable
 public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
-	
-	@Autowired
-	private UserService userService;
 
-	@Override
-	public void initialize(UniqueEmail constraintAnnotation) {
-	}
+    @Autowired
+    private UserService userService;
 
-	@Override
-	public boolean isValid(String email, ConstraintValidatorContext context) {
-		if (email == null) {
-			return true;
-		}
-		return ! userService.isEmailRegistered(email);
+    @Override
+    public void initialize(UniqueEmail constraintAnnotation) {
+    }
+
+    @Override
+    public boolean isValid(String email, ConstraintValidatorContext context) {
+	if (email == null) {
+	    return true;
 	}
+	return !userService.isEmailRegistered(email);
+    }
 
 }

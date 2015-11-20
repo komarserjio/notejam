@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/error")
 public class ForcedErrorController {
 
-	/**
-	 * Throws an exception on purpose to demonstrate the error handler.
-	 */
-	@RequestMapping("/unhandled")
-	public void forceUnexpectedException() {
-		throw new RuntimeException("This exception was forced.");
-	}
-	
+    /**
+     * Throws an exception on purpose to demonstrate the error handler.
+     */
+    @RequestMapping("/unhandled")
+    public void forceUnexpectedException() {
+	throw new RuntimeException("This exception was forced.");
+    }
+
 }

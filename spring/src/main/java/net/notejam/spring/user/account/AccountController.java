@@ -22,24 +22,24 @@ import net.notejam.spring.user.UserService;
 @RequestMapping("/account")
 @PreAuthorize("isAuthenticated()")
 public class AccountController {
-	
-	@Autowired
-	private UserService userService;
 
-	@RequestMapping(method=RequestMethod.GET)
-	public String showForm(@ModelAttribute("account") Account account) {
-		return "account";
+    @Autowired
+    private UserService userService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String showForm(@ModelAttribute("account") Account account) {
+	return "account";
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String signup(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult) {
+	if (bindingResult.hasErrors()) {
+	    return "account";
 	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public String signup(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-            return "account";
-        }
 
-		userService.changePassword(account.getNewPassword());
+	userService.changePassword(account.getNewPassword());
 
-		return "redirect:/account?success";
-	}
-	
+	return "redirect:/account?success";
+    }
+
 }

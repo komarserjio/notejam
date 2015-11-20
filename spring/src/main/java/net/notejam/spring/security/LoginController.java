@@ -12,10 +12,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Controller
 public class LoginController extends WebMvcConfigurerAdapter {
-	
-	@Override
-	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("login");
-	}
-	
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+	registry.addViewController("/login").setViewName("login");
+    }
+
 }

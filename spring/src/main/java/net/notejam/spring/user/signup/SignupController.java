@@ -21,23 +21,23 @@ import net.notejam.spring.user.UserService;
 @RequestMapping("/signup")
 public class SignupController {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@RequestMapping(method=RequestMethod.GET)
-	public String showForm(@ModelAttribute("user") Signup user) {
-		return "signup";
+    @RequestMapping(method = RequestMethod.GET)
+    public String showForm(@ModelAttribute("user") Signup user) {
+	return "signup";
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String signup(@Valid @ModelAttribute("user") Signup user, BindingResult bindingResult) {
+	if (bindingResult.hasErrors()) {
+	    return "signup";
 	}
-	
-	@RequestMapping(method=RequestMethod.POST)
-	public String signup(@Valid @ModelAttribute("user") Signup user, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-            return "signup";
-        }
 
-		userService.signUp(user.getEmail(), user.getPassword());
+	userService.signUp(user.getEmail(), user.getPassword());
 
-		return "redirect:/login?signup";
-	}
-	
+	return "redirect:/login?signup";
+    }
+
 }
