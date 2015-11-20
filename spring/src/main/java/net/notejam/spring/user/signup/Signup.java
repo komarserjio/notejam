@@ -1,36 +1,50 @@
-package net.notejam.spring.user;
+package net.notejam.spring.user.signup;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import de.malkusch.validation.constraints.EqualProperties;
+import net.notejam.spring.user.constraints.Password;
+import net.notejam.spring.user.signup.constraints.UniqueEmail;
 
 /**
- * User for sign up process.
+ * Sign up form model
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @EqualProperties(value = {"repeatedPassword", "password"}, violationOnPropery = true)
-public class SignupUser extends User {
+public class Signup {
 	
-	private static final long serialVersionUID = -5862649928696271525L;
-
+	@NotEmpty
+	@Email
+	@UniqueEmail
+	@Size(max=75)
+	private String email;
+	
 	@NotNull
 	private String repeatedPassword;
-	
-	@Size(min=8, max=128)
-	@NotEmpty
+
+	@Password
 	private String password;
 	
-	public String getPassword() {
-		return password;
+	public String getEmail() {
+		return email;
 	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getPassword() {
+		return this.password;
 	}
 
 	public String getRepeatedPassword() {

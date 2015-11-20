@@ -1,0 +1,34 @@
+<form th:action="@{#}" th:object="${account}" method="post">
+
+    <div class="alert-area">
+        <div th:if="${param.success}" class="alert alert-success" th:text="#{account.success}"> 
+            You've successfully changed your password.
+        </div>
+    </div>
+
+    <label th:inline="text">
+        [[#{account.currentPassword}]]
+        <input type="password" th:field="*{currentPassword}" th:errorclass="red" />
+    </label>
+    <ul class="errorlist" th:if="${#fields.hasErrors('currentPassword')}">
+        <li th:each="err : ${#fields.errors('currentPassword')}" th:text="${err}" />
+    </ul>
+    
+    <label th:inline="text">
+        [[#{account.newPassword}]]
+        <input type="password" th:field="*{newPassword}" th:errorclass="red" />
+    </label>
+    <ul class="errorlist" th:if="${#fields.hasErrors('newPassword')}">
+        <li th:each="err : ${#fields.errors('newPassword')}" th:text="${err}" />
+    </ul>
+    
+    <label th:inline="text">
+        [[#{account.repeatedPassword}]]
+        <input type="password" th:field="*{repeatedPassword}" th:errorclass="red" />
+    </label>
+    <ul class="errorlist" th:if="${#fields.hasErrors('repeatedPassword')}">
+        <li th:each="err : ${#fields.errors('repeatedPassword')}" th:text="${err}" />
+    </ul>
+    
+    <input type="submit" />
+</form>

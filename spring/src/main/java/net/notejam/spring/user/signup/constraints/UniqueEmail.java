@@ -1,4 +1,4 @@
-package net.notejam.spring.user.validator;
+package net.notejam.spring.user.signup.constraints;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -14,10 +14,10 @@ import javax.validation.groups.Default;
 /**
  * Validation for a unique email property.
  * 
- * The validator uses a JPA entity manager. I.e. this validation
+ * {@link UniqueEmailValidator} uses a JPA entity manager. I.e. this validation
  * should not happen again during a JPA life cycle event (i.e. validation
- * during persistence). Therefore use this validator only against non {@link Default}
- * validation groups e.g. {@link UserInput}.
+ * during persistence). If this constraint validates an entity,
+ * don't validate against the {@link Default} validation group.
  * 
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
@@ -28,15 +28,6 @@ import javax.validation.groups.Default;
 @Documented
 public @interface UniqueEmail {
 	
-	/**
-	 * Validation group which indicates user input.
-	 * 
-	 * @author markus@malkusch.de
-	 * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
-	 */
-	public static interface UserInput {
-	}
-
 	String message() default "{UniqueEmail}";
 
     Class<?>[] groups() default {};

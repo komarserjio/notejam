@@ -1,4 +1,4 @@
-package net.notejam.spring.user.validator;
+package net.notejam.spring.user.signup.constraints;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
