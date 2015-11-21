@@ -11,6 +11,7 @@ import java.util.Random;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import net.notejam.spring.URITemplates;
 import net.notejam.spring.user.User;
 import net.notejam.spring.user.UserRepository;
+import net.notejam.spring.user.UserService;
 
 /**
  * Service providing an API for password recovery.
@@ -42,8 +44,14 @@ public class PasswordRecoveryService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Value("${recovery.lifetime}")
     private Period tokenLifetime;
+
+    @Value("${recovery.length}")
+    private int passwordLength;
 
     @Autowired
     private Random random;
@@ -58,6 +66,38 @@ public class PasswordRecoveryService {
     private MessageSource messageSource;
 
     private static Logger logger = LoggerFactory.getLogger(PasswordRecoveryService.class);
+
+    /**
+     * Recovers the password in exchange for a valid token.
+     * 
+     * @param tokenId
+     *            The token id
+     * @param token
+     *            The token string
+     * @return The new password
+     * @throws InvalidTokenException
+     *             The token was not valid
+     */
+    @Transactional
+    public String recoverPassword(int id, String token) throws InvalidTokenException {
+        RecoveryToken recoveryToken = tokenRepository
+                .findOneByIdAndTokenAndExpirationGreaterThan(id, token, Instant.now())
+                .orElseThrow(() -> new InvalidTokenException());
+
+        String password = generatePassword();
+        userService.changePassword(recoveryToken.getUser(), password);
+        tokenRepository.delete(recoveryToken);
+        return password;
+    }
+
+    /**
+     * Generates a random password.
+     * 
+     * @return The generated password
+     */
+    private String generatePassword() {
+        return RandomStringUtils.randomAlphanumeric(passwordLength);
+    }
 
     /**
      * Starts the password recovery process.

@@ -55,6 +55,19 @@ public class UserService {
     @Transactional
     public void changePassword(String password) {
         User user = getAuthenticatedUser();
+        changePassword(user, password);
+    }
+
+    /**
+     * Sets a new password.
+     * 
+     * @param user
+     *            The user
+     * @param password
+     *            The new password
+     */
+    @Transactional
+    public void changePassword(User user, String password) {
         user.setPassword(securityService.encodePassword(password));
         repository.save(user);
     }

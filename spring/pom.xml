@@ -48,6 +48,11 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		<dependency>
 			<groupId>de.malkusch.validation</groupId>
 			<artifactId>validation</artifactId>
 			<version>0.3.0</version>

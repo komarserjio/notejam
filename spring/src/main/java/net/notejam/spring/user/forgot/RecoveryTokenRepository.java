@@ -1,6 +1,7 @@
 package net.notejam.spring.user.forgot;
 
 import java.time.Instant;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,6 +13,25 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface RecoveryTokenRepository extends JpaRepository<RecoveryToken, Integer> {
 
+    /**
+     * Deletes all tokens which are expired.
+     * 
+     * @param date
+     *            The time
+     */
     public void deleteByExpirationLessThan(Instant date);
+
+    /**
+     * Find a non expired token which matches the id and token.
+     * 
+     * @param id
+     *            The token id
+     * @param token
+     *            The token string
+     * @param time
+     *            The current time
+     * @return The token
+     */
+    public Optional<RecoveryToken> findOneByIdAndTokenAndExpirationGreaterThan(int id, String token, Instant time);
 
 }
