@@ -255,6 +255,21 @@ div.sign-in-out-block {
     font-size: 12px;
 }
 
+div.sign-in-out-block form {
+	margin: inherit;
+}
+
+div.sign-in-out-block input[type="submit"] {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: inherit;
+    margin: inherit;
+}
+
 div.sign-in-out-block a {
     /*text-decoration: none;*/
 }

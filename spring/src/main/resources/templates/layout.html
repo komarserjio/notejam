@@ -36,8 +36,10 @@
         <a th:href="@{${T(net.notejam.spring.URITemplates).SIGNUP}}" href="#" th:text="#{menu.signup}">Sign up</a>&nbsp;&nbsp;&nbsp;<a th:href="@{${T(net.notejam.spring.URITemplates).SIGNIN}}" href="#" th:text="#{menu.signin}">Sign in</a>
       </div>
       <div class="sign-in-out-block" sec:authorize="isAuthenticated()">
-        <span sec:authentication="name">Bob</span>
-        <a th:href="@{${T(net.notejam.spring.URITemplates).SETTINGS}}" href="#" th:text="#{menu.account}">Account</a>&nbsp;&nbsp;&nbsp;<a th:href="@{${T(net.notejam.spring.URITemplates).SIGNOUT}}" href="#" th:text="#{menu.signout}">Sign out</a>
+        <form th:action="@{${T(net.notejam.spring.URITemplates).SIGNOUT}}" method="POST">
+	        <span sec:authentication="name">Bob</span>
+	        <a th:href="@{${T(net.notejam.spring.URITemplates).SETTINGS}}" href="#" th:text="#{menu.account}">Account</a>&nbsp;&nbsp;&nbsp;<input type="submit" th:value="#{menu.signout}"/>
+        </form>
       </div>
     </div>
     <div class="sixteen columns">
