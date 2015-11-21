@@ -2,9 +2,19 @@
 Notejam: Spring
 ***************
 
-Notejam application implemented using `Spring <http://spring.io/>`_ framework.
+Notejam application implemented using `Spring <http://projects.spring.io/spring-framework/>`_ framework.
 
 Spring version: 4.2.3
+
+The full stack would be:
+
+- `Spring Boot <http://projects.spring.io/spring-boot/>`_ (Spring configuration)
+- `Thymeleaf <http://www.thymeleaf.org/>`_ (View)
+- `Spring Security <http://projects.spring.io/spring-security/>`_ (Security framework)
+- `Spring`_ (DI and MVC framework)
+- `Spring Data <http://projects.spring.io/spring-data/>`_ (Persistence abstraction)
+- `JPA <http://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html>`_ (Persistence API)
+- `Hibernate <http://hibernate.org/orm/>`_ (JPA implementation)
 
 ==========================
 Installation and launching
