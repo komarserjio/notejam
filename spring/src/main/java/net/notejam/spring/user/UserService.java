@@ -32,7 +32,7 @@ public class UserService {
      * @return True, if the email is already registered.
      */
     public boolean isEmailRegistered(String email) {
-	return repository.findOneByEmail(email).isPresent();
+        return repository.findOneByEmail(email).isPresent();
     }
 
     /**
@@ -41,9 +41,9 @@ public class UserService {
      * @return The currently authenticated user.
      */
     public User getAuthenticatedUser() {
-	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	String email = authentication.getName();
-	return repository.findOneByEmail(email).get();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return repository.findOneByEmail(email).get();
     }
 
     /**
@@ -54,9 +54,9 @@ public class UserService {
      */
     @Transactional
     public void changePassword(String password) {
-	User user = getAuthenticatedUser();
-	user.setPassword(securityService.encodePassword(password));
-	repository.save(user);
+        User user = getAuthenticatedUser();
+        user.setPassword(securityService.encodePassword(password));
+        repository.save(user);
     }
 
     /**
@@ -69,10 +69,10 @@ public class UserService {
      */
     @Transactional
     public void signUp(String email, String password) {
-	User user = new User();
-	user.setEmail(email);
-	user.setPassword(securityService.encodePassword(password));
-	repository.save(user);
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(securityService.encodePassword(password));
+        repository.save(user);
     }
 
 }

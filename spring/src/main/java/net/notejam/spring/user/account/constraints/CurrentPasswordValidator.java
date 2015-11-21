@@ -24,10 +24,10 @@ public class CurrentPasswordValidator implements ConstraintValidator<CurrentPass
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
-	if (password == null) {
-	    return true;
-	}
-	return securityService.isPasswordValid(userService.getAuthenticatedUser(), password);
+        if (password == null) {
+            return true;
+        }
+        return securityService.isPasswordValid(userService.getAuthenticatedUser(), password);
     }
 
 }

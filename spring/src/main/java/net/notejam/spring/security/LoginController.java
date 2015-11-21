@@ -17,7 +17,7 @@ public class LoginController extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-	registry.addViewController(URITemplates.SIGNIN).setViewName("login");
+        registry.addViewController(URITemplates.SIGNIN).setViewName("login");
     }
 
 }

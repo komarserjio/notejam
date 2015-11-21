@@ -29,18 +29,18 @@ public class AccountController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(@ModelAttribute("account") Account account) {
-	return "account";
+        return "account";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String signup(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult) {
-	if (bindingResult.hasErrors()) {
-	    return "account";
-	}
+        if (bindingResult.hasErrors()) {
+            return "account";
+        }
 
-	userService.changePassword(account.getNewPassword());
+        userService.changePassword(account.getNewPassword());
 
-	return String.format("redirect:%s?success", URITemplates.SETTINGS);
+        return String.format("redirect:%s?success", URITemplates.SETTINGS);
     }
 
 }

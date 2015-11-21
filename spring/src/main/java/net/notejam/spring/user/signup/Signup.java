@@ -32,27 +32,27 @@ public class Signup {
     private String password;
 
     public String getEmail() {
-	return email;
+        return email;
     }
 
     public void setEmail(String email) {
-	this.email = email;
+        this.email = email;
     }
 
     public void setPassword(String password) {
-	this.password = password;
+        this.password = password;
     }
 
     public String getPassword() {
-	return this.password;
+        return this.password;
     }
 
     public String getRepeatedPassword() {
-	return repeatedPassword;
+        return repeatedPassword;
     }
 
     public void setRepeatedPassword(String repeatedPassword) {
-	this.repeatedPassword = repeatedPassword;
+        this.repeatedPassword = repeatedPassword;
     }
 
 }

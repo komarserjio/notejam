@@ -18,7 +18,7 @@ public class ForcedErrorController {
      */
     @RequestMapping("/unhandled")
     public void forceUnexpectedException() {
-	throw new RuntimeException("This exception was forced.");
+        throw new RuntimeException("This exception was forced.");
     }
 
 }

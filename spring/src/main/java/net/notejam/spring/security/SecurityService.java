@@ -28,7 +28,7 @@ public class SecurityService {
      * @return True if the password is valid.
      */
     public boolean isPasswordValid(User user, String password) {
-	return passwordEncoder.matches(password, user.getPassword());
+        return passwordEncoder.matches(password, user.getPassword());
     }
 
     /**
@@ -39,7 +39,7 @@ public class SecurityService {
      * @return The encoded password
      */
     public String encodePassword(String password) {
-	return passwordEncoder.encode(password);
+        return passwordEncoder.encode(password);
     }
 
 }

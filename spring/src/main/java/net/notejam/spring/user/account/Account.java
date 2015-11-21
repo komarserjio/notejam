@@ -28,27 +28,27 @@ public class Account {
     private String repeatedPassword;
 
     public String getCurrentPassword() {
-	return currentPassword;
+        return currentPassword;
     }
 
     public void setCurrentPassword(String currentPassword) {
-	this.currentPassword = currentPassword;
+        this.currentPassword = currentPassword;
     }
 
     public String getNewPassword() {
-	return newPassword;
+        return newPassword;
     }
 
     public void setNewPassword(String newPassword) {
-	this.newPassword = newPassword;
+        this.newPassword = newPassword;
     }
 
     public String getRepeatedPassword() {
-	return repeatedPassword;
+        return repeatedPassword;
     }
 
     public void setRepeatedPassword(String repeatedPassword) {
-	this.repeatedPassword = repeatedPassword;
+        this.repeatedPassword = repeatedPassword;
     }
 
 }

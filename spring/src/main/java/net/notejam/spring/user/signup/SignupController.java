@@ -27,18 +27,18 @@ public class SignupController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(@ModelAttribute("user") Signup user) {
-	return "signup";
+        return "signup";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String signup(@Valid @ModelAttribute("user") Signup user, BindingResult bindingResult) {
-	if (bindingResult.hasErrors()) {
-	    return "signup";
-	}
+        if (bindingResult.hasErrors()) {
+            return "signup";
+        }
 
-	userService.signUp(user.getEmail(), user.getPassword());
+        userService.signUp(user.getEmail(), user.getPassword());
 
-	return String.format("redirect:%s?signup", URITemplates.SIGNIN);
+        return String.format("redirect:%s?signup", URITemplates.SIGNIN);
     }
 
 }

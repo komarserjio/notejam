@@ -25,10 +25,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	String password = repository.findOneByEmail(username)
-		.orElseThrow(() -> new UsernameNotFoundException(String.format("%s not found", username)))
-		.getPassword();
-	return new User(username, password, new ArrayList<>());
+        String password = repository.findOneByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("%s not found", username)))
+                .getPassword();
+        return new User(username, password, new ArrayList<>());
     }
 
 }

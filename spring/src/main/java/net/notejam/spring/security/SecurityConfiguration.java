@@ -31,18 +31,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-	http.formLogin().loginPage(URITemplates.SIGNIN);
-	http.logout().logoutRequestMatcher(new AntPathRequestMatcher(URITemplates.SIGNOUT));
+        http.formLogin().loginPage(URITemplates.SIGNIN);
+        http.logout().logoutRequestMatcher(new AntPathRequestMatcher(URITemplates.SIGNOUT));
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-	return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
 }
