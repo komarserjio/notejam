@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
  * @see Owned
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
+@Target({ ElementType.PARAMETER, ElementType.METHOD })
 public @interface PermitOwner {
 
 }

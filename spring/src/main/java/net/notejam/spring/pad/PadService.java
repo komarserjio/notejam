@@ -37,7 +37,7 @@ public class PadService {
      *            The pad id
      * @return The pad
      */
-    // TODO @PermitOwner
+    @PermitOwner
     public Pad getPad(int id) {
         return padRepository.findOne(id);
     }

@@ -1,6 +1,7 @@
 package net.notejam.spring.security.owner;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -34,7 +35,7 @@ public class PermitOwnerAspect {
     }
 
     @Before("net.notejam.spring.security.owner.PermitOwnerAspect.restrictOwnedEntities()")
-    public void authorize(JoinPoint joinPoint) {
+    public void authorizeCall(JoinPoint joinPoint) {
         for (Annotated<PermitOwner, Owned> annotated : ReflectionUtils
                 .<PermitOwner, Owned> getAnnotatedArguments(PermitOwner.class, joinPoint)) {
             if (annotated.getObject() == null) {
@@ -44,6 +45,15 @@ public class PermitOwnerAspect {
             authorize(annotated.getObject());
 
         }
+    }
+
+    @Pointcut("execution(@PermitOwner * *(..))")
+    private void restrictOwnedResults() {
+    }
+
+    @AfterReturning(pointcut = "net.notejam.spring.security.owner.PermitOwnerAspect.restrictOwnedResults()", returning = "entity", argNames = "entitiy")
+    public void authorizeReturn(Owned entity) {
+        authorize(entity);
     }
 
     private void authorize(Owned owned) {
