@@ -29,7 +29,6 @@ public class User extends AbstractPersistable<Integer> {
     @NotNull
     private String password;
 
-    @NotNull
     @OneToMany
     private Collection<Pad> pads;
 

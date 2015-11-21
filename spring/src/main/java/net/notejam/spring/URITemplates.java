@@ -20,6 +20,7 @@ public interface URITemplates {
     String RECOVER_PASSWORD = "/recover-password/{id}/{token}";
 
     String CREATE_PAD = "/pads/create";
-    String SHOW_PAD = "/pads/{id}";
+    String EDIT_PAD   = "/pads/{id}/edit";
+    String SHOW_PAD   = "/pads/{id}";
 
 }

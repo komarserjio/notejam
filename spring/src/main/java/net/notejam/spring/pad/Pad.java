@@ -6,10 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import net.notejam.spring.pad.constraints.Name;
 
 /**
  * The pad groups notes.
@@ -26,7 +26,8 @@ public class Pad extends AbstractPersistable<Integer> {
     @NotNull
     private Instant created;
 
-    @Name
+    @Size(max = 100)
+    @NotEmpty
     private String name;
 
     public Instant getCreated() {

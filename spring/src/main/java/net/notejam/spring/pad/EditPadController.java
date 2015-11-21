@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -14,22 +15,22 @@ import org.springframework.web.util.UriComponentsBuilder;
 import net.notejam.spring.URITemplates;
 
 /**
- * The create pad controller.
+ * The edit pad controller.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @Controller
-@RequestMapping(URITemplates.CREATE_PAD)
+@RequestMapping(URITemplates.EDIT_PAD)
 @PreAuthorize("isAuthenticated()")
-public class CreatePadController {
+public class EditPadController {
 
     @Autowired
     private PadService service;
 
     @ModelAttribute
-    public Pad pad() {
-        return service.buildPad();
+    public Pad pad(@PathVariable("id") int id) {
+        return service.getPad(id);
     }
     
     /**
@@ -39,7 +40,7 @@ public class CreatePadController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String showCreatePadForm() {
-        return "pad/create";
+        return "pad/edit";
     }
 
     /**
@@ -50,24 +51,24 @@ public class CreatePadController {
     @RequestMapping(method = RequestMethod.POST)
     public String createPad(@Valid Pad pad, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "pad/create";
+            return "pad/edit";
         }
 
-        service.createPad(pad);
-
-        return String.format("redirect:%s", buildCreatedPadUri(pad.getId()));
+        service.editPad(pad);
+        
+        return String.format("redirect:%s", buildEditedPadUri(pad.getId()));
     }
 
     /**
-     * Builds the URI for the created pad.
+     * Builds the URI for the edited pad.
      * 
      * @param id
      *            The pad id
      * @return The URI
      */
-    private String buildCreatedPadUri(int id) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.SHOW_PAD);
-        uriBuilder.queryParam("created");
+    private String buildEditedPadUri(int id) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.EDIT_PAD);
+        uriBuilder.queryParam("success");
         return uriBuilder.buildAndExpand(id).toUriString();
     }
 

@@ -30,22 +30,54 @@ public class PadService {
     private UserService userService;
 
     /**
-     * Creates a new pad.
+     * Loads a pad from the storage.
      * 
-     * @param name
-     *            The pad name.
+     * @param id
+     *            The pad id
+     * @return The pad
+     */
+    public Pad getPad(int id) {
+        return padRepository.findOne(id);
+    }
+    
+    /**
+     * Builds a new pad with an empty name.
+     * 
+     * The pad is not save yet. Use {@link #createPad(String)} to save it.
+     * 
+     * @return The new pad
+     */
+    public Pad buildPad() {
+        Pad pad = new Pad();
+        pad.setCreated(Instant.now());
+        return pad;
+    }
+    
+    /**
+     * Saves an edited pad.
+     * 
+     * @param pad The edited pad
      */
     @Transactional
-    public Pad createPad(String name) {
-        Pad pad = new Pad();
-        pad.setName(name);
-        pad.setCreated(Instant.now());
+    public void editPad(Pad pad) {
+        padRepository.save(pad);
+    }
+
+    /**
+     * Safes a new pad.
+     * 
+     * The pad should be created with {@link #buildPad()}.
+     * 
+     * @param pad
+     *            The unsaved pad.
+     */
+    @Transactional
+    public void createPad(Pad pad) {
         padRepository.save(pad);
 
         User user = userService.getAuthenticatedUser();
         user.getPads().add(pad);
         userRepository.save(user);
-
-        return pad;
     }
+
 }
