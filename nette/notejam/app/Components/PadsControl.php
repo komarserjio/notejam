@@ -64,7 +64,8 @@ class PadsControl extends Nette\Application\UI\Control
 	{
 		$form = $this->formFactory->create();
 
-		$form->addText('name');
+		$form->addText('name')
+			->setRequired();
 
 		$form->addSubmit('save', 'Save');
 		$form->onSuccess[] = [$this, 'formSucceeded'];
