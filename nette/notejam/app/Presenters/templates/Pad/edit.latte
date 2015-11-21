@@ -2,5 +2,5 @@
 {block page_title}<span>{$pad->name}</span>{/block}
 
 {block body}
-  {control editPad-form}
-  <a class="red" n:href="delete!, $pad->id" onclick="return confirm('Really delete the pad?')">Delete pad</a>
+	{control editPad-form}
+	<a class="red" n:href="delete!, $pad->id" onclick="return confirm('Really delete the pad?')">Delete pad</a>

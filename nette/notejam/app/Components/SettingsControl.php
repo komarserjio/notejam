@@ -11,9 +11,18 @@ use Notejam\Users\User;
 
 
 
+/**
+ * Component that handles changing the settings of the user.
+ * Currently only change of password is allowed.
+ *
+ * @method onSuccess(SettingsControl $self) Magic method that is used to invoke the onSuccess event.
+ */
 class SettingsControl extends Nette\Application\UI\Control
 {
 
+	/**
+	 * @var array|callable[]
+	 */
 	public $onSuccess = [];
 
 	/**
@@ -43,6 +52,12 @@ class SettingsControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return Form
+	 */
 	protected function createComponentForm()
 	{
 		$form = $this->formFactory->create();
@@ -64,6 +79,12 @@ class SettingsControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Callback method, that is called once form is successfully submitted, without validation errors.
+	 *
+	 * @param Form $form
+	 * @param Nette\Utils\ArrayHash $values
+	 */
 	public function formSucceeded(Form $form, $values)
 	{
 		/** @var User $user */
@@ -83,6 +104,9 @@ class SettingsControl extends Nette\Application\UI\Control
 
 
 
+/**
+ * @see \Notejam\Components\PadsList\IPadsListControlFactory
+ */
 interface ISettingsControlFactory
 {
 

@@ -8,9 +8,17 @@ use Notejam\UI\FormFactory;
 
 
 
+/**
+ * Component that handles login.
+ *
+ * @method onSuccess(SignInControl $self) Magic method that is used to invoke the onSuccess event.
+ */
 class SignInControl extends Nette\Application\UI\Control
 {
 
+	/**
+	 * @var array|callable[]
+	 */
 	public $onSuccess = [];
 
 	/**
@@ -34,6 +42,12 @@ class SignInControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return Form
+	 */
 	protected function createComponentForm()
 	{
 		$form = $this->formFactory->create();
@@ -53,6 +67,12 @@ class SignInControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Callback method, that is called once form is successfully submitted, without validation errors.
+	 *
+	 * @param Form $form
+	 * @param Nette\Utils\ArrayHash $values
+	 */
 	public function formSucceeded(Form $form, $values)
 	{
 		try {
@@ -68,6 +88,9 @@ class SignInControl extends Nette\Application\UI\Control
 
 
 
+/**
+ * @see \Notejam\Components\PadsList\IPadsListControlFactory
+ */
 interface ISignInControlFactory
 {
 

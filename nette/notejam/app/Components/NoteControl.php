@@ -12,9 +12,17 @@ use Notejam\UI\FormFactory;
 
 
 
+/**
+ * Component that handles creation of new notes and edit of existing notes.
+ *
+ * @method onSuccess(NoteControl $self) Magic method that is used to invoke the onSuccess event.
+ */
 class NoteControl extends Nette\Application\UI\Control
 {
 
+	/**
+	 * @var array|callable[]
+	 */
 	public $onSuccess = [];
 
 	/**
@@ -56,6 +64,8 @@ class NoteControl extends Nette\Application\UI\Control
 
 
 	/**
+	 * This setter allows to edit notes instead of only creating them.
+	 *
 	 * @param Note $note
 	 */
 	public function setNote(Note $note)
@@ -70,6 +80,11 @@ class NoteControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Setter for the default pad, to be pre-selected in the pad select form element.
+	 *
+	 * @param Pad|null $pad
+	 */
 	public function setPad(Pad $pad = NULL)
 	{
 		if ($pad === NULL) {
@@ -83,6 +98,12 @@ class NoteControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return Form
+	 */
 	protected function createComponentForm()
 	{
 		$form = $this->formFactory->create();
@@ -103,6 +124,12 @@ class NoteControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Callback method, that is called once form is successfully submitted, without validation errors.
+	 *
+	 * @param Form $form
+	 * @param Nette\Utils\ArrayHash $values
+	 */
 	public function formSucceeded(Form $form, $values)
 	{
 		if ($this->note === NULL) {
@@ -132,6 +159,9 @@ class NoteControl extends Nette\Application\UI\Control
 
 
 
+/**
+ * @see \Notejam\Components\PadsList\IPadsListControlFactory
+ */
 interface INoteControlFactory
 {
 

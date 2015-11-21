@@ -12,6 +12,8 @@ use Notejam\Pads\PadRepository;
 
 
 /**
+ * Thanks to the User annotation, if you try to access this presenter when you're not logged in, you'll be redirected to login form page.
+ *
  * @User()
  */
 class PadPresenter extends BasePresenter
@@ -48,6 +50,12 @@ class PadPresenter extends BasePresenter
 
 
 
+	/**
+	 * This method is called on the presenter lifecycle begin,
+	 * so we can put here code that would be duplicated among the action methods.
+	 *
+	 * Also, this is a good place to add some common checks that apply to all presenter actions.
+	 */
 	protected function startup()
 	{
 		parent::startup();
@@ -63,6 +71,10 @@ class PadPresenter extends BasePresenter
 
 
 
+	/**
+	 * This method is called before the render method.
+	 * It is a good place to add code that would be duplicated in all render methods.
+	 */
 	protected function beforeRender()
 	{
 		parent::beforeRender();
@@ -73,6 +85,12 @@ class PadPresenter extends BasePresenter
 
 
 
+	/**
+	 * Since the pad is required for the edit,
+	 * if it haven't been found, the presenter should end with 404 error.
+	 *
+	 * Prepares template variables for the detail action.
+	 */
 	public function actionDetail($id, $order = 'name')
 	{
 		if (!$this->pad) {
@@ -90,6 +108,10 @@ class PadPresenter extends BasePresenter
 
 
 
+	/**
+	 * Since the pad is required for the edit,
+	 * if it haven't been found, the presenter should end with 404 error.
+	 */
 	public function actionEdit($id)
 	{
 		if (!$this->pad) {
@@ -100,6 +122,9 @@ class PadPresenter extends BasePresenter
 
 
 	/**
+	 * A subrequest (aka signal) for current action, that can be called to delete a note.
+	 * Thanks to the secured annotation, it's protected against CSRF.
+	 *
 	 * @secured
 	 */
 	public function handleDelete($id)
@@ -116,6 +141,15 @@ class PadPresenter extends BasePresenter
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * This factory creates a PadsControl that handles creation of new pads.
+	 *
+	 * @return \Notejam\Components\PadsControl
+	 * @throws Nette\Application\BadRequestException
+	 */
 	protected function createComponentCreatePad()
 	{
 		if ($this->action !== 'create') {
@@ -133,6 +167,15 @@ class PadPresenter extends BasePresenter
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * This factory creates a PadsControl that handles edit of existing pads.
+	 *
+	 * @return \Notejam\Components\PadsControl
+	 * @throws Nette\Application\BadRequestException
+	 */
 	protected function createComponentEditPad()
 	{
 		if ($this->action !== 'edit' || !$this->pad) {

@@ -9,6 +9,9 @@ use Notejam\Components\PadsList\IPadsListControlFactory;
 
 
 
+/**
+ * It's a best practise to avoid sharing code using BasePresenters, but it's very practical.
+ */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 
@@ -22,6 +25,12 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return \Notejam\Components\PadsList\PadsListControl
+	 */
 	protected function createComponentPadsList()
 	{
 		return $this->padsListControlFactory->create();
@@ -30,7 +39,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 
 	/**
-	 * @return void
+	 * This allows me to implement a basic access control for presenters.
+	 *
+	 * This method is called for every presenter run,
+	 * once it's created before the presenter startup,
+	 * and for every other lifecycle methods, like render, action and signals.
 	 */
 	public function checkRequirements($element)
 	{
@@ -46,7 +59,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
 
 
-	private function forbiddenAccess()
+	/**
+	 * The default behaviour for parts of app, where the user is not allowed for some reason.
+	 * This can be overwritten in subclasses to achieve different behaviour.
+	 */
+	protected function forbiddenAccess()
 	{
 		$this->redirect('User:signIn');
 	}

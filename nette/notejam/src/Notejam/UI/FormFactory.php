@@ -10,6 +10,8 @@ class FormFactory
 {
 
 	/**
+	 * Creates an empty form with notejam form renderer.
+	 *
 	 * @return Nette\Application\UI\Form
 	 */
 	public function create()

@@ -7,6 +7,9 @@ use Notejam\Pads\PadRepository;
 
 
 
+/**
+ * Component that renders side panel with pads list.
+ */
 class PadsListControl extends Nette\Application\UI\Control
 {
 
@@ -41,6 +44,12 @@ class PadsListControl extends Nette\Application\UI\Control
 
 
 
+/**
+ * Interface for automatically generated factory (handled by Nette/DI),
+ * that is used for creating new instance of the PadsListControl.
+ *
+ * This probably should be in a separated file, but this is more convenient.
+ */
 interface IPadsListControlFactory
 {
 

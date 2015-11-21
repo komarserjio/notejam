@@ -10,9 +10,17 @@ use Notejam\Users\UserRepository;
 
 
 
+/**
+ * Component that handles creating and processing of forgotten password.
+ *
+ * @method onSuccess(ForgottenPasswordControl $self) Magic method that is used to invoke the onSuccess event.
+ */
 class ForgottenPasswordControl extends Nette\Application\UI\Control
 {
 
+	/**
+	 * @var array|callable[]
+	 */
 	public $onSuccess = [];
 
 	/**
@@ -48,6 +56,12 @@ class ForgottenPasswordControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return Form
+	 */
 	protected function createComponentForm()
 	{
 		$form = $this->formFactory->create();
@@ -64,6 +78,12 @@ class ForgottenPasswordControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Callback method, that is called once form is successfully submitted, without validation errors.
+	 *
+	 * @param Form $form
+	 * @param Nette\Utils\ArrayHash $values
+	 */
 	public function formSucceeded(Form $form, $values)
 	{
 		if (!$user = $this->userRepository->findOneBy(['email' => $values->email])) {
@@ -91,6 +111,9 @@ class ForgottenPasswordControl extends Nette\Application\UI\Control
 
 
 
+/**
+ * @see \Notejam\Components\PadsList\IPadsListControlFactory
+ */
 interface IForgottenPasswordControlFactory
 {
 

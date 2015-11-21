@@ -11,9 +11,17 @@ use Notejam\Users\UserRepository;
 
 
 
+/**
+ * Component that handles registration.
+ *
+ * @method onSuccess(SignUpControl $self) Magic method that is used to invoke the onSuccess event.
+ */
 class SignUpControl extends Nette\Application\UI\Control
 {
 
+	/**
+	 * @var array|callable[]
+	 */
 	public $onSuccess = [];
 
 	/**
@@ -49,6 +57,12 @@ class SignUpControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return Form
+	 */
 	protected function createComponentForm()
 	{
 		$form = $this->formFactory->create();
@@ -76,6 +90,12 @@ class SignUpControl extends Nette\Application\UI\Control
 
 
 
+	/**
+	 * Callback method, that is called once form is successfully submitted, without validation errors.
+	 *
+	 * @param Form $form
+	 * @param Nette\Utils\ArrayHash $values
+	 */
 	public function formSucceeded(Form $form, $values)
 	{
 		$user = new User($values->email, $values->password);
@@ -92,6 +112,9 @@ class SignUpControl extends Nette\Application\UI\Control
 
 
 
+/**
+ * @see \Notejam\Components\PadsList\IPadsListControlFactory
+ */
 interface ISignUpControlFactory
 {
 

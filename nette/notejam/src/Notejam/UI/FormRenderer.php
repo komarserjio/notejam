@@ -6,6 +6,10 @@ use Nette\Forms\Rendering\DefaultFormRenderer;
 
 
 
+/**
+ * The DefaultFormRenderer knows how to render the entire form instance into HTML.
+ * But the notejam app has different element structure, so this child overrides it.
+ */
 class FormRenderer extends DefaultFormRenderer
 {
 

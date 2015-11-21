@@ -39,16 +39,22 @@ class UserPresenter extends BasePresenter
 
 
 
+	/**
+	 * The action for logout.
+	 */
 	public function actionSignOut()
 	{
 		$this->user->logout(TRUE);
-		$this->flashMessage('You\'ve been logged out.', 'success');
+		$this->flashMessage("You've been logged out.", 'success');
 		$this->redirect('User:signIn');
 	}
 
 
 
 	/**
+	 * This method is here only for the user annotation, that creates a protected section of app.
+	 * Meaning that if you try to access this action when you're not logged in, you'll be redirected to login form page.
+	 *
 	 * @User()
 	 */
 	public function actionSettings()
@@ -58,6 +64,12 @@ class UserPresenter extends BasePresenter
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return \Notejam\Components\SignInControl
+	 */
 	protected function createComponentSignIn()
 	{
 		$control = $this->signInFormFactory->create();
@@ -70,6 +82,12 @@ class UserPresenter extends BasePresenter
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return \Notejam\Components\SignUpControl
+	 */
 	protected function createComponentSignUp()
 	{
 		$control = $this->signUpFormFactory->create();
@@ -83,6 +101,13 @@ class UserPresenter extends BasePresenter
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return \Notejam\Components\SettingsControl
+	 * @throws Nette\Application\BadRequestException
+	 */
 	protected function createComponentSettings()
 	{
 		if ($this->action !== 'settings') {
@@ -100,6 +125,12 @@ class UserPresenter extends BasePresenter
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * @return \Notejam\Components\ForgottenPasswordControl
+	 */
 	protected function createComponentForgottenPassword()
 	{
 		$control = $this->forgottenPasswordControlFactory->create();

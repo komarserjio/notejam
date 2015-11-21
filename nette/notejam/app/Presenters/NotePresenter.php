@@ -13,6 +13,8 @@ use Notejam\Pads\PadRepository;
 
 
 /**
+ * Thanks to the User annotation, if you try to access this presenter when you're not logged in, you'll be redirected to login form page.
+ *
  * @User()
  */
 class NotePresenter extends BasePresenter
@@ -54,6 +56,12 @@ class NotePresenter extends BasePresenter
 
 
 
+	/**
+	 * This method is called on the presenter lifecycle begin,
+	 * so we can put here code that would be duplicated among the action methods.
+	 *
+	 * Also, this is a good place to add some common checks that apply to all presenter actions.
+	 */
 	protected function startup()
 	{
 		parent::startup();
@@ -84,6 +92,10 @@ class NotePresenter extends BasePresenter
 
 
 
+	/**
+	 * This method is called before the render method.
+	 * It is a good place to add code that would be duplicated in all render methods.
+	 */
 	protected function beforeRender()
 	{
 		parent::beforeRender();
@@ -94,6 +106,11 @@ class NotePresenter extends BasePresenter
 
 
 
+	/**
+	 * Prepares template variables for the default action.
+	 *
+	 * @param string $order
+	 */
 	public function renderDefault($order = 'name')
 	{
 		$this->template->notes = $this->noteRepository->findBy(
@@ -106,6 +123,10 @@ class NotePresenter extends BasePresenter
 
 
 
+	/**
+	 * Since the note is required for the detail,
+	 * if it haven't been found, the presenter should end with 404 error.
+	 */
 	public function actionDetail($id)
 	{
 		if (!$this->note) {
@@ -115,6 +136,10 @@ class NotePresenter extends BasePresenter
 
 
 
+	/**
+	 * Since the note is required for the edit,
+	 * if it haven't been found, the presenter should end with 404 error.
+	 */
 	public function actionEdit($id)
 	{
 		if (!$this->note) {
@@ -125,6 +150,9 @@ class NotePresenter extends BasePresenter
 
 
 	/**
+	 * A subrequest (aka signal) for current action, that can be called to delete a note.
+	 * Thanks to the secured annotation, it's protected against CSRF.
+	 *
 	 * @secured
 	 */
 	public function handleDelete($id)
@@ -141,6 +169,15 @@ class NotePresenter extends BasePresenter
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * This factory creates a NoteControl that handles creation of new notes.
+	 *
+	 * @return \Notejam\Components\NoteControl
+	 * @throws Nette\Application\BadRequestException
+	 */
 	protected function createComponentCreateNote()
 	{
 		if ($this->action !== 'create') {
@@ -159,6 +196,15 @@ class NotePresenter extends BasePresenter
 
 
 
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * This factory creates a NoteControl that handles edit of existing notes.
+	 *
+	 * @return \Notejam\Components\NoteControl
+	 * @throws Nette\Application\BadRequestException
+	 */
 	protected function createComponentEditNote()
 	{
 		if ($this->action !== 'edit' || !$this->note) {
