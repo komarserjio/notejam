@@ -7,5 +7,5 @@
     {$note->text|escape|nl2br|noescape}
   </div>
   <a n:href="Note:edit, id => $note->id" class="button">Edit</a>
-  <a n:href="delete!, id => $note->id" class="delete-note">Delete it</a>
+  <a n:href="delete!, id => $note->id" class="delete-note" onclick="return confirm('Really delete the note?')">Delete it</a>
 {/block}
