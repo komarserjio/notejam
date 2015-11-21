@@ -37,7 +37,7 @@
       </div>
       <div class="sign-in-out-block" sec:authorize="isAuthenticated()">
         <span sec:authentication="name">Bob</span>
-        <a th:href="@{/account}" href="#" th:text="#{menu.account}">Account</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/login?logout}" href="#" th:text="#{menu.signout}">Sign out</a>
+        <a th:href="@{/account}" href="#" th:text="#{menu.account}">Account</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/logout}" href="#" th:text="#{menu.signout}">Sign out</a>
       </div>
     </div>
     <div class="sixteen columns">
