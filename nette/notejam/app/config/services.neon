@@ -5,7 +5,6 @@ services:
 	latte.latteFactory:
 		setup:
 			- addFilter(length, 'Notejam\Templating\RuntimeFilters::length')
-			- addFilter(formErrors, 'Notejam\Templating\RuntimeFilters::formErrors')
 
 	- Notejam\UI\FormFactory
 	- Notejam\Components\ISignInControlFactory

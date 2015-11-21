@@ -28,25 +28,4 @@ class RuntimeFilters
 		return strlen(utf8_decode($s)); // fastest way
 	}
 
-
-
-	/**
-	 * @param Nette\Forms\Form|Nette\Forms\Controls\BaseControl $formOrControl
-	 * @return Nette\Utils\Html
-	 */
-	public static function formErrors($formOrControl)
-	{
-		/** @var DefaultFormRenderer $renderer */
-		if ($formOrControl instanceof Nette\Forms\Form) {
-			$renderer = $formOrControl->getRenderer();
-			return $renderer->render($formOrControl, 'ownErrors');
-
-		} elseif ($formOrControl instanceof Nette\Forms\Controls\BaseControl) {
-			$renderer = $formOrControl->getForm()->getRenderer();
-			return $renderer->renderErrors($formOrControl);
-		}
-
-		throw new InvalidArgumentException;
-	}
-
 }
