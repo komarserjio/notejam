@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.notejam.spring.URITemplates;
 import net.notejam.spring.user.UserService;
 
 /**
@@ -18,7 +19,7 @@ import net.notejam.spring.user.UserService;
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @Controller
-@RequestMapping("/signup")
+@RequestMapping(URITemplates.SIGNUP)
 public class SignupController {
 
     @Autowired
@@ -37,7 +38,7 @@ public class SignupController {
 
 	userService.signUp(user.getEmail(), user.getPassword());
 
-	return "redirect:/login?signup";
+	return String.format("redirect:%s?signup", URITemplates.SIGNIN);
     }
 
 }

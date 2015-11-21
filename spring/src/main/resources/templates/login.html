@@ -16,19 +16,19 @@
 				<div th:if="${param.logout}" class="alert alert-success"
 					th:text="#{login.logout}">You have been logged out.</div>
 				<div th:if="${param.signup}" class="alert alert-success"
-					th:text="#{login.signup}">You have been registered. Now log
+					th:text="#{login.signedup}">You have been registered. Now log
 					in.</div>
 			</div>
 			<label th:inline="text"> [[#{login.email}]] <input
 				type="text" name="username" />
 			</label> <label th:inline="text"> [[#{login.password}]] <input
 				type="password" name="password" />
-			</label> <input type="submit" th:value="#{login.signup}" /> <span
-				th:text="#{login.or}">or</span> <a th:href='@{/signup}'
+			</label> <input type="submit" th:value="#{login.signin}" /> <span
+				th:text="#{login.or}">or</span> <a th:href='@{${T(net.notejam.spring.URITemplates).SIGNUP}}'
 				th:text="#{login.signup}">Sign up</a>
 			<hr />
 			<p>
-				<a th:href="@{/forgot-password}" class="small-red" th:text="#{login.forgot}">Forgot password?</a>
+				<a th:href="@{${T(net.notejam.spring.URITemplates).FORGOT_PASSWORD}}" class="small-red" th:text="#{login.forgot}">Forgot password?</a>
 			</p>
 		</form>
 	</div>

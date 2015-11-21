@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.notejam.spring.URITemplates;
 import net.notejam.spring.user.UserService;
 
 /**
@@ -19,7 +20,7 @@ import net.notejam.spring.user.UserService;
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @Controller
-@RequestMapping("/account")
+@RequestMapping(URITemplates.SETTINGS)
 @PreAuthorize("isAuthenticated()")
 public class AccountController {
 
@@ -39,7 +40,7 @@ public class AccountController {
 
 	userService.changePassword(account.getNewPassword());
 
-	return "redirect:/account?success";
+	return String.format("redirect:%s?success", URITemplates.SETTINGS);
     }
 
 }

@@ -33,11 +33,11 @@
   <div class="container">
     <div class="sixteen columns">
       <div class="sign-in-out-block" sec:authorize="isAnonymous()">
-        <a th:href="@{/signup}" href="#" th:text="#{menu.signup}">Sign up</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/login}" href="#" th:text="#{menu.signin}">Sign in</a>
+        <a th:href="@{${T(net.notejam.spring.URITemplates).SIGNUP}}" href="#" th:text="#{menu.signup}">Sign up</a>&nbsp;&nbsp;&nbsp;<a th:href="@{${T(net.notejam.spring.URITemplates).SIGNIN}}" href="#" th:text="#{menu.signin}">Sign in</a>
       </div>
       <div class="sign-in-out-block" sec:authorize="isAuthenticated()">
         <span sec:authentication="name">Bob</span>
-        <a th:href="@{/account}" href="#" th:text="#{menu.account}">Account</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/logout}" href="#" th:text="#{menu.signout}">Sign out</a>
+        <a th:href="@{${T(net.notejam.spring.URITemplates).SETTINGS}}" href="#" th:text="#{menu.account}">Account</a>&nbsp;&nbsp;&nbsp;<a th:href="@{${T(net.notejam.spring.URITemplates).SIGNOUT}}" href="#" th:text="#{menu.signout}">Sign out</a>
       </div>
     </div>
     <div class="sixteen columns">
