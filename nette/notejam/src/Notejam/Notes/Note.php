@@ -139,7 +139,7 @@ class Note
      * @param Pad pad
      * @return Note
      */
-    public function setPad(Pad $pad)
+    public function setPad(Pad $pad = NULL)
     {
         $this->pad = $pad;
         return $this;

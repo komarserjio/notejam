@@ -92,7 +92,6 @@ class NoteControl extends Nette\Application\UI\Control
 		$form->addTextArea('text', 'Text')
 			->setRequired();
 		$form->addSelect('pad', 'Pad')
-			->setRequired()
 			->setPrompt('----------')
 			->setItems($this->padRepository->findPairs('name'));
 
