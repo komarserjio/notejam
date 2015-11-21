@@ -36,6 +36,22 @@ Install
 
 Install a `JDK <http://openjdk.java.net/>`_ and `Maven <https://maven.apache.org/>`_.
 
+-------------
+Configuration
+-------------
+
+The application has a password recovery process which involves sending an email.
+If you want to enable that, you have to create a local application.properties file
+and set there the property spring.mail.host to your SMTP server (e.g. spring.mail.host = smtp.example.net).
+
+.. code-block:: bash
+
+    $ cd YOUR_PROJECT_DIR/spring/
+    $ vi application.properties
+
+See `MailProperties <http://docs.spring.io/spring-boot/docs/current/api/index.html?org/springframework/boot/autoconfigure/mail/MailProperties.html>`_
+for more mail properties.
+
 ------
 Launch
 ------

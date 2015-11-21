@@ -1,5 +1,8 @@
 package net.notejam.spring.user.forgot;
 
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
 
@@ -31,14 +35,25 @@ public class ForgotPasswordController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String startPasswordRecoveryProcess(@Valid @ModelAttribute("forgotPassword") ForgotPassword forgotPassword,
-            BindingResult bindingResult) {
+            BindingResult bindingResult, HttpServletRequest request, Locale locale) {
         if (bindingResult.hasErrors()) {
             return "forgot-password";
         }
 
-        recoveryService.startRecoveryProcess(forgotPassword.getEmail());
+        recoveryService.startRecoveryProcess(forgotPassword.getEmail(), buildRequestUriBuilder(request), locale);
 
         return String.format("redirect:%s?success", URITemplates.FORGOT_PASSWORD);
+    }
+
+    /**
+     * Build a UriComponentsBuilder from a request.
+     * 
+     * @param request
+     *            The request
+     * @return The request as a UriComponentsBuilder.
+     */
+    private UriComponentsBuilder buildRequestUriBuilder(HttpServletRequest request) {
+        return UriComponentsBuilder.fromUriString(request.getRequestURL().toString());
     }
 
 }

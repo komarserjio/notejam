@@ -17,5 +17,6 @@ public interface URITemplates {
     String SIGNOUT = "/signout";
     String SETTINGS = "/settings";
     String FORGOT_PASSWORD = "/forgot-password";
+    String RECOVER_PASSWORD = "/forgot-password/{id}/{token}";
 
 }
