@@ -135,6 +135,7 @@ class NotePresenter extends BasePresenter
 
 		$this->em->remove($this->note);
 		$this->em->flush();
+		$this->flashMessage('The note has been deleted', 'success');
 		$this->redirect('Note:');
 	}
 

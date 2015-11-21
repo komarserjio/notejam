@@ -110,6 +110,7 @@ class PadPresenter extends BasePresenter
 
 		$this->em->remove($this->pad);
 		$this->em->flush();
+		$this->flashMessage('The pad has been deleted', 'success');
 		$this->redirect('Note:');
 	}
 
@@ -123,6 +124,7 @@ class PadPresenter extends BasePresenter
 
 		$control = $this->padsControlFactory->create();
 		$control->onSuccess[] = function ($control, Pad $createdPad) {
+			$this->flashMessage('New pad has been created', 'success');
 			$this->redirect('Pad:detail', ['id' => $createdPad->getId()]);
 		};
 
@@ -140,6 +142,7 @@ class PadPresenter extends BasePresenter
 		$control = $this->padsControlFactory->create();
 		$control->setPad($this->pad);
 		$control->onSuccess[] = function () {
+			$this->flashMessage('Pad has been edited', 'success');
 			$this->redirect('Pad:detail', ['id' => $this->pad->getId()]);
 		};
 

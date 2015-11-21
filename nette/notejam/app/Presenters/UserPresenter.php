@@ -74,6 +74,7 @@ class UserPresenter extends BasePresenter
 	{
 		$control = $this->signUpFormFactory->create();
 		$control->onSuccess[] = function () {
+			$this->flashMessage('Thank you for registration', 'success');
 			$this->redirect('Note:');
 		};
 
@@ -90,6 +91,7 @@ class UserPresenter extends BasePresenter
 
 		$control = $this->settingsControlFactory->create();
 		$control->onSuccess[] = function () {
+			$this->flashMessage('The password has been changed', 'success');
 			$this->redirect('Note:');
 		};
 
