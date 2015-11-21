@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
@@ -31,6 +32,7 @@ import net.notejam.spring.helper.converter.StringToPeriodConverter;
 @SpringBootApplication
 @EnableSpringConfigured
 @EntityScan(basePackageClasses = { Application.class, Jsr310JpaConverters.class })
+@EnableAspectJAutoProxy
 public class Application {
 
     @EnableAsync

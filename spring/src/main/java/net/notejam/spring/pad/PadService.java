@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.notejam.spring.security.owner.PermitOwner;
 import net.notejam.spring.user.User;
 import net.notejam.spring.user.UserRepository;
 import net.notejam.spring.user.UserService;
@@ -36,10 +37,11 @@ public class PadService {
      *            The pad id
      * @return The pad
      */
+    // TODO @PermitOwner
     public Pad getPad(int id) {
         return padRepository.findOne(id);
     }
-    
+
     /**
      * Builds a new pad with an empty name.
      * 
@@ -50,16 +52,18 @@ public class PadService {
     public Pad buildPad() {
         Pad pad = new Pad();
         pad.setCreated(Instant.now());
+        pad.setUser(userService.getAuthenticatedUser());
         return pad;
     }
-    
+
     /**
      * Saves an edited pad.
      * 
-     * @param pad The edited pad
+     * @param pad
+     *            The edited pad
      */
     @Transactional
-    public void editPad(Pad pad) {
+    public void editPad(@PermitOwner Pad pad) {
         padRepository.save(pad);
     }
 

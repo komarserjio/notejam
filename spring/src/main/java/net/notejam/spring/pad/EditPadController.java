@@ -32,7 +32,7 @@ public class EditPadController {
     public Pad pad(@PathVariable("id") int id) {
         return service.getPad(id);
     }
-    
+
     /**
      * Shows the form for creating a pad.
      * 
@@ -55,7 +55,7 @@ public class EditPadController {
         }
 
         service.editPad(pad);
-        
+
         return String.format("redirect:%s", buildEditedPadUri(pad.getId()));
     }
 

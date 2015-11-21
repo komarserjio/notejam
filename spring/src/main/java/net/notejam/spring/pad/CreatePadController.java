@@ -31,7 +31,7 @@ public class CreatePadController {
     public Pad pad() {
         return service.buildPad();
     }
-    
+
     /**
      * Shows the form for creating a pad.
      * 
