@@ -63,7 +63,7 @@ public class EditPadController {
             return "pad/edit";
         }
 
-        service.editPad(pad);
+        service.savePad(pad);
 
         return String.format("redirect:%s", buildEditedPadUri(pad.getId()));
     }

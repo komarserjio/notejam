@@ -55,7 +55,7 @@ public class CreatePadController {
             return "pad/create";
         }
 
-        service.createPad(pad);
+        service.savePad(pad);
 
         return String.format("redirect:%s", buildCreatedPadUri(pad.getId()));
     }

@@ -1,6 +1,7 @@
 package net.notejam.spring.note;
 
 import java.time.Instant;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -27,6 +28,18 @@ public class NoteService {
     private UserService userService;
 
     /**
+     * Loads a note from the storage.
+     * 
+     * @param id
+     *            The note id
+     * @return The note
+     */
+    @PermitOwner
+    public Optional<Note> getNote(int id) {
+        return Optional.ofNullable(repository.findOne(id));
+    }
+
+    /**
      * Builds a new empty note.
      * 
      * The note is not save yet. Use {@link #createNote(Note)} to save it.
@@ -49,7 +62,7 @@ public class NoteService {
      *            The optional pad to which this note will belong, or null
      */
     @Transactional
-    public void createNote(Note note, @PermitOwner Pad pad) {
+    public void saveNote(@PermitOwner Note note, @PermitOwner Pad pad) {
         note.setPad(pad);
         repository.save(note);
     }

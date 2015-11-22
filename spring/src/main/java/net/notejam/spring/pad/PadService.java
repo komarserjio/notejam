@@ -65,7 +65,7 @@ public class PadService {
     /**
      * Builds a new pad with an empty name.
      * 
-     * The pad is not save yet. Use {@link #createPad(Pad)} to save it.
+     * The pad is not save yet. Use {@link #savePad(Pad)} to save it.
      * 
      * @return The new pad
      */
@@ -77,18 +77,7 @@ public class PadService {
     }
 
     /**
-     * Saves an edited pad.
-     * 
-     * @param pad
-     *            The edited pad
-     */
-    @Transactional
-    public void editPad(@PermitOwner Pad pad) {
-        padRepository.save(pad);
-    }
-
-    /**
-     * Safes a new pad.
+     * Safes a pad.
      * 
      * The pad should be created with {@link #buildPad()}.
      * 
@@ -96,7 +85,7 @@ public class PadService {
      *            The unsaved pad.
      */
     @Transactional
-    public void createPad(Pad pad) {
+    public void savePad(@PermitOwner Pad pad) {
         padRepository.save(pad);
     }
 

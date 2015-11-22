@@ -25,6 +25,7 @@ public interface URITemplates {
     String DELETE_PAD = "/pads/{id}/delete";
 
     String CREATE_NOTE = "/notes/create";
+    String EDIT_NOTE = "/notes/{id}/edit";
     String VIEW_NOTE = "/notes/{id}";
 
 }
