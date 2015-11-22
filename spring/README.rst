@@ -28,7 +28,7 @@ Clone the repo:
 
 .. code-block:: bash
 
-    $ git clone git@github.com:komarserjio/notejam.git YOUR_PROJECT_DIR/
+    $ git clone https://github.com/komarserjio/notejam YOUR_PROJECT_DIR/
 
 -------
 Install
