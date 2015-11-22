@@ -94,8 +94,8 @@ All html layouts are sliced and available in the `html <https://github.com/komar
 **Pad pages**
 
 
-* ``GET /pads/create/`` - Show Create note form
-* ``POST /pads/create/`` - Create note
+* ``GET /pads/create/`` - Show Create pad form
+* ``POST /pads/create/`` - Create pad
 * ``GET /pads/<pad_id>/`` - View pad notes
 * ``GET /pads/<pad_id>/edit/`` - Show Edit pad form
 * ``POST /pads/<pad_id>/edit/`` - Edit pad
