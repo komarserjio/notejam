@@ -1,6 +1,7 @@
 package net.notejam.spring.pad;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -28,6 +29,17 @@ public class PadService {
     private UserService userService;
 
     /**
+     * Returns all pads for the currently authenticated user.
+     * 
+     * @return The user's pads
+     */
+    @Transactional
+    public Collection<Pad> getAllPads() {
+        User user = userService.getAuthenticatedUser();
+        return padRepository.findByUser(user);
+    }
+
+    /**
      * Loads a pad from the storage.
      * 
      * @param id
@@ -47,15 +59,13 @@ public class PadService {
      */
     @Transactional
     public void deletePad(@PermitOwner Pad pad) {
-        User user = pad.getUser();
-        user.getPads().remove(pad);
         padRepository.delete(pad);
     }
 
     /**
      * Builds a new pad with an empty name.
      * 
-     * The pad is not save yet. Use {@link #createPad(String)} to save it.
+     * The pad is not save yet. Use {@link #createPad(Pad)} to save it.
      * 
      * @return The new pad
      */
@@ -87,8 +97,6 @@ public class PadService {
      */
     @Transactional
     public void createPad(Pad pad) {
-        User user = userService.getAuthenticatedUser();
-        user.getPads().add(pad);
         padRepository.save(pad);
     }
 

@@ -1,4 +1,6 @@
-package net.notejam.spring.pad.controller;
+package net.notejam.spring.note.controller;
+
+import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -12,63 +14,73 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
+import net.notejam.spring.note.Note;
+import net.notejam.spring.note.NoteService;
 import net.notejam.spring.pad.Pad;
 import net.notejam.spring.pad.PadService;
 
 /**
- * The create pad controller.
+ * The create note controller.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @Controller
-@RequestMapping(URITemplates.CREATE_PAD)
+@RequestMapping(URITemplates.CREATE_NOTE)
 @PreAuthorize("isAuthenticated()")
-public class CreatePadController {
+public class CreateNoteController {
 
     @Autowired
-    private PadService service;
+    private NoteService noteService;
+
+    @Autowired
+    private PadService padService;
 
     @ModelAttribute
-    public Pad pad() {
-        return service.buildPad();
+    public Note note() {
+        return noteService.buildNote();
+    }
+
+    @ModelAttribute("pads")
+    public Collection<Pad> pads() {
+        return padService.getAllPads();
     }
 
     /**
-     * Shows the form for creating a pad.
+     * Shows the form for creating a note.
      * 
      * @return The view
      */
     @RequestMapping(method = RequestMethod.GET)
     public String showCreatePadForm() {
-        return "pad/create";
+        return "note/create";
     }
 
     /**
-     * Creates a new pad.
+     * Creates a new note.
      * 
      * @return The view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String createPad(@Valid Pad pad, BindingResult bindingResult) {
+    public String createPad(@Valid Note note, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "pad/create";
+            return "note/create";
         }
 
-        service.createPad(pad);
+        noteService.createNote(note, note.getPad());
 
-        return String.format("redirect:%s", buildCreatedPadUri(pad.getId()));
+        return String.format("redirect:%s", buildCreatedNoteUri(note.getId()));
     }
 
     /**
-     * Builds the URI for the created pad.
+     * Builds the URI for the created note.
      * 
      * @param id
-     *            The pad id
+     *            The note id
      * @return The URI
      */
-    private String buildCreatedPadUri(int id) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.VIEW_PAD);
+    private String buildCreatedNoteUri(int id) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.VIEW_NOTE);
         uriBuilder.queryParam("created");
         return uriBuilder.buildAndExpand(id).toUriString();
     }

@@ -1,15 +1,10 @@
 package net.notejam.spring.user;
 
-import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import net.notejam.spring.pad.Pad;
 
 /**
  * The user
@@ -29,9 +24,6 @@ public class User extends AbstractPersistable<Integer> {
     @NotNull
     private String password;
 
-    @OneToMany
-    private Collection<Pad> pads;
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -46,14 +38,6 @@ public class User extends AbstractPersistable<Integer> {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Collection<Pad> getPads() {
-        return pads;
-    }
-
-    public void setPads(Collection<Pad> pads) {
-        this.pads = pads;
     }
 
 }
