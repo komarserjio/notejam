@@ -1,6 +1,7 @@
 package net.notejam.spring.pad;
 
 import java.time.Instant;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -34,8 +35,8 @@ public class PadService {
      * @return The pad
      */
     @PermitOwner
-    public Pad getPad(int id) {
-        return padRepository.findOne(id);
+    public Optional<Pad> getPad(int id) {
+        return Optional.ofNullable(padRepository.findOne(id));
     }
 
     /**

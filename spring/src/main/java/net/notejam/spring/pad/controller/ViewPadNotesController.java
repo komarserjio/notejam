@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
 import net.notejam.spring.error.ResourceNotFoundException;
@@ -15,15 +13,14 @@ import net.notejam.spring.pad.Pad;
 import net.notejam.spring.pad.PadService;
 
 /**
- * The delete pad controller.
+ * The view pad notes controller.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @Controller
-@RequestMapping(URITemplates.DELETE_PAD)
 @PreAuthorize("isAuthenticated()")
-public class DeletePadController {
+public class ViewPadNotesController {
 
     @Autowired
     private PadService service;
@@ -33,31 +30,14 @@ public class DeletePadController {
         return service.getPad(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
-    @ModelAttribute("editURI")
-    public String deleteURI(@PathVariable("id") int id) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.EDIT_PAD);
-        return uriBuilder.buildAndExpand(id).toUriString();
-    }
-
     /**
-     * Shows the confirmation for deleting a pad.
+     * Shows the pad notes
      * 
-     * @return The view
+     * @return The pad notes view
      */
-    @RequestMapping(method = RequestMethod.GET)
-    public String confirmDeletePad() {
-        return "pad/delete";
-    }
-
-    /**
-     * Deletes a pad.
-     * 
-     * @return The view
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public String deletePad(Pad pad) {
-        service.deletePad(pad);
-        return String.format("redirect:%s?deleted", URITemplates.CREATE_PAD);
+    @RequestMapping(URITemplates.VIEW_PAD)
+    public String viewPadNotes() {
+        return "pad/view";
     }
 
 }

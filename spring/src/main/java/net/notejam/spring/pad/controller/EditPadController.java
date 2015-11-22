@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
+import net.notejam.spring.error.ResourceNotFoundException;
 import net.notejam.spring.pad.Pad;
 import net.notejam.spring.pad.PadService;
 
@@ -32,7 +33,7 @@ public class EditPadController {
 
     @ModelAttribute
     public Pad pad(@PathVariable("id") int id) {
-        return service.getPad(id);
+        return service.getPad(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
     @ModelAttribute("deleteURI")

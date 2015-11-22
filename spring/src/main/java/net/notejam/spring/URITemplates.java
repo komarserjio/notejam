@@ -21,7 +21,7 @@ public interface URITemplates {
 
     String CREATE_PAD = "/pads/create";
     String EDIT_PAD = "/pads/{id}/edit";
-    String SHOW_PAD = "/pads/{id}";
+    String VIEW_PAD = "/pads/{id}";
     String DELETE_PAD = "/pads/{id}/delete";
 
 }

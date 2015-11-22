@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[${pad.name}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[${pad.name}]]</h1>
+
+	<div th:fragment="content">
+		<div class="alert-area">
+			<div th:if="${param.created}" class="alert alert-success"
+				th:text="#{pad.view.created}">Pad created.</div>
+		</div>
+		TODO
+	</div>
+
+</body>
+</html>
