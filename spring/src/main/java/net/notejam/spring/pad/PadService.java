@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import net.notejam.spring.security.owner.PermitOwner;
 import net.notejam.spring.user.User;
-import net.notejam.spring.user.UserRepository;
 import net.notejam.spring.user.UserService;
 
 /**
@@ -20,9 +19,6 @@ import net.notejam.spring.user.UserService;
  */
 @Service
 public class PadService {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private PadRepository padRepository;
@@ -40,6 +36,19 @@ public class PadService {
     @PermitOwner
     public Pad getPad(int id) {
         return padRepository.findOne(id);
+    }
+
+    /**
+     * Deletes a pad.
+     * 
+     * @param pad
+     *            The pad
+     */
+    @Transactional
+    public void deletePad(@PermitOwner Pad pad) {
+        User user = pad.getUser();
+        user.getPads().remove(pad);
+        padRepository.delete(pad);
     }
 
     /**
@@ -77,11 +86,9 @@ public class PadService {
      */
     @Transactional
     public void createPad(Pad pad) {
-        padRepository.save(pad);
-
         User user = userService.getAuthenticatedUser();
         user.getPads().add(pad);
-        userRepository.save(user);
+        padRepository.save(pad);
     }
 
 }

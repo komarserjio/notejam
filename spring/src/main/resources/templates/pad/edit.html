@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
-<title th:inline="text">Notejam: ${pad.name}</title>
+<title th:inline="text">Notejam: [[${pad.name}]]</title>
 
 <body>
 
-	<h1 th:text="${pad.name}">Pad</h1>
+	<h1 th:inline="text">[[${pad.name}]]</h1>
 
 	<div th:fragment="content">
 		<form class="offset-by-six sign-in" th:object="${pad}"
@@ -23,6 +23,7 @@
 			</ul>
 			<input type="submit" th:value="#{save}" />
 		</form>
+		<a class="red" th:href="${deleteURI}" th:text="#{pad.edit.delete}">Delete pad</a>
 	</div>
 
 </body>

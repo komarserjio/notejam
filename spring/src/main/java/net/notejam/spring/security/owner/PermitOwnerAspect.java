@@ -57,8 +57,11 @@ public class PermitOwnerAspect {
     }
 
     private void authorize(Owned owned) {
-        User user = userService.getAuthenticatedUser();
+        if (owned == null) {
+            return;
+        }
 
+        User user = userService.getAuthenticatedUser();
         if (user == null) {
             throw new AccessDeniedException(String.format("%s needs an authenticated user.", owned));
         }
