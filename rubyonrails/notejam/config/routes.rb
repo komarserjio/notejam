@@ -1,4 +1,4 @@
-Notejam::Application.routes.draw do
+Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'notes#list', as: :notes
 
