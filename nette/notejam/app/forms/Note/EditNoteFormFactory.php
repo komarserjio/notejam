@@ -15,9 +15,7 @@ class EditNoteFormFactory extends Nette\Object
 	/** @var PadManager */
 	private $padManager;
 
-	/**
-	 * @var NoteManager
-	 */
+	/** @var NoteManager */
 	private $noteManager;
 
 	/**
