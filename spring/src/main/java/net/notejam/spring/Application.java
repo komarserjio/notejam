@@ -46,7 +46,8 @@ public class Application {
         @Override
         public Executor getAsyncExecutor() {
             ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-            executor.setMaxPoolSize(Runtime.getRuntime().availableProcessors());
+            executor.setCorePoolSize(Runtime.getRuntime().availableProcessors());
+            executor.setMaxPoolSize(executor.getCorePoolSize() * 2);
             executor.setQueueCapacity(queueCapacity);
             executor.initialize();
             return executor;
