@@ -111,7 +111,7 @@ public class PasswordRecoveryService {
      * @param locale
      *            The locale in which the process should happen
      */
-    @Async
+    @Async("mailExecutor")
     @Transactional
     public void startRecoveryProcess(String email, UriComponentsBuilder uriBuilder, Locale locale) {
         Optional<User> user = userRepository.findOneByEmail(email);

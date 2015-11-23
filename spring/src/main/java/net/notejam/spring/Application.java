@@ -2,11 +2,11 @@ package net.notejam.spring;
 
 import java.util.concurrent.Executor;
 
-import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -14,7 +14,6 @@ import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
-import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -35,27 +34,23 @@ import net.notejam.spring.helper.converter.StringToPeriodConverter;
 @EnableAspectJAutoProxy
 public class Application {
 
-    @EnableAsync
+    @EnableAsync(mode = AdviceMode.ASPECTJ)
     @Configuration
     @EnableScheduling
-    public static class AsyncConfiguration implements AsyncConfigurer {
+    public static class AsyncConfiguration {
 
         @Value("${async.queueCapacity}")
         private int queueCapacity;
 
-        @Override
-        public Executor getAsyncExecutor() {
+        @Bean
+        public Executor mailExecutor() {
             ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-            executor.setCorePoolSize(Runtime.getRuntime().availableProcessors());
-            executor.setMaxPoolSize(executor.getCorePoolSize() * 2);
+            executor.setCorePoolSize(1);
+            executor.setMaxPoolSize(1);
             executor.setQueueCapacity(queueCapacity);
+            executor.setThreadPriority(Thread.MIN_PRIORITY);
             executor.initialize();
             return executor;
-        }
-
-        @Override
-        public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-            return null;
         }
 
     }
