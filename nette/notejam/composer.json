@@ -34,7 +34,6 @@
 		"dg/adminer-custom": "~1.6"
 	},
 	"require-dev": {
-		"nette/tester": "~1.3",
 		"codeception/codeception": "*"
 	}
 }
