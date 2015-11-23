@@ -27,5 +27,6 @@ public interface URITemplates {
     String CREATE_NOTE = "/notes/create";
     String EDIT_NOTE = "/notes/{id}/edit";
     String VIEW_NOTE = "/notes/{id}";
+    String DELETE_NOTE = "/notes/{id}/delete";
 
 }

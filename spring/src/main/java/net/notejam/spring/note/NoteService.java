@@ -67,4 +67,15 @@ public class NoteService {
         repository.save(note);
     }
 
+    /**
+     * Deletes a note.
+     * 
+     * @param note
+     *            The note
+     */
+    @Transactional
+    public void deleteNote(@PermitOwner Note note) {
+        repository.delete(note);
+    }
+
 }
