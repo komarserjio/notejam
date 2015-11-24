@@ -52,12 +52,11 @@ class SignInControl extends Nette\Application\UI\Control
 	{
 		$form = $this->formFactory->create();
 
-		$form->addText('email')
-			->setRequired()
+		$form->addText('email', 'Email')
+			->setRequired('%label is required')
 			->addRule($form::EMAIL);
-		$form->addPassword('password')
-			->setRequired()
-			->addRule($form::REQUIRED);
+		$form->addPassword('password', 'Password')
+			->setRequired('%label is required');
 
 		$form->addSubmit('send');
 		$form->onSuccess[] = [$this, 'formSucceeded'];

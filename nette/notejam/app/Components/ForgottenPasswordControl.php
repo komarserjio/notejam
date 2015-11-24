@@ -67,10 +67,10 @@ class ForgottenPasswordControl extends Nette\Application\UI\Control
 		$form = $this->formFactory->create();
 
 		$form->addText('email', 'Email')
-			->setRequired()
-			->addRule($form::EMAIL);
+			->setRequired('%label is required')
+			->addRule($form::EMAIL, 'Invalid email');
 
-		$form->addSubmit('save', 'Save');
+		$form->addSubmit('save', 'Get new password');
 		$form->onSuccess[] = [$this, 'formSucceeded'];
 
 		return $form;

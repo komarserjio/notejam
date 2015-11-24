@@ -74,7 +74,7 @@ class NoteControl extends Nette\Application\UI\Control
 		$this['form']->setDefaults([
 			'name' => $note->getName(),
 			'text' => $note->getText(),
-			'pad' => $note->getPad()->getId(),
+			'pad' => $note->getPad() ? $note->getPad()->getId() : NULL,
 		]);
 	}
 
@@ -109,9 +109,9 @@ class NoteControl extends Nette\Application\UI\Control
 		$form = $this->formFactory->create();
 
 		$form->addText('name', 'Name')
-			->setRequired();
+			->setRequired('%label is required');
 		$form->addTextArea('text', 'Text')
-			->setRequired();
+			->setRequired('%label is required');
 		$form->addSelect('pad', 'Pad')
 			->setPrompt('----------')
 			->setItems($this->padRepository->findPairs('name'));

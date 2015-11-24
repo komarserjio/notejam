@@ -92,8 +92,8 @@ class UserPresenter extends BasePresenter
 	{
 		$control = $this->signUpFormFactory->create();
 		$control->onSuccess[] = function () {
-			$this->flashMessage('Thank you for registration', 'success');
-			$this->redirect('Note:');
+			$this->flashMessage('Thank you for registration. Now you can sign in', 'success');
+			$this->redirect('User:signIn');
 		};
 
 		return $control;

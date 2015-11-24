@@ -20,9 +20,9 @@ class RouterFactory
 		$router = new RouteList;
 
 		$router[] = new StaticRouter([
-			'User:signUp' => 'singup',
-			'User:signIn' => 'singin',
-			'User:signOut' => 'singout',
+			'User:signUp' => 'signup',
+			'User:signIn' => 'signin',
+			'User:signOut' => 'signout',
 			'User:forgottenPassword' => 'forgot-password',
 			'User:settings' => 'settings',
 		]);

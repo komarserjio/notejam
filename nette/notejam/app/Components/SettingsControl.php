@@ -63,15 +63,14 @@ class SettingsControl extends Nette\Application\UI\Control
 		$form = $this->formFactory->create();
 
 		$form->addPassword('current', 'Current password')
-			->setRequired()
-			->addRule($form::REQUIRED);
+			->setRequired('%label is required');
 		$form->addPassword('password', 'New password')
-			->setRequired()
-			->addRule($form::REQUIRED);
+			->setRequired('%label is required');
 		$form->addPassword('confirm', 'Confirm')
+			->setRequired('%label is required')
 			->addRule(Form::EQUAL, 'New passwords must match', $form['password']);
 
-		$form->addSubmit('save', 'Save');
+		$form->addSubmit('save', 'Change password');
 		$form->onSuccess[] = [$this, 'formSucceeded'];
 
 		return $form;
@@ -96,7 +95,7 @@ class SettingsControl extends Nette\Application\UI\Control
 			$this->onSuccess($this);
 
 		} catch (InvalidPasswordException $e) {
-			$form['current']->addError('Invalid password');
+			$form['current']->addError('Invalid current password');
 		}
 	}
 
