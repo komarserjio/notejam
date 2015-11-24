@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.notejam.spring.note.NoteRepository;
 import net.notejam.spring.security.owner.PermitOwner;
 import net.notejam.spring.user.User;
 import net.notejam.spring.user.UserService;
@@ -24,6 +25,9 @@ public class PadService {
 
     @Autowired
     private PadRepository padRepository;
+    
+    @Autowired
+    private NoteRepository noteRepository;
 
     @Autowired
     private UserService userService;
@@ -52,13 +56,14 @@ public class PadService {
     }
 
     /**
-     * Deletes a pad.
+     * Deletes a pad and its notes.
      * 
      * @param pad
      *            The pad
      */
     @Transactional
     public void deletePad(@PermitOwner Pad pad) {
+        noteRepository.deleteByPad(pad);
         padRepository.delete(pad);
     }
 

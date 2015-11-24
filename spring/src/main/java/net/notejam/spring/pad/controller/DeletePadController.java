@@ -50,7 +50,7 @@ public class DeletePadController {
     }
 
     /**
-     * Deletes a pad.
+     * Deletes a pad and its notes.
      * 
      * @return The view
      */

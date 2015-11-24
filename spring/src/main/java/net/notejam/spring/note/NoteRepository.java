@@ -2,6 +2,8 @@ package net.notejam.spring.note;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import net.notejam.spring.pad.Pad;
+
 /**
  * The note repository.
  *
@@ -10,4 +12,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface NoteRepository extends JpaRepository<Note, Integer> {
 
+    /**
+     * Deletes all notes of a pad.
+     * 
+     * @param pad The pad
+     */
+    public void deleteByPad(Pad pad);
+    
 }
