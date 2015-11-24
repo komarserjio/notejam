@@ -34,7 +34,8 @@
 		}
 	},
 	"require-dev": {
-		"nette/tester": "~1.4"
+		"nette/tester": "~1.4",
+		"codeception/codeception": "^2.0"
 	},
 	"repositories": [
 		{"type": "vcs", "url": "https://github.com/fprochazka/nette-identity-doctrine"}
