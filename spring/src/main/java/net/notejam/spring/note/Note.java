@@ -2,8 +2,10 @@ package net.notejam.spring.note;
 
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -43,6 +45,8 @@ public class Note extends AbstractPersistable<Integer>implements Owned {
     private String name;
 
     @NotEmpty
+    @Lob
+    @Column(length = 10000)
     private String text;
 
     public String getName() {
