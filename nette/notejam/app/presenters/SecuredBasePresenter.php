@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 
-class SecuredBasePresenter extends BasePresenter
+abstract class SecuredBasePresenter extends BasePresenter
 {
 
 	/**
