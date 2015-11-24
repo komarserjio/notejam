@@ -77,7 +77,8 @@ Run tests:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/nette/notejam/
-    $ ./bin/phpunit -c app/
+    $ php -t `pwd`/www -S 127.0.0.1:8000 `pwd`/www/index.php
+    $ ./vendor/bin/codecept run
 
 
 ============
