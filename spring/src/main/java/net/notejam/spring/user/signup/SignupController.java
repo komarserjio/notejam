@@ -27,13 +27,13 @@ public class SignupController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(@ModelAttribute("user") Signup user) {
-        return "signup";
+        return "user/signup";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String signup(@Valid @ModelAttribute("user") Signup user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "signup";
+            return "user/signup";
         }
 
         userService.signUp(user.getEmail(), user.getPassword());

@@ -29,7 +29,7 @@ public class RecoverPasswordController {
             @ModelAttribute("password") StringBuffer password) throws InvalidTokenException {
 
         password.append(recoveryService.recoverPassword(id, token));
-        return "reveal-password";
+        return "user/reveal-password";
     }
 
     @ExceptionHandler(InvalidTokenException.class)

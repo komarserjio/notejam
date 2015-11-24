@@ -30,14 +30,14 @@ public class ForgotPasswordController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(@ModelAttribute("forgotPassword") ForgotPassword forgotPassword) {
-        return "forgot-password";
+        return "user/forgot-password";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String startPasswordRecoveryProcess(@Valid @ModelAttribute("forgotPassword") ForgotPassword forgotPassword,
             BindingResult bindingResult, HttpServletRequest request, Locale locale) {
         if (bindingResult.hasErrors()) {
-            return "forgot-password";
+            return "user/forgot-password";
         }
 
         recoveryService.startRecoveryProcess(forgotPassword.getEmail(), buildRequestUriBuilder(request), locale);

@@ -29,13 +29,13 @@ public class AccountController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showForm(@ModelAttribute("account") Account account) {
-        return "account";
+        return "user/account";
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public String signup(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "account";
+            return "user/account";
         }
 
         userService.changePassword(account.getNewPassword());
