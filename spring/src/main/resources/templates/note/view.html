@@ -13,7 +13,8 @@
 			<div th:if="${param.successful}" class="alert alert-success"
 				th:text="#{note.view.successful}">Saved.</div>
 		</div>
-		<p class="hidden-text" th:text="#{note.view.edited(${#dates.format(note.updated, #messages.msg('dateFormat'))})}">Last
+		<p class="hidden-text"
+			th:text="#{note.view.edited(${#dates.format(note.updated, #messages.msg('dateFormat'))})}">Last
 			edited at 10:32</p>
 		<div class="note" th:text="${note.text}">
 			<p>The typography of Skeleton is designed to create a strong

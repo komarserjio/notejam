@@ -26,7 +26,7 @@
 
 			<label th:inline="text"> [[#{note.edit.pad}]] <select
 				th:field="*{pad}">
-				    <option th:value="null" th:text="#{note.edit.nopad}">--------</option>
+					<option th:value="null" th:text="#{note.edit.nopad}">--------</option>
 					<option th:each="pad : ${pads}" th:value="${pad.id}"
 						th:text="${pad.name}">Pad</option>
 			</select>

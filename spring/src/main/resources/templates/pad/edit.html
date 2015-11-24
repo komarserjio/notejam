@@ -13,7 +13,8 @@
 			th:action="@{#}" method="post">
 			<div class="alert-area">
 				<div th:if="${param.success}" class="alert alert-success"
-					th:text="#{pad.edit.success}">You've successfully edited the pad.</div>
+					th:text="#{pad.edit.success}">You've successfully edited the
+					pad.</div>
 			</div>
 			<label th:inline="text"> [[#{pad.edit.name}]] <input
 				type="text" th:field="*{name}" th:errorclass="red" />
@@ -23,7 +24,8 @@
 			</ul>
 			<input type="submit" th:value="#{save}" />
 		</form>
-		<a class="red" th:href="${deleteURI}" th:text="#{pad.edit.delete}">Delete pad</a>
+		<a class="red" th:href="${deleteURI}" th:text="#{pad.edit.delete}">Delete
+			pad</a>
 	</div>
 
 </body>

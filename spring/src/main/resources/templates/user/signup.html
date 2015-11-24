@@ -34,8 +34,9 @@
 					th:text="${err}" />
 			</ul>
 
-			<input type="submit" th:value="#{signup.Signup}" />
-			<span th:text="#{signup.or}">or</span> <a th:href='@{${T(net.notejam.spring.URITemplates).SIGNIN}}'
+			<input type="submit" th:value="#{signup.Signup}" /> <span
+				th:text="#{signup.or}">or</span> <a
+				th:href='@{${T(net.notejam.spring.URITemplates).SIGNIN}}'
 				th:text="#{signup.Signin}">Sign in</a>
 		</form>
 	</div>

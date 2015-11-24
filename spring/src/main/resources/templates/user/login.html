@@ -24,11 +24,14 @@
 			</label> <label th:inline="text"> [[#{login.password}]] <input
 				type="password" name="password" />
 			</label> <input type="submit" th:value="#{login.signin}" /> <span
-				th:text="#{login.or}">or</span> <a th:href='@{${T(net.notejam.spring.URITemplates).SIGNUP}}'
+				th:text="#{login.or}">or</span> <a
+				th:href='@{${T(net.notejam.spring.URITemplates).SIGNUP}}'
 				th:text="#{login.signup}">Sign up</a>
 			<hr />
 			<p>
-				<a th:href="@{${T(net.notejam.spring.URITemplates).FORGOT_PASSWORD}}" class="small-red" th:text="#{login.forgot}">Forgot password?</a>
+				<a
+					th:href="@{${T(net.notejam.spring.URITemplates).FORGOT_PASSWORD}}"
+					class="small-red" th:text="#{login.forgot}">Forgot password?</a>
 			</p>
 		</form>
 	</div>

@@ -1,6 +1,6 @@
 package net.notejam.spring.note.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -42,7 +42,7 @@ public class CreateNoteController {
     }
 
     @ModelAttribute("pads")
-    public Collection<Pad> pads() {
+    public List<Pad> pads() {
         return padService.getAllPads();
     }
 

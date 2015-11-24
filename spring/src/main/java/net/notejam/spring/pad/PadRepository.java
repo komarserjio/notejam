@@ -1,6 +1,6 @@
 package net.notejam.spring.pad;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -21,6 +21,6 @@ public interface PadRepository extends JpaRepository<Pad, Integer> {
      *            The user
      * @return The user's pads
      */
-    public Collection<Pad> findByUser(User user);
+    public List<Pad> findByUser(User user);
 
 }

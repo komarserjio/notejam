@@ -9,7 +9,8 @@
 	<h1 th:inline="text">[[#{account.title}]]</h1>
 
 	<div th:fragment="content">
-		<form class="offset-by-six sign-in" th:action="@{#}" th:object="${account}" method="post">
+		<form class="offset-by-six sign-in" th:action="@{#}"
+			th:object="${account}" method="post">
 
 			<div class="alert-area">
 				<div th:if="${param.success}" class="alert alert-success"
@@ -42,7 +43,7 @@
 					th:text="${err}" />
 			</ul>
 
-			<input type="submit" th:value="#{save}"/>
+			<input type="submit" th:value="#{save}" />
 		</form>
 	</div>
 

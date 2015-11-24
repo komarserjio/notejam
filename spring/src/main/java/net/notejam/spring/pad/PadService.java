@@ -1,7 +1,7 @@
 package net.notejam.spring.pad;
 
 import java.time.Instant;
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -38,7 +38,7 @@ public class PadService {
      * @return The user's pads
      */
     @Transactional
-    public Collection<Pad> getAllPads() {
+    public List<Pad> getAllPads() {
         User user = userService.getAuthenticatedUser();
         return padRepository.findByUser(user);
     }
