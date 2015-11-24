@@ -13,7 +13,7 @@
 			<div th:if="${param.successful}" class="alert alert-success"
 				th:text="#{note.view.successful}">Saved.</div>
 		</div>
-		<p class="hidden-text" th:text="#{note.view.edited(${note.updated})}">Last
+		<p class="hidden-text" th:text="#{note.view.edited(${#dates.format(note.updated, #messages.msg('dateFormat'))})}">Last
 			edited at 10:32</p>
 		<div class="note" th:text="${note.text}">
 			<p>The typography of Skeleton is designed to create a strong
@@ -23,9 +23,8 @@
 				21px line height.</p>
 		</div>
 
-		<a class="button" th:href="${editURI}"
-			th:text="#{note.view.edit}">edit</a>
-			
+		<a class="button" th:href="${editURI}" th:text="#{note.view.edit}">edit</a>
+
 		<a class="delete-note" th:href="${deleteURI}"
 			th:text="#{note.view.delete}">delete</a>
 	</div>
