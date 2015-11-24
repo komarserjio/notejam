@@ -4,7 +4,6 @@ namespace Notejam\Presenters;
 
 use Nette;
 use Nette\Application\UI\PresenterComponentReflection;
-use Nextras\Application\UI\SecuredLinksPresenterTrait;
 use Notejam\Components\PadsList\IPadsListControlFactory;
 
 
@@ -14,8 +13,6 @@ use Notejam\Components\PadsList\IPadsListControlFactory;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-
-	use SecuredLinksPresenterTrait;
 
 	/**
 	 * @inject

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9750b67ca42825ff84834117182de5ea",
-    "content-hash": "05286889e93a23589270aa7c6ea0c422",
+    "hash": "f584cdada8d7f46a13e3d47167c6990a",
+    "content-hash": "bc35237fb26dd7dfc0975c542b83c35b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2006,63 +2006,6 @@
             "description": "Nette Utility Classes",
             "homepage": "https://nette.org",
             "time": "2015-10-05 12:18:24"
-        },
-        {
-            "name": "nextras/secured-links",
-            "version": "v1.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nextras/secured-links.git",
-                "reference": "244b85fb33fa8e582e3144a592a1a8adf8884aa0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nextras/secured-links/zipball/244b85fb33fa8e582e3144a592a1a8adf8884aa0",
-                "reference": "244b85fb33fa8e582e3144a592a1a8adf8884aa0",
-                "shasum": ""
-            },
-            "require": {
-                "nette/application": "~2.2",
-                "nette/utils": "~2.2",
-                "php": ">=5.4"
-            },
-            "replace": {
-                "nextras/application": "self.version"
-            },
-            "require-dev": {
-                "mockery/mockery": "~0.9",
-                "nette/tester": "~1.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Nextras\\Application\\UI\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jan Skrasek",
-                    "email": "hrach.cz@gmail.com",
-                    "homepage": "http://jan.skrasek.com"
-                }
-            ],
-            "description": "Package secures Nette Framework signals against CSRF attack.",
-            "keywords": [
-                "application",
-                "nette",
-                "nextras",
-                "secured signals"
-            ],
-            "time": "2015-06-21 16:18:06"
         },
         {
             "name": "nextras/static-router",
