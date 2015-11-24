@@ -4,6 +4,7 @@ namespace Notejam\Presenters;
 
 use Doctrine\ORM\EntityManager;
 use Nette;
+use Notejam\Components\IConfirmationControlFactory;
 use Notejam\Components\INoteControlFactory;
 use Notejam\Notes\Note;
 use Notejam\Notes\NoteRepository;
@@ -37,6 +38,12 @@ class NotePresenter extends BasePresenter
 	 * @var INoteControlFactory
 	 */
 	public $noteControlFactory;
+
+	/**
+	 * @inject
+	 * @var IConfirmationControlFactory
+	 */
+	public $confirmationControlFactory;
 
 	/**
 	 * @inject
@@ -150,21 +157,42 @@ class NotePresenter extends BasePresenter
 
 
 	/**
-	 * A subrequest (aka signal) for current action, that can be called to delete a note.
-	 * Thanks to the secured annotation, it's protected against CSRF.
-	 *
-	 * @secured
+	 * Since the note is required for the delete,
+	 * if it haven't been found, the presenter should end with 404 error.
 	 */
-	public function handleDelete($id)
+	public function actionDelete($id)
 	{
 		if (!$this->note) {
 			$this->error();
 		}
+	}
 
-		$this->em->remove($this->note);
-		$this->em->flush();
-		$this->flashMessage('The note has been deleted', 'success');
-		$this->redirect('Note:');
+
+
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * This factory creates a ConfirmationControl,
+	 * that calls the onConfirm event if user clicks on the button.
+	 *
+	 * @return \Notejam\Components\ConfirmationControl
+	 */
+	protected function createComponentDeleteNote()
+	{
+		if ($this->action !== 'delete') {
+			$this->error();
+		}
+
+		$control = $this->confirmationControlFactory->create();
+		$control->onConfirm[] = function () {
+			$this->em->remove($this->note);
+			$this->em->flush();
+			$this->flashMessage('The note has been deleted', 'success');
+			$this->redirect('Note:');
+		};
+
+		return $control;
 	}
 
 

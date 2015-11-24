@@ -4,6 +4,7 @@ namespace Notejam\Presenters;
 
 use Doctrine\ORM\EntityManager;
 use Nette;
+use Notejam\Components\IConfirmationControlFactory;
 use Notejam\Components\IPadsControlFactory;
 use Notejam\Notes\NoteRepository;
 use Notejam\Pads\Pad;
@@ -36,6 +37,12 @@ class PadPresenter extends BasePresenter
 	 * @var IPadsControlFactory
 	 */
 	public $padsControlFactory;
+
+	/**
+	 * @inject
+	 * @var IConfirmationControlFactory
+	 */
+	public $confirmationControlFactory;
 
 	/**
 	 * @inject
@@ -122,21 +129,42 @@ class PadPresenter extends BasePresenter
 
 
 	/**
-	 * A subrequest (aka signal) for current action, that can be called to delete a note.
-	 * Thanks to the secured annotation, it's protected against CSRF.
-	 *
-	 * @secured
+	 * Since the pad is required for the delete,
+	 * if it haven't been found, the presenter should end with 404 error.
 	 */
-	public function handleDelete($id)
+	public function actionDelete($id)
 	{
 		if (!$this->pad) {
 			$this->error();
 		}
+	}
 
-		$this->em->remove($this->pad);
-		$this->em->flush();
-		$this->flashMessage('The pad has been deleted', 'success');
-		$this->redirect('Note:');
+
+
+	/**
+	 * Factory method for subcomponent form instance.
+	 * This factory is called internally by Nette in the component model.
+	 *
+	 * This factory creates a ConfirmationControl,
+	 * that calls the onConfirm event if user clicks on the button.
+	 *
+	 * @return \Notejam\Components\ConfirmationControl
+	 */
+	protected function createComponentDeletePad()
+	{
+		if ($this->action !== 'delete') {
+			$this->error();
+		}
+
+		$control = $this->confirmationControlFactory->create();
+		$control->onConfirm[] = function () {
+			$this->em->remove($this->pad);
+			$this->em->flush();
+			$this->flashMessage('The pad has been deleted', 'success');
+			$this->redirect('Note:');
+		};
+
+		return $control;
 	}
 
 

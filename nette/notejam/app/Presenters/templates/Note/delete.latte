@@ -1,0 +1,9 @@
+{block title}Delete note {$note->name}{/block}
+{block page_title}<span>Delete note {$note->name}</span>{/block}
+
+{block body}
+<form n:name="deleteNote-form">
+	<p>Are you sure you want to delete {$note->name}?</p>
+	<button n:name="confirm" class="button red">Yes, I want to delete this note</button>
+	<a n:href="detail, $note->id">Cancel</a>
+</form>

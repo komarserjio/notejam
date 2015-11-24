@@ -27,10 +27,10 @@ class RouterFactory
 			'User:settings' => 'settings',
 		]);
 
-		$router[] = new Route('pads/<id [0-9]+>[/<action (detail|edit)>]', 'Pad:detail');
+		$router[] = new Route('pads/<id [0-9]+>[/<action (detail|delete|edit)>]', 'Pad:detail');
 		$router[] = new Route('pads[/<action (create)>]', 'Pad:default');
 
-		$router[] = new Route('notes/<id [0-9]+>[/<action (detail|edit)>]', 'Note:detail');
+		$router[] = new Route('notes/<id [0-9]+>[/<action (detail|delete|edit)>]', 'Note:detail');
 		$router[] = new Route('notes[/<action (create)>]', 'Note:');
 		$router[] = new Route('<presenter>[/<action>]', 'Note:default');
 
