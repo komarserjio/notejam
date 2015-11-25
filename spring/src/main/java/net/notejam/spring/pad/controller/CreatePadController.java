@@ -14,6 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import net.notejam.spring.URITemplates;
 import net.notejam.spring.pad.Pad;
 import net.notejam.spring.pad.PadService;
+import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 
 /**
  * The create pad controller.
@@ -24,6 +25,7 @@ import net.notejam.spring.pad.PadService;
 @Controller
 @RequestMapping(URITemplates.CREATE_PAD)
 @PreAuthorize("isAuthenticated()")
+@Pads
 public class CreatePadController {
 
     @Autowired

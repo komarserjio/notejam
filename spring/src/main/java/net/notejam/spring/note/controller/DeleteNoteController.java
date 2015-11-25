@@ -13,6 +13,7 @@ import net.notejam.spring.URITemplates;
 import net.notejam.spring.error.ResourceNotFoundException;
 import net.notejam.spring.note.Note;
 import net.notejam.spring.note.NoteService;
+import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 
 /**
  * The delete note controller.
@@ -23,6 +24,7 @@ import net.notejam.spring.note.NoteService;
 @Controller
 @RequestMapping(URITemplates.DELETE_NOTE)
 @PreAuthorize("isAuthenticated()")
+@Pads
 public class DeleteNoteController {
 
     @Autowired

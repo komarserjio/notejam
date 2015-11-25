@@ -15,8 +15,9 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
     /**
      * Deletes all notes of a pad.
      * 
-     * @param pad The pad
+     * @param pad
+     *            The pad
      */
     public void deleteByPad(Pad pad);
-    
+
 }

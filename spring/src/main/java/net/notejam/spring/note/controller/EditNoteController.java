@@ -1,7 +1,5 @@
 package net.notejam.spring.note.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,7 @@ import net.notejam.spring.URITemplates;
 import net.notejam.spring.error.ResourceNotFoundException;
 import net.notejam.spring.note.Note;
 import net.notejam.spring.note.NoteService;
-import net.notejam.spring.pad.Pad;
-import net.notejam.spring.pad.PadService;
+import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 
 /**
  * The edit note controller.
@@ -30,22 +27,15 @@ import net.notejam.spring.pad.PadService;
 @Controller
 @RequestMapping(URITemplates.EDIT_NOTE)
 @PreAuthorize("isAuthenticated()")
+@Pads
 public class EditNoteController {
 
     @Autowired
-    private NoteService noteService;
-
-    @Autowired
-    private PadService padService;
+    private NoteService service;
 
     @ModelAttribute
     public Note note(@PathVariable("id") int id) {
-        return noteService.getNote(id).orElseThrow(() -> new ResourceNotFoundException());
-    }
-
-    @ModelAttribute("pads")
-    public List<Pad> pads() {
-        return padService.getAllPads();
+        return service.getNote(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
     /**
@@ -69,7 +59,7 @@ public class EditNoteController {
             return "note/edit";
         }
 
-        noteService.saveNote(note, note.getPad());
+        service.saveNote(note, note.getPad());
 
         return String.format("redirect:%s", buildEditedNoteUri(note.getId()));
     }

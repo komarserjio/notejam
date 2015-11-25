@@ -13,6 +13,7 @@ import net.notejam.spring.URITemplates;
 import net.notejam.spring.error.ResourceNotFoundException;
 import net.notejam.spring.pad.Pad;
 import net.notejam.spring.pad.PadService;
+import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 
 /**
  * The delete pad controller.
@@ -23,6 +24,7 @@ import net.notejam.spring.pad.PadService;
 @Controller
 @RequestMapping(URITemplates.DELETE_PAD)
 @PreAuthorize("isAuthenticated()")
+@Pads
 public class DeletePadController {
 
     @Autowired

@@ -1,7 +1,5 @@
 package net.notejam.spring.note.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import net.notejam.spring.URITemplates;
 import net.notejam.spring.note.Note;
 import net.notejam.spring.note.NoteService;
-import net.notejam.spring.pad.Pad;
-import net.notejam.spring.pad.PadService;
+import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 
 /**
  * The create note controller.
@@ -28,22 +25,15 @@ import net.notejam.spring.pad.PadService;
 @Controller
 @RequestMapping(URITemplates.CREATE_NOTE)
 @PreAuthorize("isAuthenticated()")
+@Pads
 public class CreateNoteController {
 
     @Autowired
-    private NoteService noteService;
-
-    @Autowired
-    private PadService padService;
+    private NoteService service;
 
     @ModelAttribute
     public Note note() {
-        return noteService.buildNote();
-    }
-
-    @ModelAttribute("pads")
-    public List<Pad> pads() {
-        return padService.getAllPads();
+        return service.buildNote();
     }
 
     /**
@@ -67,7 +57,7 @@ public class CreateNoteController {
             return "note/create";
         }
 
-        noteService.saveNote(note, note.getPad());
+        service.saveNote(note, note.getPad());
 
         return String.format("redirect:%s", buildCreatedNoteUri(note.getId()));
     }

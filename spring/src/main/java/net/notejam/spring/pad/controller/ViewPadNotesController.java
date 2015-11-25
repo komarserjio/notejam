@@ -11,6 +11,7 @@ import net.notejam.spring.URITemplates;
 import net.notejam.spring.error.ResourceNotFoundException;
 import net.notejam.spring.pad.Pad;
 import net.notejam.spring.pad.PadService;
+import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 
 /**
  * The view pad notes controller.
@@ -20,6 +21,7 @@ import net.notejam.spring.pad.PadService;
  */
 @Controller
 @PreAuthorize("isAuthenticated()")
+@Pads
 public class ViewPadNotesController {
 
     @Autowired
