@@ -102,6 +102,11 @@ class ForgottenPasswordControl extends Nette\Application\UI\Control
 			$message->setSubject('Notejam password');
 			$message->setFrom('noreply@notejamapp.com');
 			$message->addTo($user->getEmail());
+
+			// !!! Never send passwords through email !!!
+			// This is only for demonstration purposes of Notejam.
+			// Ideally, you can create a unique link where user can change his password
+			// himself for limited amount of time, and then send the link.
 			$message->setBody("Your new password is {$newPassword}");
 
 			$this->mailer->send($message);
