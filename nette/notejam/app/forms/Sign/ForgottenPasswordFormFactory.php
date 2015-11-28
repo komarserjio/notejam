@@ -37,8 +37,8 @@ class ForgottenPasswordFormFactory extends Nette\Object
 	{
 		$form = new Form;
 		$form->addText('email', 'Email')
-			->setRequired('Email is required')
-			->addRule(Form::EMAIL, 'Invalid email');
+			->setRequired('%label is required')
+			->addRule(Form::EMAIL, 'Invalid %label');
 
 		$form->addSubmit('submit', 'Get new password');
 

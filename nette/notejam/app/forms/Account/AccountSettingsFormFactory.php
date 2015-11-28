@@ -36,10 +36,10 @@ class AccountSettingsFormFactory extends Nette\Object
 	{
 		$form = new Form;
 		$form->addPassword('current', 'Current password')
-			->setRequired('Current password is required');
+			->setRequired('%label is required');
 
 		$form->addPassword('new', 'New Password')
-			->setRequired('New password is required');
+			->setRequired('%label is required');
 
 		$form->addPassword('confirm', 'Confirm New Password')
 			->setRequired('New password is required')

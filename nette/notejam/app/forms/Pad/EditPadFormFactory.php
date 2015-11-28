@@ -32,7 +32,7 @@ class EditPadFormFactory extends Nette\Object
 		$form = new Form;
 		$form->addText('name', 'Name')
 			->setDefaultValue($name)
-			->setRequired('Name is required');
+			->setRequired('%label is required');
 
 		$form->addSubmit('submit', 'Save');
 

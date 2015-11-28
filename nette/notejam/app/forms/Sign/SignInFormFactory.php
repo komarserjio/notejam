@@ -31,10 +31,10 @@ class SignInFormFactory extends Nette\Object
 		$form = new Form;
 
 		$form->addText('email', 'Email')
-			->setRequired('Email is required');
+			->setRequired('%label is required');
 
 		$form->addPassword('password', 'Password')
-			->setRequired('Password is required');
+			->setRequired('%label is required');
 
 		$form->addSubmit('submit', 'Sign In');
 

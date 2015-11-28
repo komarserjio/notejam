@@ -31,14 +31,14 @@ class SignUpFormFactory extends Nette\Object
 	{
 		$form = new Form;
 		$form->addText('email', 'Email')
-			->setRequired('Email is required')
+			->setRequired('%label is required')
 			->addRule(Form::EMAIL, 'Invalid email');
 
 		$form->addPassword('password', 'Password')
-			->setRequired('Password is required');
+			->setRequired('%label is required');
 
 		$form->addPassword('confirm', 'Confirm Password')
-			->setRequired('Please confirm password')
+			->setRequired('%label is required')
 			->addRule(Form::EQUAL, 'Passwords must match', $form['password']);
 
 		$form->addSubmit('submit', 'Sign Up');

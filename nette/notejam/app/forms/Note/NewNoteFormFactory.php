@@ -39,13 +39,13 @@ class NewNoteFormFactory extends Nette\Object
 	{
 		$form = new Form;
 		$form->addText('name', 'Name')
-			->setRequired('Name is required');
+			->setRequired('%label is required');
 
 		$form->addTextArea('text', 'Text')
-			->setRequired('Text is required');
+			->setRequired('%label is required');
 
 		$form->addSelect('pad', 'Pad', $this->padManager->findAll()->fetchPairs('id', 'name'))
-			->setPrompt('Select pad')
+			->setPrompt('Select %label')
 			->setDefaultValue($pad);
 
 		$form->addSubmit('submit', 'Save');

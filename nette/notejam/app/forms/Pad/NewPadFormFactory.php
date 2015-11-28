@@ -30,7 +30,7 @@ class NewPadFormFactory extends Nette\Object
 	{
 		$form = new Form;
 		$form->addText('name', 'Name')
-			->setRequired('Name is required');
+			->setRequired('%label is required');
 
 		$form->addSubmit('submit', 'Save');
 
