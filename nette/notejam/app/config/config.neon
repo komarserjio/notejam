@@ -19,6 +19,12 @@ session:
 	expiration: 14 days
 
 
+database:
+	dsn: %database.dsn%
+	options:
+		lazy: yes
+
+
 services:
 	- App\Model\UserManager
 	- App\Model\NoteManager
