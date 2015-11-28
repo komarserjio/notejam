@@ -33,7 +33,7 @@ class RouterFactory
 		$router[] = new Route('/pads/<id>/edit', 'Pad:edit');
 		$router[] = new Route('/pads/<id>/delete', 'Pad:delete');
 
-		$router[] = new Route('/', 'Homepage:default');
+		$router[] = new Route('<presenter>[/<action>]', 'Homepage:default');
 		return $router;
 	}
 
