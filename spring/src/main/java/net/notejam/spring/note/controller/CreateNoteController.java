@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
@@ -32,8 +33,8 @@ public class CreateNoteController {
     private NoteService service;
 
     @ModelAttribute
-    public Note note() {
-        return service.buildNote();
+    public Note note(@RequestParam(value = "pad", required = false) Integer padId) {
+        return service.buildNote(padId);
     }
 
     /**

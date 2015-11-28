@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.notejam.spring.pad.Pad;
+import net.notejam.spring.pad.PadService;
 import net.notejam.spring.security.owner.PermitOwner;
 import net.notejam.spring.user.UserService;
 
@@ -25,6 +26,9 @@ public class NoteService {
 
     @Autowired
     private NoteRepository repository;
+
+    @Autowired
+    private PadService padService;
 
     @Autowired
     private UserService userService;
@@ -60,12 +64,20 @@ public class NoteService {
      * 
      * The note is not save yet. Use {@link #createNote(Note)} to save it.
      * 
+     * @param padId
+     *            The preselected pad.
+     * 
      * @return The new note
      */
-    public Note buildNote() {
+    public Note buildNote(Integer padId) {
         Note note = new Note();
         note.setUpdated(Instant.now());
         note.setUser(userService.getAuthenticatedUser());
+
+        if (padId != null) {
+            note.setPad(padService.getPad(padId).get());
+        }
+
         return note;
     }
 
