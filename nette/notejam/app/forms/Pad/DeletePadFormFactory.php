@@ -14,6 +14,9 @@ class DeletePadFormFactory extends Nette\Object
 	/** @var PadManager */
 	private $padManager;
 
+	/** @var int */
+	private $id;
+
 	/**
 	 * EditPadFormFactory constructor.
 	 * @param PadManager $padManager
@@ -24,11 +27,13 @@ class DeletePadFormFactory extends Nette\Object
 	}
 
 	/**
-	 * @param $id
+	 * @param int $id
 	 * @return Form
 	 */
 	public function create($id)
 	{
+		$this->id = $id;
+
 		$form = new Form;
 		$form->addProtection(); // Adds CSRF protection
 
@@ -44,7 +49,7 @@ class DeletePadFormFactory extends Nette\Object
 	 */
 	public function formSucceeded(Form $form, $values)
 	{
-		if (!$this->padManager->delete($form->getPresenter()->getParameter('id'))) {
+		if (!$this->padManager->delete($this->id)) {
 			$form->addError("Failed to delete pad");
 		}
 	}

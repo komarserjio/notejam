@@ -14,6 +14,9 @@ class EditPadFormFactory extends Nette\Object
 	/** @var PadManager */
 	private $padManager;
 
+    /** @var int */
+    private $id;
+
 	/**
 	 * EditPadFormFactory constructor.
 	 * @param PadManager $padManager
@@ -24,11 +27,14 @@ class EditPadFormFactory extends Nette\Object
 	}
 
 	/**
+	 * @param int    $id
 	 * @param string $name
 	 * @return Form
 	 */
-	public function create($name)
+	public function create($id, $name)
 	{
+        $this->id = $id;
+
 		$form = new Form;
 		$form->addText('name', 'Name')
 			->setDefaultValue($name)
@@ -46,7 +52,7 @@ class EditPadFormFactory extends Nette\Object
 	 */
 	public function formSucceeded(Form $form, $values)
 	{
-		if (!$this->padManager->update($form->getPresenter()->getParameter('id'), $values->name)) {
+		if (!$this->padManager->update($this->id, $values->name)) {
 			$form->addError("Failed to edit pad");
 		}
 	}

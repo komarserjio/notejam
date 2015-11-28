@@ -47,7 +47,7 @@ class NotePresenter extends SecuredBasePresenter
 	 */
 	protected function createComponentEditNoteForm()
 	{
-		$form = $this->editPadFormFactory->create($this->note->name, $this->note->text, $this->note->pad_id);
+		$form = $this->editPadFormFactory->create($this->note->id, $this->note->name, $this->note->text, $this->note->pad_id);
 		$form->onError[] = function ($form) {
 			foreach ($form->getErrors() as $error) {
 				$this->flashMessage($error, 'error');

@@ -18,6 +18,9 @@ class EditNoteFormFactory extends Nette\Object
 	/** @var NoteManager */
 	private $noteManager;
 
+	/** @var int */
+	private $id;
+
 	/**
 	 * EditPadFormFactory constructor.
 	 * @param PadManager  $padManager
@@ -30,13 +33,16 @@ class EditNoteFormFactory extends Nette\Object
 	}
 
 	/**
+	 * @param int    $id
 	 * @param string $name
 	 * @param string $text
 	 * @param int    $pad
 	 * @return Form
 	 */
-	public function create($name, $text, $pad)
+	public function create($id, $name, $text, $pad)
 	{
+		$this->id = $id;
+
 		$form = new Form;
 		$form->addText('name', 'Name')
 			->setDefaultValue($name)
@@ -62,7 +68,7 @@ class EditNoteFormFactory extends Nette\Object
 	 */
 	public function formSucceeded(Form $form, $values)
 	{
-		if (!$this->noteManager->update($form->getPresenter()->getParameter('id'), $values->name, $values->text, $values->pad)) {
+		if (!$this->noteManager->update($this->id, $values->name, $values->text, $values->pad)) {
 			$form->addError("Failed to edit pad");
 		}
 	}

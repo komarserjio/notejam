@@ -47,7 +47,7 @@ class PadPresenter extends SecuredBasePresenter
 	 */
 	protected function createComponentEditPadForm()
 	{
-		$form = $this->editPadFormFactory->create($this->pad->name);
+		$form = $this->editPadFormFactory->create($this->id, $this->pad->name);
 		$form->onError[] = function ($form) {
 			foreach ($form->getErrors() as $error) {
 				$this->flashMessage($error, 'error');
