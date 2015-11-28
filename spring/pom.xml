@@ -53,6 +53,11 @@
 			<version>3.4</version>
 		</dependency>
 		<dependency>
+			<groupId>org.ocpsoft.prettytime</groupId>
+			<artifactId>prettytime</artifactId>
+			<version>4.0.0.Final</version>
+		</dependency>
+		<dependency>
 			<groupId>de.malkusch.validation</groupId>
 			<artifactId>validation</artifactId>
 			<version>0.3.0</version>

@@ -34,7 +34,7 @@
 				    </a>
 			    </td>
 				<td class="pad" th:if="${note.pad == null}" th:text="#{pad.view.noPad}">No Pad</td>
-				<td class="hidden-text date" th:text="${#dates.format(note.updated, #messages.msg('dateFormat'))}">Today at 10:51</td>
+				<td class="hidden-text date" notejam:date="${note.updated}">Just now</td>
 			</tr>
 		</table>
 		<a th:href="@{${T(net.notejam.spring.URITemplates).CREATE_NOTE_FOR_PAD}(id=${pad.id})}" href="#" class="button" th:text="#{pad.view.newNote}">New note</a>
