@@ -2,18 +2,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
 
-<title th:inline="text">Notejam: [[${pad.name}]]</title>
+<title th:inline="text">Notejam: [[#{pad.view.title(${pad.name}, ${notes.getTotalElements()})}]]</title>
 
 <body>
 
-	<h1 th:inline="text">[[${pad.name}]]</h1>
+	<h1 th:inline="text">[[#{pad.view.title(${pad.name}, ${notes.getTotalElements()})}]]</h1>
 
 	<div th:fragment="content">
 		<div class="alert-area">
 			<div th:if="${param.created}" class="alert alert-success"
 				th:text="#{pad.view.created}">Pad created.</div>
 		</div>
-		TODO
+		<p class="empty" th:if="${!notes.hasContent()}" th:text="#{pad.view.empty}">Create your first note.</p>
+		<table th:if="${notes.hasContent()}" class="notes">
+			<tr>
+				<th class="note" th:inline="text">[[#{pad.view.note}]]
+				    <a th:href="@{?sort=name,ASC}"  href="#" class="sort_arrow">&uarr;</a>
+				    <a th:href="@{?sort=name,DESC}" href="#" class="sort_arrow">&darr;</a>
+				</th>
+				<th th:text="#{pad.view.pad}">Pad</th>
+				<th class="date" th:inline="text">[[#{pad.view.modified}]]
+				    <a th:href="@{?sort=updated,ASC}"  href="#" class="sort_arrow">&uarr;</a>
+                    <a th:href="@{?sort=updated,DESC}" href="#" class="sort_arrow">&darr;</a>
+				</th>
+			</tr>
+			<tr th:each="note : ${notes}">
+				<td><a th:href="@{${T(net.notejam.spring.URITemplates).VIEW_NOTE}(id=${note.id})}" href="#" th:text="${note.name}">My sport activities</a></td>
+				<td class="pad" th:if="${note.pad != null}">
+				    <a th:href="@{${T(net.notejam.spring.URITemplates).VIEW_PAD}(id=${note.pad.id})}" href="#" th:text="${note.pad.name}">
+				    Pad
+				    </a>
+			    </td>
+				<td class="pad" th:if="${note.pad == null}" th:text="#{pad.view.noPad}">No Pad</td>
+				<td class="hidden-text date" th:text="${#dates.format(note.updated, #messages.msg('dateFormat'))}">Today at 10:51</td>
+			</tr>
+		</table>
+		<a th:href="@{${T(net.notejam.spring.URITemplates).CREATE_NOTE_FOR_PAD}(id=${pad.id})}" href="#" class="button" th:text="#{pad.view.newNote}">New note</a>
+		<a th:href="@{${T(net.notejam.spring.URITemplates).EDIT_PAD}(id=${pad.id})}" href="#" th:text="#{pad.view.settings}">Pad settings</a>
 	</div>
 
 </body>

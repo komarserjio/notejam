@@ -25,7 +25,7 @@ import net.notejam.spring.user.User;
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @Entity
-@Table(indexes = @Index(columnList = "updated") )
+@Table(indexes = { @Index(columnList = "updated"), @Index(columnList = "name") })
 public class Note extends AbstractPersistable<Integer>implements Owned {
 
     private static final long serialVersionUID = -1445367127777923455L;

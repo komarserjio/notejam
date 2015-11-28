@@ -9,7 +9,7 @@
 	<h1 th:inline="text">[[#{note.create.title}]]</h1>
 
 	<div th:fragment="content">
-		<form class="note" th:object="${note}" th:action="@{#}" method="post">
+		<form class="note" th:object="${note}" th:action="@{${T(net.notejam.spring.URITemplates).CREATE_NOTE}}" method="post">
 			<div class="alert-area">
 				<div th:if="${param.deleted}" class="alert alert-success"
 					th:text="#{note.delete.success}">Note deleted.</div>

@@ -9,7 +9,7 @@
 	<h1 th:inline="text">[[${note.name}]]</h1>
 
 	<div th:fragment="content">
-		<form class="offset-by-six sign-in" th:object="${note}"
+		<form th:object="${note}"
 			th:action="@{#}" method="post">
 			<p th:text="#{note.delete.sure(${note.name})}">Are you sure?</p>
 			<input type="submit" class="red" th:value="#{note.delete.delete}" />

@@ -9,7 +9,7 @@
 	<h1 th:inline="text">[[#{pad.create.title}]]</h1>
 
 	<div th:fragment="content">
-		<form class="offset-by-six sign-in" th:object="${pad}"
+		<form class="pad" th:object="${pad}"
 			th:action="@{#}" method="post">
 			<div class="alert-area">
 				<div th:if="${param.deleted}" class="alert alert-success"

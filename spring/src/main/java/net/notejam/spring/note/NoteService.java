@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.notejam.spring.pad.Pad;
@@ -37,6 +39,20 @@ public class NoteService {
     @PermitOwner
     public Optional<Note> getNote(int id) {
         return Optional.ofNullable(repository.findOne(id));
+    }
+
+    /**
+     * Pages through all notes of a pad.
+     * 
+     * @param pad
+     *            The pad
+     * @param pageable
+     *            The paging parameters
+     * @return The notes
+     */
+    @Transactional
+    public Page<Note> getPadNotes(@PermitOwner Pad pad, Pageable pageable) {
+        return repository.findByPad(pad, pageable);
     }
 
     /**

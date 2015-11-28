@@ -232,6 +232,7 @@ table.bordered th+th, table.bordered th+td, table.bordered td+td {
 
 td.date, th.date {
 	text-align: right;
+	white-space: nowrap;
 }
 
 td.date {

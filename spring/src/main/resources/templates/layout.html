@@ -65,7 +65,9 @@
 			<h4 id="logo" th:text="#{layout.pads}">My pads</h4>
 			<nav>
 				<ul th:if="${!pads.isEmpty()}">
-					<li th:each="pad : ${pads}"><a href="#" th:text="${pad.name}">Business</a></li>
+					<li th:each="pad : ${pads}">
+					   <a th:href="@{${T(net.notejam.spring.URITemplates).VIEW_PAD}(id=${pad.id})}" href="#" th:text="${pad.name}">Business</a>
+				    </li>
 				</ul>
 				<p th:if="${pads.isEmpty()}" th:text="#{layout.noPads}"
 					class="empty">No pads</p>
