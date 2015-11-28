@@ -7,6 +7,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Notejam\UI\FormFactory;
 use Notejam\Users\UserRepository;
+use Tracy\Debugger;
 
 
 
@@ -96,13 +97,19 @@ class ForgottenPasswordControl extends Nette\Application\UI\Control
 		$newPassword = $user->generateRandomPassword();
 		$this->em->flush();
 
-		$message = new Nette\Mail\Message();
-		$message->setSubject('Notejam password');
-		$message->setFrom('noreply@notejamapp.com');
-		$message->addTo($user->getEmail());
-		$message->setBody("Your new password is {$newPassword}");
+		try {
+			$message = new Nette\Mail\Message();
+			$message->setSubject('Notejam password');
+			$message->setFrom('noreply@notejamapp.com');
+			$message->addTo($user->getEmail());
+			$message->setBody("Your new password is {$newPassword}");
 
-		$this->mailer->send($message);
+			$this->mailer->send($message);
+
+		} catch (Nette\Mail\SendException $e) {
+			Debugger::log($e, 'email');
+			$form->addError('Could not send email with new password');
+		}
 
 		$this->onSuccess($this);
 	}
