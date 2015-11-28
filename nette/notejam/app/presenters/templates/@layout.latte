@@ -55,9 +55,7 @@
 
 	<div n:class="$user->isLoggedIn() ? thirteen : sixteen, columns, content-area">
 		<div class="alert-area">
-			{foreach $flashes as $flash}
-				<div n:if="$flash" class="alert alert-{$flash->type}">{$flash->message}</div>
-			{/foreach}
+			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">{$flash->message}</div>
 		</div>
 		{include content}
 	</div>
