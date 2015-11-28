@@ -46,12 +46,9 @@
 		</h1>
 	</div>
 
-	{ifCurrent Account:settings}
-	{else}
-	{if $user->isLoggedIn()}
+	{if $user->isLoggedIn() && !$presenter->isLinkCurrent('Account:settings')}
 		{control pads}
 	{/if}
-	{/ifCurrent}
 
 	<div n:class="$user->isLoggedIn() ? thirteen : sixteen, columns, content-area">
 		<div class="alert-area">
