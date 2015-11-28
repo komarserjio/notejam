@@ -23,8 +23,6 @@ class SignPresenter extends BasePresenter
 	/** @var SignUpFormFactory @inject */
 	public $signUpFormFactory;
 
-	/********************* Controls ***********************************************************************************/
-
 	/**
 	 * Sign-in form factory.
 	 * @return Nette\Application\UI\Form
@@ -82,8 +80,6 @@ class SignPresenter extends BasePresenter
 		};
 		return $form;
 	}
-
-	/********************* Actions ************************************************************************************/
 
 	/**
 	 * Sign:in.

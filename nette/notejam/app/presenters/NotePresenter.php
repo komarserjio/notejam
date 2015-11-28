@@ -42,9 +42,6 @@ class NotePresenter extends SecuredBasePresenter
 	/** @var object[] */
 	private $notes;
 
-
-	/********************* Controls ***********************************************************************************/
-
 	/**
 	 * @return \Nette\Application\UI\Form
 	 */
@@ -98,8 +95,6 @@ class NotePresenter extends SecuredBasePresenter
 		};
 		return $form;
 	}
-
-	/********************* Actions ************************************************************************************/
 
 	/**
 	 * Note:default.

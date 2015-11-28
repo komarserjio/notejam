@@ -42,8 +42,6 @@ class PadPresenter extends SecuredBasePresenter
 	/** @var object[] */
 	private $notes;
 
-	/********************* Controls ***********************************************************************************/
-
 	/**
 	 * @return \Nette\Application\UI\Form
 	 */
@@ -105,9 +103,6 @@ class PadPresenter extends SecuredBasePresenter
 	{
 		return $this->notesFactory->create($this->notes, $this->pad);
 	}
-
-
-	/********************* Actions ************************************************************************************/
 
 	/**
 	 * Pad:default.
