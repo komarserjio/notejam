@@ -13,13 +13,13 @@ class OrderHelper
 	 */
 	public static function translateParameterToColumns($orderBy)
 	{
-		return
-			[
+		$ordering = [
 				'name'        => 'name ASC',
 				'-name'       => 'name DESC',
 				'updated_at'  => 'updated_at ASC',
 				'-updated_at' => 'updated_at DESC'
-			][$orderBy];
+			];
+		return isset($ordering[$orderBy]) ? $ordering[$orderBy] : $ordering['name'];
 	}
 
 }
