@@ -23,10 +23,9 @@ class DeleteNoteFormFactory
 	}
 
 	/**
-	 * @param int $id
 	 * @return Form
 	 */
-	public function create($id)
+	public function create()
 	{
 		$form = new Form;
 		$form->addProtection(); // Adds CSRF protection
