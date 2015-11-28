@@ -37,7 +37,7 @@ class SignPresenter extends BasePresenter
 		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('New password sent to your inbox', 'success');
-			$form->getPresenter()->redirect('Sign:in');
+			$this->redirect('Sign:in');
 		};
 		return $form;
 	}
@@ -55,8 +55,8 @@ class SignPresenter extends BasePresenter
 			}
 		};
 		$form->onSuccess[] = function ($form) {
-			$form->getPresenter()->restoreRequest($this->backlink);
-			$form->getPresenter()->redirect('Homepage:');
+			$this->restoreRequest($this->backlink);
+			$this->redirect('Homepage:');
 		};
 		return $form;
 	}
@@ -76,7 +76,7 @@ class SignPresenter extends BasePresenter
 		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('User is successfully created. Now you can sign in.', 'success');
-			$form->getPresenter()->redirect('Sign:in');
+			$this->redirect('Sign:in');
 		};
 		return $form;
 	}

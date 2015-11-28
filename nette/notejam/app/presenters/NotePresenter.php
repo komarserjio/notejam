@@ -55,7 +55,7 @@ class NotePresenter extends SecuredBasePresenter
 		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Note successfully updated', 'success');
-			$form->getPresenter()->redirect('default', ['id' => $this->id]);
+			$this->redirect('default', ['id' => $this->id]);
 		};
 		return $form;
 	}
@@ -73,7 +73,7 @@ class NotePresenter extends SecuredBasePresenter
 		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Note successfully deleted', 'success');
-			$form->getPresenter()->redirect('Homepage:');
+			$this->redirect('Homepage:');
 		};
 		return $form;
 	}
@@ -91,7 +91,7 @@ class NotePresenter extends SecuredBasePresenter
 		};
 		$form->onSuccess[] = function ($form) {
 			$this->flashMessage('Note successfully created', 'success');
-			$form->getPresenter()->redirect('Homepage:');
+			$this->redirect('Homepage:');
 		};
 		return $form;
 	}
