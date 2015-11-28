@@ -31,8 +31,6 @@ class DeleteNoteFormFactory
 		$form = new Form;
 		$form->addProtection(); // Adds CSRF protection
 
-		$form->addHidden('id', $id);
-
 		$form->addSubmit('submit', 'Yes, I want to delete this note');
 
 		$form->onSuccess[] = [$this, 'formSucceeded'];
@@ -45,7 +43,7 @@ class DeleteNoteFormFactory
 	 */
 	public function formSucceeded(Form $form, $values)
 	{
-		if (!$this->noteManager->delete($values->id)) {
+		if (!$this->noteManager->delete($form->getPresenter()->getParameter('id'))) {
 			$form->addError("Failed to delete note");
 		}
 	}

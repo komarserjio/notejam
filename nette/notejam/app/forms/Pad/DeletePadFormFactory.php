@@ -32,8 +32,6 @@ class DeletePadFormFactory extends Nette\Object
 		$form = new Form;
 		$form->addProtection(); // Adds CSRF protection
 
-		$form->addHidden('id', $id);
-
 		$form->addSubmit('submit', 'Yes, I want to delete this pad');
 
 		$form->onSuccess[] = [$this, 'formSucceeded'];
@@ -46,7 +44,7 @@ class DeletePadFormFactory extends Nette\Object
 	 */
 	public function formSucceeded(Form $form, $values)
 	{
-		if (!$this->padManager->delete($values->id)) {
+		if (!$this->padManager->delete($form->getPresenter()->getParameter('id'))) {
 			$form->addError("Failed to delete pad");
 		}
 	}
