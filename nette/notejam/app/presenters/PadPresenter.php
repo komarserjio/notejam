@@ -34,7 +34,7 @@ class PadPresenter extends SecuredBasePresenter
 	public $notesFactory;
 
 	/** @var int @persistent */
-	private $id;
+	public $id;
 
 	/** @var object */
 	private $pad;

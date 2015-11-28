@@ -31,7 +31,7 @@ class NotePresenter extends SecuredBasePresenter
 	public $newPadFormFactory;
 
 	/** @var int @persistent */
-	private $id;
+	public $id;
 
 	/** @var int */
 	private $padId;
