@@ -29,6 +29,7 @@ class SignInFormFactory extends Nette\Object
 	public function create()
 	{
 		$form = new Form;
+
 		$form->addText('email', 'Email')
 			->setRequired('Email is required');
 

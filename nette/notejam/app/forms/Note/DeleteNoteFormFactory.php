@@ -29,6 +29,8 @@ class DeleteNoteFormFactory
 	public function create($id)
 	{
 		$form = new Form;
+		$form->addProtection(); // Adds CSRF protection
+
 		$form->addHidden('id', $id);
 
 		$form->addSubmit('submit', 'Yes, I want to delete this note');
