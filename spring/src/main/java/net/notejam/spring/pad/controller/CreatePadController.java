@@ -71,7 +71,7 @@ public class CreatePadController {
      */
     private String buildCreatedPadUri(int id) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.VIEW_PAD);
-        uriBuilder.queryParam("created");
+        uriBuilder.queryParam("createdSuccessfully");
         return uriBuilder.buildAndExpand(id).toUriString();
     }
 
