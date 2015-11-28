@@ -7,13 +7,15 @@ import org.thymeleaf.dialect.AbstractDialect;
 import org.thymeleaf.processor.IProcessor;
 
 import net.notejam.spring.view.dialect.processor.NaturalLanguageDateProcessor;
+import net.notejam.spring.view.dialect.processor.NoteTextProcessor;
 
 /**
  * The Notejam view dialect.
  * 
  * The prefix of this dialect is "notejam". These are the dialect's attributes:
  * 
- * - date: Formats a date into natural language.
+ * - date: Formats a date into natural language. - text: Converts empty lines
+ * into paragraphs.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
@@ -29,6 +31,7 @@ public class NotejamDialect extends AbstractDialect {
     public Set<IProcessor> getProcessors() {
         Set<IProcessor> processors = new HashSet<IProcessor>();
         processors.add(new NaturalLanguageDateProcessor("date"));
+        processors.add(new NoteTextProcessor("text"));
         return processors;
     }
 

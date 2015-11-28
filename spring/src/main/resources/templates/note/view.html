@@ -16,7 +16,7 @@
 		<p class="hidden-text"
 			th:text="#{note.view.edited(${#dates.format(note.updated, #messages.msg('dateFormat'))})}">Last
 			edited at 10:32</p>
-		<div class="note" th:text="${note.text}">
+		<div class="note" notejam:text="${note.text}">
 			<p>The typography of Skeleton is designed to create a strong
 				hierarchy with basic styles. The primary font is the classic
 				Helvetica Neue, but the font stack can be easily changed with just a
