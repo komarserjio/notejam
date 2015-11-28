@@ -80,7 +80,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	public function checkPassword($id, $password)
 	{
 		$user = $this->getTable()->get($id);
-		return $user && Passwords::verify($password, $user->{'password'});
+		return $user && Passwords::verify($password, $user->password);
 	}
 
 	/**
