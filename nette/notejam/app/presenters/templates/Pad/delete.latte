@@ -4,6 +4,6 @@
 	<p>Are you sure you want to delete the pad?</p>
 	{form deletePadForm}
 	{input submit 'class' => 'red'}&nbsp;
-		<a n:href="Pad:edit $pad->id">Cancel</a>
+		<a n:href="Pad:edit, $pad->id">Cancel</a>
 	{/form}
 {/block}
