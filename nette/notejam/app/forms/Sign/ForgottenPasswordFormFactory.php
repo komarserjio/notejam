@@ -6,6 +6,7 @@ use App\Model\UserManager;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Utils\ArrayHash;
+use Tracy\Debugger;
 
 
 class ForgottenPasswordFormFactory extends Nette\Object
@@ -66,13 +67,14 @@ class ForgottenPasswordFormFactory extends Nette\Object
 			// Ideally, you can create a unique link where user can change his password
 			// himself for limited amount of time, and then send the link.
 			$mail = new Nette\Mail\Message();
-			$mail->setFrom('norepy@notejamapp.com', 'Notejamapp');
+			$mail->setFrom('noreply@notejamapp.com', 'Notejamapp');
 			$mail->addTo($user->email);
 			$mail->setSubject('New notejam password');
 			$mail->setBody(sprintf('Your new password: %s', $password));
 			$this->mailer->send($mail);
 
 		} catch (Nette\Mail\SendException $e) {
+			Debugger::log($e, Debugger::EXCEPTION);
 			$form->addError('Could not send email with new password');
 		}
 	}
