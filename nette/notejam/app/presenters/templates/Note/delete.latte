@@ -2,8 +2,8 @@
 {block header}{$note->name}{/block}
 {block content}
 	<p>Are you sure you want to delete the note?</p>
-	{form deleteNoteForm}
-	{input submit 'class' => 'red'}&nbsp;
+	<form n:name="deleteNoteForm">
+		<input n:name="submit" class="red">&nbsp;
 		<a n:href="Note:, $note->id">Cancel</a>
-	{/form}
+	</form>
 {/block}

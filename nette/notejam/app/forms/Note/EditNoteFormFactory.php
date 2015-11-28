@@ -47,7 +47,7 @@ class EditNoteFormFactory extends Nette\Object
 			->setRequired('%label is required');
 
 		$form->addSelect('pad', 'Pad', $this->padManager->findAll()->fetchPairs('id', 'name'))
-			->setPrompt('Select %label')
+			->setPrompt('Select pad')
 			->setDefaultValue($pad);
 
 		$form->addSubmit('submit', 'Save');

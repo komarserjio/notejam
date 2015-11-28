@@ -2,11 +2,11 @@
 {block header}Sign In{/block}
 {block content}
 	<form class="offset-by-six sign-in" n:name="signInForm">
-		<label for="email" n:name="email">Email</label>
-		<input type="text" n:name="email" id="email">
-		<label for="password" n:name="password">Password</label>
-		<input type="password" n:name="password" id="password">
-		<input type="submit" n:name="submit" value="Sign In"> or <a n:href="Sign:up">Sign up</a>
+		<label n:name="email">Email</label>
+		<input n:name="email">
+		<label n:name="password">Password</label>
+		<input n:name="password">
+		<input n:name="submit"> or <a n:href="Sign:up">Sign up</a>
 		<hr/>
 		<p><a n:href="Sign:forgotten" class="small-red">Forgot password?</a></p>
 	</form>

@@ -1,13 +1,13 @@
 {block title}New note{/block}
 {block header}New note{/block}
 {block content}
-	{form newNoteForm 'class' => 'note'}
-	{label name /}
-	{input name}
-	{label text /}
-	{input text}
-	{label pad /}
-	{input pad}
-	{input submit}
-	{/form}
+	<form n:name="newNoteForm" class="note">
+		<label n:name="name">Name</label>
+		<input n:name="name">
+		<label n:name="text">Text</label>
+		<input n:name="text">
+		<label n:name="pad">Pad</label>
+		<select n:name="pad"></select>
+		<input n:name="submit">
+	</form>
 {/block}
