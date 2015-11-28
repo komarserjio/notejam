@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f584cdada8d7f46a13e3d47167c6990a",
-    "content-hash": "bc35237fb26dd7dfc0975c542b83c35b",
+    "hash": "99a26131a249a67fdc54e59ec1add7b2",
+    "content-hash": "bb5d12a2b59bf82f1fd5ad6e2252efce",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1086,28 +1086,30 @@
         },
         {
             "name": "majkl578/nette-identity-doctrine",
-            "version": "dev-devel",
+            "version": "v2.3-rc1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fprochazka/nette-identity-doctrine.git",
-                "reference": "bb44ec22df46c72c8f7173ef0a9cb94fa294d943"
+                "url": "https://github.com/Majkl578/nette-identity-doctrine.git",
+                "reference": "6d78821908dcf06e276b34eae7a3123d9fe1fb3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fprochazka/nette-identity-doctrine/zipball/bb44ec22df46c72c8f7173ef0a9cb94fa294d943",
-                "reference": "bb44ec22df46c72c8f7173ef0a9cb94fa294d943",
+                "url": "https://api.github.com/repos/Majkl578/nette-identity-doctrine/zipball/6d78821908dcf06e276b34eae7a3123d9fe1fb3a",
+                "reference": "6d78821908dcf06e276b34eae7a3123d9fe1fb3a",
                 "shasum": ""
             },
             "require": {
-                "doctrine/orm": "~2.5",
-                "nette/http": "~2.3",
-                "nette/security": "~2.3",
+                "doctrine/orm": "~2.3",
+                "nette/di": "~2.2",
+                "nette/http": "~2.2",
+                "nette/security": "~2.2",
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "kdyby/doctrine": "~3.0@dev",
-                "nette/bootstrap": "~2.3",
-                "nette/di": "~2.3"
+                "kdyby/doctrine": "~2.0",
+                "nette/bootstrap": "~2.2",
+                "phpunit/phpunit": "~4.8",
+                "tracy/tracy": "~2.2"
             },
             "type": "nette-addon",
             "autoload": {
@@ -1115,11 +1117,7 @@
                     "Majkl578\\NetteAddons\\Doctrine2Identity\\": "lib"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Majkl578\\NetteAddons\\Doctrine2Identity\\Tests\\": "tests"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1130,17 +1128,14 @@
             ],
             "description": "Integration of entities implementing IIdentity in Nette 2",
             "keywords": [
-                "authentication",
+                "Authentication",
                 "doctrine",
                 "identity",
                 "nette",
                 "orm",
                 "security"
             ],
-            "support": {
-                "source": "https://github.com/fprochazka/nette-identity-doctrine/tree/devel"
-            },
-            "time": "2015-10-12 18:01:09"
+            "time": "2015-11-27 13:47:40"
         },
         {
             "name": "nette/application",
@@ -3748,7 +3743,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "majkl578/nette-identity-doctrine": 20
+        "majkl578/nette-identity-doctrine": 5
     },
     "prefer-stable": false,
     "prefer-lowest": false,

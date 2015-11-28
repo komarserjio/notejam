@@ -21,7 +21,7 @@
 		"tracy/tracy": "~2.3.0",
 		"nextras/static-router": "^1.0",
 		"kdyby/doctrine": "^3.0",
-		"majkl578/nette-identity-doctrine": "dev-devel"
+		"majkl578/nette-identity-doctrine": "~2.3@rc"
 	},
 	"autoload": {
 		"classmap": [
@@ -35,8 +35,5 @@
 	"require-dev": {
 		"nette/tester": "~1.4",
 		"codeception/codeception": "^2.0"
-	},
-	"repositories": [
-		{"type": "vcs", "url": "https://github.com/fprochazka/nette-identity-doctrine"}
-	]
+	}
 }
