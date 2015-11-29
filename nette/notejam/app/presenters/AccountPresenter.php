@@ -24,7 +24,7 @@ class AccountPresenter extends BasePresenter
 				$this->flashMessage($error, 'error');
 			}
 		};
-		$form->onSuccess[] = function ($form) {
+		$form->onSuccess[] = function () {
 			$this->flashMessage('Password is successfully changed', 'success');
 			$this->redirect('Homepage:');
 		};

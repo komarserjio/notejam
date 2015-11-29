@@ -53,7 +53,7 @@ class PadPresenter extends SecuredBasePresenter
 				$this->flashMessage($error, 'error');
 			}
 		};
-		$form->onSuccess[] = function ($form) {
+		$form->onSuccess[] = function () {
 			$this->flashMessage('Pad successfully updated', 'success');
 			$this->redirect('Homepage:');
 		};
@@ -71,7 +71,7 @@ class PadPresenter extends SecuredBasePresenter
 				$this->flashMessage($error, 'error');
 			}
 		};
-		$form->onSuccess[] = function ($form) {
+		$form->onSuccess[] = function () {
 			$this->flashMessage('Pad successfully deleted', 'success');
 			$this->redirect('Homepage:');
 		};
@@ -89,7 +89,7 @@ class PadPresenter extends SecuredBasePresenter
 				$this->flashMessage($error, 'error');
 			}
 		};
-		$form->onSuccess[] = function ($form) {
+		$form->onSuccess[] = function () {
 			$this->flashMessage('Pad successfully created', 'success');
 			$this->redirect('Homepage:');
 		};
