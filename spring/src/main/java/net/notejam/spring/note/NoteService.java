@@ -46,6 +46,18 @@ public class NoteService {
     }
 
     /**
+     * Pages through all notes.
+     * 
+     * @param pageable
+     *            The paging parameters
+     * @return The notes
+     */
+    @Transactional
+    public Page<Note> getNotes(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
+    /**
      * Pages through all notes of a pad.
      * 
      * @param pad

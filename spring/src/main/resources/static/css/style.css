@@ -321,12 +321,14 @@ table.notes th.note {
 
 table.notes td.pad {
 	color: grey;
+	white-space: nowrap;
 }
 
 table.notes td.pad a {
 	color: grey;
 	text-decoration: underline;
 	font-style: normal;
+	white-space: normal;
 }
 
 table.notes td.pad a:hover {
