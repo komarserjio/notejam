@@ -10,6 +10,7 @@ use App\Model\NoteManager;
 use App\Model\PadManager;
 use App\Forms\Pad\EditPadFormFactory;
 use Nette\Application\BadRequestException;
+use Nette\Database\Table\Selection;
 
 
 class PadPresenter extends SecuredBasePresenter
@@ -39,10 +40,12 @@ class PadPresenter extends SecuredBasePresenter
 	/** @var object */
 	private $pad;
 
-	/** @var object[] */
+	/** @var Selection */
 	private $notes;
 
 	/**
+	 * Creates EditPadForm component.
+	 * Called automagically by the framework.
 	 * @return \Nette\Application\UI\Form
 	 */
 	protected function createComponentEditPadForm()
@@ -61,6 +64,8 @@ class PadPresenter extends SecuredBasePresenter
 	}
 
 	/**
+	 * Creates DeletePadForm component.
+	 * Called automagically by the framework.
 	 * @return \Nette\Application\UI\Form
 	 */
 	protected function createComponentDeletePadForm()
@@ -79,6 +84,8 @@ class PadPresenter extends SecuredBasePresenter
 	}
 
 	/**
+	 * Creates NewPadForm component.
+	 * Called automagically by the framework.
 	 * @return \Nette\Application\UI\Form
 	 */
 	protected function createComponentNewPadForm()
@@ -97,6 +104,8 @@ class PadPresenter extends SecuredBasePresenter
 	}
 
 	/**
+	 * Creates Notes component.
+	 * Called automagically by the framework.
 	 * @return \App\Components\Notes\Notes
 	 */
 	protected function createComponentNotes()

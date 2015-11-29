@@ -24,6 +24,7 @@ class SignInFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Creates a SignInForm.
 	 * @return Form
 	 */
 	public function create()
@@ -43,6 +44,7 @@ class SignInFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Callback for SignInForm onSuccess event.
 	 * @param Form      $form
 	 * @param ArrayHash $values
 	 */

@@ -15,9 +15,7 @@ class NewNoteFormFactory extends Nette\Object
 	/** @var PadManager */
 	private $padManager;
 
-	/**
-	 * @var NoteManager
-	 */
+	/** @var NoteManager */
 	private $noteManager;
 
 	/**
@@ -32,7 +30,8 @@ class NewNoteFormFactory extends Nette\Object
 	}
 
 	/**
-	 * @param int $pad
+	 * Creates a NewNoteForm.
+	 * @param int|NULL $pad Id of the default pad. Can be NULL.
 	 * @return Form
 	 */
 	public function create($pad)
@@ -55,6 +54,7 @@ class NewNoteFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Callback for NewNoteForm onSuccess event.
 	 * @param Form      $form
 	 * @param ArrayHash $values
 	 */

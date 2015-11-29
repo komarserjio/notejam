@@ -24,6 +24,7 @@ class NewPadFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Creates a NewPadForm.
 	 * @return Form
 	 */
 	public function create()
@@ -39,6 +40,7 @@ class NewPadFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Callback for NewPadForm onSuccess event.
 	 * @param Form      $form
 	 * @param ArrayHash $values
 	 */

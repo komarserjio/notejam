@@ -30,6 +30,7 @@ class AccountSettingsFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Creates Account Settings Form.
 	 * @return Form
 	 */
 	public function create()
@@ -48,13 +49,14 @@ class AccountSettingsFormFactory extends Nette\Object
 		$form->addSubmit('submit', 'Change Password');
 
 		$form->onSuccess[] = [$this, 'formSucceeded'];
+
 		return $form;
 	}
 
 	/**
+	 * Callback for Account Settings Form onSuccess event.
 	 * @param Form      $form
 	 * @param ArrayHash $values
-	 * @throws \App\Model\DuplicateNameException
 	 */
 	public function formSucceeded(Form $form, $values)
 	{

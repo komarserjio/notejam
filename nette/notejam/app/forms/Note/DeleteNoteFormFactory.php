@@ -22,7 +22,8 @@ class DeleteNoteFormFactory
 	}
 
 	/**
-	 * @param int $id
+	 * Creates a DeleteNoteForm.
+	 * @param int $id Id of the note to be deleted.
 	 * @return Form
 	 */
 	public function create($id)

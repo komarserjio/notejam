@@ -23,7 +23,8 @@ class DeletePadFormFactory extends Nette\Object
 	}
 
 	/**
-	 * @param int $id
+	 * Creates a DeletePadForm.
+	 * @param int $id Id of the pad to be deleted.
 	 * @return Form
 	 */
 	public function create($id)

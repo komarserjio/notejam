@@ -24,8 +24,8 @@ class EditPadFormFactory extends Nette\Object
 
 	/**
 	 * Creates an EditPadForm.
-	 * @param int    $id
-	 * @param string $name
+	 * @param int    $id   Id of the pad to be edited.
+	 * @param string $name Current name of the pad.
 	 * @return Form
 	 */
 	public function create($id, $name)

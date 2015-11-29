@@ -25,6 +25,7 @@ class SignUpFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Creates a SignUpForm.
 	 * @return Form
 	 */
 	public function create()
@@ -48,9 +49,9 @@ class SignUpFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Callback for SignUpForm onSuccess event.
 	 * @param Form      $form
 	 * @param ArrayHash $values
-	 * @throws \App\Model\DuplicateNameException
 	 */
 	public function formSucceeded(Form $form, $values)
 	{

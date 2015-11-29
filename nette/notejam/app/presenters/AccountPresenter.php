@@ -13,7 +13,8 @@ class AccountPresenter extends BasePresenter
 	public $formFactory;
 
 	/**
-	 * Sign-in form factory.
+	 * Creates AccountSettingsForm component.
+	 * Called automagically by the framework.
 	 * @return Nette\Application\UI\Form
 	 */
 	protected function createComponentAccountSettingsForm()

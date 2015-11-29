@@ -43,6 +43,8 @@ class NotePresenter extends SecuredBasePresenter
 	private $notes;
 
 	/**
+	 * Creates EditNoteForm component.
+	 * Called automagically by the framework.
 	 * @return \Nette\Application\UI\Form
 	 */
 	protected function createComponentEditNoteForm()
@@ -61,6 +63,8 @@ class NotePresenter extends SecuredBasePresenter
 	}
 
 	/**
+	 * Creates DeleteNoteForm component.
+	 * Called automagically by the framework.
 	 * @return \Nette\Application\UI\Form
 	 */
 	protected function createComponentDeleteNoteForm()
@@ -79,6 +83,8 @@ class NotePresenter extends SecuredBasePresenter
 	}
 
 	/**
+	 * Creates NewNoteForm component.
+	 * Called automagically by the framework.
 	 * @return \Nette\Application\UI\Form
 	 */
 	protected function createComponentNewNoteForm()

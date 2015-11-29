@@ -43,7 +43,8 @@ class SignPresenter extends BasePresenter
 	}
 
 	/**
-	 * Sign-in form factory.
+	 * Creates SignInForm component.
+	 * Called automagically by the framework.
 	 * @return Nette\Application\UI\Form
 	 */
 	protected function createComponentSignInForm()
@@ -63,7 +64,8 @@ class SignPresenter extends BasePresenter
 
 
 	/**
-	 * Sign-up form factory.
+	 * Creates SignUpForm component.
+	 * Called automagically by the framework.
 	 * @return Nette\Application\UI\Form
 	 */
 	protected function createComponentSignUpForm()

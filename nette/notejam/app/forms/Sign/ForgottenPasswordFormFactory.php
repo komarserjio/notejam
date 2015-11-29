@@ -32,6 +32,7 @@ class ForgottenPasswordFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Creates a ForgottenPasswordForm.
 	 * @return Form
 	 */
 	public function create()
@@ -48,6 +49,7 @@ class ForgottenPasswordFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Callback for ForgottenPasswordForm onSuccess event.
 	 * @param Form      $form
 	 * @param ArrayHash $values
 	 */
