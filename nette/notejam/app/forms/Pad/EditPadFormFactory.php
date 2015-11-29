@@ -5,7 +5,6 @@ namespace App\Forms\Pad;
 use Nette;
 use Nette\Application\UI\Form;
 use App\Model\PadManager;
-use Nette\Utils\ArrayHash;
 
 
 class EditPadFormFactory extends Nette\Object
@@ -13,9 +12,6 @@ class EditPadFormFactory extends Nette\Object
 
 	/** @var PadManager */
 	private $padManager;
-
-    /** @var int */
-    private $id;
 
 	/**
 	 * EditPadFormFactory constructor.
@@ -27,14 +23,13 @@ class EditPadFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Creates an EditPadForm.
 	 * @param int    $id
 	 * @param string $name
 	 * @return Form
 	 */
 	public function create($id, $name)
 	{
-        $this->id = $id;
-
 		$form = new Form;
 		$form->addText('name', 'Name')
 			->setDefaultValue($name)
@@ -42,19 +37,13 @@ class EditPadFormFactory extends Nette\Object
 
 		$form->addSubmit('submit', 'Save');
 
-		$form->onSuccess[] = [$this, 'formSucceeded'];
-		return $form;
-	}
+		$form->onSuccess[] = function (Form $form, $values) use ($id) {
+			if (!$this->padManager->update($id, $values->name)) {
+				$form->addError("Failed to edit pad");
+			}
+		};
 
-	/**
-	 * @param Form      $form
-	 * @param ArrayHash $values
-	 */
-	public function formSucceeded(Form $form, $values)
-	{
-		if (!$this->padManager->update($this->id, $values->name)) {
-			$form->addError("Failed to edit pad");
-		}
+		return $form;
 	}
 
 }

@@ -5,7 +5,6 @@ namespace App\Forms\Pad;
 use Nette;
 use Nette\Application\UI\Form;
 use App\Model\PadManager;
-use Nette\Utils\ArrayHash;
 
 
 class DeletePadFormFactory extends Nette\Object
@@ -13,9 +12,6 @@ class DeletePadFormFactory extends Nette\Object
 
 	/** @var PadManager */
 	private $padManager;
-
-	/** @var int */
-	private $id;
 
 	/**
 	 * EditPadFormFactory constructor.
@@ -32,26 +28,18 @@ class DeletePadFormFactory extends Nette\Object
 	 */
 	public function create($id)
 	{
-		$this->id = $id;
-
 		$form = new Form;
 		$form->addProtection(); // Adds CSRF protection
 
 		$form->addSubmit('submit', 'Yes, I want to delete this pad');
 
-		$form->onSuccess[] = [$this, 'formSucceeded'];
-		return $form;
-	}
+		$form->onSuccess[] = function (Form $form) use ($id) {
+			if (!$this->padManager->delete($id)) {
+				$form->addError("Failed to delete pad");
+			}
+		};
 
-	/**
-	 * @param Form      $form
-	 * @param ArrayHash $values
-	 */
-	public function formSucceeded(Form $form, $values)
-	{
-		if (!$this->padManager->delete($this->id)) {
-			$form->addError("Failed to delete pad");
-		}
+		return $form;
 	}
 
 }

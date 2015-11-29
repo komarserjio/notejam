@@ -6,7 +6,6 @@ use App\Model\NoteManager;
 use App\Model\PadManager;
 use Nette;
 use Nette\Application\UI\Form;
-use Nette\Utils\ArrayHash;
 
 
 class EditNoteFormFactory extends Nette\Object
@@ -17,9 +16,6 @@ class EditNoteFormFactory extends Nette\Object
 
 	/** @var NoteManager */
 	private $noteManager;
-
-	/** @var int */
-	private $id;
 
 	/**
 	 * EditPadFormFactory constructor.
@@ -33,6 +29,7 @@ class EditNoteFormFactory extends Nette\Object
 	}
 
 	/**
+	 * Creates an EditNoteForm.
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $text
@@ -41,8 +38,6 @@ class EditNoteFormFactory extends Nette\Object
 	 */
 	public function create($id, $name, $text, $pad)
 	{
-		$this->id = $id;
-
 		$form = new Form;
 		$form->addText('name', 'Name')
 			->setDefaultValue($name)
@@ -58,19 +53,13 @@ class EditNoteFormFactory extends Nette\Object
 
 		$form->addSubmit('submit', 'Save');
 
-		$form->onSuccess[] = [$this, 'formSucceeded'];
-		return $form;
-	}
+		$form->onSuccess[] = function (Form $form, $values) use ($id) {
+			if (!$this->noteManager->update($id, $values->name, $values->text, $values->pad)) {
+				$form->addError("Failed to edit pad");
+			}
+		};
 
-	/**
-	 * @param Form      $form
-	 * @param ArrayHash $values
-	 */
-	public function formSucceeded(Form $form, $values)
-	{
-		if (!$this->noteManager->update($this->id, $values->name, $values->text, $values->pad)) {
-			$form->addError("Failed to edit pad");
-		}
+		return $form;
 	}
 
 }
