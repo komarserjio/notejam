@@ -13,10 +13,23 @@ import net.notejam.spring.user.User;
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @Service
-public class SecurityService {
+public final class SecurityService {
 
+    /**
+     * The password encoder
+     */
+    private final PasswordEncoder encoder;
+
+    /**
+     * Sets the password encoder.
+     * 
+     * @param encoder
+     *            The password encoder
+     */
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    SecurityService(final PasswordEncoder encoder) {
+        this.encoder = encoder;
+    }
 
     /**
      * Returns true if a password is valid for a user.
@@ -28,7 +41,7 @@ public class SecurityService {
      * @return True if the password is valid.
      */
     public boolean isPasswordValid(User user, String password) {
-        return passwordEncoder.matches(password, user.getPassword());
+        return encoder.matches(password, user.getPassword());
     }
 
     /**
@@ -39,7 +52,7 @@ public class SecurityService {
      * @return The encoded password
      */
     public String encodePassword(String password) {
-        return passwordEncoder.encode(password);
+        return encoder.encode(password);
     }
 
 }
