@@ -382,6 +382,10 @@ ul.errorlist li, ul.errors li {
 	border: 1px solid #eed3d7;
 }
 
+pagination {
+    text-align: center;
+}
+
 /* Mobile */
 @media only screen and (max-width: 767px) {
 	header h1 {

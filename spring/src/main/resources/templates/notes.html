@@ -43,6 +43,18 @@
 		
 		<a th:if="${pad != null}" th:href="@{${T(net.notejam.spring.URITemplates).CREATE_NOTE_FOR_PAD}(id=${pad.id})}" href="#" class="button" th:text="#{pad.view.newNote}">New note</a>
 		<a th:if="${pad != null}" th:href="@{${T(net.notejam.spring.URITemplates).EDIT_PAD}(id=${pad.id})}" href="#" th:text="#{pad.view.settings}">Pad settings</a>
+		
+		<div th:if="${notes.getTotalPages() > 1}" class="pagination">
+	          <a th:if   = "${pad != null}"
+	             th:each = "page : ${#numbers.sequence(1, notes.getTotalPages())}"
+	             th:href = "@{${T(net.notejam.spring.URITemplates).VIEW_PAD}(id=${pad.id},page=${page - 1},sort=${param.sort})}"
+	             th:text = "${page}">1</a>
+
+	          <a th:if   = "${pad == null}"
+	             th:each = "page : ${#numbers.sequence(1, notes.getTotalPages())}"
+	             th:href = "@{${T(net.notejam.spring.URITemplates).VIEW_ALL_NOTES}(page=${page - 1},sort=${param.sort})}"
+	             th:text = "${page}">2</a>
+		</div>
 	</div>
 
 </body>
