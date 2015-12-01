@@ -29,8 +29,24 @@ import net.notejam.spring.user.UserService;
 @Configurable
 public class PermitOwnerAspect {
 
+    /**
+     * The user service.
+     */
     @Autowired
     private UserService userService;
+
+    PermitOwnerAspect() {
+    }
+
+    /**
+     * Sets the user service.
+     * 
+     * @param userService
+     *            The user service
+     */
+    PermitOwnerAspect(UserService userService) {
+        this.userService = userService;
+    }
 
     @Pointcut("execution(* *(.., @PermitOwner (*), ..))")
     private void restrictOwnedEntities() {
@@ -73,7 +89,7 @@ public class PermitOwnerAspect {
             throw new AccessDeniedException(String.format("%s needs an authenticated user.", owned));
         }
 
-        if (owned.getUser().getId().equals(user.getId())) {
+        if (user.equals(owned.getUser())) {
             return;
 
         } else {

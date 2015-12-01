@@ -17,8 +17,8 @@ public class StringToPeriodConverterTest {
     @Test
     public void testConvert() {
         StringToPeriodConverter converter = new StringToPeriodConverter();
-        
+
         assertEquals(Period.ofDays(1), converter.convert("P1D"));
     }
-    
+
 }
