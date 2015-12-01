@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import net.notejam.spring.pad.Pad;
+import net.notejam.spring.user.User;
 
 /**
  * The note repository.
@@ -24,6 +25,17 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
      * @return The notes
      */
     public Page<Note> findByPad(Pad pad, Pageable pageable);
+
+    /**
+     * Pages through all notes of a user.
+     * 
+     * @param user
+     *            The user
+     * @param pageable
+     *            The paging parameters
+     * @return The notes
+     */
+    public Page<Note> findByUser(User user, Pageable pageable);
 
     /**
      * Deletes all notes of a pad.

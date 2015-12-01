@@ -54,7 +54,7 @@ public class NoteService {
      */
     @Transactional
     public Page<Note> getNotes(Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findByUser(userService.getAuthenticatedUser(), pageable);
     }
 
     /**
