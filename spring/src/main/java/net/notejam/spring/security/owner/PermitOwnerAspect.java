@@ -35,16 +35,13 @@ public class PermitOwnerAspect {
     @Autowired
     private UserService userService;
 
-    PermitOwnerAspect() {
-    }
-
     /**
      * Sets the user service.
      * 
      * @param userService
      *            The user service
      */
-    PermitOwnerAspect(UserService userService) {
+    void setUserService(UserService userService) {
         this.userService = userService;
     }
 

@@ -34,7 +34,8 @@ public class PermitOwnerAspectTest {
 
     @Before
     public void setup() {
-        aspect = new PermitOwnerAspect(userService);
+        aspect = new PermitOwnerAspect();
+        aspect.setUserService(userService);
     }
 
     /**
