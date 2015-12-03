@@ -2,6 +2,7 @@ package net.notejam.spring.security.owner;
 
 import java.util.Optional;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class PermitOwnerIntegrationTest {
     private UserService userService;
 
     /**
-     * Tests returning an owned object.
+     * Returning an owned object should be permitted.
      */
     @Test
     @WithMockUser("testPermitReturnOwned@example.net")
@@ -43,7 +44,22 @@ public class PermitOwnerIntegrationTest {
     }
 
     /**
-     * Tests returning an owned object.
+     * Sending an owned object is permitted for the owner.
+     */
+    @Test
+    @WithMockUser("testPermitSendOwned@example.net")
+    public void testPermitSendOwned() {
+        userService.signUp("testPermitSendOwned@example.net", "password");
+        User user = userService.getAuthenticatedUser();
+
+        Pad pad = new Pad();
+        pad.setUser(user);
+
+        sendOwned(pad);
+    }
+
+    /**
+     * Returning an owned Optional should be permitted.
      */
     @Test
     @WithMockUser("testPermitReturnOwnedOptional@example.net")
@@ -58,7 +74,23 @@ public class PermitOwnerIntegrationTest {
     }
 
     /**
-     * Tests returning an owned object with no owner.
+     * Sending an owned Optional should be permitted.
+     */
+    @Test
+    @WithMockUser("testPermitSendOwnedOptional@example.net")
+    @Ignore
+    public void testPermitSendOwnedOptional() {
+        userService.signUp("testPermitSendOwnedOptional@example.net", "password");
+        User user = userService.getAuthenticatedUser();
+
+        Pad pad = new Pad();
+        pad.setUser(user);
+
+        sendOwned(Optional.of(pad));
+    }
+
+    /**
+     * Returning null should be permitted.
      */
     @Test
     @WithMockUser("testPermitReturnNull@example.net")
@@ -68,7 +100,17 @@ public class PermitOwnerIntegrationTest {
     }
 
     /**
-     * Tests returning an owned object with no owner.
+     * Sending null should be permitted.
+     */
+    @Test
+    @WithMockUser("testPermitSendNull@example.net")
+    public void testPermitSendNull() {
+        userService.signUp("testPermitSendNull@example.net", "password");
+        sendOwned(null);
+    }
+
+    /**
+     * Returning an empty Optional should be permitted.
      */
     @Test
     @WithMockUser("testPermitReturnEmptyOptional@example.net")
@@ -78,7 +120,18 @@ public class PermitOwnerIntegrationTest {
     }
 
     /**
-     * Tests returning an not owned object.
+     * Sending an empty Optional should be permitted.
+     */
+    @Test
+    @WithMockUser("testPermitSendEmptyOptional@example.net")
+    @Ignore
+    public void testPermitSendEmptyOptional() {
+        userService.signUp("testPermitSendEmptyOptional@example.net", "password");
+        sendOwned(Optional.ofNullable((Owned) null));
+    }
+
+    /**
+     * Returning an not owned object should be denied.
      */
     @Test(expected = AccessDeniedException.class)
     @WithMockUser("testPermitReturnNotOwned@example.net")
@@ -92,7 +145,21 @@ public class PermitOwnerIntegrationTest {
     }
 
     /**
-     * Tests returning an not owned object.
+     * Sending an not owned object should be denied.
+     */
+    @Test(expected = AccessDeniedException.class)
+    @WithMockUser("testPermitSendNotOwned@example.net")
+    public void testPermitSendNotOwned() {
+        userService.signUp("testPermitSendNotOwned@example.net", "password");
+
+        Pad pad = new Pad();
+        pad.setUser(new User());
+
+        sendOwned(pad);
+    }
+
+    /**
+     * Returning an not owned object should be denied.
      */
     @Test(expected = AccessDeniedException.class)
     @WithMockUser("testPermitReturnOptionalNotOwned@example.net")
@@ -106,10 +173,34 @@ public class PermitOwnerIntegrationTest {
     }
 
     /**
+     * Sending an not owned object should be denied.
+     */
+    @Test(expected = AccessDeniedException.class)
+    @WithMockUser("testPermitSendOptionalNotOwned@example.net")
+    @Ignore
+    public void testPermitSendOptionalNotOwned() {
+        userService.signUp("testPermitSendOptionalNotOwned@example.net", "password");
+
+        Pad pad = new Pad();
+        pad.setUser(new User());
+
+        sendOwned(Optional.of(pad));
+    }
+
+    /**
+     * Sends an owned object.
+     * 
+     * @param user
+     *            The owned object.
+     */
+    private <T> void sendOwned(@PermitOwner T owned) {
+    }
+
+    /**
      * Returns an owned object.
      * 
      * @param user
-     *            The owner.
+     *            The owned object.
      * @return The owned object.
      */
     @PermitOwner
