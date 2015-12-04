@@ -1,6 +1,6 @@
-************************
-Notejam: Nette Framework
-************************
+***************************************
+Notejam: Nette Framework with native DB
+***************************************
 
 Notejam application implemented using `Nette framework <https://nette.org>`_.
 
@@ -28,28 +28,28 @@ Install `composer <https://getcomposer.org/>`_
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/nette/notejam
+    $ cd YOUR_PROJECT_DIR/nette/native_db/notejam
     $ curl -s https://getcomposer.org/installer | php
 
 Install dependencies
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/nette/notejam
+    $ cd YOUR_PROJECT_DIR/nette/native_db/notejam
     $ php composer.phar install
 
 Create your copy of ``config.local.neon``
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/nette/notejam
+    $ cd YOUR_PROJECT_DIR/nette/native_db/notejam
     $ cp app/config/config.example.neon app/config/config.local.neon
 
 Create database schema
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/nette/notejam
+    $ cd YOUR_PROJECT_DIR/nette/native_db/notejam
     $ php ./bin/create-db.php
 
 
@@ -61,7 +61,7 @@ Start built-in php web server:
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/nette/notejam/www/
+    $ cd YOUR_PROJECT_DIR/nette/native_db/notejam/www/
     $ php -t `pwd` -S 127.0.0.1:8000 `pwd`/index.php
 
 Go to http://localhost:8000/ in your browser.
@@ -74,7 +74,7 @@ Run tests:
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/nette/notejam/www/
+    $ cd YOUR_PROJECT_DIR/nette/native_db/notejam/www/
     $ php -t `pwd` -S 127.0.0.1:8000 `pwd`/index.php
     $ cd ../
     $ ./vendor/bin/codecept run
