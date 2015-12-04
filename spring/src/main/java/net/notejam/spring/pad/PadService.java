@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.notejam.spring.note.NoteRepository;
+import net.notejam.spring.note.NoteService;
 import net.notejam.spring.security.owner.PermitOwner;
 import net.notejam.spring.user.User;
 import net.notejam.spring.user.UserService;
@@ -27,10 +27,10 @@ public class PadService {
     private PadRepository padRepository;
 
     @Autowired
-    private NoteRepository noteRepository;
-
-    @Autowired
     private UserService userService;
+    
+    @Autowired
+    private NoteService noteService;
 
     /**
      * Returns all pads for the currently authenticated user.
@@ -63,7 +63,7 @@ public class PadService {
      */
     @Transactional
     public void deletePad(@PermitOwner Pad pad) {
-        noteRepository.deleteByPad(pad);
+        noteService.deleteNotes(pad);
         padRepository.delete(pad);
     }
 

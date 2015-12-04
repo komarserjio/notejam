@@ -12,7 +12,7 @@ import net.notejam.spring.user.User;
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
-public interface PadRepository extends JpaRepository<Pad, Integer> {
+interface PadRepository extends JpaRepository<Pad, Integer> {
 
     /**
      * Returns all pads for a user.
@@ -21,6 +21,6 @@ public interface PadRepository extends JpaRepository<Pad, Integer> {
      *            The user
      * @return The user's pads
      */
-    public List<Pad> findByUser(User user);
+    List<Pad> findByUser(User user);
 
 }

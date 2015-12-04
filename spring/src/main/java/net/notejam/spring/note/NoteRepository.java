@@ -13,7 +13,7 @@ import net.notejam.spring.user.User;
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
-public interface NoteRepository extends JpaRepository<Note, Integer> {
+interface NoteRepository extends JpaRepository<Note, Integer> {
 
     /**
      * Pages through all notes of a pad.
@@ -24,7 +24,7 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
      *            The paging parameters
      * @return The notes
      */
-    public Page<Note> findByPad(Pad pad, Pageable pageable);
+    Page<Note> findByPad(Pad pad, Pageable pageable);
 
     /**
      * Pages through all notes of a user.
@@ -35,7 +35,7 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
      *            The paging parameters
      * @return The notes
      */
-    public Page<Note> findByUser(User user, Pageable pageable);
+    Page<Note> findByUser(User user, Pageable pageable);
 
     /**
      * Deletes all notes of a pad.
@@ -43,6 +43,6 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
      * @param pad
      *            The pad
      */
-    public void deleteByPad(Pad pad);
+    void deleteByPad(Pad pad);
 
 }

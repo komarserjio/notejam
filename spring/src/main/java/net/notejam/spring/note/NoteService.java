@@ -118,4 +118,15 @@ public class NoteService {
         repository.delete(note);
     }
 
+    /**
+     * Deletes all notes of a pad.
+     * 
+     * @param pad
+     *            The pad
+     */
+    @Transactional
+    public void deleteNotes(@PermitOwner Pad pad) {
+        repository.deleteByPad(pad);
+    }
+
 }
