@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
 import net.notejam.spring.error.ResourceNotFoundException;
@@ -27,18 +26,6 @@ public class ViewNoteController {
 
     @Autowired
     private NoteService service;
-
-    @ModelAttribute("editURI")
-    public String editURI(@PathVariable("id") int id) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.EDIT_NOTE);
-        return uriBuilder.buildAndExpand(id).toUriString();
-    }
-
-    @ModelAttribute("deleteURI")
-    public String deleteURI(@PathVariable("id") int id) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.DELETE_NOTE);
-        return uriBuilder.buildAndExpand(id).toUriString();
-    }
 
     @ModelAttribute
     public Note note(@PathVariable("id") int id) {

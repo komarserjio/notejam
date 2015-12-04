@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
 import net.notejam.spring.error.ResourceNotFoundException;
@@ -33,12 +32,6 @@ public class DeleteNoteController {
     @ModelAttribute
     public Note note(@PathVariable("id") int id) {
         return service.getNote(id).orElseThrow(() -> new ResourceNotFoundException());
-    }
-
-    @ModelAttribute("cancelURI")
-    public String cancelURI(@PathVariable("id") int id) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.VIEW_NOTE);
-        return uriBuilder.buildAndExpand(id).toUriString();
     }
 
     /**

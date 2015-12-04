@@ -24,9 +24,12 @@
 				21px line height.</p>
 		</div>
 
-		<a class="button" th:href="${editURI}" th:text="#{note.view.edit}">edit</a>
+		<a class="button"
+            th:href="@{${T(net.notejam.spring.URITemplates).EDIT_NOTE}(id=${note.id})}"
+            th:text="#{note.view.edit}">edit</a>
 
-		<a class="delete-note" th:href="${deleteURI}"
+		<a class="delete-note"
+			th:href="@{${T(net.notejam.spring.URITemplates).DELETE_NOTE}(id=${note.id})}"
 			th:text="#{note.view.delete}">delete</a>
 	</div>
 

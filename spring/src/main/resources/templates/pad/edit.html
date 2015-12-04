@@ -24,7 +24,9 @@
 			</ul>
 			<input type="submit" th:value="#{save}" />
 		</form>
-		<a class="red" th:href="${deleteURI}" th:text="#{pad.edit.delete}">Delete
+		<a class="red"
+            th:href="@{${T(net.notejam.spring.URITemplates).DELETE_PAD}(id=${pad.id})}"
+            th:text="#{pad.edit.delete}">Delete
 			pad</a>
 	</div>
 

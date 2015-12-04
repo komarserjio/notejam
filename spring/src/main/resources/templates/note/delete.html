@@ -13,7 +13,7 @@
 			th:action="@{#}" method="post">
 			<p th:text="#{note.delete.sure(${note.name})}">Are you sure?</p>
 			<input type="submit" class="red" th:value="#{note.delete.delete}" />
-			<a th:href="${cancelURI}" th:text="#{cancel}">Cancel</a>
+			<a th:href="@{${T(net.notejam.spring.URITemplates).VIEW_NOTE}(id=${note.id})}" th:text="#{cancel}">Cancel</a>
 		</form>
 	</div>
 

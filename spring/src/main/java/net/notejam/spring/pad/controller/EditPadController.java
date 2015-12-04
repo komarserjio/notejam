@@ -38,12 +38,6 @@ public class EditPadController {
         return service.getPad(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
-    @ModelAttribute("deleteURI")
-    public String deleteURI(@PathVariable("id") int id) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.DELETE_PAD);
-        return uriBuilder.buildAndExpand(id).toUriString();
-    }
-
     /**
      * Shows the form for creating a pad.
      * 

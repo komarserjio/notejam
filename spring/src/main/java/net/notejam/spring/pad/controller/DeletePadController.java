@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
 import net.notejam.spring.error.ResourceNotFoundException;
@@ -33,12 +32,6 @@ public class DeletePadController {
     @ModelAttribute
     public Pad pad(@PathVariable("id") int id) {
         return service.getPad(id).orElseThrow(() -> new ResourceNotFoundException());
-    }
-
-    @ModelAttribute("editURI")
-    public String deleteURI(@PathVariable("id") int id) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.EDIT_PAD);
-        return uriBuilder.buildAndExpand(id).toUriString();
     }
 
     /**
