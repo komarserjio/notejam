@@ -29,10 +29,10 @@ public class UserServiceTest {
      * Tests getAuthenticatedUser() returns the authenticated user.
      */
     @Test
-    @WithMockUser("authenticated@example.net")
+    @WithMockUser("test@example.net")
     public void testGetAuthenticatedUser() {
-        service.signUp("authenticated@example.net", "password");
-        assertEquals("authenticated@example.net", service.getAuthenticatedUser().getEmail());
+        service.signUp("test@example.net", "password");
+        assertEquals("test@example.net", service.getAuthenticatedUser().getEmail());
     }
 
     /**
@@ -40,7 +40,7 @@ public class UserServiceTest {
      */
     @Test
     public void testSignUp() {
-        String email = "signup@example.net";
+        String email = "test@example.net";
         assertFalse(service.isEmailRegistered(email));
 
         service.signUp(email, "password");

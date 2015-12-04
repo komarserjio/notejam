@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import javax.transaction.Transactional;
+
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -18,6 +20,7 @@ import net.notejam.spring.Application;
  */
 @SpringApplicationConfiguration(Application.class)
 @ActiveProfiles("test")
+@Transactional
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface IntegrationTest {

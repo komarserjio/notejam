@@ -79,13 +79,16 @@ public class UserService {
      *            The email address
      * @param password
      *            The plain text password
+     * 
+     * @return The signed up user
      */
     @Transactional
-    public void signUp(String email, String password) {
+    public User signUp(String email, String password) {
         User user = new User();
         user.setEmail(email);
         user.setPassword(securityService.encodePassword(password));
         repository.save(user);
+        return user;
     }
 
 }

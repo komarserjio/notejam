@@ -3,6 +3,7 @@ package net.notejam.spring.note;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import net.notejam.spring.user.UserService;
  */
 @IntegrationTest
 @RunWith(SpringJUnit4ClassRunner.class)
+@WithMockUser(NoteServiceTest.USER_EMAIL)
 public class NoteServiceTest {
 
     @Autowired
@@ -32,15 +34,25 @@ public class NoteServiceTest {
 
     @Autowired
     private NoteService service;
+    
+    /**
+     * The given authenticated user.
+     */
+    final static String USER_EMAIL = "test@example.org";
+
+    /**
+     * Given the authenticated user {@link #USER_EMAIL} exists.
+     */
+    @Before
+    public void signupAuthenticatedUser() {
+        userService.signUp(USER_EMAIL, "password");
+    }
 
     /**
      * Tests saveNote() without pad.
      */
     @Test
-    @WithMockUser("testSaveNote@example.net")
     public void testSaveNoteWithoutPad() {
-        userService.signUp("testSaveNote@example.net", "password");
-
         Note note = service.buildNote(null);
         note.setName("name");
         note.setText("text");
@@ -54,10 +66,7 @@ public class NoteServiceTest {
      * Tests saveNote() with pad.
      */
     @Test
-    @WithMockUser("testSaveNote2@example.net")
     public void testSaveNoteWithPad() {
-        userService.signUp("testSaveNote2@example.net", "password");
-
         Pad pad = padService.buildPad();
         pad.setName("test");
         padService.savePad(pad);
@@ -75,10 +84,7 @@ public class NoteServiceTest {
      * Tests deleteNote().
      */
     @Test
-    @WithMockUser("deleteNote@example.net")
     public void testDeleteNote() {
-        userService.signUp("deleteNote@example.net", "password");
-
         Note note = service.buildNote(null);
         note.setName("name");
         note.setText("text");
