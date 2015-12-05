@@ -1,5 +1,6 @@
 package net.notejam.spring.note;
 
+import static net.notejam.spring.test.UriUtil.buildUri;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -13,8 +14,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
 import net.notejam.spring.note.controller.ViewNoteController;
@@ -65,10 +64,7 @@ public class ViewNoteControllerTest {
     
     @Before
     public void setUri() {
-        UriComponents components = UriComponentsBuilder
-                .fromUriString(URITemplates.VIEW_NOTE)
-                .buildAndExpand(note.getId());
-        uri = components.toUriString();
+        uri = buildUri(URITemplates.VIEW_NOTE, note.getId());
     }
 
     /**

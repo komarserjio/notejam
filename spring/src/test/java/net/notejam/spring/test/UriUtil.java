@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import net.notejam.spring.URITemplates;
@@ -42,6 +43,20 @@ public class UriUtil {
     }
 
     /**
+     * Build and expand an URI template.
+     * 
+     * @param template
+     *            The URI template
+     * @param variables
+     *            The URI template variables
+     * @return The URI
+     */
+    public static String buildUri(final String template, final Object... variables) {
+        final UriComponents components = UriComponentsBuilder.fromUriString(template).buildAndExpand(variables);
+        return components.toUriString();
+    }
+
+    /**
      * Asserts the request was redirected to the authentication URI.
      * 
      * @return The result matcher.
@@ -53,5 +68,5 @@ public class UriUtil {
             assertEquals("Redirected URL", URITemplates.SIGNIN, path);
         };
     }
-    
+
 }
