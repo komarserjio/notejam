@@ -43,7 +43,7 @@ public class CreateNoteController {
      * @return The view
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String showCreatePadForm() {
+    public String showCreateNoteForm() {
         return "note/create";
     }
 
@@ -53,7 +53,7 @@ public class CreateNoteController {
      * @return The view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String createPad(@Valid Note note, BindingResult bindingResult) {
+    public String createNote(@Valid Note note, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "note/create";
         }

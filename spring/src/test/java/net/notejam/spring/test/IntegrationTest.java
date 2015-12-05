@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import net.notejam.spring.Application;
 
@@ -19,6 +20,7 @@ import net.notejam.spring.Application;
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @SpringApplicationConfiguration(Application.class)
+@WebAppConfiguration
 @ActiveProfiles("test")
 @Transactional
 @Retention(RetentionPolicy.RUNTIME)

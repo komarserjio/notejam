@@ -2,8 +2,8 @@ package net.notejam.spring.security.owner;
 
 import java.util.Optional;
 
-import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import net.notejam.spring.pad.Pad;
 import net.notejam.spring.test.IntegrationTest;
+import net.notejam.spring.user.SignedUpUserProvider;
 import net.notejam.spring.user.User;
-import net.notejam.spring.user.UserService;
 
 /**
  * An integration test for the {@link PermitOwner}.
@@ -24,29 +24,12 @@ import net.notejam.spring.user.UserService;
  */
 @IntegrationTest
 @RunWith(SpringJUnit4ClassRunner.class)
-@WithMockUser(PermitOwnerIntegrationTest.USER_EMAIL)
+@WithMockUser(SignedUpUserProvider.EMAIL)
 public class PermitOwnerIntegrationTest {
 
+    @Rule
     @Autowired
-    private UserService userService;
-
-    /**
-     * The given authenticated user.
-     */
-    final static String USER_EMAIL = "test@example.org";
-
-    /**
-     * The existing authenticated user
-     */
-    private User authenticatedUser;
-
-    /**
-     * Given the authenticated user {@link #USER_EMAIL} exists.
-     */
-    @Before
-    public void signupAuthenticatedUser() {
-        authenticatedUser = userService.signUp(USER_EMAIL, "password");
-    }
+    public SignedUpUserProvider userProvider;
 
     /**
      * Returning an owned object should be permitted.
@@ -54,7 +37,7 @@ public class PermitOwnerIntegrationTest {
     @Test
     public void testPermitReturnOwned() {
         Pad pad = new Pad();
-        pad.setUser(authenticatedUser);
+        pad.setUser(userProvider.getUser());
 
         returnOwned(pad);
     }
@@ -65,7 +48,7 @@ public class PermitOwnerIntegrationTest {
     @Test
     public void testPermitSendOwned() {
         Pad pad = new Pad();
-        pad.setUser(authenticatedUser);
+        pad.setUser(userProvider.getUser());
 
         sendOwned(pad);
     }
@@ -76,7 +59,7 @@ public class PermitOwnerIntegrationTest {
     @Test
     public void testPermitReturnOwnedOptional() {
         Pad pad = new Pad();
-        pad.setUser(authenticatedUser);
+        pad.setUser(userProvider.getUser());
 
         returnOwned(Optional.of(pad));
     }
@@ -88,7 +71,7 @@ public class PermitOwnerIntegrationTest {
     @Ignore
     public void testPermitSendOwnedOptional() {
         Pad pad = new Pad();
-        pad.setUser(authenticatedUser);
+        pad.setUser(userProvider.getUser());
 
         sendOwned(Optional.of(pad));
     }
