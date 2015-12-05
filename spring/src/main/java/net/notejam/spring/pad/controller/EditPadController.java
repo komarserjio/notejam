@@ -54,7 +54,7 @@ public class EditPadController {
      * @return The view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String createPad(@Valid Pad pad, BindingResult bindingResult) {
+    public String editPad(@Valid Pad pad, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "pad/edit";
         }
