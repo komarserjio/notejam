@@ -22,39 +22,73 @@ import net.notejam.spring.user.User;
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
 @Entity
-@Table(indexes = @Index(columnList = "created") )
+@Table(indexes = @Index(columnList = "created"))
 public class Pad extends AbstractPersistable<Integer>implements Owned {
 
     private static final long serialVersionUID = -1186217744141902841L;
 
+    /**
+     * The time of creation.
+     */
     @NotNull
     private Instant created;
 
+    /**
+     * The name.
+     */
     @Size(max = 100)
     @NotEmpty
     private String name;
 
+    /**
+     * The owner.
+     */
     @ManyToOne
     @NotNull
     private User user;
 
+    /**
+     * Returns time of creation.
+     *
+     * @return time of creation.
+     */
     public Instant getCreated() {
         return created;
     }
 
-    public void setCreated(Instant created) {
+    /**
+     * Sets the time of creation.
+     *
+     * @param created The time of creation.
+     */
+    public void setCreated(final Instant created) {
         this.created = created;
     }
 
+    /**
+     * Returns the name.
+     *
+     * @return The name.
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    /**
+     * Sets the name.
+     *
+     * @param name The name.
+     */
+    public void setName(final String name) {
         this.name = name;
     }
 
-    public void setUser(User user) {
+    /**
+     * Sets the owner.
+     *
+     * @param user The owner.
+     */
+    public void setUser(final User user) {
         this.user = user;
     }
 

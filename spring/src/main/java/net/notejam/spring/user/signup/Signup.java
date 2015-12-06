@@ -11,7 +11,7 @@ import net.notejam.spring.user.constraints.Password;
 import net.notejam.spring.user.signup.constraints.UniqueEmail;
 
 /**
- * Sign up form model
+ * Sign up form model.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
@@ -19,39 +19,78 @@ import net.notejam.spring.user.signup.constraints.UniqueEmail;
 @EqualProperties(value = { "repeatedPassword", "password" }, violationOnPropery = true)
 public class Signup {
 
+    /**
+     * The email address.
+     */
     @NotEmpty
     @Email
     @UniqueEmail
     @Size(max = 75)
     private String email;
 
+    /**
+     * The repeated password.
+     */
     @NotNull
     private String repeatedPassword;
 
+    /**
+     * The password.
+     */
     @Password
     private String password;
 
+    /**
+     * Returns the email address.
+     *
+     * @return The email address.
+     */
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    /**
+     * Sets the email address.
+     *
+     * @param email The email address.
+     */
+    public void setEmail(final String email) {
         this.email = email;
     }
 
-    public void setPassword(String password) {
+    /**
+     * Sets the password.
+     *
+     * @param password The password.
+     */
+    public void setPassword(final String password) {
         this.password = password;
     }
 
+    /**
+     * Returns the password.
+     *
+     * @return The password.
+     */
     public String getPassword() {
         return this.password;
     }
 
+    /**
+     * Returns the repeated password.
+     *
+     * @return The repeated password.
+     */
     public String getRepeatedPassword() {
         return repeatedPassword;
     }
 
-    public void setRepeatedPassword(String repeatedPassword) {
+    /**
+     * Sets the repeated password.
+     *
+     * @param repeatedPassword The repeated password.
+     */
+    public void setRepeatedPassword(final String repeatedPassword) {
         this.repeatedPassword = repeatedPassword;
     }
 

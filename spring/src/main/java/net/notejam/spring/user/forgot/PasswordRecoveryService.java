@@ -38,39 +38,69 @@ import net.notejam.spring.user.UserService;
 @Service
 public class PasswordRecoveryService {
 
+    /**
+     * The token repository.
+     */
     @Autowired
     private RecoveryTokenRepository tokenRepository;
 
+    /**
+     * The user repository.
+     */
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * The user service.
+     */
     @Autowired
     private UserService userService;
 
+    /**
+     * The token life time.
+     */
     @Value("${recovery.lifetime}")
     private Period tokenLifetime;
 
+    /**
+     * The length of the generated password.
+     */
     @Value("${recovery.length}")
     private int passwordLength;
 
+    /**
+     * A random instance.
+     */
     @Autowired
     private Random random;
 
+    /**
+     * The mail sender.
+     */
     @Autowired(required = false)
     private JavaMailSender mailSender;
 
+    /**
+     * The sender's email address.
+     */
     @Value("${email.sender}")
     private String sender;
 
+    /**
+     * The message source.
+     */
     @Autowired
     private MessageSource messageSource;
 
+    /**
+     * The logger.
+     */
     private static Logger logger = LoggerFactory.getLogger(PasswordRecoveryService.class);
 
     /**
      * Recovers the password in exchange for a valid token.
-     * 
-     * @param tokenId
+     *
+     * @param id
      *            The token id
      * @param token
      *            The token string
@@ -79,7 +109,7 @@ public class PasswordRecoveryService {
      *             The token was not valid
      */
     @Transactional
-    public String recoverPassword(int id, String token) throws InvalidTokenException {
+    public String recoverPassword(final int id, final String token) throws InvalidTokenException {
         RecoveryToken recoveryToken = tokenRepository
                 .findOneByIdAndTokenAndExpirationGreaterThan(id, token, Instant.now())
                 .orElseThrow(() -> new InvalidTokenException());
@@ -92,7 +122,7 @@ public class PasswordRecoveryService {
 
     /**
      * Generates a random password.
-     * 
+     *
      * @return The generated password
      */
     private String generatePassword() {
@@ -101,9 +131,9 @@ public class PasswordRecoveryService {
 
     /**
      * Starts the password recovery process.
-     * 
+     *
      * If the email doesn't belong to a user the process stops silently.
-     * 
+     *
      * @param email
      *            The email
      * @param uriBuilder
@@ -113,7 +143,7 @@ public class PasswordRecoveryService {
      */
     @Async("mailExecutor")
     @Transactional
-    public void startRecoveryProcess(String email, UriComponentsBuilder uriBuilder, Locale locale) {
+    public void startRecoveryProcess(final String email, final UriComponentsBuilder uriBuilder, final Locale locale) {
         Optional<User> user = userRepository.findOneByEmail(email);
 
         if (!user.isPresent()) {
@@ -132,7 +162,7 @@ public class PasswordRecoveryService {
 
     /**
      * Sends the recovery mail.
-     * 
+     *
      * @param token
      *            The recovery token
      * @param uriBuilder
@@ -140,7 +170,8 @@ public class PasswordRecoveryService {
      * @param locale
      *            The process locale
      */
-    private void sendRecoveryMail(RecoveryToken token, UriComponentsBuilder uriBuilder, Locale locale) {
+    private void sendRecoveryMail(final RecoveryToken token, final UriComponentsBuilder uriBuilder,
+            final Locale locale) {
         if (mailSender == null) {
             logger.warn("Mail transport is not available. Consider setting spring.mail.host in application.properties");
             return;
@@ -159,14 +190,14 @@ public class PasswordRecoveryService {
 
     /**
      * Builds the fully qualified URI for recovering the password.
-     * 
+     *
      * @param token
      *            The recovery token
      * @param uriBuilder
      *            A prepared uri builder with the fully qualified host name.
      * @return The URI to recover the password
      */
-    private String buildRecoveryURI(RecoveryToken token, UriComponentsBuilder uriBuilder) {
+    private String buildRecoveryURI(final RecoveryToken token, final UriComponentsBuilder uriBuilder) {
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("id", token.getId().toString());
         uriVariables.put("token", token.getToken());
@@ -186,7 +217,7 @@ public class PasswordRecoveryService {
 
     /**
      * Determines the time when a new token will expire.
-     * 
+     *
      * @return The expiration time of a new token
      */
     private Instant determineExpiration() {
@@ -195,7 +226,7 @@ public class PasswordRecoveryService {
 
     /**
      * Generates a secure random string.
-     * 
+     *
      * @return A random string
      * @see <a href=
      *      "http://stackoverflow.com/questions/41107/how-to-generate-a-random-alpha-numeric-string">

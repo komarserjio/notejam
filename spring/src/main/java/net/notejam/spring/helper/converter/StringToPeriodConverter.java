@@ -10,10 +10,10 @@ import org.springframework.core.convert.converter.Converter;
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
-public class StringToPeriodConverter implements Converter<String, Period> {
+public final class StringToPeriodConverter implements Converter<String, Period> {
 
     @Override
-    public Period convert(String period) {
+    public Period convert(final String period) {
         return Period.parse(period);
     }
 

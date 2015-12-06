@@ -14,20 +14,30 @@ import org.aspectj.lang.reflect.MethodSignature;
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
-public class ReflectionUtils {
+public final class ReflectionUtils {
+
+    /**
+     * No public constructor for this utility class.
+     */
+    private ReflectionUtils() {
+    }
 
     /**
      * Returns a list of arguments which have a given annotation.
-     * 
+     *
      * @param annotation
      *            The annotation
      * @param joinPoint
      *            The join point
-     * 
+     * @param <T>
+     *            The annotation.
+     * @param <P>
+     *            The annotated object type.
+     *
      * @return The matching objects.
      */
-    static public <T extends Annotation, P> List<Annotated<T, P>> getAnnotatedArguments(Class<T> annotation,
-            JoinPoint joinPoint) {
+    public static <T extends Annotation, P> List<Annotated<T, P>> getAnnotatedArguments(final Class<T> annotation,
+            final JoinPoint joinPoint) {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
         Object[] arguments = joinPoint.getArgs();
         return getAnnotatedArguments(annotation, method, arguments);
@@ -35,19 +45,23 @@ public class ReflectionUtils {
 
     /**
      * Returns a list of arguments which have a given annotation.
-     * 
+     *
      * @param annotation
      *            The annotation
      * @param method
      *            The method
      * @param arguments
      *            The method arguments
-     * 
+     * @param <T>
+     *            The annotation.
+     * @param <P>
+     *            The annotated object type.
+     *
      * @return The matching objects.
      */
     @SuppressWarnings("unchecked")
-    static public <T extends Annotation, P> List<Annotated<T, P>> getAnnotatedArguments(Class<T> annotation,
-            Method method, Object[] arguments) {
+    public static <T extends Annotation, P> List<Annotated<T, P>> getAnnotatedArguments(final Class<T> annotation,
+            final Method method, final Object[] arguments) {
         List<Annotated<T, P>> match = new ArrayList<>();
         int i = 0;
         for (Annotation[] annotations : method.getParameterAnnotations()) {

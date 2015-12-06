@@ -14,6 +14,11 @@ import net.notejam.spring.view.dialect.NotejamDialect;
 @Configuration
 public class ViewConfiguration {
 
+    /**
+     * Provide the notejam view dialect.
+     *
+     * @return The notejam dialect.
+     */
     @Bean
     public NotejamDialect notejamDialect() {
         return new NotejamDialect();

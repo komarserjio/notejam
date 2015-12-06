@@ -28,9 +28,17 @@ import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 @Pads
 public class CreatePadController {
 
+    /**
+     * The pad service.
+     */
     @Autowired
     private PadService service;
 
+    /**
+     * Provides the model attribute "pad".
+     *
+     * @return The model attribute "pad".
+     */
     @ModelAttribute
     public Pad pad() {
         return service.buildPad();
@@ -38,7 +46,7 @@ public class CreatePadController {
 
     /**
      * Shows the form for creating a pad.
-     * 
+     *
      * @return The view
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -48,11 +56,15 @@ public class CreatePadController {
 
     /**
      * Creates a new pad.
-     * 
+     *
+     * @param pad
+     *            The pad.
+     * @param bindingResult
+     *            The validation result.
      * @return The view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String createPad(@Valid Pad pad, BindingResult bindingResult) {
+    public String createPad(@Valid final Pad pad, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "pad/create";
         }
@@ -64,12 +76,12 @@ public class CreatePadController {
 
     /**
      * Builds the URI for the created pad.
-     * 
+     *
      * @param id
      *            The pad id
      * @return The URI
      */
-    private String buildCreatedPadUri(int id) {
+    private String buildCreatedPadUri(final int id) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.VIEW_PAD);
         uriBuilder.queryParam("createdSuccessfully");
         return uriBuilder.buildAndExpand(id).toUriString();

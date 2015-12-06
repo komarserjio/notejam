@@ -14,7 +14,7 @@ import net.notejam.spring.URITemplates;
 import net.notejam.spring.user.UserService;
 
 /**
- * Account controller
+ * An account controller.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
@@ -24,16 +24,36 @@ import net.notejam.spring.user.UserService;
 @PreAuthorize("isAuthenticated()")
 public class AccountController {
 
+    /**
+     * The user service.
+     */
     @Autowired
     private UserService userService;
 
+    /**
+     * Shows the form.
+     *
+     * @param account
+     *            The account settings.
+     * @return The view.
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public String showForm(@ModelAttribute("account") Account account) {
+    public String showForm(@ModelAttribute("account") final Account account) {
         return "user/account";
     }
 
+    /**
+     * Changes the password.
+     *
+     * @param account
+     *            The account settings.
+     * @param bindingResult
+     *            The validation result
+     * @return The view.
+     */
     @RequestMapping(method = RequestMethod.POST)
-    public String signup(@Valid @ModelAttribute("account") Account account, BindingResult bindingResult) {
+    public String changePassword(@Valid @ModelAttribute("account") final Account account,
+            final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "user/account";
         }

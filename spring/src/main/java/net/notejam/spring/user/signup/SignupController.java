@@ -13,7 +13,7 @@ import net.notejam.spring.URITemplates;
 import net.notejam.spring.user.UserService;
 
 /**
- * Sign up controller
+ * A sign up controller.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
@@ -22,16 +22,35 @@ import net.notejam.spring.user.UserService;
 @RequestMapping(URITemplates.SIGNUP)
 public class SignupController {
 
+    /**
+     * The user service.
+     */
     @Autowired
     private UserService userService;
 
+    /**
+     * Shows the sign up form.
+     *
+     * @param user
+     *            The model attribute "user".
+     * @return The view.
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public String showForm(@ModelAttribute("user") Signup user) {
+    public String showForm(@ModelAttribute("user") final Signup user) {
         return "user/signup";
     }
 
+    /**
+     * Signs up a user.
+     *
+     * @param user
+     *            The new user.
+     * @param bindingResult
+     *            The validation result.
+     * @return The view
+     */
     @RequestMapping(method = RequestMethod.POST)
-    public String signup(@Valid @ModelAttribute("user") Signup user, BindingResult bindingResult) {
+    public String signup(@Valid @ModelAttribute("user") final Signup user, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "user/signup";
         }

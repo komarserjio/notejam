@@ -18,9 +18,9 @@ import net.notejam.spring.user.UserService;
 
 /**
  * Grant access only to the authenticated owner of an object.
- * 
+ *
  * @author markus@malkusch.de
- * 
+ *
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  * @see Owned
  * @see PermitOwner
@@ -37,20 +37,28 @@ public class PermitOwnerAspect {
 
     /**
      * Sets the user service.
-     * 
+     *
      * @param userService
      *            The user service
      */
-    void setUserService(UserService userService) {
+    void setUserService(final UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * The point cut for method arguments.
+     */
     @Pointcut("execution(* *(.., @PermitOwner (*), ..))")
     private void restrictOwnedEntities() {
     }
 
+    /**
+     * Checks method calls with owned arguments.
+     *
+     * @param joinPoint The joint point.
+     */
     @Before("net.notejam.spring.security.owner.PermitOwnerAspect.restrictOwnedEntities()")
-    public void authorizeCall(JoinPoint joinPoint) {
+    public void authorizeCall(final JoinPoint joinPoint) {
         for (Annotated<PermitOwner, Owned> annotated : ReflectionUtils
                 .<PermitOwner, Owned> getAnnotatedArguments(PermitOwner.class, joinPoint)) {
             if (annotated.getObject() == null) {
@@ -62,12 +70,20 @@ public class PermitOwnerAspect {
         }
     }
 
+    /**
+     * The point cut for return values.
+     */
     @Pointcut("execution(@PermitOwner * *(..))")
     private void restrictOwnedResults() {
     }
 
+    /**
+     * Checks return owned return values.
+     *
+     * @param entity The owned entity.
+     */
     @AfterReturning(pointcut = "net.notejam.spring.security.owner.PermitOwnerAspect.restrictOwnedResults()", returning = "entity")
-    public void authorizeReturn(Object entity) {
+    public void authorizeReturn(final Object entity) {
         if (entity instanceof Owned) {
             authorize((Owned) entity);
 
@@ -76,7 +92,14 @@ public class PermitOwnerAspect {
         }
     }
 
-    private void authorize(Owned owned) {
+    /**
+     * Checks authorization of an owned entity.
+     *
+     * If the entity is null authorization is granted.
+     *
+     * @param owned The owned entity or null.
+     */
+    private void authorize(final Owned owned) {
         if (owned == null) {
             return;
         }

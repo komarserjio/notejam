@@ -24,42 +24,51 @@ import net.notejam.spring.user.UserService;
 @Service
 public class NoteService {
 
+    /**
+     * The note repository.
+     */
     @Autowired
     private NoteRepository repository;
 
+    /**
+     * The pad service.
+     */
     @Autowired
     private PadService padService;
 
+    /**
+     * The user service.
+     */
     @Autowired
     private UserService userService;
 
     /**
      * Loads a note from the storage.
-     * 
+     *
      * @param id
      *            The note id
      * @return The note
      */
     @PermitOwner
-    public Optional<Note> getNote(int id) {
+    public Optional<Note> getNote(final int id) {
         return Optional.ofNullable(repository.findOne(id));
     }
 
     /**
      * Pages through all notes.
-     * 
+     *
      * @param pageable
      *            The paging parameters
      * @return The notes
      */
     @Transactional
-    public Page<Note> getNotes(Pageable pageable) {
+    public Page<Note> getNotes(final Pageable pageable) {
         return repository.findByUser(userService.getAuthenticatedUser(), pageable);
     }
 
     /**
      * Pages through all notes of a pad.
-     * 
+     *
      * @param pad
      *            The pad
      * @param pageable
@@ -67,21 +76,21 @@ public class NoteService {
      * @return The notes
      */
     @Transactional
-    public Page<Note> getPadNotes(@PermitOwner Pad pad, Pageable pageable) {
+    public Page<Note> getPadNotes(@PermitOwner final Pad pad, final Pageable pageable) {
         return repository.findByPad(pad, pageable);
     }
 
     /**
      * Builds a new empty note.
-     * 
+     *
      * The note is not save yet. Use {@link #createNote(Note)} to save it.
-     * 
+     *
      * @param padId
      *            The preselected pad.
-     * 
+     *
      * @return The new note
      */
-    public Note buildNote(Integer padId) {
+    public Note buildNote(final Integer padId) {
         Note note = new Note();
         note.setUpdated(Instant.now());
         note.setUser(userService.getAuthenticatedUser());
@@ -95,37 +104,37 @@ public class NoteService {
 
     /**
      * Saves a new new note.
-     * 
+     *
      * @param note
      *            The new note
      * @param pad
      *            The optional pad to which this note will belong, or null
      */
     @Transactional
-    public void saveNote(@PermitOwner Note note, @PermitOwner Pad pad) {
+    public void saveNote(@PermitOwner final Note note, @PermitOwner final Pad pad) {
         note.setPad(pad);
         repository.save(note);
     }
 
     /**
      * Deletes a note.
-     * 
+     *
      * @param note
      *            The note
      */
     @Transactional
-    public void deleteNote(@PermitOwner Note note) {
+    public void deleteNote(@PermitOwner final Note note) {
         repository.delete(note);
     }
 
     /**
      * Deletes all notes of a pad.
-     * 
+     *
      * @param pad
      *            The pad
      */
     @Transactional
-    public void deleteNotes(@PermitOwner Pad pad) {
+    public void deleteNotes(@PermitOwner final Pad pad) {
         repository.deleteByPad(pad);
     }
 

@@ -26,17 +26,27 @@ import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 @Pads
 public class DeleteNoteController {
 
+    /**
+     * The note service.
+     */
     @Autowired
     private NoteService service;
 
+    /**
+     * Provides the model attribute "note".
+     *
+     * @param id
+     *            The note id.
+     * @return The model attribute "note".
+     */
     @ModelAttribute
-    public Note note(@PathVariable("id") int id) {
+    public Note note(@PathVariable("id") final int id) {
         return service.getNote(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
     /**
      * Shows the confirmation for deleting a note.
-     * 
+     *
      * @return The view
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -46,11 +56,13 @@ public class DeleteNoteController {
 
     /**
      * Deletes a note.
-     * 
+     *
+     * @param note
+     *            The note.
      * @return The view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String deleteNote(Note note) {
+    public String deleteNote(final Note note) {
         service.deleteNote(note);
         return String.format("redirect:%s?deleted", URITemplates.CREATE_NOTE);
     }

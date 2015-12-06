@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * The token repository
+ * The token repository.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
@@ -15,15 +15,15 @@ public interface RecoveryTokenRepository extends JpaRepository<RecoveryToken, In
 
     /**
      * Deletes all tokens which are expired.
-     * 
+     *
      * @param date
      *            The time
      */
-    public void deleteByExpirationLessThan(Instant date);
+    void deleteByExpirationLessThan(Instant date);
 
     /**
      * Find a non expired token which matches the id and token.
-     * 
+     *
      * @param id
      *            The token id
      * @param token
@@ -32,6 +32,6 @@ public interface RecoveryTokenRepository extends JpaRepository<RecoveryToken, In
      *            The current time
      * @return The token
      */
-    public Optional<RecoveryToken> findOneByIdAndTokenAndExpirationGreaterThan(int id, String token, Instant time);
+    Optional<RecoveryToken> findOneByIdAndTokenAndExpirationGreaterThan(int id, String token, Instant time);
 
 }

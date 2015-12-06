@@ -30,17 +30,27 @@ import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 @Pads
 public class EditPadController {
 
+    /**
+     * The pad service.
+     */
     @Autowired
     private PadService service;
 
+    /**
+     * Provides the model attribute "pad".
+     *
+     * @param id
+     *            The pad id.
+     * @return The model attribute "pad".
+     */
     @ModelAttribute
-    public Pad pad(@PathVariable("id") int id) {
+    public Pad pad(@PathVariable("id") final int id) {
         return service.getPad(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
     /**
      * Shows the form for creating a pad.
-     * 
+     *
      * @return The view
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -50,11 +60,15 @@ public class EditPadController {
 
     /**
      * Shows the form for creating a pad.
-     * 
+     *
+     * @param pad
+     *            the Pad
+     * @param bindingResult
+     *            The validation result.
      * @return The view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String editPad(@Valid Pad pad, BindingResult bindingResult) {
+    public String editPad(@Valid final Pad pad, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "pad/edit";
         }
@@ -66,12 +80,12 @@ public class EditPadController {
 
     /**
      * Builds the URI for the edited pad.
-     * 
+     *
      * @param id
      *            The pad id
      * @return The URI
      */
-    private String buildEditedPadUri(int id) {
+    private String buildEditedPadUri(final int id) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.EDIT_PAD);
         uriBuilder.queryParam("success");
         return uriBuilder.buildAndExpand(id).toUriString();

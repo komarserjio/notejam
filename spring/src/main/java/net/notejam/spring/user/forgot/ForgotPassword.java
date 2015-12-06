@@ -11,15 +11,28 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class ForgotPassword {
 
+    /**
+     * The email address.
+     */
     @Email
     @NotEmpty
     private String email;
 
+    /**
+     * Returns the email address.
+     *
+     * @return The email address.
+     */
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    /**
+     * Sets the email address.
+     *
+     * @param email The email address.
+     */
+    public void setEmail(final String email) {
         this.email = email;
     }
 

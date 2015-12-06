@@ -20,11 +20,14 @@ import net.notejam.spring.user.UserRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    /**
+     * The user repository.
+     */
     @Autowired
     private UserRepository repository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         String password = repository.findOneByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("%s not found", username)))
                 .getPassword();

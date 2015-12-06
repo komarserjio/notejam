@@ -30,17 +30,27 @@ import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 @Pads
 public class EditNoteController {
 
+    /**
+     * The note service.
+     */
     @Autowired
     private NoteService service;
 
+    /**
+     * Provides the model attribute "note".
+     *
+     * @param id
+     *            The note id.
+     * @return The model attribute "note".
+     */
     @ModelAttribute
-    public Note note(@PathVariable("id") int id) {
+    public Note note(@PathVariable("id") final int id) {
         return service.getNote(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
     /**
      * Shows the form for editing a note.
-     * 
+     *
      * @return The view
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -50,11 +60,15 @@ public class EditNoteController {
 
     /**
      * Edits a new note.
-     * 
+     *
+     * @param note
+     *            The note.
+     * @param bindingResult
+     *            The validation result.
      * @return The view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String editNote(@Valid Note note, BindingResult bindingResult) {
+    public String editNote(@Valid final Note note, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "note/edit";
         }
@@ -66,12 +80,12 @@ public class EditNoteController {
 
     /**
      * Builds the URI for the edited note.
-     * 
+     *
      * @param id
      *            The note id
      * @return The URI
      */
-    private String buildEditedNoteUri(int id) {
+    private String buildEditedNoteUri(final int id) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.VIEW_NOTE);
         uriBuilder.queryParam("successful");
         return uriBuilder.buildAndExpand(id).toUriString();

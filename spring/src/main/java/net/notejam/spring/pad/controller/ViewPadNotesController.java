@@ -29,29 +29,54 @@ import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 @Pads
 public class ViewPadNotesController {
 
+    /**
+     * The pad service.
+     */
     @Autowired
     private PadService padService;
 
+    /**
+     * The note service.
+     */
     @Autowired
     private NoteService noteService;
 
+    /**
+     * Provides the model attribute "pad".
+     *
+     * @param id
+     *            The pad id.
+     * @return The model attribute "pad".
+     */
     @ModelAttribute
-    public Pad pad(@PathVariable("id") int id) {
+    public Pad pad(@PathVariable("id") final int id) {
         return padService.getPad(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
+    /**
+     * Provides the model attribute "notes". Notes are all notes of the model
+     * attribute "pad".
+     *
+     * @param pad
+     *            The pad.
+     * @param pageable
+     *            The paging.
+     * @return The model attribute "notes".
+     */
     @ModelAttribute("notes")
-    public Page<Note> notes(@ModelAttribute Pad pad, @PageableDefault(10) Pageable pageable) {
+    public Page<Note> notes(@ModelAttribute final Pad pad, @PageableDefault(10) final Pageable pageable) {
         return noteService.getPadNotes(pad, pageable);
     }
 
     /**
      * Shows the pad notes
-     * 
+     *
+     * @param pad
+     *            The pad.
      * @return The pad notes view
      */
     @RequestMapping(URITemplates.VIEW_PAD)
-    public String viewPadNotes(Pad pad) {
+    public String viewPadNotes(final Pad pad) {
         return "notes";
     }
 

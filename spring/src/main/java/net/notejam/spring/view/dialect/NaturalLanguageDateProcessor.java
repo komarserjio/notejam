@@ -1,4 +1,4 @@
-package net.notejam.spring.view.dialect.processor;
+package net.notejam.spring.view.dialect;
 
 import java.time.Instant;
 import java.util.Date;
@@ -19,14 +19,20 @@ import org.thymeleaf.standard.expression.StandardExpressions;
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
-public class NaturalLanguageDateProcessor extends AbstractTextChildModifierAttrProcessor {
+final class NaturalLanguageDateProcessor extends AbstractTextChildModifierAttrProcessor {
 
-    public NaturalLanguageDateProcessor(String attributeName) {
+    /**
+     * Sets the attribute name.
+     *
+     * @param attributeName
+     *            The attribute name.
+     */
+    NaturalLanguageDateProcessor(final String attributeName) {
         super(attributeName);
     }
 
     @Override
-    protected String getText(Arguments arguments, Element element, String attributeName) {
+    protected String getText(final Arguments arguments, final Element element, final String attributeName) {
         Locale locale = arguments.getContext().getLocale();
         Instant instant = getInstant(arguments, element, attributeName);
 
@@ -35,7 +41,18 @@ public class NaturalLanguageDateProcessor extends AbstractTextChildModifierAttrP
         return formatter.format(Date.from(instant));
     }
 
-    private Instant getInstant(Arguments arguments, Element element, String attributeName) {
+    /**
+     * Returns the date from the value expression.
+     *
+     * @param arguments
+     *            The arguments.
+     * @param element
+     *            The element.
+     * @param attributeName
+     *            The attribute name
+     * @return The date.
+     */
+    private Instant getInstant(final Arguments arguments, final Element element, final String attributeName) {
         Configuration configuration = arguments.getConfiguration();
         String attributeValue = element.getAttributeValue(attributeName);
         IStandardExpressionParser parser = StandardExpressions.getExpressionParser(configuration);

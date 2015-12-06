@@ -13,6 +13,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
+import org.springframework.core.env.PropertySource;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -23,7 +24,7 @@ import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import net.notejam.spring.helper.converter.StringToPeriodConverter;
 
 /**
- * Configures the Spring framework
+ * Configures the Spring framework.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
@@ -34,14 +35,28 @@ import net.notejam.spring.helper.converter.StringToPeriodConverter;
 @EnableAspectJAutoProxy
 public class Application {
 
+    /**
+     * Configures concurrency.
+     *
+     * @author markus@malkusch.de
+     * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
+     */
     @EnableAsync(mode = AdviceMode.ASPECTJ)
     @Configuration
     @EnableScheduling
     public static class AsyncConfiguration {
 
+        /**
+         * The queue capacity.
+         */
         @Value("${async.queueCapacity}")
         private int queueCapacity;
 
+        /**
+         * The mail sending thread.
+         *
+         * @return The mail executor.
+         */
         @Bean
         public Executor mailExecutor() {
             ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
@@ -55,15 +70,34 @@ public class Application {
 
     }
 
-    public static void main(String[] args) {
+    /**
+     * Starts the application.
+     *
+     * @param args The commandline arguments.
+     */
+    public static void main(final String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
+    /**
+     * The locale resolver.
+     *
+     * @return The locale resolver.
+     */
     @Bean
     public LocaleResolver localeResolver() {
         return new AcceptHeaderLocaleResolver();
     }
 
+
+    /**
+     * The conversion service.
+     *
+     * The conversion service helps to convert strings
+     * from e.g. a {@link PropertySource} into other types.
+     *
+     * @return The conversion service.
+     */
     @Bean
     public ConversionService conversionService() {
         DefaultConversionService service = new DefaultConversionService();

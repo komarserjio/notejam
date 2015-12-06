@@ -16,13 +16,13 @@ import net.notejam.spring.user.User;
 public final class SecurityService {
 
     /**
-     * The password encoder
+     * The password encoder.
      */
     private final PasswordEncoder encoder;
 
     /**
      * Sets the password encoder.
-     * 
+     *
      * @param encoder
      *            The password encoder
      */
@@ -33,25 +33,25 @@ public final class SecurityService {
 
     /**
      * Returns true if a password is valid for a user.
-     * 
+     *
      * @param user
      *            The user
      * @param password
      *            The plain text password
      * @return True if the password is valid.
      */
-    public boolean isPasswordValid(User user, String password) {
+    public boolean isPasswordValid(final User user, final String password) {
         return encoder.matches(password, user.getPassword());
     }
 
     /**
      * Encodes a plain text password for storage.
-     * 
+     *
      * @param password
      *            The plain password
      * @return The encoded password
      */
-    public String encodePassword(String password) {
+    public String encodePassword(final String password) {
         return encoder.encode(password);
     }
 

@@ -16,8 +16,8 @@ import net.notejam.spring.pad.PadService;
 import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 
 /**
- * Pads controller advice
- * 
+ * Pads controller advice.
+ *
  * This controller advice provides all pads of the authenticated user for the
  * view as the model attribute pads.
  *
@@ -30,7 +30,7 @@ public class PadsAdvice {
 
     /**
      * Provide all pads of the authenticated user as the model attribute pads.
-     * 
+     *
      * @author markus@malkusch.de
      * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
      */
@@ -40,9 +40,18 @@ public class PadsAdvice {
 
     }
 
+    /**
+     * The pad service.
+     */
     @Autowired
     private PadService service;
 
+    /**
+     * Provides the model attribute "pads". I.e. all pads of the currently
+     * authenticated user.
+     *
+     * @return The model attribute "pads".
+     */
     @ModelAttribute("pads")
     public List<Pad> pads() {
         return service.getAllPads();

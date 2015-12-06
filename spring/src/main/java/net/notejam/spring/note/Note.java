@@ -30,50 +30,100 @@ public class Note extends AbstractPersistable<Integer>implements Owned {
 
     private static final long serialVersionUID = -1445367127777923455L;
 
+    /**
+     * The last update time.
+     */
     @NotNull
     private Instant updated;
 
+    /**
+     * The owner.
+     */
     @ManyToOne
     @NotNull
     private User user;
 
+    /**
+     * The pad.
+     */
     @ManyToOne
     private Pad pad;
 
+    /**
+     * The name.
+     */
     @NotEmpty
     @Size(max = 100)
     private String name;
 
+    /**
+     * The text.
+     */
     @NotEmpty
     @Lob
     @Column(length = 10000)
     private String text;
 
+    /**
+     * Returns the name.
+     *
+     * @return The name.
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    /**
+     * Sets the name.
+     *
+     * @param name The name.
+     */
+    public void setName(final String name) {
         this.name = name;
     }
 
+    /**
+     * Returns the text.
+     *
+     * @return The text
+     */
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
+    /**
+     * Sets the text.
+     *
+     * @param text The text.
+     */
+    public void setText(final String text) {
         this.text = text;
     }
 
+    /**
+     * Returns the pad.
+     *
+     * @return The pad or null.
+     */
     public Pad getPad() {
         return pad;
     }
 
-    public void setPad(Pad pad) {
+    /**
+     * Sets the pad.
+     *
+     * @param pad The pad or null.
+     */
+    public void setPad(final Pad pad) {
         this.pad = pad;
     }
 
-    public void setUser(User user) {
+    /**
+     * Sets the owner.
+     *
+     * @param user The owner.
+     */
+    public void setUser(final User user) {
         this.user = user;
     }
 
@@ -82,11 +132,21 @@ public class Note extends AbstractPersistable<Integer>implements Owned {
         return user;
     }
 
+    /**
+     * Returns the last update time.
+     *
+     * @return The time.
+     */
     public Instant getUpdated() {
         return updated;
     }
 
-    public void setUpdated(Instant updated) {
+    /**
+     * Sets the last update time.
+     *
+     * @param updated The time.
+     */
+    public void setUpdated(final Instant updated) {
         this.updated = updated;
     }
 

@@ -15,7 +15,7 @@ import net.notejam.spring.user.User;
 import net.notejam.spring.user.UserService;
 
 /**
- * The pad service
+ * The pad service.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
@@ -23,18 +23,27 @@ import net.notejam.spring.user.UserService;
 @Service
 public class PadService {
 
+    /**
+     * The pad repository.
+     */
     @Autowired
     private PadRepository padRepository;
 
+    /**
+     * The user service.
+     */
     @Autowired
     private UserService userService;
-    
+
+    /**
+     * The note service.
+     */
     @Autowired
     private NoteService noteService;
 
     /**
      * Returns all pads for the currently authenticated user.
-     * 
+     *
      * @return The user's pads
      */
     @Transactional
@@ -45,33 +54,33 @@ public class PadService {
 
     /**
      * Loads a pad from the storage.
-     * 
+     *
      * @param id
      *            The pad id
      * @return The pad
      */
     @PermitOwner
-    public Optional<Pad> getPad(int id) {
+    public Optional<Pad> getPad(final int id) {
         return Optional.ofNullable(padRepository.findOne(id));
     }
 
     /**
      * Deletes a pad and its notes.
-     * 
+     *
      * @param pad
      *            The pad
      */
     @Transactional
-    public void deletePad(@PermitOwner Pad pad) {
+    public void deletePad(@PermitOwner final Pad pad) {
         noteService.deleteNotes(pad);
         padRepository.delete(pad);
     }
 
     /**
      * Builds a new pad with an empty name.
-     * 
+     *
      * The pad is not save yet. Use {@link #savePad(Pad)} to save it.
-     * 
+     *
      * @return The new pad
      */
     public Pad buildPad() {
@@ -83,14 +92,14 @@ public class PadService {
 
     /**
      * Safes a pad.
-     * 
+     *
      * The pad should be created with {@link #buildPad()}.
-     * 
+     *
      * @param pad
      *            The unsaved pad.
      */
     @Transactional
-    public void savePad(@PermitOwner Pad pad) {
+    public void savePad(@PermitOwner final Pad pad) {
         padRepository.save(pad);
     }
 

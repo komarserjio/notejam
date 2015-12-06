@@ -16,7 +16,7 @@ interface PadRepository extends JpaRepository<Pad, Integer> {
 
     /**
      * Returns all pads for a user.
-     * 
+     *
      * @param user
      *            The user
      * @return The user's pads

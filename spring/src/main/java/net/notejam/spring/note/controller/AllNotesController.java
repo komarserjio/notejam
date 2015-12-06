@@ -25,14 +25,28 @@ import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 @Pads
 public class AllNotesController {
 
+    /**
+     * The note service.
+     */
     @Autowired
     private NoteService noteService;
 
+    /**
+     * Provide the model attribute "notes".
+     *
+     * @param pageable The paging.
+     * @return The model attribute "notes".
+     */
     @ModelAttribute("notes")
-    public Page<Note> notes(@PageableDefault(10) Pageable pageable) {
+    public Page<Note> notes(@PageableDefault(10) final Pageable pageable) {
         return noteService.getNotes(pageable);
     }
 
+    /**
+     * Shows all notes.
+     *
+     * @return The view.
+     */
     @RequestMapping(URITemplates.VIEW_ALL_NOTES)
     public String showAllNotes() {
         return "notes";

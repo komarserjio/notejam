@@ -17,7 +17,7 @@ interface NoteRepository extends JpaRepository<Note, Integer> {
 
     /**
      * Pages through all notes of a pad.
-     * 
+     *
      * @param pad
      *            The pad
      * @param pageable
@@ -28,7 +28,7 @@ interface NoteRepository extends JpaRepository<Note, Integer> {
 
     /**
      * Pages through all notes of a user.
-     * 
+     *
      * @param user
      *            The user
      * @param pageable
@@ -39,7 +39,7 @@ interface NoteRepository extends JpaRepository<Note, Integer> {
 
     /**
      * Deletes all notes of a pad.
-     * 
+     *
      * @param pad
      *            The pad
      */

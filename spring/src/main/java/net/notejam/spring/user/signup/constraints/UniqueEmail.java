@@ -13,12 +13,12 @@ import javax.validation.groups.Default;
 
 /**
  * Validation for a unique email property.
- * 
+ *
  * {@link UniqueEmailValidator} uses a JPA entity manager. I.e. this validation
  * should not happen again during a JPA life cycle event (i.e. validation during
  * persistence). If this constraint validates an entity, don't validate against
  * the {@link Default} validation group.
- * 
+ *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
  */
@@ -28,10 +28,19 @@ import javax.validation.groups.Default;
 @Documented
 public @interface UniqueEmail {
 
+    /**
+     * The validation message.
+     */
     String message() default "{UniqueEmail}";
 
+    /**
+     * The validation groups.
+     */
     Class<?>[]groups() default {};
 
+    /**
+     * This constraint doesn't support any payload.
+     */
     Class<? extends Payload>[]payload() default {};
 
 }

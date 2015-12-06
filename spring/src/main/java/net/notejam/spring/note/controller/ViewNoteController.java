@@ -24,17 +24,27 @@ import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 @Pads
 public class ViewNoteController {
 
+    /**
+     * The note service.
+     */
     @Autowired
     private NoteService service;
 
+    /**
+     * Provides the model attribute "note".
+     *
+     * @param id
+     *            The note id.
+     * @return The model attribute "note".
+     */
     @ModelAttribute
-    public Note note(@PathVariable("id") int id) {
+    public Note note(@PathVariable("id") final int id) {
         return service.getNote(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
     /**
      * Shows the note
-     * 
+     *
      * @return The note view
      */
     @RequestMapping(URITemplates.VIEW_NOTE)

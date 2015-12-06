@@ -26,17 +26,27 @@ import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 @Pads
 public class DeletePadController {
 
+    /**
+     * The pad service.
+     */
     @Autowired
     private PadService service;
 
+    /**
+     * Provides the model attribute "pad".
+     *
+     * @param id
+     *            The pad id.
+     * @return The model attribute "pad".
+     */
     @ModelAttribute
-    public Pad pad(@PathVariable("id") int id) {
+    public Pad pad(@PathVariable("id") final int id) {
         return service.getPad(id).orElseThrow(() -> new ResourceNotFoundException());
     }
 
     /**
      * Shows the confirmation for deleting a pad.
-     * 
+     *
      * @return The view
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -46,11 +56,13 @@ public class DeletePadController {
 
     /**
      * Deletes a pad and its notes.
-     * 
+     *
+     * @param pad
+     *            The pad.
      * @return The view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String deletePad(Pad pad) {
+    public String deletePad(final Pad pad) {
         service.deletePad(pad);
         return String.format("redirect:%s?deleted", URITemplates.CREATE_PAD);
     }

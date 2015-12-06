@@ -29,17 +29,27 @@ import net.notejam.spring.pad.controller.PadsAdvice.Pads;
 @Pads
 public class CreateNoteController {
 
+    /**
+     * The note service.
+     */
     @Autowired
     private NoteService service;
 
+    /**
+     * Provides the model attribute "note".
+     *
+     * @param padId
+     *            The preselected pad id.
+     * @return The model attribute "note".
+     */
     @ModelAttribute
-    public Note note(@RequestParam(value = "pad", required = false) Integer padId) {
+    public Note note(@RequestParam(value = "pad", required = false) final Integer padId) {
         return service.buildNote(padId);
     }
 
     /**
      * Shows the form for creating a note.
-     * 
+     *
      * @return The view
      */
     @RequestMapping(method = RequestMethod.GET)
@@ -49,11 +59,16 @@ public class CreateNoteController {
 
     /**
      * Creates a new note.
-     * 
+     *
+     * @param note
+     *            The model attribute "note".
+     * @param bindingResult
+     *            The validation result.
+     *
      * @return The view
      */
     @RequestMapping(method = RequestMethod.POST)
-    public String createNote(@Valid Note note, BindingResult bindingResult) {
+    public String createNote(@Valid final Note note, final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "note/create";
         }
@@ -65,12 +80,12 @@ public class CreateNoteController {
 
     /**
      * Builds the URI for the created note.
-     * 
+     *
      * @param id
      *            The note id
      * @return The URI
      */
-    private String buildCreatedNoteUri(int id) {
+    private String buildCreatedNoteUri(final int id) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.VIEW_NOTE);
         uriBuilder.queryParam("successful");
         return uriBuilder.buildAndExpand(id).toUriString();

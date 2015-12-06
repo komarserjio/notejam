@@ -21,17 +21,38 @@ import net.notejam.spring.URITemplates;
 @Controller
 public class RecoverPasswordController {
 
+    /**
+     * The recovery service.
+     */
     @Autowired
     private PasswordRecoveryService recoveryService;
 
+    /**
+     * Shows the password.
+     *
+     * @param id
+     *            The token id
+     * @param token
+     *            The token
+     * @param password
+     *            The generated password.
+     * @return The view
+     * @throws InvalidTokenException
+     *             The token did not match.
+     */
     @RequestMapping(URITemplates.RECOVER_PASSWORD)
-    public String revealPassword(@PathVariable("id") int id, @PathVariable("token") String token,
-            @ModelAttribute("password") StringBuffer password) throws InvalidTokenException {
+    public String revealPassword(@PathVariable("id") final int id, @PathVariable("token") final String token,
+            @ModelAttribute("password") final StringBuffer password) throws InvalidTokenException {
 
         password.append(recoveryService.recoverPassword(id, token));
         return "user/reveal-password";
     }
 
+    /**
+     * Handles non matching tokens.
+     *
+     * @return The view.
+     */
     @ExceptionHandler(InvalidTokenException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleInvalidToken() {
