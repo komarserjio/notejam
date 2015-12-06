@@ -65,6 +65,15 @@ Compile and launch the application:
 
 Go to http://localhost:8080/ in your browser.
 
+~~~~~~~~~~~~
+Localization
+~~~~~~~~~~~~
+
+This application comes with support for the languages German and English. The locale is
+determined by the Accept-Language request header. If the header is not present the
+content will be served with the default locale of the JVM. The application will not
+start if the default locale is non of the supported languages.
+
 ---------
 Run tests
 ---------

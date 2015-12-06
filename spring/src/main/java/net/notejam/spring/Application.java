@@ -1,11 +1,14 @@
 package net.notejam.spring;
 
+import java.util.Locale;
 import java.util.concurrent.Executor;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.context.MessageSource;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -73,28 +76,55 @@ public class Application {
     /**
      * Starts the application.
      *
-     * @param args The commandline arguments.
+     * @param args
+     *            The commandline arguments.
      */
     public static void main(final String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
     /**
-     * The locale resolver.
+     * Provides the locale resolver.
      *
+     * @param messageSource
+     *            The message source
      * @return The locale resolver.
+     * @throws RuntimeException
+     *             The JVM's default locale does not support any of the
+     *             {@link MessageSource} languages.
      */
     @Bean
-    public LocaleResolver localeResolver() {
+    public LocaleResolver localeResolver(final MessageSource messageSource) {
+        if (!isDefaultLocaleSupported(messageSource)) {
+            throw new RuntimeException(String.format(
+                    "The JVM runs with the locale %s. This locale is not supported by this application. Please start the JVM with a supported locale, e.g. en.",
+                    Locale.getDefault()));
+        }
         return new AcceptHeaderLocaleResolver();
     }
 
+    /**
+     * Returns true if the default locale is supported.
+     *
+     * @param messageSource
+     *            The message source
+     * @return True if the default locale is supported
+     */
+    private boolean isDefaultLocaleSupported(final MessageSource messageSource) {
+        try {
+            messageSource.getMessage("bootstrap.locale", null, Locale.getDefault());
+            return true;
+
+        } catch (NoSuchMessageException e) {
+            return false;
+        }
+    }
 
     /**
      * The conversion service.
      *
-     * The conversion service helps to convert strings
-     * from e.g. a {@link PropertySource} into other types.
+     * The conversion service helps to convert strings from e.g. a
+     * {@link PropertySource} into other types.
      *
      * @return The conversion service.
      */
