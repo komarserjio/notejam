@@ -182,7 +182,7 @@ public class PasswordRecoveryService {
         message.setSubject(messageSource.getMessage("forgot.mail.subject", null, locale));
         message.setTo(token.getUser().getEmail());
 
-        String uri = buildRecoveryURI(token, uriBuilder).toString();
+        String uri = buildRecoveryURI(token, uriBuilder);
         message.setText(messageSource.getMessage("forgot.mail.message", new String[] { uri }, locale));
 
         mailSender.send(message);
