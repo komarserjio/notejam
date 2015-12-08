@@ -85,7 +85,7 @@ public class CreateNoteController {
      *            The note id
      * @return The URI
      */
-    private String buildCreatedNoteUri(final int id) {
+    private static String buildCreatedNoteUri(final int id) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.VIEW_NOTE);
         uriBuilder.queryParam("successful");
         return uriBuilder.buildAndExpand(id).toUriString();

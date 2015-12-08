@@ -59,7 +59,7 @@ final class NoteTextProcessor extends AbstractChildrenModifierAttrProcessor {
      *            The attribute name
      * @return The text.
      */
-    private String getText(final Arguments arguments, final Element element, final String attributeName) {
+    private static String getText(final Arguments arguments, final Element element, final String attributeName) {
         Configuration configuration = arguments.getConfiguration();
         String attributeValue = element.getAttributeValue(attributeName);
         IStandardExpressionParser parser = StandardExpressions.getExpressionParser(configuration);

@@ -85,7 +85,7 @@ public class EditNoteController {
      *            The note id
      * @return The URI
      */
-    private String buildEditedNoteUri(final int id) {
+    private static String buildEditedNoteUri(final int id) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.VIEW_NOTE);
         uriBuilder.queryParam("successful");
         return uriBuilder.buildAndExpand(id).toUriString();

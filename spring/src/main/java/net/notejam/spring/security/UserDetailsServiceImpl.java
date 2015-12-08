@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository repository;
 
     @Override
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String username) {
         String password = repository.findOneByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("%s not found", username)))
                 .getPassword();

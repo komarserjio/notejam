@@ -24,6 +24,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
+import net.notejam.spring.error.UnsupportedLocaleException;
 import net.notejam.spring.helper.converter.StringToPeriodConverter;
 
 /**
@@ -87,36 +88,35 @@ public class Application {
      * Provides the locale resolver.
      *
      * @param messageSource
-     *            The message source
+     *            The messageSource
      * @return The locale resolver.
-     * @throws RuntimeException
+     * @throws UnsupportedLocaleException
      *             The JVM's default locale does not support any of the
      *             {@link MessageSource} languages.
      */
     @Bean
-    public LocaleResolver localeResolver(final MessageSource messageSource) {
-        if (!isDefaultLocaleSupported(messageSource)) {
-            throw new RuntimeException(String.format(
-                    "The JVM runs with the locale %s. This locale is not supported by this application. Please start the JVM with a supported locale, e.g. en.",
-                    Locale.getDefault()));
-        }
+    public LocaleResolver localeResolver(final MessageSource messageSource) throws UnsupportedLocaleException {
+        checkDefaultLocale(messageSource);
         return new AcceptHeaderLocaleResolver();
     }
 
     /**
-     * Returns true if the default locale is supported.
+     * Checks if the default locale is supported by the messageSource.
      *
      * @param messageSource
      *            The message source
-     * @return True if the default locale is supported
+     * @throws UnsupportedLocaleException
+     *             The JVM's default locale does not support any of the
+     *             {@link MessageSource} languages.
      */
-    private boolean isDefaultLocaleSupported(final MessageSource messageSource) {
+    private static void checkDefaultLocale(final MessageSource messageSource) throws UnsupportedLocaleException {
         try {
             messageSource.getMessage("bootstrap.locale", null, Locale.getDefault());
-            return true;
 
         } catch (NoSuchMessageException e) {
-            return false;
+            throw new UnsupportedLocaleException(String.format(
+                    "The JVM runs with the locale %s. This locale is not supported by this application. Please start the JVM with a supported locale, e.g. en.",
+                    Locale.getDefault()), e);
         }
     }
 

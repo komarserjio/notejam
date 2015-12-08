@@ -52,7 +52,7 @@ final class NaturalLanguageDateProcessor extends AbstractTextChildModifierAttrPr
      *            The attribute name
      * @return The date.
      */
-    private Instant getInstant(final Arguments arguments, final Element element, final String attributeName) {
+    private static Instant getInstant(final Arguments arguments, final Element element, final String attributeName) {
         Configuration configuration = arguments.getConfiguration();
         String attributeValue = element.getAttributeValue(attributeName);
         IStandardExpressionParser parser = StandardExpressions.getExpressionParser(configuration);

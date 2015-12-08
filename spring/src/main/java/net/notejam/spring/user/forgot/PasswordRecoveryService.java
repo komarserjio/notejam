@@ -95,7 +95,7 @@ public class PasswordRecoveryService {
     /**
      * The logger.
      */
-    private static Logger logger = LoggerFactory.getLogger(PasswordRecoveryService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PasswordRecoveryService.class);
 
     /**
      * Recovers the password in exchange for a valid token.
@@ -147,7 +147,7 @@ public class PasswordRecoveryService {
         Optional<User> user = userRepository.findOneByEmail(email);
 
         if (!user.isPresent()) {
-            logger.info("Cancel password recovery for non existing user {}", email);
+            LOGGER.info("Cancel password recovery for non existing user {}", email);
             return;
         }
 
@@ -173,7 +173,7 @@ public class PasswordRecoveryService {
     private void sendRecoveryMail(final RecoveryToken token, final UriComponentsBuilder uriBuilder,
             final Locale locale) {
         if (mailSender == null) {
-            logger.warn("Mail transport is not available. Consider setting spring.mail.host in application.properties");
+            LOGGER.warn("Mail transport is not available. Consider setting spring.mail.host in application.properties");
             return;
         }
 
@@ -197,7 +197,7 @@ public class PasswordRecoveryService {
      *            A prepared uri builder with the fully qualified host name.
      * @return The URI to recover the password
      */
-    private String buildRecoveryURI(final RecoveryToken token, final UriComponentsBuilder uriBuilder) {
+    private static String buildRecoveryURI(final RecoveryToken token, final UriComponentsBuilder uriBuilder) {
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("id", token.getId().toString());
         uriVariables.put("token", token.getToken());
@@ -211,7 +211,7 @@ public class PasswordRecoveryService {
     @Transactional
     @Scheduled(cron = "59 59 3 * * *")
     public void purgeExpired() {
-        logger.info("Purge expired recovery tokens");
+        LOGGER.info("Purge expired recovery tokens");
         tokenRepository.deleteByExpirationLessThan(Instant.now());
     }
 

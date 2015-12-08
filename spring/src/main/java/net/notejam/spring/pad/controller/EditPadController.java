@@ -85,7 +85,7 @@ public class EditPadController {
      *            The pad id
      * @return The URI
      */
-    private String buildEditedPadUri(final int id) {
+    private static String buildEditedPadUri(final int id) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath(URITemplates.EDIT_PAD);
         uriBuilder.queryParam("success");
         return uriBuilder.buildAndExpand(id).toUriString();

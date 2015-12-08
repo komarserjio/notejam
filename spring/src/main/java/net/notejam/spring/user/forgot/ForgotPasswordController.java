@@ -79,7 +79,7 @@ public class ForgotPasswordController {
      *            The request
      * @return The request as a UriComponentsBuilder.
      */
-    private UriComponentsBuilder buildRequestUriBuilder(final HttpServletRequest request) {
+    private static UriComponentsBuilder buildRequestUriBuilder(final HttpServletRequest request) {
         return UriComponentsBuilder.fromUriString(request.getRequestURL().toString());
     }
 

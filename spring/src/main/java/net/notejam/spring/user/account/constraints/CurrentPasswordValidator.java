@@ -33,6 +33,7 @@ public class CurrentPasswordValidator implements ConstraintValidator<CurrentPass
 
     @Override
     public void initialize(final CurrentPassword constraintAnnotation) {
+        // Nothing to initialize.
     }
 
     @Override

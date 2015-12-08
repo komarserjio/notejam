@@ -49,13 +49,15 @@ public class PermitOwnerAspect {
      * The point cut for method arguments.
      */
     @Pointcut("execution(* *(.., @PermitOwner (*), ..))")
-    private void restrictOwnedEntities() {
+    private static void restrictOwnedEntities() {
+        // This is a pointcut.
     }
 
     /**
      * Checks method calls with owned arguments.
      *
-     * @param joinPoint The joint point.
+     * @param joinPoint
+     *            The joint point.
      */
     @Before("net.notejam.spring.security.owner.PermitOwnerAspect.restrictOwnedEntities()")
     public void authorizeCall(final JoinPoint joinPoint) {
@@ -74,13 +76,15 @@ public class PermitOwnerAspect {
      * The point cut for return values.
      */
     @Pointcut("execution(@PermitOwner * *(..))")
-    private void restrictOwnedResults() {
+    private static void restrictOwnedResults() {
+        // This is a pointcut.
     }
 
     /**
      * Checks return owned return values.
      *
-     * @param entity The owned entity.
+     * @param entity
+     *            The owned entity.
      */
     @AfterReturning(pointcut = "net.notejam.spring.security.owner.PermitOwnerAspect.restrictOwnedResults()", returning = "entity")
     public void authorizeReturn(final Object entity) {
@@ -97,7 +101,8 @@ public class PermitOwnerAspect {
      *
      * If the entity is null authorization is granted.
      *
-     * @param owned The owned entity or null.
+     * @param owned
+     *            The owned entity or null.
      */
     private void authorize(final Owned owned) {
         if (owned == null) {

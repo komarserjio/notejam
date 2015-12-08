@@ -42,7 +42,7 @@ public class RecoverPasswordController {
      */
     @RequestMapping(URITemplates.RECOVER_PASSWORD)
     public String revealPassword(@PathVariable("id") final int id, @PathVariable("token") final String token,
-            @ModelAttribute("password") final StringBuffer password) throws InvalidTokenException {
+            @ModelAttribute("password") final StringBuilder password) throws InvalidTokenException {
 
         password.append(recoveryService.recoverPassword(id, token));
         return "user/reveal-password";
