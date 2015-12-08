@@ -113,6 +113,7 @@ public class NoteService {
     @Transactional
     public void saveNote(@PermitOwner final Note note, @PermitOwner final Pad pad) {
         note.setPad(pad);
+        note.setUpdated(Instant.now());
         repository.save(note);
     }
 
