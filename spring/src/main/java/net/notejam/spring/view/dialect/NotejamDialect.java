@@ -11,8 +11,8 @@ import org.thymeleaf.processor.IProcessor;
  *
  * The prefix of this dialect is "notejam". These are the dialect's attributes:
  *
- * - date: Formats a date into natural language.
- * - text: Converts empty lines into paragraphs.
+ * <li>date: Formats a date into natural language.
+ * <li>text: Converts empty lines into paragraphs.
  *
  * @author markus@malkusch.de
  * @see <a href="bitcoin:1335STSwu9hST4vcMRppEPgENMHD2r1REK">Donations</a>
