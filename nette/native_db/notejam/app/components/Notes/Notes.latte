@@ -1,0 +1,24 @@
+<table class="notes" n:snippet="notes">
+	<tr>
+		<th class="note">
+			Note <a href="{plink this 'order' => '-name'}" class="sort_arrow">&uarr;</a>
+			<a href="{plink this 'order' => 'name'}" class="sort_arrow">&darr;</a>
+		</th>
+		<th n:if="!$pad">Pad</th>
+		<th class="date">
+			Last modified <a href="{plink this 'order' => '-updated_at'}" class="sort_arrow">&uarr;</a>
+			<a href="{plink this 'order' => 'updated_at'}" class="sort_arrow">&darr;</a>
+		</th>
+	</tr>
+	<tr n:foreach="$notes as $note">
+		<td><a href="{plink Note: $note->id}">{$note->name}</a></td>
+		<td class="pad" n:if="!$pad">
+			{if $note->pad_id}
+				<a href="{plink Pad: $note->pad->id}">{$note->pad->name}</a>
+			{else}
+				No pad
+			{/if}
+		</td>
+		<td class="hidden-text date">{$note->updated_at|date:'d. M. Y'}</td>
+	</tr>
+</table>

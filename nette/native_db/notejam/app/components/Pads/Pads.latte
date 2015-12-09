@@ -1,0 +1,11 @@
+<div class="three columns">
+	<h4 id="logo">My pads</h4>
+	<nav>
+		<ul n:if="count($pads) > 0">
+			<li n:foreach="$pads as $pad"><a href="{plink Pad: $pad->id}">{$pad->name}</a></li>
+		</ul>
+		<p n:if="count($pads) <= 0" class="empty">No pads yet</p>
+		<hr/>
+		<a href="{plink Pad:new}">New pad</a>
+	</nav>
+</div>

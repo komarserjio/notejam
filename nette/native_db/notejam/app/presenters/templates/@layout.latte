@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]>
+<html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>
+<html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>
+<html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs ================================================== -->
+	<meta charset="utf-8">
+	<title>Notejam{ifset title}: {include title|striptags}{/ifset}</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Mobile Specific Metas ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS ================================================== -->
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css">
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+<div class="container">
+	{if $user->isLoggedIn()}
+		{control userBar}
+	{else}
+		<div class="sixteen columns">
+			<div class="sign-in-out-block">
+				<a n:href="Sign:up">Sign up</a>&nbsp;&nbsp;&nbsp;<a n:href="Sign:in">Sign in</a>
+			</div>
+		</div>
+	{/if}
+
+	<div class="sixteen columns">
+		<h1 class="bold-header"><a n:href="Homepage:" class="header">note<span class="jam">jam: </span></a>
+			<span>{include header}</span>
+		</h1>
+	</div>
+
+	{if $user->isLoggedIn() && !$presenter->isLinkCurrent('Account:settings')}
+		{control pads}
+	{/if}
+
+	<div n:class="$user->isLoggedIn() ? thirteen : sixteen, columns, content-area">
+		<div class="alert-area">
+			<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">{$flash->message}</div>
+		</div>
+		{include content}
+	</div>
+
+	<hr class="footer"/>
+	<div class="footer">
+		<div>Notejam: <strong>Nette</strong> application</div>
+		<div><a href="https://github.com/komarserjio/notejam">Github</a>,
+			<a href="https://twitter.com/komarserjio">Twitter</a>,
+			created by <a href="https://github.com/klimesf/">Filip Klimeš</a></div>
+	</div>
+</div><!-- container -->
+<a href="https://github.com/komarserjio/notejam">
+	<img style="position: absolute; top: 0; right: 0; border: 0;"
+	     src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
+	     alt="Fork me on GitHub">
+</a>
+</body>
+</html>

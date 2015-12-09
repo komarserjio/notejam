@@ -1,0 +1,9 @@
+{block title}{$note->name}{/block}
+{block header}{$note->name}{/block}
+{block content}
+	<p class="hidden-text">Last edited {$note->updated_at|date:'d. M. Y'}</p>
+	<div class="note"><p>{$note->text}</p>
+	</div>
+	<a n:href="Note:edit, $note->id" class="button">Edit</a>
+	<a n:href="Note:delete, $note->id" class="delete-note">Delete it</a>
+{/block}

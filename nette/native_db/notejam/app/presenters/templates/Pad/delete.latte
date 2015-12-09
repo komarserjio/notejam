@@ -1,0 +1,9 @@
+{block title}{$pad->name}{/block}
+{block header}{$pad->name}{/block}
+{block content}
+	<p>Are you sure you want to delete the pad?</p>
+	<form n:name="deletePadForm">
+		<input n:name="submit" class="red">&nbsp;
+		<a n:href="Pad:edit, $pad->id">Cancel</a>
+	</form>
+{/block}

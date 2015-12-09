@@ -1,0 +1,45 @@
+#
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# https://nette.org/security-warning
+#
+parameters:
+
+
+php:
+	date.timezone: Europe/Prague
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+database:
+	dsn: %database.dsn%
+	options:
+		lazy: yes
+
+
+services:
+	- App\Model\UserManager
+	- App\Model\NoteManager
+	- App\Model\PadManager
+	- App\Components\Notes\INotesFactory
+	- App\Components\Pads\IPadsFactory
+	- App\Components\UserBar\IUserBarFactory
+	- App\Forms\Account\AccountSettingsFormFactory
+	- App\Forms\Note\DeleteNoteFormFactory
+	- App\Forms\Note\EditNoteFormFactory
+	- App\Forms\Note\NewNoteFormFactory
+	- App\Forms\Pad\DeletePadFormFactory
+	- App\Forms\Pad\EditPadFormFactory
+	- App\Forms\Pad\NewPadFormFactory
+	- App\Forms\Sign\ForgottenPasswordFormFactory
+	- App\Forms\Sign\SignInFormFactory
+	- App\Forms\Sign\SignUpFormFactory
+	router: App\RouterFactory::createRouter

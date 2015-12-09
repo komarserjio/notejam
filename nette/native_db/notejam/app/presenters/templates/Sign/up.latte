@@ -1,0 +1,15 @@
+{block title}Sign Up{/block}
+{block header}Sign Up{/block}
+{block content}
+	<form class="offset-by-six sign-in" n:name="signUpForm">
+		<label n:name="email">Email</label>
+		<input n:name="email">
+		<label n:name="password">Password</label>
+		<input n:name="password">
+		<label n:name="confirm">Confirm</label>
+		<input n:name="confirm">
+		<input n:name="submit"> or <a n:href='Sign:in'>Sign in</a>
+		<hr>
+		<p><a n:href="Sign:forgotten" class="small-red">Forgot password?</a></p>
+	</form>
+{/block}

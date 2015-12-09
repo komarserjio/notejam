@@ -1,0 +1,13 @@
+{block title}{$note->name}{/block}
+{block header}{$note->name}{/block}
+{block content}
+	<form n:name="editNoteForm" class="note">
+		<label n:name="name">Name</label>
+		<input n:name="name">
+		<label n:name="text">Text</label>
+		<textarea n:name="text"></textarea>
+		<label n:name="pad">Pad</label>
+		<select n:name="pad"></select>
+		<input n:name="submit">
+	</form>
+{/block}

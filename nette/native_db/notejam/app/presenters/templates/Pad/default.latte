@@ -1,0 +1,8 @@
+{block title}New pad{/block}
+{block header}New pad{/block}
+{block content}
+	{control notes}
+	<a n:href="Note:new, $pad->id" class="button">New note</a>
+	&nbsp;
+	<a n:href="Pad:edit, $pad->id">Pad settings</a>
+{/block}
