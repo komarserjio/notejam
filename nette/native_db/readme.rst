@@ -1,10 +1,12 @@
-***************************************
-Notejam: Nette Framework with native DB
-***************************************
+**************
+Notejam: Nette
+**************
 
 Notejam application implemented using `Nette framework <https://nette.org>`_.
 
 Nette version: 2.3
+
+The application is maintained by `@klimesf <https://github.com/klimesf>`_.
 
 ==========================
 Installation and launching

@@ -25,21 +25,18 @@ Supported frameworks
 
 **PHP**
 
-
-* `Symfony <https://github.com/komarserjio/notejam/tree/master/symfony>`_
 * `Laravel <https://github.com/komarserjio/notejam/tree/master/laravel>`_
 * `Yii <https://github.com/komarserjio/notejam/tree/master/yii>`_
 * `CakePHP <https://github.com/komarserjio/notejam/tree/master/cakephp>`_
-* `Nette with Doctrine <https://github.com/komarserjio/notejam/tree/master/nette/doctrine>`_
+* `Nette <https://github.com/komarserjio/notejam/tree/master/nette/native_db`_ / `Nette + Doctrine <https://github.com/komarserjio/notejam/tree/master/nette/doctrine>`_
+* `Symfony <https://github.com/komarserjio/notejam/tree/master/symfony>`_
 
 **Ruby**
 
-
-* `Ruby on Rails <https://github.com/komarserjio/notejam/tree/master/rubyonrails>`_
 * `Padrino <https://github.com/komarserjio/notejam/tree/master/padrino>`_
+* `Ruby on Rails <https://github.com/komarserjio/notejam/tree/master/rubyonrails>`_
 
 **Java**
-
 
 * `Spring <https://github.com/komarserjio/notejam/tree/master/spring>`_
 
