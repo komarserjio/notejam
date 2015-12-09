@@ -1,0 +1,10 @@
+{block title}{$note->name}{/block}
+{block page_title}<span>{$note->name}</span>{/block}
+
+{block body}
+	<p class="hidden-text">Last edited at {$note->updatedAt->format('H:i')}</p>
+	<div class="note">
+		{$note->text|escape|nl2br|noescape}
+	</div>
+	<a n:href="edit, id => $note->id" class="button">Edit</a>
+	<a n:href="delete, id => $note->id" class="delete-note">Delete it</a>

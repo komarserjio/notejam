@@ -1,0 +1,6 @@
+{block title}{$pad->name}{/block}
+{block page_title}<span>{$pad->name}</span>{/block}
+
+{block body}
+	{control editPad-form}
+	<a class="red" n:href="delete, $pad->id">Delete pad</a>

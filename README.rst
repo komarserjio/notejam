@@ -30,6 +30,7 @@ Supported frameworks
 * `Laravel <https://github.com/komarserjio/notejam/tree/master/laravel>`_
 * `Yii <https://github.com/komarserjio/notejam/tree/master/yii>`_
 * `CakePHP <https://github.com/komarserjio/notejam/tree/master/cakephp>`_
+* `Nette with Doctrine <https://github.com/komarserjio/notejam/tree/master/nette/doctrine>`_
 
 **Ruby**
 

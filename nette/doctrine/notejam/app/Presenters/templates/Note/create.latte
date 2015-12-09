@@ -1,0 +1,8 @@
+{block title}New note{/block}
+{block page_title}<span>New note</span>{/block}
+
+{block body}
+	<form n:name="createNote-form" class="note">
+		{control $form ownerrors}
+		{control $form body}
+	</form>
