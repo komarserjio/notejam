@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[#{login.title}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[#{login.title}]]</h1>
+
+	<div th:fragment="content">
+		<form class="offset-by-six sign-in" th:action="@{#}" method="post">
+			<div class="alert-area">
+				<div th:if="${param.error}" class="alert alert-error"
+					th:text="#{login.error}">Invalid username and password.</div>
+				<div th:if="${param.logout}" class="alert alert-success"
+					th:text="#{login.logout}">You have been logged out.</div>
+				<div th:if="${param.signup}" class="alert alert-success"
+					th:text="#{login.signedup}">You have been registered. Now log
+					in.</div>
+			</div>
+			<label th:inline="text"> [[#{login.email}]] <input
+				type="text" name="username" />
+			</label> <label th:inline="text"> [[#{login.password}]] <input
+				type="password" name="password" />
+			</label> <input type="submit" th:value="#{login.signin}" /> <span
+				th:text="#{login.or}">or</span> <a
+				th:href='@{${T(net.notejam.spring.URITemplates).SIGNUP}}'
+				th:text="#{login.signup}">Sign up</a>
+			<hr />
+			<p>
+				<a
+					th:href="@{${T(net.notejam.spring.URITemplates).FORGOT_PASSWORD}}"
+					class="small-red" th:text="#{login.forgot}">Forgot password?</a>
+			</p>
+		</form>
+	</div>
+
+</body>
+</html>

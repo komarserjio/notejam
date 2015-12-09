@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[${pad.name}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[${pad.name}]]</h1>
+
+	<div th:fragment="content">
+		<form class="pad" th:object="${pad}"
+			th:action="@{#}" method="post">
+			<div class="alert-area">
+				<div th:if="${param.success}" class="alert alert-success"
+					th:text="#{pad.edit.success}">You've successfully edited the
+					pad.</div>
+			</div>
+			<label th:inline="text"> [[#{pad.edit.name}]] <input
+				type="text" th:field="*{name}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist" th:if="${#fields.hasErrors('name')}">
+				<li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
+			</ul>
+			<input type="submit" th:value="#{save}" />
+		</form>
+		<a class="red"
+            th:href="@{${T(net.notejam.spring.URITemplates).DELETE_PAD}(id=${pad.id})}"
+            th:text="#{pad.edit.delete}">Delete
+			pad</a>
+	</div>
+
+</body>
+</html>

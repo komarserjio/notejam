@@ -37,6 +37,11 @@ Supported frameworks
 * `Ruby on Rails <https://github.com/komarserjio/notejam/tree/master/rubyonrails>`_
 * `Padrino <https://github.com/komarserjio/notejam/tree/master/padrino>`_
 
+**Java**
+
+
+* `Spring <https://github.com/komarserjio/notejam/tree/master/spring>`_
+
 **Javascript (node.js)**
 
 * `Express <https://github.com/komarserjio/notejam/tree/master/express>`_

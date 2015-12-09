@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[${note.name}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[${note.name}]]</h1>
+
+	<div th:fragment="content">
+		<div class="alert-area">
+			<div th:if="${param.successful}" class="alert alert-success"
+				th:text="#{note.view.successful}">Saved.</div>
+		</div>
+		<p class="hidden-text"
+			th:text="#{note.view.edited(${#dates.format(note.updated, #messages.msg('dateFormat'))})}">Last
+			edited at 10:32</p>
+		<div class="note" notejam:text="${note.text}">
+			<p>The typography of Skeleton is designed to create a strong
+				hierarchy with basic styles. The primary font is the classic
+				Helvetica Neue, but the font stack can be easily changed with just a
+				couple adjustments. Regular paragraphs are set at a 14px base with
+				21px line height.</p>
+		</div>
+
+		<a class="button"
+            th:href="@{${T(net.notejam.spring.URITemplates).EDIT_NOTE}(id=${note.id})}"
+            th:text="#{note.view.edit}">edit</a>
+
+		<a class="delete-note"
+			th:href="@{${T(net.notejam.spring.URITemplates).DELETE_NOTE}(id=${note.id})}"
+			th:text="#{note.view.delete}">delete</a>
+	</div>
+
+</body>
+</html>

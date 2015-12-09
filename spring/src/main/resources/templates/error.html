@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[#{error.title}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[#{error.title}]]</h1>
+
+	<div th:fragment="content">
+		<p th:text="${error}" />
+	</div>
+
+</body>
+</html>
