@@ -1,0 +1,9 @@
+{block title}Delete pad {$pad->name}{/block}
+{block page_title}<span>Delete pad {$pad->name}</span>{/block}
+
+{block body}
+<form n:name="deletePad-form">
+	<p>Are you sure you want to delete {$pad->name}?</p>
+	<button n:name="confirm" class="button red">Yes, I want to delete this pad</button>
+	<a n:href="edit, $pad->id">Cancel</a>
+</form>

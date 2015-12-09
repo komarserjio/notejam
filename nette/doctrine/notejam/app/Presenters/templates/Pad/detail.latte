@@ -1,0 +1,37 @@
+{block title}{$pad->name} ({$notes|length} notes){/block}
+{block page_title}<span>{$pad->name} ({$notes|length})</span>{/block}
+
+{block body}
+<table n:if="count($notes)" class="notes">
+	<tr>
+		<th class="note">
+			Note
+			<a n:href="Note:, order => '-name'" class="sort_arrow">&uarr;</a>
+			<a n:href="Note: order => name" class="sort_arrow">&darr;</a>
+		</th>
+		<th>Pad</th>
+		<th class="date">
+			Last modified
+			<a n:href="Note:, order => '-updated_at'" class="sort_arrow">&uarr;</a>
+			<a n:href="Note:, order => 'updated_at'" class="sort_arrow">&darr;</a>
+		</th>
+	</tr>
+	<tr n:foreach="$notes as $note">
+		<td><a n:href="Note:detail, $note->id">{$note->name}</a></td>
+		<td class="pad">
+			{if $note->pad}
+				<a n:href="detail, $note->pad->id">{$note->pad}</a>
+			{else}
+				No pad
+			{/if}
+		</td>
+		<td class="hidden-text date">{$note->updatedAt|date:'d M. Y'}</td>
+	</tr>
+</table>
+
+{if !$iterations}
+	<p class="empty">Create first note in the pad</p>
+{/if}
+
+<a n:href="Note:create, pad => $pad->id" class="button">New note</a>&nbsp;
+<a n:href="edit, id => $pad->id">Pad settings</a>

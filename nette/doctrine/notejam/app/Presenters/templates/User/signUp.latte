@@ -1,0 +1,20 @@
+{extends '../@user.latte'}
+
+{block title}Sign Up{/block}
+{block page_title}<span>Sign Up</span>{/block}
+
+{block body}
+<form n:name="signUp-form" class="offset-by-six sign-in">
+	{control $form errors}
+
+	<label n:name="email">Email</label>
+	<input n:name="email">
+
+	<label n:name="password">Password</label>
+	<input n:name="password">
+
+	<label n:name="confirm">Confirm</label>
+	<input n:name="confirm">
+
+	<button type="submit" n:name="send">Sign up</button>
+</form>

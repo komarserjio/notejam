@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[${note.name}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[${note.name}]]</h1>
+
+	<div th:fragment="content">
+		<form class="note" th:object="${note}" th:action="@{#}" method="post">
+			<label th:inline="text"> [[#{note.edit.name}]] <input
+				type="text" th:field="*{name}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist" th:if="${#fields.hasErrors('name')}">
+				<li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
+			</ul>
+
+			<label th:inline="text"> [[#{note.edit.text}]] <textarea
+					th:field="*{text}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist" th:if="${#fields.hasErrors('text')}">
+				<li th:each="err : ${#fields.errors('text')}" th:text="${err}" />
+			</ul>
+
+			<label th:inline="text"> [[#{note.edit.pad}]] <select
+				th:field="*{pad}">
+					<option th:value="null" th:text="#{note.edit.nopad}">--------</option>
+					<option th:each="pad : ${pads}" th:value="${pad.id}"
+						th:text="${pad.name}">Pad</option>
+			</select>
+			</label>
+			<ul class="errorlist" th:if="${#fields.hasErrors('pad')}">
+				<li th:each="err : ${#fields.errors('pad')}" th:text="${err}" />
+			</ul>
+
+			<input type="submit" th:value="#{save}" />
+		</form>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[#{signup.title}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[#{signup.title}]]</h1>
+
+	<div th:fragment="content">
+		<form class="offset-by-six sign-in" th:action="@{#}" action="#"
+			th:object="${user}" method="post">
+			<label th:inline="text"> [[#{signup.Email}]] <input
+				type="email" th:field="*{email}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist" th:if="${#fields.hasErrors('email')}">
+				<li th:each="err : ${#fields.errors('email')}" th:text="${err}" />
+			</ul>
+
+			<label th:inline="text"> [[#{signup.Password}]] <input
+				type="password" th:field="*{password}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist" th:if="${#fields.hasErrors('password')}">
+				<li th:each="err : ${#fields.errors('password')}" th:text="${err}" />
+			</ul>
+
+			<label th:inline="text"> [[#{signup.Password2}]] <input
+				type="password" th:field="*{repeatedPassword}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist"
+				th:if="${#fields.hasErrors('repeatedPassword')}">
+				<li th:each="err : ${#fields.errors('repeatedPassword')}"
+					th:text="${err}" />
+			</ul>
+
+			<input type="submit" th:value="#{signup.Signup}" /> <span
+				th:text="#{signup.or}">or</span> <a
+				th:href='@{${T(net.notejam.spring.URITemplates).SIGNIN}}'
+				th:text="#{signup.Signin}">Sign in</a>
+		</form>
+	</div>
+
+</body>
+</html>

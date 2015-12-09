@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="page">
+<!--<![endif]-->
+<head>
+
+<!-- Basic Page Needs
+  ================================================== -->
+<meta charset="utf-8" />
+<title th:replace="this :: title">Title</title>
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<!-- Mobile Specific Metas
+  ================================================== -->
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<!-- CSS
+  ================================================== -->
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css" />
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css" />
+<link rel="stylesheet"
+	href="http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css" />
+<link rel="stylesheet" th:href="@{/css/style.css}"
+	href="../static/css/style.css" />
+
+<!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<div class="sixteen columns">
+			<div class="sign-in-out-block" sec:authorize="isAnonymous()">
+				<a th:href="@{${T(net.notejam.spring.URITemplates).SIGNUP}}"
+					href="#" th:text="#{menu.signup}">Sign up</a>&nbsp;&nbsp;&nbsp;<a
+					th:href="@{${T(net.notejam.spring.URITemplates).SIGNIN}}" href="#"
+					th:text="#{menu.signin}">Sign in</a>
+			</div>
+			<div class="sign-in-out-block" sec:authorize="isAuthenticated()">
+				<form th:action="@{${T(net.notejam.spring.URITemplates).SIGNOUT}}"
+					method="POST">
+					<span sec:authentication="name">Bob</span> <a
+						th:href="@{${T(net.notejam.spring.URITemplates).SETTINGS}}"
+						href="#" th:text="#{menu.account}">Account</a>&nbsp;&nbsp;&nbsp;<input
+						type="submit" th:value="#{menu.signout}" />
+				</form>
+			</div>
+		</div>
+		<div class="sixteen columns">
+			<h1 class="bold-header">
+				<a th:href="@{/}" href="#" class="header">note<span class="jam">jam:</span></a> <span
+					th:include="this :: h1" th:inline="text">Title</span>
+			</h1>
+		</div>
+
+		<div th:if="${pads != null}" class="three columns">
+			<h4 id="logo" th:text="#{layout.pads}">My pads</h4>
+			<nav>
+				<ul th:if="${!pads.isEmpty()}">
+					<li th:each="pad : ${pads}">
+					   <a th:href="@{${T(net.notejam.spring.URITemplates).VIEW_PAD}(id=${pad.id})}" href="#" th:text="${pad.name}">Business</a>
+				    </li>
+				</ul>
+				<p th:if="${pads.isEmpty()}" th:text="#{layout.noPads}"
+					class="empty">No pads</p>
+				<hr />
+				<a th:href="@{${T(net.notejam.spring.URITemplates).CREATE_PAD}}"
+					href="#" th:text="#{layout.newPad}">New pad</a>
+			</nav>
+		</div>
+
+		<div class="thirteen columns content-area"
+			th:include="this :: content" />
+
+		<hr class="footer" />
+		<div class="footer">
+			<div th:inline="text">
+				Notejam: <strong>Spring</strong> [[#{footer.application}]]
+			</div>
+			<div th:inline="text">
+				<a href="https://github.com/komarserjio/notejam">Github</a>, <a
+					href="https://twitter.com/komarserjio">Twitter</a>,
+				[[#{footer.createdBy}]] <a href="https://github.com/komarserjio/">Serhii
+					Komar</a>
+			</div>
+		</div>
+	</div>
+	<!-- container -->
+	<a href="https://github.com/komarserjio/notejam"><img
+		style="position: absolute; top: 0; right: 0; border: 0;"
+		src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
+		alt="Fork me on GitHub" /></a>
+</body>
+</html>

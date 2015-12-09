@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[#{account.title}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[#{account.title}]]</h1>
+
+	<div th:fragment="content">
+		<form class="offset-by-six sign-in" th:action="@{#}"
+			th:object="${account}" method="post">
+
+			<div class="alert-area">
+				<div th:if="${param.success}" class="alert alert-success"
+					th:text="#{account.success}">You've successfully changed your
+					password.</div>
+			</div>
+
+			<label th:inline="text"> [[#{account.currentPassword}]] <input
+				type="password" th:field="*{currentPassword}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist" th:if="${#fields.hasErrors('currentPassword')}">
+				<li th:each="err : ${#fields.errors('currentPassword')}"
+					th:text="${err}" />
+			</ul>
+
+			<label th:inline="text"> [[#{account.newPassword}]] <input
+				type="password" th:field="*{newPassword}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist" th:if="${#fields.hasErrors('newPassword')}">
+				<li th:each="err : ${#fields.errors('newPassword')}"
+					th:text="${err}" />
+			</ul>
+
+			<label th:inline="text"> [[#{account.repeatedPassword}]] <input
+				type="password" th:field="*{repeatedPassword}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist"
+				th:if="${#fields.hasErrors('repeatedPassword')}">
+				<li th:each="err : ${#fields.errors('repeatedPassword')}"
+					th:text="${err}" />
+			</ul>
+
+			<input type="submit" th:value="#{save}" />
+		</form>
+	</div>
+
+</body>
+</html>

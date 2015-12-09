@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:if="${pad == null}" th:inline="text">Notejam: [[#{pad.view.allNotes(${notes.getTotalElements()})}]]</title>
+<title th:if="${pad != null}" th:inline="text">Notejam: [[#{pad.view.title(${pad.name}, ${notes.getTotalElements()})}]]</title>
+
+<body>
+
+	<h1>
+	   <span th:if="${pad == null}" th:text="#{pad.view.allNotes(${notes.getTotalElements()})}">All notes (8)</span>
+	   <span th:if="${pad != null}" th:text="#{pad.view.title(${pad.name}, ${notes.getTotalElements()})}">Business (8 notes)</span>
+    </h1>
+
+	<div th:fragment="content">
+		<div class="alert-area">
+			<div th:if="${param.createdSuccessfully}" class="alert alert-success"
+				th:text="#{pad.view.created}">Pad created.</div>
+		</div>
+		<p class="empty" th:if="${!notes.hasContent()}" th:text="#{pad.view.empty}">Create your first note.</p>
+		<table th:if="${notes.hasContent()}" class="notes">
+			<tr>
+				<th class="note" th:inline="text">[[#{pad.view.note}]]
+				    <a th:href="@{?sort=name,ASC}"  href="#" class="sort_arrow">&uarr;</a><a th:href="@{?sort=name,DESC}" href="#" class="sort_arrow">&darr;</a>
+				</th>
+				<th th:text="#{pad.view.pad}">Pad</th>
+				<th class="date" th:inline="text">[[#{pad.view.modified}]]
+				    <a th:href="@{?sort=updated,ASC}"  href="#" class="sort_arrow">&uarr;</a><a th:href="@{?sort=updated,DESC}" href="#" class="sort_arrow">&darr;</a>
+				</th>
+			</tr>
+			<tr th:each="note : ${notes}">
+				<td><a th:href="@{${T(net.notejam.spring.URITemplates).VIEW_NOTE}(id=${note.id})}" href="#" th:text="${note.name}">My sport activities</a></td>
+				<td class="pad" th:if="${note.pad != null}">
+				    <a th:href="@{${T(net.notejam.spring.URITemplates).VIEW_PAD}(id=${note.pad.id})}" href="#" th:text="${note.pad.name}">
+				    Pad
+				    </a>
+			    </td>
+				<td class="pad" th:if="${note.pad == null}" th:text="#{pad.view.noPad}">No Pad</td>
+				<td class="hidden-text date" notejam:date="${note.updated}">Just now</td>
+			</tr>
+		</table>
+		<a th:if="${pad == null}" th:href="@{${T(net.notejam.spring.URITemplates).CREATE_NOTE}}" href="#" class="button" th:text="#{pad.view.newNote}">New note</a>
+		
+		<a th:if="${pad != null}" th:href="@{${T(net.notejam.spring.URITemplates).CREATE_NOTE_FOR_PAD}(id=${pad.id})}" href="#" class="button" th:text="#{pad.view.newNote}">New note</a>
+		<a th:if="${pad != null}" th:href="@{${T(net.notejam.spring.URITemplates).EDIT_PAD}(id=${pad.id})}" href="#" th:text="#{pad.view.settings}">Pad settings</a>
+		
+		<div th:if="${notes.getTotalPages() > 1}" class="pagination">
+	          <a th:if   = "${pad != null}"
+	             th:each = "page : ${#numbers.sequence(1, notes.getTotalPages())}"
+	             th:href = "@{${T(net.notejam.spring.URITemplates).VIEW_PAD}(id=${pad.id},page=${page - 1},sort=${param.sort})}"
+	             th:text = "${page}">1</a>
+
+	          <a th:if   = "${pad == null}"
+	             th:each = "page : ${#numbers.sequence(1, notes.getTotalPages())}"
+	             th:href = "@{${T(net.notejam.spring.URITemplates).VIEW_ALL_NOTES}(page=${page - 1},sort=${param.sort})}"
+	             th:text = "${page}">2</a>
+		</div>
+	</div>
+
+</body>
+</html>

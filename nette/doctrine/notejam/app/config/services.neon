@@ -1,0 +1,21 @@
+services:
+	router: Notejam\Http\RouterFactory::createRouter
+	security.authenticator: Notejam\Users\Authenticator
+
+	latte.latteFactory:
+		setup:
+			- addFilter(length, 'Notejam\Templating\RuntimeFilters::length')
+
+	- Notejam\UI\FormFactory
+	- Notejam\Components\ISignInControlFactory
+	- Notejam\Components\ISignUpControlFactory
+	- Notejam\Components\INoteControlFactory
+	- Notejam\Components\IPadsControlFactory
+	- Notejam\Components\ISettingsControlFactory
+	- Notejam\Components\PadsList\IPadsListControlFactory
+	- Notejam\Components\IForgottenPasswordControlFactory
+	- Notejam\Components\IConfirmationControlFactory
+
+	- Notejam\Notes\NoteRepository
+	- Notejam\Pads\PadRepository
+	- Notejam\Users\UserRepository

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[${note.name}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[${note.name}]]</h1>
+
+	<div th:fragment="content">
+		<form th:object="${note}"
+			th:action="@{#}" method="post">
+			<p th:text="#{note.delete.sure(${note.name})}">Are you sure?</p>
+			<input type="submit" class="red" th:value="#{note.delete.delete}" />
+			<a th:href="@{${T(net.notejam.spring.URITemplates).VIEW_NOTE}(id=${note.id})}" th:text="#{cancel}">Cancel</a>
+		</form>
+	</div>
+
+</body>
+</html>

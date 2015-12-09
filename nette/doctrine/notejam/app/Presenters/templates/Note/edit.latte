@@ -1,0 +1,8 @@
+{block title}{$note->name}{/block}
+{block page_title}<span>{$note->name}</span>{/block}
+
+{block body}
+	<form n:name="editNote-form" class="note">
+		{control $form ownerrors}
+		{control $form body}
+	</form>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<title th:inline="text">Notejam: [[#{pad.create.title}]]</title>
+
+<body>
+
+	<h1 th:inline="text">[[#{pad.create.title}]]</h1>
+
+	<div th:fragment="content">
+		<form class="pad" th:object="${pad}"
+			th:action="@{#}" method="post">
+			<div class="alert-area">
+				<div th:if="${param.deleted}" class="alert alert-success"
+					th:text="#{pad.delete.success}">Pad deleted.</div>
+			</div>
+			<label th:inline="text"> [[#{pad.create.name}]] <input
+				type="text" th:field="*{name}" th:errorclass="red" />
+			</label>
+			<ul class="errorlist" th:if="${#fields.hasErrors('name')}">
+				<li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
+			</ul>
+			<input type="submit" th:value="#{save}" />
+		</form>
+	</div>
+
+</body>
+</html>

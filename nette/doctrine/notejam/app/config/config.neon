@@ -1,0 +1,42 @@
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# https://nette.org/security-warning
+
+parameters:
+	srcDir: %appDir%/../src
+
+
+php:
+	date.timezone: Europe/Prague
+
+
+extensions:
+	console: Kdyby\Console\DI\ConsoleExtension
+	events: Kdyby\Events\DI\EventsExtension
+	annotations: Kdyby\Annotations\DI\AnnotationsExtension
+	doctrine: Kdyby\Doctrine\DI\OrmExtension
+	doctrine2identity: Majkl578\NetteAddons\Doctrine2Identity\DI\IdentityExtension
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: Notejam\*Module\Presenters\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+doctrine:
+	driver: pdo_sqlite
+	path: %appDir%/../notejam.db
+	metadata:
+		Notejam: %srcDir%/Notejam
+
+
+events:
+	debugger: off
+
+
+includes:
+	- services.neon
