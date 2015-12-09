@@ -6,7 +6,7 @@ Notejam application implemented using `Spring <http://projects.spring.io/spring-
 
 Spring version: 4.2.3
 
-The full stack would be:
+The full stack is:
 
 - `Spring Boot <http://projects.spring.io/spring-boot/>`_ (Spring configuration)
 - `Thymeleaf <http://www.thymeleaf.org/>`_ (View)
@@ -15,6 +15,8 @@ The full stack would be:
 - `Spring Data <http://projects.spring.io/spring-data/>`_ (Persistence abstraction)
 - `JPA <http://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html>`_ (Persistence API)
 - `Hibernate <http://hibernate.org/orm/>`_ (JPA implementation)
+
+The application is maintained by `@malkusch <https://github.com/malkusch>`_.
 
 ==========================
 Installation and launching
