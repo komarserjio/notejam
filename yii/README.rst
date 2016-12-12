@@ -39,7 +39,7 @@ Install dependencies
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/yii/notejam
-    $ php composer.phar install
+    $ php composer.phar update
 
 Create database schema
 
