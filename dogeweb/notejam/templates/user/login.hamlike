@@ -1,0 +1,28 @@
+-extends "base.hamlike"
+
+-block title
+  Sign In
+
+-block content
+  %form.user-form action="{{ url_for('.user') }}" method="POST"
+    %div.input-group
+      %label for="user" -> E-mail
+      %input.form-control type="text" name="user"
+    %div.specific-form.sign-in.sign-up.collapse.in
+      %div.input-group
+        %label for="pwd" -> Password <span class="hidden on-remind">(check your email)</span>
+        %input.form-control type="password" name="pwd"
+      %div.specific-form.sign-up.collapse
+        %div.input-group
+          %label for="pwd" -> Password confirmation
+          %input.form-control type="password" name="pwd_2"
+    %div.input-group.buttons
+      %button.form-control.btn.btn-primary type="submit" -> Sign in
+
+    %p.text-danger.login-error
+
+    %hr
+    %div.form-selectors
+      %a.sign-in data-method="POST"   -> Sign in
+      %a.sign-up data-method="PUT"    -> Sign up
+      %a.remind  data-method="FORGOT" -> Forgot password

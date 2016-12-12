@@ -1,0 +1,20 @@
+-extends "base.hamlike"
+
+-block title
+  Account Settings
+
+-block content
+  %form.user-form action="{{ url_for('.user') }}" method="POST"
+    %div.input-group
+      %label for="pwd" -> Current password
+      %input.form-control type="password" name="pwd"
+    %div.input-group
+      %label for="new_pwd" -> New password
+      %input.form-control type="password" name="new_pwd" placeholder="Leave empty if you don't want to change it"
+    %div.input-group
+      %label for="new_pwd_2" -> Password confirmation
+      %input.form-control type="password" name="new_pwd_2"
+    %div.input-group.buttons
+      %button.form-control.btn.btn-primary type="submit" -> Save
+
+    %p.text-danger.login-error

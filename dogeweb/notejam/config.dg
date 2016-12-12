@@ -1,0 +1,19 @@
+import '/uuid'
+import '/os/path'
+
+
+STATIC_DIR = path.join (path.dirname __file__) 'static'
+MARKUP_DIR = path.join (path.dirname __file__) 'templates'
+DATABASE   = 'sqlite:///' + path.join (path.dirname __file__) path.pardir '_.db'
+
+# This key is used to ensure that nobody can fake being logged in without
+# entering the password. Note that, by default, it's generated at runtime;
+# everyone will be logged out if the application is restarted as a consequence.
+# If you wish to preserve sessions between restarts, set this to a constant,
+# but do not show it to anyone!
+SECRET_KEY = str uuid.uuid4!
+
+# Credentials used to send freshly generated passwords to amnesiac users.
+SMTP_SERVER   = 'smtp.gmail.com', 587
+SMTP_LOGIN    = 'you@gmail.com'
+SMTP_PASSWORD = 'yourpassword'

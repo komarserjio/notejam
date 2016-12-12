@@ -1,0 +1,25 @@
+-extends "base.hamlike"
+
+-block title
+  =note.name|escape
+
+-block content
+  %div.note-ts -> Last edited: <span class="date">{{ note.time }}</span>
+  %div.note -> =note.html|safe
+
+  %div.form-toggles
+    %a.edit-note -> Edit
+    %a.text-danger href="{{ url_for('.note_delete', note_id=note.id) }}" -> Delete
+
+  %form.collapse.edit-note-form action="{{ url_for('.note', note_id=note.id) }}" method="POST"
+    %div.input-group
+      %label for="name" -> Name
+      %input.form-control type="text" name="name" value="{{ note.name }}"
+    %div.input-group
+      %label for="pad" -> Pad
+      %input.form-control type="text" name="pad" placeholder="—" value="{{ note.pad.name }}"
+    %div.input-group
+      %label for="text" -> Text
+      %textarea.form-control cols="40" rows="5" name="text" placeholder="**Markdown**" -> =note.text|escape
+    %div.input-group
+      %button.form-control.btn.btn-primary type="submit" -> Save

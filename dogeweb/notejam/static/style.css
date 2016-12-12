@@ -1,0 +1,126 @@
+a:not(.fa):not(.glyphicon) {
+  cursor: pointer;
+}
+
+body {
+  background: #eee;
+}
+
+footer {
+  margin-top: 20px;
+}
+
+.main {
+  background: white;
+  padding: 20px;
+  /* There's a lot of empty space at the top, this should balance things out. */
+  padding-bottom: 50px;
+}
+
+.logo {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.logo-big {
+  font-size: 42px;
+  font-weight: bold;
+  color: inherit;
+}
+
+.logo-normal {
+  font-weight: normal;
+}
+
+.user-info {
+  text-align: right;
+}
+
+.user-info > *, .form-selectors > *, .form-toggles > * {
+  margin:  5px 0;
+  padding: 0 5px;
+  display: inline-block;
+}
+
+.form-toggles > *:first-child {
+  padding-left: 0;
+}
+
+.user-info      > *:not(:first-child),
+.form-selectors > *:not(:first-child),
+.form-toggles   > *:not(:first-child) {
+  border-left: 1px solid #ccc;
+}
+
+.pads {
+  list-style-type: none;
+  padding: 3px;
+}
+
+.pads > li {
+  padding: 3px;
+}
+
+.note-ts {
+  color: #777;
+}
+
+.note {
+  margin: 15px 0;
+}
+
+.note-list-empty + .form-toggles {
+  font-size: 24px;
+  margin-top: 30px;
+}
+
+.input-group {
+  margin-top: 10px;
+}
+
+.user-form {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.user-form .input-group:not(.buttons) {
+  width: 100%;
+}
+
+.login-error {
+  margin-top: 15px;
+}
+
+.content {
+  /* Vertically align main content and the list of pads. */
+  margin-top: 10px;
+}
+
+.loading {
+  opacity: 0.5;
+  position: relative;
+}
+
+.loading .loading-cover {
+  position: absolute;
+  z-index: 10001;
+  top:  0;
+  left: 0;
+  width:  100%;
+  height: 100%;
+  text-align: center;
+}
+
+/* http://css-tricks.com/centering-in-the-unknown/ */
+.loading .loading-cover:before {
+    vertical-align: middle;
+    content:        '';
+    display:        inline-block;
+    height:         100%;
+    margin-right:   -0.25em;
+}
+
+.loading .loading-cover > * {
+    vertical-align: middle;
+    display:        inline-block;
+}
