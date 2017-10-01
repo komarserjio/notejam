@@ -5,8 +5,8 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=5.4.16",
-        "cakephp/cakephp": "~3.1",
+        "php": ">=5.6.0",
+        "cakephp/cakephp": "^3.5",
         "mobiledetect/mobiledetectlib": "2.*",
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "*"
@@ -15,7 +15,7 @@
         "psy/psysh": "@stable",
         "cakephp/debug_kit": "~3.0",
         "cakephp/bake": "~1.0",
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^5.7|^6.0"
     },
     "suggest": {
         "phpunit/phpunit": "Allows automated tests to be run without system-wide install.",
