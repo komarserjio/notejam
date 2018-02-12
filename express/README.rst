@@ -9,7 +9,7 @@ Express version: 4.2
 Middlewares/extentions used:
 
 * `Passport.js <http://passportjs.org/>`_ for authentication
-* `Node ORM 2 <http://dresende.github.io/node-orm2/>`_ for database
+* `Node ORM 2 <https://github.com/dresende/node-orm2>`_ for database
 * `Mocha <http://mochajs.org/>`_ and `Superagent <http://visionmedia.github.io/superagent/>`_ for testing
 * ... and `others <https://github.com/komarserjio/notejam/blob/express/express/notejam/package.json>`_
 
