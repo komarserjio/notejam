@@ -1,0 +1,114 @@
+#
+# User-defined substitutions:
+#   _CLOUDSDK_COMPUTE_ZONE
+#   _CLOUDSDK_CONTAINER_CLUSTER
+#   _GITHUB_USERNAME
+#   _KMS_KEY 
+#   _KMS_KEYRING
+#
+
+steps:
+  # Build the pipeline container image.
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/${PROJECT_ID}/pipeline:${COMMIT_SHA}'
+      - '.'
+
+  # Retrieve and decrypt the GitHub Hub configuration. 
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        gsutil cp gs://${PROJECT_ID}-pipeline-configs/hub.enc hub.enc
+
+        gcloud kms decrypt \
+          --ciphertext-file hub.enc \
+          --plaintext-file /config/hub \
+          --location global \
+          --keyring ${_KMS_KEYRING} \
+          --key ${_KMS_KEY}
+    volumes:
+      - name: 'config'
+        path: /config
+
+  # Generate a kubeconfig file for the given GKE cluster.
+  - name: 'gcr.io/cloud-builders/kubectl'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=${_CLOUDSDK_COMPUTE_ZONE}'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLOUDSDK_CONTAINER_CLUSTER}'
+      - 'KUBECONFIG=/kube/config'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        CLUSTER=$$(gcloud config get-value container/cluster)
+        PROJECT=$$(gcloud config get-value core/project)
+        ZONE=$$(gcloud config get-value compute/zone)
+      
+        gcloud container clusters get-credentials "$${CLUSTER}" \
+          --project "$${PROJECT}" \
+          --zone "$${ZONE}"
+    volumes:
+      - name: 'kube'
+        path: /kube
+
+  # Clone the pipeline-infrastructure-staging repo.
+  - name: 'gcr.io/hightowerlabs/hub'
+    env:
+      - 'HUB_CONFIG=/config/hub'
+      - 'KUBECONFIG=/kube/config'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        ACTIVE_ACCOUNT=$(gcloud auth list --filter=status:ACTIVE --format="value(account)")
+
+        hub config --global credential.https://github.com.helper /usr/local/bin/hub-credential-helper 
+        hub config --global hub.protocol https
+        hub config --global user.email "$${ACTIVE_ACCOUNT}"
+        hub config --global user.name "Google Container Builder"
+
+        hub clone "${_GITHUB_USERNAME}/pipeline-infrastructure-staging"
+
+        cd pipeline-infrastructure-staging
+
+        cat <<EOF > patch.yaml
+        spec:
+          template:
+            spec:
+              containers:
+                - name: pipeline
+                  image: gcr.io/${PROJECT_ID}/pipeline:${COMMIT_SHA}
+        EOF
+
+        kubectl patch --local -o yaml \
+          -f kubernetes/deployments/pipeline.yaml \
+          -p "$(cat patch.yaml)" \
+          > pipeline.yaml
+
+        mv pipeline.yaml kubernetes/deployments/pipeline.yaml
+
+        hub add kubernetes/deployments/pipeline.yaml
+              
+        hub commit -F- <<EOF
+        Update the pipeline-application
+
+        This commit updates the pipeline deployment container image to:
+
+            gcr.io/${PROJECT_ID}/pipeline:${COMMIT_SHA}.
+
+        Build ID: ${BUILD_ID}
+        EOF
+
+        hub push origin master
+    volumes:
+      - name: 'config'
+        path: /config
+      - name: 'kube'
+        path: /kube
+
+images:
+  - 'gcr.io/${PROJECT_ID}/pipeline:${COMMIT_SHA}'
