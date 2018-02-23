@@ -7,5 +7,6 @@ COPY . /app
 WORKDIR /app
 RUN pip install --upgrade pip wheel
 RUN pip install -r requirements.txt
+EXPOSE 80
 ENTRYPOINT ["python"]
 CMD ["runserver.py"]
