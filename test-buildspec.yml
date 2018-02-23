@@ -1,0 +1,9 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Test started on `date`
+      - pip install --upgrade pip wheel
+      - pip install -r flask/requirements.txt
+      - python flask/tests.py
