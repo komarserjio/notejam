@@ -1,0 +1,8 @@
+language:php
+php:
+ - 5.5
+before_script:
+ - cd laravel/notejam
+ - php composer.phar install --no-interactions
+script:
+- vendor/bin/phpunit
