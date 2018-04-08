@@ -1,7 +1,0 @@
-<form class="pad" method="POST">
-  {% csrf_token %}
-  <label for="name">Name</label>
-  {{ form.name }}
-  {{ form.name.errors }}
-  <input type="submit" value="Save" />
-</form>

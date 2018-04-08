@@ -1,9 +1,0 @@
-<% content_for :page_title do %>New pad<% end %>
-
-<%= form_for :pad do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= field_errors :name, @pad %>
-
-  <%= f.submit "Create" %>
-<% end %>

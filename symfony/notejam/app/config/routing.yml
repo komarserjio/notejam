@@ -1,7 +1,0 @@
-app:
-    resource: "@AppBundle/Controller"
-    type: annotation
-    prefix: /
-
-logout:
-    path: /signout
