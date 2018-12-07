@@ -1,0 +1,7 @@
+# .dockerignore file for Notejam
+.idea
+.git
+.gitignore
+temp?
+temp/
+tmp

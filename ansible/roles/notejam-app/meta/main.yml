@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Graham Trummell
+  description: Builds a Node.js/Express implementation of Notejam by Sergey Komar
+  company: DevOps Ronin
+  license: BSD
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - development
+
+dependencies:
+  - { role: geerlingguy.nodejs }

@@ -1,0 +1,18 @@
+extends ../user
+
+block title
+  | Account settings
+
+block content
+  form.offset-by-six.sign-in(method='POST')
+      label(for='password') Current password
+      input#email(type='password', name='password')
+      +error('password', errors)
+      label(for='new_password') New Password
+      input#password(type='password', name='new_password')
+      +error('new_password', errors)
+      label(for='confirm_new_password') Confirm New Password
+      input#confirm_password(type='password', name='confirm_new_password')
+      +error('confirm_new_password', errors)
+      input(type='submit', value='Change password')
+

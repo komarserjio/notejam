@@ -1,0 +1,68 @@
+---
+# common tasks file for notejam-mysql
+
+- name: Create the node group
+  group:
+    name: "{{ node_group }}"
+    state: "present"
+  tags:
+    - system
+
+- name: Create the node user
+  user:
+    name: "{{ node_user }}"
+    create_home: "yes"
+    generate_ssh_key: "no"
+    group: "{{ node_group }}"
+    home: "{{ node_home }}"
+    shell: "/bin/bash"
+    state: "present"
+  tags:
+    - system
+
+- name: Create app and temp directories
+  file:
+    group: "{{ item.group }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    path: "{{ item.path }}"
+    state: "directory"
+  with_items:
+    - { group: "root", mode: "0777", owner: "root", path: "/tmp" }
+    - { group: "{{ node_group }}", mode: "0755", owner: "{{ node_user }}", path: "{{ node_home }}/app" }
+  tags:
+    - system
+    - app
+
+# By default, NoteJam-MySQL must be provided on the Ansible Workstation's local filesystem as a tar.gzip package
+- name: Extract the NoteJam-MySQL package.
+  unarchive:
+    dest: "{{ node_home }}/app"
+    extra_opts: [--strip-components=1]
+    group: "{{ node_group }}"
+    mode: 0755
+    owner: "{{ node_user }}"
+    remote_src: "no"
+    src: "{{ notejam_pkg_src }}"
+  tags:
+    - app
+
+- name: Install Node modules in production mode
+  npm:
+    executable: "/usr/bin/npm"
+    path: "{{ node_home }}/app/notejam"
+    production: "yes"
+    state: "present"
+  when: node_env == "production"
+  tags:
+    - app
+
+- name: Install Node modules in non-production mode
+  npm:
+    executable: "/usr/bin/npm"
+    path: "{{ node_home }}/app/notejam"
+    production: "yes"
+    state: "present"
+  when: node_env != "production"
+  tags:
+    - app

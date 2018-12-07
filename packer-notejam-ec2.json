@@ -1,0 +1,39 @@
+{
+
+  "variables": {
+    "notejam_version": "{{env `NOTEJAM_VERSION`}}"
+  },
+
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "ami_name": "notejam-mysql-{{user `notejam_version`}}",
+      "instance_type": "t1.micro",
+      "region": "us-west-2",
+      "source_ami_filter": {
+        "filters": {
+          "name": "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*",
+          "root-device-type": "ebs",
+          "virtualization-type": "hvm"
+        },
+        "most_recent": true,
+        "owners": [
+          "099720109477"
+        ]
+      },
+      "ssh_username": "ubuntu"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "ansible",
+      "extra_arguments": [ "-e", "ansible_python_interpreter=/usr/bin/python3" ],
+      "groups": [
+        "notejam-app"
+      ],
+      "playbook_file": "./ansible/notejam-app.yml",
+      "user": "ubuntu"
+    }
+  ]
+}

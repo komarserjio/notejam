@@ -1,0 +1,18 @@
+extends ../user
+
+block title
+  | Sign In
+
+block content
+  form.offset-by-six.sign-in(method='POST')
+      label(for='email') Email
+      input#email(type='text', name='email')
+      +error('email', errors)
+      label(for='password') Password
+      input#password(type='password', name='password')
+      +error('password', errors)
+      input(type='submit', value='Sign In')
+      |  or <a href="/signup">Sign Up</a>
+      hr
+      p
+        a.small-red(href='/forgot-password') Forgot password?

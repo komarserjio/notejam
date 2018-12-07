@@ -1,0 +1,13 @@
+mixin error(field, errors)
+    if errors && (field in errors)
+        ul.errors
+            li= errors[field]
+
+// render flash messages
+mixin render_flash_messages(messages)
+    if messages.success.length || messages.error.length
+        div.alert-area
+            each message in messages.success
+                div.alert.alert-success= message
+            each message in messages.error
+                div.alert.alert-error= message

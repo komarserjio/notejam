@@ -1,0 +1,24 @@
+---
+# defaults file for notejam-app
+
+# Configure the NoteJam image.  Static values can be inserted for fail-safe
+# operations.  Any values here will be overwritten when used with the
+# Terraform stacks.
+mysql_host: "localhost"
+mysql_root_password: "SomethingSecure123!"
+mysql_tcp_port: 3306
+node_env: "development"
+node_group: "node"
+node_home: "/home/{{ node_user }}"
+node_user: "node"
+notejam_host: "localhost"
+notejam_port: 3000
+notejam_pkg_src: "notejam-mysql.tgz"
+
+# Configure AWS services on this role
+install_cloudwatch_agent: "true"
+cloudwatch_agent_src: "https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb"
+aws_region: "us-west-2"
+aws_sdk_users:
+  - { user: "root", group: "root", path: "/root" }
+  - { user: "{{ node_user }}", group: "{{ node_group }}", path: "{{ node_home }}" }

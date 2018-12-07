@@ -1,0 +1,27 @@
+extends ../main
+
+block title
+  | #{title}
+
+block content
+  if notes.length
+    table.notes
+      tr
+        th.note
+          | Note
+          a.sort_arrow(href='/pads/#{pad.id}/?order=-name')  ↑
+          a.sort_arrow(href='/pads/#{pad.id}/?order=name') ↓
+        th.date
+          | Last modified
+          a.sort_arrow(href='/pads/#{pad.id}/?order=-updated_at')  ↑
+          a.sort_arrow(href='/pads/#{pad.id}/?order=updated_at') ↓
+      each note in notes
+        tr
+          td
+            a(href='/notes/#{note.id}') #{note.name}
+          td.hidden-text.date #{note.updatedAt()}
+  else
+    p.empty Create your first note in the pad
+  a.button(href='/notes/create?pad=#{pad.id}') New note
+  | &nbsp;
+  a(href="/pads/#{pad.id}/edit") Pad settings

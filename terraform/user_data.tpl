@@ -1,0 +1,6 @@
+MYSQL_HOST="${mysql_host}"
+MYSQL_ROOT_PASSWORD="${mysql_root_password}"
+MYSQL_TCP_PORT="${mysql_tcp_port}"
+NODE_ENV="${node_env}"
+NOTEJAM_HOST="${notejam_host}"
+NOTEJAM_PORT="${notejam_port}"

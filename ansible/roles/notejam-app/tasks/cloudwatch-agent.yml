@@ -1,0 +1,65 @@
+---
+# cloudwatch-agent tasks file for notejam-mysql
+
+- name: Create the Amazon SDK configuration folder for each user
+  file:
+    path: "{{ item.path }}/.aws"
+    follow: "yes"
+    group: "{{ item.user }}"
+    mode: 0755
+    owner: "{{ item.group }}"
+    state: "directory"
+  with_items: "{{ aws_sdk_users }}"
+  tags:
+    - monitoring
+
+- name: Configure the Amazon SDK
+  template:
+    dest: "{{ item.path }}/.aws/config"
+    follow: "yes"
+    group: "{{ item.user }}"
+    mode: 0600
+    owner: "{{ item.group }}"
+    src: "aws-config.j2"
+  with_items: "{{ aws_sdk_users }}"
+  tags:
+    - monitoring
+
+- name: Set up credentials for the Amazon SDK
+  copy:
+    dest: "{{ item.path }}/.aws/credentials"
+    follow: "yes"
+    group: "{{ item.user }}"
+    mode: 0600
+    owner: "{{ item.user }}"
+    src: "credentials"
+  with_items: "{{ aws_sdk_users }}"
+  tags:
+    - monitoring
+
+- name: Retrieve and install the Amazon Cloudwatch Agent for Ubuntu.
+  apt:
+    deb: "{{ cloudwatch_agent_src }}"
+    state: "present"
+  when: ansible_os_family == "Debian"
+  tags:
+    - monitoring
+
+- name: Configure the Amazon Cloudwatch Agent
+  copy:
+    dest: "/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json"
+    follow: "yes"
+    group: "root"
+    mode: 0644
+    owner: "root"
+    src: "cloudwatch-agent.json"
+  tags:
+    - monitoring
+
+- name: Enable the the Cloudwatch Agent service
+  service:
+    enabled: "yes"
+    name: "amazon-cloudwatch-agent.service"
+  tags:
+    - monitoring
+    - notest

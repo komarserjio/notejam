@@ -1,4 +1,15 @@
-*.py[cod]
+#IDE
+.idea
+tmp
+temp
+
+# Ansible
+*.retry
+
+# Terraform
+.terraform/
+*.tfstate
+*.backup
 
 # C extensions
 *.so
@@ -16,6 +27,8 @@ develop-eggs
 .installed.cfg
 lib
 lib64
+.tgz
+.tar.gz
 
 # Installer logs
 pip-log.txt

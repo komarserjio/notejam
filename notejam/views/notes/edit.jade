@@ -1,0 +1,20 @@
+extends ../main
+
+block title
+  | #{note.name}
+
+block content
+  form.note(method='POST')
+    label(for='name') Name
+    input#name(type='text', name='name', value='#{note.name}')
+    +error('name', errors)
+    label(for='text') Text
+    textarea(name='text') #{note.text}
+    +error('text', errors)
+    label(for='pad_id') Pad
+    select(name='pad_id')
+      option ----------
+      each pad in req.user.pads
+        option(value=pad.id, selected=pad.id == note.pad_id) #{pad.name}
+    input(type='submit', value='Save')
+

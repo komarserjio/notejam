@@ -1,0 +1,60 @@
+---
+# debian tasks file for notejam-mysql
+
+- name: Install Apt dependencies
+  apt:
+    name: "rsyslog"
+    state: "present"
+  tags:
+    - logging
+
+- name: Create NoteJam config directory
+  file:
+    group: "root"
+    mode: "0644"
+    owner: "root"
+    path: "/etc/notejam"
+    state: "directory"
+  tags:
+    - app
+
+- name: Write out an environment file for NoteJam using env vars
+  template:
+    dest: "/etc/notejam/notejam-mysql.env"
+    follow: "yes"
+    group: "root"
+    mode: 0644
+    owner: "root"
+    src: notejam-mysql.env.j2
+  tags:
+    - app
+
+- name: Write out a systemd service file for the NoteJam service
+  template:
+    dest: "/etc/systemd/system/notejam-mysql.service"
+    follow: "yes"
+    group: "root"
+    mode: 0644
+    owner: "root"
+    src: notejam-mysql.service.j2
+  tags:
+    - app
+
+- name: Write out an rsyslog configuration file for NoteJam logs
+  template:
+    dest: "/etc/rsyslog.d/notejam-mysql.conf"
+    follow: "yes"
+    group: "root"
+    mode: 0644
+    owner: "root"
+    src: notejam-mysql.rsyslog.conf.j2
+  tags:
+    - logging
+
+- name: Enable the the NoteJam service
+  service:
+    enabled: "yes"
+    name: "notejam-mysql.service"
+  tags:
+    - system
+    - notest

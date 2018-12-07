@@ -1,0 +1,7 @@
+---
+- name: Local execution for use with Docker
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  roles:
+    - notejam-app

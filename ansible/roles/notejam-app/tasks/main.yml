@@ -1,0 +1,13 @@
+---
+# main tasks file for notejam-app
+
+- name: Perform common installation tasks for all platforms
+  include_tasks: common.yml
+
+- name: Perform Debian/Ubuntu installation tasks
+  include_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Install Cloudwatch Agent
+  include_tasks: cloudwatch-agent.yml
+  when: install_cloudwatch_agent == "true"

@@ -1,0 +1,18 @@
+[Unit]
+Description=NoteJam-MySQL - Platform experimentation framework
+Documentation=https://github.com/komarserjio/notejam
+After=network.target
+
+[Service]
+Type=simple
+User={{ node_user }}
+EnvironmentFile=/etc/notejam/notejam-mysql.conf
+Environment=DEBUG=*
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=notejam
+ExecStart={{ node_home }}/app/notejam/bin/www
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
