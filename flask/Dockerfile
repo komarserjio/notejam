@@ -10,7 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && \
 
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt && pip install mysql-python
+RUN pip install -r requirements.txt
 
 COPY notejam/ notejam/
 COPY db.py db.py
