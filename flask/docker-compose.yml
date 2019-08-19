@@ -1,0 +1,37 @@
+version: '3.7'
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=notejam
+      - MYSQL_USER=nj
+      - MYSQL_PASSWORD=password
+  app:
+    depends_on:
+      - migration
+    build:
+      context: .
+      target: release
+    ports:
+      - "5000:5000"
+    restart: always
+    environment:
+      - MYSQL_HOST="db:3306"
+      - MYSQL_DATABASE=notejam
+      - MYSQL_USER=nj
+      - MYSQL_PASSWORD=password
+  migration:
+    depends_on:
+      - db
+    build:
+      context: .
+      target: db-migration
+    restart: always
+    environment:
+      - MYSQL_HOST="db:3306"
+      - MYSQL_DATABASE=notejam
+      - MYSQL_USER=nj
+      - MYSQL_PASSWORD=password
