@@ -1,3 +1,5 @@
+.envrc
+
 *.py[cod]
 
 # C extensions
