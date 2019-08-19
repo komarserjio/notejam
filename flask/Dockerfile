@@ -1,3 +1,6 @@
+################################################################################
+# base
+################################################################################
 FROM python:2.7.16-stretch as base
 
 WORKDIR /app
@@ -12,17 +15,18 @@ RUN pip install -r requirements.txt && pip install mysql-python
 COPY notejam/ notejam/
 COPY db.py db.py
 COPY tests.py tests.py
-COPY runserver.py runservery.py
+COPY runserver.py runserver.py
 
-# Run tests
+################################################################################
+# tests
+################################################################################
 RUN python tests.py
 
-FROM base as db-migration
-
-RUN python db.py
-
+################################################################################
+# release
+################################################################################
 FROM base as release
 
 EXPOSE 5000
 
-ENTRYPOINT ["python", "runserver.py"]
+ENTRYPOINT ["python"]

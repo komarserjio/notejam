@@ -4,22 +4,10 @@ services:
   db:
     image: mysql:5.7
     restart: always
+    ports:
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=notejam
-      - MYSQL_USER=nj
-      - MYSQL_PASSWORD=password
-  app:
-    depends_on:
-      - migration
-    build:
-      context: .
-      target: release
-    ports:
-      - "5000:5000"
-    restart: always
-    environment:
-      - MYSQL_HOST="db:3306"
       - MYSQL_DATABASE=notejam
       - MYSQL_USER=nj
       - MYSQL_PASSWORD=password
@@ -28,10 +16,23 @@ services:
       - db
     build:
       context: .
-      target: db-migration
+    command: ["db.py"]
+    environment:
+      - MYSQL_HOST=db:3306
+      - MYSQL_DATABASE=notejam
+      - MYSQL_USER=nj
+      - MYSQL_PASSWORD=password
+  app:
+    depends_on:
+      - migration
+    command: ["runserver.py", "--host=0.0.0.0"]
+    build:
+      context: .
+    ports:
+      - "5000:5000"
     restart: always
     environment:
-      - MYSQL_HOST="db:3306"
+      - MYSQL_HOST=db:3306
       - MYSQL_DATABASE=notejam
       - MYSQL_USER=nj
       - MYSQL_PASSWORD=password
