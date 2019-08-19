@@ -19,16 +19,21 @@ check-env: ## Checks to see if all env vars are present
 
 .PHONY: build
 build: ## Builds the docker image
-	@docker build -t $(ECR_IMAGE):$(DOCKER_TAG) .
+	@docker build -t $(ECR_IMAGE):base .
 
 .PHONY: push
 push: ## Pushes image to your ECR repo
+	@docker tag $(ECR_IMAGE):base $(ECR_IMAGE):$(DOCKER_TAG)
 	@docker push $(ECR_IMAGE):$(DOCKER_TAG)
 
 .PHONY: run-local
 run-local:
 	@docker-compose build
 	@docker-compose up
+
+.PHONY: tests
+tests:
+	@docker run --rm -it $(ECR_IMAGE):$(DOCKER_TAG) tests.py
 
 .PHONY: clean
 clean:

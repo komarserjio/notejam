@@ -10,22 +10,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && \
 
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt && pip install mysql-python
 
 COPY notejam/ notejam/
 COPY db.py db.py
 COPY tests.py tests.py
 COPY runserver.py runserver.py
-
-################################################################################
-# tests
-################################################################################
-RUN python tests.py
-
-################################################################################
-# release
-################################################################################
-FROM base as release
 
 EXPOSE 5000
 
