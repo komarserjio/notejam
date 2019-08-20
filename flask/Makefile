@@ -23,8 +23,10 @@ build: ## Builds the docker image
 
 .PHONY: push
 push: ## Pushes image to your ECR repo
+	@docker tag $(ECR_IMAGE):base $(ECR_IMAGE):latest
 	@docker tag $(ECR_IMAGE):base $(ECR_IMAGE):$(DOCKER_TAG)
 	@docker push $(ECR_IMAGE):$(DOCKER_TAG)
+	@docker push $(ECR_IMAGE):latest
 
 .PHONY: run-local
 run-local:
