@@ -18,26 +18,33 @@ check-env: ## Checks to see if all env vars are present
 	fi
 
 .PHONY: build
-build: ## Builds the docker image
+build: check-env ## Builds the docker image
 	@docker build -t $(ECR_IMAGE):base .
 
+.PHONY: tests
+tests: check-env ## Runs unit tests
+	@docker run --rm -it $(ECR_IMAGE):$(DOCKER_TAG) python tests.py
+
+
 .PHONY: push
-push: ## Pushes image to your ECR repo
+push: check-env ## Pushes image to your ECR repo
 	@docker tag $(ECR_IMAGE):base $(ECR_IMAGE):latest
 	@docker tag $(ECR_IMAGE):base $(ECR_IMAGE):$(DOCKER_TAG)
 	@docker push $(ECR_IMAGE):$(DOCKER_TAG)
 	@docker push $(ECR_IMAGE):latest
 
+.PHONY: deploy
+deploy: check-env ## Runs blue-green deployment
+	@ecs deploy toptal-demo $(ECR_IMAGE) \
+		-i notejam $(ECR_IMAGE):$(DOCKER_TAG) \
+		--no-deregister
+
 .PHONY: run-local
-run-local:
+run-local: ## use docker-compose to run local env
 	@docker-compose build
 	@docker-compose up
 
-.PHONY: tests
-tests:
-	@docker run --rm -it $(ECR_IMAGE):$(DOCKER_TAG) tests.py
-
 .PHONY: clean
-clean:
+clean: ## Cleans up images
 	@docker images rm $(ECR_IMAGE):base 2>/dev/null || true
 	@docker-compose down --rmi all 2>/dev/null || true

@@ -1,7 +1,4 @@
-################################################################################
-# base
-################################################################################
-FROM python:2.7.16-stretch as base
+FROM python:2.7.16-stretch
 
 WORKDIR /app
 
@@ -19,4 +16,4 @@ COPY runserver.py runserver.py
 
 EXPOSE 5000
 
-ENTRYPOINT ["python"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "runserver:app"]

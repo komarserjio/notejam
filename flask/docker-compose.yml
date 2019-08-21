@@ -16,7 +16,7 @@ services:
       - db
     build:
       context: .
-    command: ["db.py"]
+    command: ["python", "db.py"]
     environment:
       - MYSQL_HOST=db:3306
       - MYSQL_DATABASE=notejam
@@ -25,7 +25,7 @@ services:
   app:
     depends_on:
       - migration
-    command: ["runserver.py", "--host=0.0.0.0"]
+    command: ["python", "runserver.py", "--host=0.0.0.0"]
     build:
       context: .
     ports:
