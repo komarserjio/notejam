@@ -1,0 +1,23 @@
+version: 0.2
+
+env:
+  variables:
+     AWS_DEFAULT_REGION: "us-east-1"
+  git-credential-helper: yes
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.7
+    commands:
+      - pip3 install ecs-deploy
+  build:
+    commands:
+      - eval "$(aws ecr get-login --region us-east-1 --no-include-email)"
+      - export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d ':' -f5)
+      - make build
+      - make tests
+      - make push DOCKER_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
+  post_build:
+    commands:
+      - make deploy DOCKER_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
