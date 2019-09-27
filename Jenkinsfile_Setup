@@ -1,0 +1,28 @@
+/**
+* SUBSCRIPTION MANAGER Jenkinsfile
+* MAINTAINER: Luis Chacón <luisgreen at gmail dot com>
+*/
+def APP_VERSION
+def IMAGE_TAG
+def TEST_BASE_URL
+def GCP_WORKLOAD_NAME
+
+pipeline {
+    agent any
+
+    options {
+        timestamps()
+    }
+
+    environment {
+        GCP_PROJECT_NAME    = "${env.GCP_PROJECT_NAME}"
+    }
+    stages {
+        stage('Jenkins docker / kubectl setup') {
+            steps {
+                    sh 'yes Y | gcloud auth configure-docker'
+                    sh "gcloud beta container clusters get-credentials interview-toptal-cluster --region us-central1 --project ${GCP_PROJECT_NAME}"
+            }
+        }
+    }
+}

@@ -18,13 +18,13 @@
 
 	<!-- CSS
   ================================================== -->
-    {{ HTML::style('http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css') }}
-    {{ HTML::style('http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css') }}
-    {{ HTML::style('http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css') }}
+    {{ HTML::style('https://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css') }}
+    {{ HTML::style('https://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css') }}
+    {{ HTML::style('https://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css') }}
     {{ HTML::style('css/style.css') }}
 
 	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 </head>
 <body>
