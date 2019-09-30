@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('page_title')
-Sign In
+Sign In - By Luis
 @stop
 
 @section('content')
