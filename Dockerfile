@@ -30,8 +30,10 @@ WORKDIR /var/www/
 
 COPY laravel/notejam .
 COPY migrate.sh .
+COPY run_test.sh .
 
 RUN chmod +x migrate.sh
+RUN chmod +x run_test.sh
 
 RUN composer install
 RUN chown -R nginx:nginx /var/www/
