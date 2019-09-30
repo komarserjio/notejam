@@ -67,7 +67,7 @@ Run tests
 
 Run functional and unit tests:
 
-.. code-block:: bash
+.. code-block:: bash 
 
     $ cd YOUR_PROJECT_DIR/laravel/notejam/
     $ php vendor/bin/phpunit
