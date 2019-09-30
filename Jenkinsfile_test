@@ -1,0 +1,57 @@
+/**
+* SUBSCRIPTION MANAGER Jenkinsfile
+* MAINTAINER: Luis Chacón <luisgreen at gmail dot com>
+*/
+def APP_VERSION
+def IMAGE_TAG
+def TEST_BASE_URL
+def GCP_WORKLOAD_NAME
+
+pipeline {
+    agent any
+
+    options {
+        timestamps()
+    }
+
+    environment {
+        GCP_PROJECT_NAME    = "${env.GCP_PROJECT_NAME}"
+        K8S_WORKLOAD        = "notejam"
+        APP_NAME            = "notejam"
+    }
+    stages {
+        stage('Checkout Source Control') {
+            steps {
+                script {
+                        IMAGE_TAG="gcr.io/${GCP_PROJECT_NAME}/${APP_NAME}:latest"
+                    }
+                }
+        }
+        stage('Building Applications on base Image') {
+            steps {
+                    sh "docker build -t ${IMAGE_TAG} ."
+                }
+        }
+        stage('Running Tests') {
+            stages {
+                stage('Running Migrations') {
+                    steps {
+                        sh "docker run --network=host --entrypoint /var/www/run_test.sh ${IMAGE_TAG} "
+                    }
+                }
+            }
+        }
+    }
+    post {
+        success {
+            script {
+                echo "Success"
+            }
+        }
+        cleanup {
+            script {
+                sh "docker system prune -a --force"
+            }
+        }
+    }
+}
