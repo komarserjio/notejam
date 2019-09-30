@@ -61,7 +61,7 @@ Start laravel web server:
 
 Go to http://localhost:8000/ in your browser.
 
----------
+--------- 
 Run tests
 ---------
 
