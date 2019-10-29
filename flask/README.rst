@@ -48,6 +48,8 @@ Create database schema:
     $ cd YOUR_PROJECT_DIR/flask/
     $ python db.py
 
+Although you shouldn't need to do it since the application will do that in a idempotent way.
+
 ------
 Launch
 ------
@@ -59,7 +61,25 @@ Start flask web server:
     $ cd YOUR_PROJECT_DIR/flask/
     $ python runserver.py
 
-Go to http://127.0.0.1:5000/ in your browser
+Go to http://127.0.0.1:5000/ in your browser.
+
+If you do like that, all data added will be stored in a in-memory SQLite database.
+If you want to keep the state, export the environment variable ENVIRONMENT:
+
+.. code-block:: bash
+
+    $ export ENVIRONMENT=development
+    $ python runserver.py
+
+Or in a single line:
+
+.. code-block:: bash
+
+    $ ENVIRONMENT=development python runserver.py
+
+For production (running in a "real" database), use the value "production" and be sure to also
+export the environment variable SQLALCHEMY_DATABASE_URI, using as a value an appropriate
+connection string for Flask-SQLAlchemy.
 
 ---------
 Run tests
@@ -77,7 +97,7 @@ Run functional and unit tests:
 Contribution
 ============
 
-Do you have python/flask experience? Help the app to follow python and flask best practices.
+Do you have python/flask experience? Help the app to follow Python and Flask best practices.
 
 Please send your pull requests in the ``master`` branch.
 Always prepend your commits with framework name:
