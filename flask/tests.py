@@ -6,7 +6,7 @@ import urllib
 from contextlib import contextmanager
 
 from flask import current_app, url_for
-from flask.ext.testing import TestCase
+from flask_testing import TestCase
 from notejam import create_app as create_notejam_app, db
 from notejam.config import TestingConfig
 from notejam.models import User, Pad, Note
@@ -25,8 +25,8 @@ class NotejamBaseTestCase(TestCase):
     def create_app(self):
         self.fd, self.db = tempfile.mkstemp()
         test_app = create_notejam_app()
-
         test_app.config.from_object(TestingConfig)
+        test_app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + self.db
         return test_app
 
     def create_user(self, **kwargs):

@@ -2,9 +2,9 @@ from datetime import date
 import md5
 
 from flask import render_template, flash, request, redirect, url_for, abort
-from flask.ext.login import (login_user, login_required, logout_user,
+from flask_login import (login_user, login_required, logout_user,
 current_user)
-from flask.ext.mail import Message
+from flask_mail import Message
 
 from notejam import db, login_manager, mail, notejam
 from notejam.models import User, Note, Pad
@@ -214,7 +214,7 @@ def forgot_password():
 @notejam.context_processor
 def inject_user_pads():
     ''' inject list of user pads in template context '''
-    if not current_user.is_anonymous():
+    if not current_user.is_anonymous:
         return dict(pads=current_user.pads.all())
     return dict(pads=[])
 
