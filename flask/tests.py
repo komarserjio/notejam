@@ -6,7 +6,7 @@ import urllib
 from contextlib import contextmanager
 
 from flask import url_for
-from flask.ext.testing import TestCase
+from flask_testing import TestCase
 
 from notejam import app, db
 from notejam.config import TestingConfig
@@ -30,7 +30,7 @@ class NotejamBaseTestCase(TestCase):
         test_app = app
         test_app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + self.db
         test_app.config['TESTING'] = True
-        test_app.config['CSRF_ENABLED'] = False
+        test_app.config['WTF_CSRF_ENABLED'] = False
         return test_app
 
     def create_user(self, **kwargs):

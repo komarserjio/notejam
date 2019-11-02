@@ -57,7 +57,8 @@ Start flask web server:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/flask/
-    $ python runserver.py
+    $ FLASK_APP=notejam FLASK_ENV=development flask run --no-reload
+
 
 Go to http://127.0.0.1:5000/ in your browser
 

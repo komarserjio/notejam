@@ -1,7 +1,7 @@
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
-from flask.ext.mail import Mail
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_mail import Mail
 
 # @TODO use application factory approach
 app = Flask(__name__)

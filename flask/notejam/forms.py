@@ -1,6 +1,7 @@
-from flask.ext.wtf import (Form, TextField, PasswordField,
+from wtforms.fields import (TextField, PasswordField,
 SelectField, TextAreaField)
-from flask.ext.wtf import Required, Email, EqualTo, ValidationError
+from flask_wtf import FlaskForm as Form
+from wtforms.validators import Required, Email, EqualTo, ValidationError
 
 from notejam.models import User, Pad
 
