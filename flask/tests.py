@@ -19,14 +19,10 @@ class NotejamBaseTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-        os.close(self.fd)
-        os.unlink(self.db)
 
     def create_app(self):
-        self.fd, self.db = tempfile.mkstemp()
         test_app = create_notejam_app()
         test_app.config.from_object(TestingConfig)
-        test_app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + self.db
         return test_app
 
     def create_user(self, **kwargs):
