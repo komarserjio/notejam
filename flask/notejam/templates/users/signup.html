@@ -10,7 +10,7 @@
   {{ render_field(form.email) }}
   {{ render_field(form.password) }}
   {{ render_field(form.repeat_password) }}
-  <input type="submit" value="Sign up"> or <a href="{{ url_for ('signin') }}">Sign in</a>
+  <input type="submit" value="Sign up"> or <a href="{{ url_for ('.signin') }}">Sign in</a>
 </form>
 {% endblock %}
 

@@ -9,8 +9,8 @@
   {{ form.hidden_tag() }}
   {{ render_field(form.email) }}
   {{ render_field(form.password) }}
-  <input type="submit" value="Sign in"> or <a href="{{ url_for ('signup') }}">Sign up</a>
+  <input type="submit" value="Sign in"> or <a href="{{ url_for ('.signup') }}">Sign up</a>
   <hr />
-  <p><a class="small-red" href="{{ url_for('forgot_password') }}">Forgot password?</a></p>
+  <p><a class="small-red" href="{{ url_for('.forgot_password') }}">Forgot password?</a></p>
 </form>
 {% endblock %}

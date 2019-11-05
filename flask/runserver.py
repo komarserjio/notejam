@@ -1,7 +1,6 @@
-from notejam import app
-from notejam.config import DevelopmentConfig
+from notejam import create_app
 
-app.config.from_object(DevelopmentConfig)
+app = create_app()
 
 if __name__ == '__main__':
     app.run()
