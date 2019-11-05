@@ -5,7 +5,7 @@
 
 {% block content %}
   {% include "pads/form.html" %}
-  <a class="red" href="{{ url_for('delete_pad', pad_id=pad.id) }}">Delete pad</a>
+  <a class="red" href="{{ url_for('.delete_pad', pad_id=pad.id) }}">Delete pad</a>
 {% endblock %}
 
 

@@ -8,6 +8,6 @@
   <form method="POST">
     {{ form.hidden_tag() }}
     <input class="red" type="submit" value="Yes, delete I want to delete it">&nbsp;
-    <a href="{{ url_for('view_note', note_id=note.id) }}">Cancel</a>
+    <a href="{{ url_for('.view_note', note_id=note.id) }}">Cancel</a>
   </form>
 {% endblock %}

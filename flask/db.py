@@ -1,4 +1,7 @@
-from notejam import db
+from notejam import create_app, db
+
+app = create_app()
 
 # Create db schema
-db.create_all()
+with app.app_context():
+	db.create_all()
