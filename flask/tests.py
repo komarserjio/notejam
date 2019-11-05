@@ -22,15 +22,10 @@ class NotejamBaseTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-        os.close(self.fd)
-        os.unlink(self.db)
 
     def create_app(self):
         self.fd, self.db = tempfile.mkstemp()
         test_app = app
-        test_app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + self.db
-        test_app.config['TESTING'] = True
-        test_app.config['CSRF_ENABLED'] = False
         return test_app
 
     def create_user(self, **kwargs):
