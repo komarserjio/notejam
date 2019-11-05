@@ -36,15 +36,15 @@
     <div class="sixteen columns">
       <div class="sign-in-out-block">
         {% if current_user.is_authenticated() %}
-          {{ current_user.email}}:&nbsp; <a href="{{ url_for('account_settings') }}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('signout') }}">Sign out</a>
+          {{ current_user.email}}:&nbsp; <a href="{{ url_for('.account_settings') }}">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('.signout') }}">Sign out</a>
         {% else %}
-          <a href="{{ url_for('signup') }}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('signin') }}">Sign in</a>
+          <a href="{{ url_for('.signup') }}">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('.signin') }}">Sign in</a>
         {% endif %}
       </div>
     </div>
     <div class="sixteen columns">
       <h1 class="bold-header">
-        <a href="{{ url_for('home') }}" class="header">note<span class="jam">jam: </span></a>
+        <a href="{{ url_for('.home') }}" class="header">note<span class="jam">jam: </span></a>
         {% block page_title %}
           <span>All notes</span>
         {% endblock %}
@@ -58,14 +58,14 @@
         {% if pads %}
         <ul>
           {% for pad in pads %}
-            <li><a href="{{ url_for('pad_notes', pad_id=pad.id) }}">{{ pad.name }}</a></li>
+            <li><a href="{{ url_for('.pad_notes', pad_id=pad.id) }}">{{ pad.name }}</a></li>
           {% endfor %}
         </ul>
         {% else %}
           <p class="empty">No pads</p>
         {% endif %}
         <hr />
-        <a href="{{ url_for('create_pad') }}">New pad</a>
+        <a href="{{ url_for('.create_pad') }}">New pad</a>
       </nav>
       <!-- end of pad template tag -->
     </div>

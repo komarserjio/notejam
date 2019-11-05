@@ -20,4 +20,5 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
+    CSRF_ENABLED = False
     TESTING = True
