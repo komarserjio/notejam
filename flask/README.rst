@@ -41,15 +41,6 @@ Install dependencies:
     $ cd YOUR_PROJECT_DIR/flask/
     $ pip install -r requirements.txt
 
-Create database schema:
-
-.. code-block:: bash
-
-    $ cd YOUR_PROJECT_DIR/flask/
-    $ python db.py
-
-Although you shouldn't need to do it since the application will do that in a idempotent way.
-
 ------
 Launch
 ------
@@ -66,20 +57,11 @@ Go to http://127.0.0.1:5000/ in your browser.
 If you do like that, all data added will be stored in a in-memory SQLite database.
 If you want to keep the state, export the environment variable ENVIRONMENT:
 
-.. code-block:: bash
-
-    $ export ENVIRONMENT=development
-    $ python runserver.py
-
-Or in a single line:
+In a single line:
 
 .. code-block:: bash
 
     $ ENVIRONMENT=development python runserver.py
-
-For production (running in a "real" database), use the value "production" and be sure to also
-export the environment variable SQLALCHEMY_DATABASE_URI, using as a value an appropriate
-connection string for Flask-SQLAlchemy.
 
 ---------
 Run tests
