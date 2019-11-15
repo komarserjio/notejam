@@ -41,13 +41,6 @@ Install dependencies:
     $ cd YOUR_PROJECT_DIR/flask/
     $ pip install -r requirements.txt
 
-Create database schema:
-
-.. code-block:: bash
-
-    $ cd YOUR_PROJECT_DIR/flask/
-    $ python db.py
-
 ------
 Launch
 ------
@@ -59,7 +52,16 @@ Start flask web server:
     $ cd YOUR_PROJECT_DIR/flask/
     $ python runserver.py
 
-Go to http://127.0.0.1:5000/ in your browser
+Go to http://127.0.0.1:5000/ in your browser.
+
+If you do like that, all data added will be stored in a in-memory SQLite database.
+If you want to keep the state, export the environment variable ENVIRONMENT:
+
+In a single line:
+
+.. code-block:: bash
+
+    $ ENVIRONMENT=development python runserver.py
 
 ---------
 Run tests
@@ -77,7 +79,7 @@ Run functional and unit tests:
 Contribution
 ============
 
-Do you have python/flask experience? Help the app to follow python and flask best practices.
+Do you have python/flask experience? Help the app to follow Python and Flask best practices.
 
 Please send your pull requests in the ``master`` branch.
 Always prepend your commits with framework name:
