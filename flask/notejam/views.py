@@ -75,12 +75,15 @@ def view_note(note_id):
 def delete_note(note_id):
     note = _get_user_object_or_404(Note, note_id, current_user)
     delete_form = DeleteForm()
+    note_pad_id = None
+    if note.pad:
+        note_pad_id = note.pad.id
     if request.method == 'POST':
         db.session.delete(note)
         db.session.commit()
         flash('Note is successfully deleted', 'success')
-        if note.pad:
-            return redirect(url_for('pad_notes', pad_id=note.pad.id))
+        if note_pad_id:
+            return redirect(url_for('pad_notes', pad_id=note_pad_id))
         else:
             return redirect(url_for('home'))
     return render_template('notes/delete.html', note=note, form=delete_form)
