@@ -8,7 +8,7 @@ Jinja2==2.6
 SQLAlchemy==0.8.0
 Tempita==0.5.1
 WTForms==1.0.3
-Werkzeug==0.8.3
+Werkzeug==0.15.3
 blinker==1.2
 decorator==3.4.0
 ipython==0.13.1
