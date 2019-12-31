@@ -1,16 +1,16 @@
-from flask.ext.wtf import (Form, TextField, PasswordField,
-SelectField, TextAreaField)
-from flask.ext.wtf import Required, Email, EqualTo, ValidationError
+from flask_wtf import FlaskForm
+from wtforms import TextField, PasswordField, SelectField, TextAreaField
+from wtforms.validators import Required, Email, EqualTo, ValidationError
 
 from notejam.models import User, Pad
 
 
-class SigninForm(Form):
+class SigninForm(FlaskForm):
     email = TextField('Email', validators=[Required(), Email()])
     password = PasswordField('Password', validators=[Required()])
 
 
-class SignupForm(Form):
+class SignupForm(FlaskForm):
     email = TextField('Email', validators=[Required(), Email()])
     password = PasswordField('Password', validators=[Required()])
     repeat_password = PasswordField(
@@ -29,7 +29,7 @@ class SignupForm(Form):
             )
 
 
-class NoteForm(Form):
+class NoteForm(FlaskForm):
     name = TextField('Name', validators=[Required()])
     text = TextAreaField('Note', validators=[Required()])
     pad = SelectField('Pad', choices=[], coerce=int)
@@ -42,16 +42,16 @@ class NoteForm(Form):
         ]
 
 
-class PadForm(Form):
+class PadForm(FlaskForm):
     name = TextField('Name', validators=[Required()])
 
 
 # dummy form
-class DeleteForm(Form):
+class DeleteForm(FlaskForm):
     pass
 
 
-class ChangePasswordForm(Form):
+class ChangePasswordForm(FlaskForm):
     old_password = PasswordField('Old Password', validators=[Required()])
     new_password = PasswordField('New Password', validators=[Required()])
     repeat_new_password = PasswordField(
@@ -74,7 +74,7 @@ class ChangePasswordForm(Form):
             )
 
 
-class ForgotPasswordForm(Form):
+class ForgotPasswordForm(FlaskForm):
     email = TextField('Email', validators=[Required(), Email()])
 
     def validate_email(self, field):
