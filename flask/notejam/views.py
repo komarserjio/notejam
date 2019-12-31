@@ -1,10 +1,10 @@
 from datetime import date
-import md5
+from hashlib import md5
 
 from flask import render_template, flash, request, redirect, url_for, abort
-from flask.ext.login import (login_user, login_required, logout_user,
+from flask_login import (login_user, login_required, logout_user,
 current_user)
-from flask.ext.mail import Message
+from flask_mail import Message
 
 from notejam import app, db, login_manager, mail
 from notejam.models import User, Note, Pad
@@ -211,7 +211,7 @@ def forgot_password():
 @app.context_processor
 def inject_user_pads():
     ''' inject list of user pads in template context '''
-    if not current_user.is_anonymous():
+    if not current_user.is_anonymous:
         return dict(pads=current_user.pads.all())
     return dict(pads=[])
 
@@ -256,7 +256,7 @@ def _get_order_by(param='-updated_at'):
 
 def _generate_password(user):
     ''' generate new user password '''
-    m = md5.new()
+    m = md5()
     m.update(
         "{email}{secret}{date}".format(
             email=user.email,
