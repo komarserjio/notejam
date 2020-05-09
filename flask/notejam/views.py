@@ -35,7 +35,7 @@ def create_note():
         note = Note(
             name=note_form.name.data,
             text=note_form.text.data,
-            pad_id=note_form.pad.data,
+            pad_id=note_form.pad.data or None,
             user=current_user
         )
         db.session.add(note)
