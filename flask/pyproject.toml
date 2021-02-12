@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "notejam-flask"
+version = "0.1.0"
+description = ""
+authors = ["Ian"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "1.1"
+Flask-Login = "0.4.1"
+Flask-Mail = "0.9.1"
+Flask-SQLAlchemy = "2.4.4"
+Flask-Testing = "0.8.1"
+Flask-WTF = "0.14.3"
+SQLAlchemy = "1.3.23"
+Tempita = "0.5.2"
+WTForms = "2.3.3"
+blinker = "1.4"
+decorator = "4.4.2"
+sqlalchemy-migrate = "0.7.2"
+email-validator = "^1.1.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
