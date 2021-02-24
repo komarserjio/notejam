@@ -1,3 +1,0 @@
-parameters:
-	database:
-		dsn: 'sqlite:%appDir%/../notejam.db'
