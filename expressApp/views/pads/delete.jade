@@ -1,0 +1,11 @@
+extends ../main
+
+block title
+  | #{pad.name}
+
+block content
+  p Are you sure you want to delete the pad?
+  form(method='post')
+    input(type='submit', class="red", value='Yes, delete I want to delete this pad')
+    |  &nbsp;
+    a(href="/pads/#{pad.id}/edit") Cancel

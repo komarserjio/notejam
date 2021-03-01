@@ -1,0 +1,12 @@
+extends ../main
+
+block title
+  | #{note.name}
+
+block content
+  p.hidden-text Last edited #{note.updatedAt()}
+  div.note
+    p #{note.text}
+
+  a.button(href='/notes/#{note.id}/edit') Edit
+  a.delete-note(href='/notes/#{note.id}/delete') Delete it

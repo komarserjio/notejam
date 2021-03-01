@@ -1,0 +1,11 @@
+extends ../main
+
+block title
+  | New pad
+
+block content
+  form(method='POST')
+    label(for='name') Name
+    input#name(type='text', name='name')
+    +error('name', errors)
+    input(type='submit', value='Save')

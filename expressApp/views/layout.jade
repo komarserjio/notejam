@@ -1,0 +1,44 @@
+include mixins.jade
+
+doctype html
+html(lang='en')
+  meta(charset='utf-8')
+  title
+    block title
+  meta(name='description', content='Notejam: Unified sample app')
+  meta(name='author', content='Notejam')
+  meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+  link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/base.min.css')
+  link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/skeleton.min.css')
+  link(rel='stylesheet', href='http://cdnjs.cloudflare.com/ajax/libs/skeleton/1.2/layout.css')
+  link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    .container
+      .sixteen.columns
+        .sign-in-out-block
+          if req.isAuthenticated()
+            | #{req.user.email}: &nbsp;
+            a(href='/settings') Account settings
+            | &nbsp;&nbsp;&nbsp;
+            a(href='/signout') Sign out
+          else
+            a(href='/signup') Sign up
+            | &nbsp;&nbsp;&nbsp;
+            a(href='/signin') Sign in
+      .sixteen.columns
+        h1.bold-header
+          a.header(href="/")
+            | note
+            span.jam
+              | jam:&nbsp;
+            span
+              block title
+      block content_area
+      hr.footer
+      .footer
+        div
+          | Notejam: <strong>Express</strong> application
+        div
+          <a href='https://github.com/komarserjio/notejam'>Github</a>, <a href='https://github.com/komarserjio/notejam'>Twitter</a>, created by <a href='https://github.com/komarserjio'>Serhii Komar</a>
+    a(href='https://github.com/komarserjio/notejam')
+      img(style='position: absolute; top: 0; right: 0; border: 0;', src='https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png', alt='Fork me on GitHub')
