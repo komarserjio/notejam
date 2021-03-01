@@ -2,7 +2,8 @@ trigger:
   batch: true
   branches:
       include:
-      - *
+      - develop
+			- devops/*
 
 pool:
   vmImage: 'ubuntu-20.04'
