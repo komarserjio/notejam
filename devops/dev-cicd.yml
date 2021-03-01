@@ -27,4 +27,4 @@ steps:
       command: custom
       workingDir: expressApp
       verbose: false
-      customCommand: 'db'
+      customCommand: 'run db'
