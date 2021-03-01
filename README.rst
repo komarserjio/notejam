@@ -36,14 +36,14 @@ Install dependencies
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/express/notejam/
+    $ cd YOUR_PROJECT_DIR/expressApp
     $ npm install
 
 Create database schema
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/express/notejam/
+    $ cd YOUR_PROJECT_DIR/expressApp
     $ node db.js
 
 ------
@@ -54,7 +54,7 @@ Start built-in web server:
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/express/notejam/
+    $ cd YOUR_PROJECT_DIR/expressApp
     $ DEBUG=* ./bin/www
 
 Go to http://127.0.0.1:3000/ in your browser
@@ -67,7 +67,7 @@ Run unit tests:
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/express/notejam/
+    $ cd YOUR_PROJECT_DIR/expressApp
     $ ./node_modules/mocha/bin/mocha tests
 
 ============
