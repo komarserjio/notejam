@@ -1,0 +1,26 @@
+trigger:
+		batch: true
+		branches:
+				include:
+				- develop
+
+pool:
+  vmImage: 'ubuntu-20.04'
+
+steps:
+	- task: NodeTool@0
+		displayName: 'Use Node 14'
+		inputs:
+			versionSpec: 14.x
+			checkLatest: true
+	- task: Npm@1
+		displayName: 'Installing NPM packages'
+		inputs: 
+			command: custom
+			workingDir: express/notejam
+			verbose: false
+			customCommand: 'ci'
+	- script: |
+			cd express/notejam
+			node db.js
+		displayName: 'Create DB schema'
