@@ -21,7 +21,10 @@ steps:
       workingDir: expressApp
       verbose: false
       customCommand: 'ci'
-  - script: |
-      cd expressApp
-      node db.js
-    displayName: 'Create DB schema'
+  - task: Npm@1
+    displayName: 'Creating DB schema'
+    inputs: 
+      command: custom
+      workingDir: expressApp
+      verbose: false
+      customCommand: 'db'
