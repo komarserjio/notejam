@@ -18,10 +18,10 @@ steps:
     displayName: 'Installing NPM packages'
     inputs: 
       command: custom
-      workingDir: express/notejam
+      workingDir: expressApp
       verbose: false
       customCommand: 'ci'
   - script: |
-      cd express/notejam
+      cd expressApp
       node db.js
     displayName: 'Create DB schema'
