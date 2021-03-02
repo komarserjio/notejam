@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "db": "node db.js",
+    "test": "node ./node_modules/mocha/bin/mocha tests",
     "start": "node ./bin/www"
   },
   "dependencies": {
