@@ -28,10 +28,3 @@ steps:
       workingDir: expressApp
       verbose: false
       customCommand: 'run db'
-  - task: Npm@1
-    displayName: 'Running unit tests'
-    inputs: 
-      command: custom
-      workingDir: expressApp
-      verbose: true
-      customCommand: 'run test'
