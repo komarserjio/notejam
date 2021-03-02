@@ -2,7 +2,7 @@
 
 RESOURCE_GROUP_NAME=RG-EUR-NL-DEV-TFStorage
 STORAGE_ACCOUNT_NAME=saeurnldevtfstorage
-CONTAINER_NAME=tstate
+CONTAINER_NAME=tfstate
 LOCATION=westeurope
 
 # Create resource group
