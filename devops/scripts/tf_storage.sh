@@ -1,9 +1,9 @@
 #!/bin/bash
 
-RESOURCE_GROUP_NAME=RG-EUR-NL-DEV-TFStorage
-STORAGE_ACCOUNT_NAME=saeurnldevtfstorage
-CONTAINER_NAME=tfstate
-LOCATION=westeurope
+RESOURCE_GROUP_NAME=$1
+STORAGE_ACCOUNT_NAME=$2
+CONTAINER_NAME=$3
+LOCATION=$4
 
 # Create resource group
 az group create --name $RESOURCE_GROUP_NAME --location $LOCATION
