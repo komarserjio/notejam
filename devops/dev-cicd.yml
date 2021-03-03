@@ -98,3 +98,23 @@ stages:
         ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
         ARM_TENANT_ID: $(ARM_TENANT_ID)
         ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+  
+  - deployment: Deploy
+    dependsOn: Provision
+    variables:
+      WebAppNameDev: $[ dependencies.Provision.outputs['RunTerraform.WebAppNameDev'] ]
+    pool:
+      vmImage: $(vmImage)
+    environment: dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: expressApp
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: DEV environment'
+            inputs:
+              azureSubscription: $(serviceConnection)
+              appName: '$(WebAppNameDev)'
+              package: '$(Pipeline.Workspace)/expressApp/*.zip'
