@@ -44,7 +44,7 @@ stages:
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing expressApp files'
         inputs:
-          pathToPublish: expressApp
+          pathToPublish: expressApp/artifact
           artifactName: expressApp
       - task: ArchiveFiles@2
         displayName: 'Archiving terraform files'
@@ -54,5 +54,5 @@ stages:
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing terraform files'
         inputs:
-          pathToPublish: devops/terraform
+          pathToPublish: devops/terraform/artifact
           artifactName: terraform
