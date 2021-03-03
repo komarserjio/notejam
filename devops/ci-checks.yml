@@ -5,8 +5,8 @@ pr:
 - develop
 - releases/*
 
-variables:
-  vmImage: 'ubuntu-20.04'
+pool:
+  vmImage: ubuntu-20.04
 
 steps:
   - task: NodeTool@0
