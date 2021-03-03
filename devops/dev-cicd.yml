@@ -56,3 +56,37 @@ stages:
         inputs:
           pathToPublish: tfArtifact
           artifactName: terraform
+
+- stage: 'DEV'
+  displayName: 'Deploy to the DEV environment'
+  dependsOn: Build
+  jobs:
+  - job: Provision
+    displayName: 'Provision infrastructure'
+    pool:
+      vmImage: $(vmImage)
+    steps:
+#    - task: DownloadPipelineArtifact@2
+#      inputs:
+#        artifact: tfArtifact
+    - script: |
+        # Exit when any command returns a failure status.
+        set -e
+
+        # Initialize Terraform.
+        terraform init -input=false -backend-config="devops/terraform/backend.tfvars"
+        # Apply the Terraform plan.
+        terraform apply -input=false -auto-approve
+
+        # Get the App Service name for the dev environment.
+        WebAppNameDev=$(terraform output appservice_name_dev)
+
+        # Write the WebAppNameDev variable to the pipeline.
+        echo "##vso[task.setvariable variable=WebAppNameDev;isOutput=true]$WebAppNameDev"
+      name: 'RunTerraform'
+      displayName: 'Run Terraform'
+      env:
+        ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+        ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+        ARM_TENANT_ID: $(ARM_TENANT_ID)
+        ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
