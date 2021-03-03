@@ -87,7 +87,7 @@ stages:
         terraform apply -input=false -auto-approve
 
         # Get the App Service name for the dev environment.
-        WebAppNameDev=$(terraform output appservice_name_dev)
+        WebAppNameDev=$(terraform output appservice_name)
 
         # Write the WebAppNameDev variable to the pipeline.
         echo "##vso[task.setvariable variable=WebAppNameDev;isOutput=true]$WebAppNameDev"

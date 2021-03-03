@@ -76,3 +76,12 @@ resource "azurerm_app_service" "was_notejam" {
     app_command_line = "npm run start"
   }
 }
+
+output "appservice_name" {
+  value       = azurerm_app_service.was_notejam.name
+  description = "The App Service name"
+}
+output "website_hostname" {
+  value       = azurerm_app_service.was_notejam.default_site_hostname
+  description = "The hostname of the website"
+}
