@@ -9,7 +9,7 @@ var db = require('../db');
 var config = require('./config');
 var app = require('../app');
 
-app.listen(3000);
+app.listen(3001);
 
 before(function(done) {
   db.createTables(function() {

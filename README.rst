@@ -55,7 +55,7 @@ Start built-in web server:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/expressApp
-    $ DEBUG=* ./bin/www
+    $ node ./bin/www
 
 Go to http://127.0.0.1:3000/ in your browser
 
@@ -68,7 +68,7 @@ Run unit tests:
 .. code-block:: bash
 
     $ cd YOUR_PROJECT_DIR/expressApp
-    $ ./node_modules/mocha/bin/mocha tests
+    $ ./node_modules/mocha/bin/_mocha tests
 
 ============
 Contribution
