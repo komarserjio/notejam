@@ -63,7 +63,7 @@ resource "azurerm_app_service_plan" "notejam" {
   }
 }
 
-resource "azurerm_app_service" "notejam_dev" {
+resource "azurerm_app_service" "was_notejam" {
   name                = local.app_service_name
   location            = azurerm_resource_group.notejam.location
   resource_group_name = azurerm_resource_group.notejam.name
@@ -78,10 +78,10 @@ resource "azurerm_app_service" "notejam_dev" {
 }
 
 output "appservice_name" {
-  value       = azurerm_app_service.notejam_dev.name
-  description = "The App Service name for the dev environment"
+  value       = azurerm_app_service.was_notejam.name
+  description = "The App Service name"
 }
-output "website_hostname_dev" {
-  value       = azurerm_app_service.notejam_dev.default_site_hostname
-  description = "The hostname of the website in the dev environment"
+output "website_hostname" {
+  value       = azurerm_app_service.was_notejam.default_site_hostname
+  description = "The hostname of the website"
 }
