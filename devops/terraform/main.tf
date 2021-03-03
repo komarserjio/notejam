@@ -45,15 +45,15 @@ locals {
   app_service_name = join("-", ["WAS", var.region_acronym, var.location_acronym, var.environment, var.application])
 }
 
-resource "azurerm_resource_group" "notejam" {
+resource "azurerm_resource_group" "rg_notejam" {
   name     = local.resource_group_name
   location = var.resource_group_location
 }
 
-resource "azurerm_app_service_plan" "notejam" {
+resource "azurerm_app_service_plan" "asp_notejam" {
   name                = local.app_service_plan_name
-  location            = azurerm_resource_group.notejam.location
-  resource_group_name = azurerm_resource_group.notejam.name
+  location            = azurerm_resource_group.rg_notejam.location
+  resource_group_name = azurerm_resource_group.rg_notejam.name
   kind                = "Linux"
   reserved            = true
 
@@ -65,9 +65,9 @@ resource "azurerm_app_service_plan" "notejam" {
 
 resource "azurerm_app_service" "was_notejam" {
   name                = local.app_service_name
-  location            = azurerm_resource_group.notejam.location
-  resource_group_name = azurerm_resource_group.notejam.name
-  app_service_plan_id = azurerm_app_service_plan.notejam.id
+  location            = azurerm_resource_group.rg_notejam.location
+  resource_group_name = azurerm_resource_group.rg_notejam.name
+  app_service_plan_id = azurerm_app_service_plan.asp_notejam.id
 
   site_config {
     always_on        = true
