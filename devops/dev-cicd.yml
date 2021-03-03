@@ -44,15 +44,15 @@ stages:
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing expressApp files'
         inputs:
-          pathToPublish: expressApp/artifact
+          pathToPublish: appArtifact
           artifactName: expressApp
       - task: ArchiveFiles@2
         displayName: 'Archiving terraform files'
         inputs:
           rootFolderOrFile: devops/terraform
-          archiveFile: tfArtifact/artifact/tf.zip
+          archiveFile: tfArtifact/tf.zip
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing terraform files'
         inputs:
-          pathToPublish: devops/terraform/artifact
+          pathToPublish: tfArtifact
           artifactName: terraform
