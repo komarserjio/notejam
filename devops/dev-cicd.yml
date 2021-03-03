@@ -36,15 +36,23 @@ stages:
           workingDir: expressApp
           verbose: false
           customCommand: 'run db'
+      - task: ArchiveFiles@2
+        displayName: 'Archiving express app files'
+        inputs:
+          rootFolderOrFile: expressApp
+          archiveFile: expressApp/artifact/expressApp.zip
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing expressApp files'
         inputs:
-          pathToPublish: devops/terraform
+          pathToPublish: expressApp
           artifactName: expressApp
+      - task: ArchiveFiles@2
+        displayName: 'Archiving terraform files'
+        inputs:
+          rootFolderOrFile: devops/terraform
+          archiveFile: devops/terraform/artifact/tf.zip
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing terraform files'
         inputs:
-          pathToPublish: expressApp
+          pathToPublish: devops/terraform
           artifactName: terraform
-
-
