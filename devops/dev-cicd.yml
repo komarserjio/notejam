@@ -3,7 +3,6 @@ trigger:
   branches:
       include:
       - develop
-      - devops/*
 
 variables:
   vmImage: 'ubuntu-20.04'
