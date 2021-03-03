@@ -71,11 +71,10 @@ stages:
       inputs:
         downloadType: single
         artifactName: terraform
-        downloadPath: $(Build.SourcesDirectory)
     - task: ExtractFiles@1
       displayName: 'Extracting terraform files'
       inputs:
-        archiveFilePatterns: '**/tf.zip'
+        archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/tf.zip'
     - script: |
         # Exit when any command returns a failure status.
         set -e
