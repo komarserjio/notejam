@@ -75,6 +75,7 @@ stages:
       displayName: 'Extracting terraform files'
       inputs:
         archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/tf.zip'
+        cleanDestinationFolder: false
     - script: |
         # Exit when any command returns a failure status.
         set -e
