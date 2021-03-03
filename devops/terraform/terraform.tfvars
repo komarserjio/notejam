@@ -8,5 +8,3 @@ environment = "DEV"
 resource_group_location = "westeurope"
 region_acronym = "EUR"
 location_acronym = "NL"
-
-# RG-EUR-NL-DEV-Notejam
