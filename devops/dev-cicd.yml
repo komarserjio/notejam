@@ -71,6 +71,7 @@ stages:
       inputs:
         downloadType: single
         artifactName: terraform
+        downloadPath: $(Build.SourcesDirectory)
     - task: ExtractFiles@1
       displayName: 'Extracting terraform files'
       inputs:
