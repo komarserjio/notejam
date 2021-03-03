@@ -36,6 +36,13 @@ stages:
           workingDir: expressApp
           verbose: false
           customCommand: 'run db'
+      - task: Npm@1
+        displayName: 'Running E2E tests'
+        inputs: 
+          command: custom
+          workingDir: expressApp
+          verbose: false
+          customCommand: 'run test'
       - task: ArchiveFiles@2
         displayName: 'Archiving express app files'
         inputs:
