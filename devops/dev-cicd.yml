@@ -4,6 +4,8 @@ trigger:
     include:
     - develop
 
+pr: none
+
 variables:
   vmImage: 'ubuntu-20.04'
 
