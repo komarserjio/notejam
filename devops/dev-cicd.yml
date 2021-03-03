@@ -1,8 +1,8 @@
 trigger:
   batch: true
   branches:
-      include:
-      - develop
+    include:
+    - develop
 
 variables:
   vmImage: 'ubuntu-20.04'
