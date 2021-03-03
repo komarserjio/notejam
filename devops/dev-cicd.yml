@@ -40,6 +40,7 @@ stages:
         displayName: 'Archiving express app files'
         inputs:
           rootFolderOrFile: expressApp
+          includeRootFolder: false
           archiveFile: appArtifact/expressApp.zip
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing expressApp files'
