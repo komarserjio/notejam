@@ -1,0 +1,129 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - develop
+
+pr: none
+
+variables:
+  vmImage: 'ubuntu-20.04'
+
+stages:
+- stage: 'Build'
+  displayName: 'Build the web application'
+  jobs: 
+  - job: 'Build'
+    displayName: 'Build job'
+    pool:
+      vmImage: $(vmImage)
+    steps:
+      - task: NodeTool@0
+        displayName: 'Use Node 14'
+        inputs:
+          versionSpec: 14.x
+          checkLatest: true
+      - task: Npm@1
+        displayName: 'Installing NPM packages'
+        inputs: 
+          command: custom
+          workingDir: expressApp
+          verbose: false
+          customCommand: 'ci'
+      - task: Npm@1
+        displayName: 'Creating DB schema'
+        inputs: 
+          command: custom
+          workingDir: expressApp
+          verbose: false
+          customCommand: 'run db'
+      - task: Npm@1
+        displayName: 'Running E2E tests'
+        inputs: 
+          command: custom
+          workingDir: expressApp
+          verbose: false
+          customCommand: 'run test'
+      - task: ArchiveFiles@2
+        displayName: 'Archiving express app files'
+        inputs:
+          rootFolderOrFile: expressApp
+          includeRootFolder: false
+          archiveFile: appArtifact/expressApp.zip
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publishing expressApp files'
+        inputs:
+          pathToPublish: appArtifact
+          artifactName: expressApp
+      - task: ArchiveFiles@2
+        displayName: 'Archiving terraform files'
+        inputs:
+          rootFolderOrFile: devops/terraform
+          includeRootFolder: false
+          archiveFile: tfArtifact/tf.zip
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publishing terraform files'
+        inputs:
+          pathToPublish: tfArtifact
+          artifactName: terraform
+
+- stage: 'DEV'
+  displayName: 'Deploy to the DEV environment'
+  dependsOn: Build
+  jobs:
+  - job: Provision
+    displayName: 'Provision infrastructure'
+    pool:
+      vmImage: $(vmImage)
+    steps:
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Downloading terraform files from pipeline'
+      inputs:
+        downloadType: single
+        artifactName: terraform
+    - task: ExtractFiles@1
+      displayName: 'Extracting terraform files'
+      inputs:
+        archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/tf.zip'
+        cleanDestinationFolder: false
+    - script: |
+        # Exit when any command returns a failure status.
+        set -e
+
+        # Initialize Terraform.
+        terraform init -input=false -backend-config="backend.tfvars"
+        # Apply the Terraform plan.
+        terraform apply -input=false -auto-approve
+
+        # Get the App Service name for the dev environment.
+        WebAppNameDev=$(terraform output appservice_name)
+
+        # Write the WebAppNameDev variable to the pipeline.
+        echo "##vso[task.setvariable variable=WebAppNameDev;isOutput=true]$WebAppNameDev" | tr -d '"'
+      name: 'RunTerraform'
+      displayName: 'Run Terraform'
+      env:
+        ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+        ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+        ARM_TENANT_ID: $(ARM_TENANT_ID)
+        ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+  
+  - deployment: Deploy
+    dependsOn: Provision
+    variables:
+      WebAppNameDev: $[ dependencies.Provision.outputs['RunTerraform.WebAppNameDev'] ]
+    pool:
+      vmImage: $(vmImage)
+    environment: dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: expressApp
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: DEV environment'
+            inputs:
+              azureSubscription: $(serviceConnection)
+              appName: '$(WebAppNameDev)'
+              package: '$(Pipeline.Workspace)/expressApp/*.zip'

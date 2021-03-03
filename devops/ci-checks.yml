@@ -1,0 +1,37 @@
+trigger: none
+
+pr:
+- master
+- develop
+- releases/*
+
+variables:
+  vmImage: 'ubuntu-20.04'
+
+steps:
+  - task: NodeTool@0
+    displayName: 'Use Node 14'
+    inputs:
+      versionSpec: 14.x
+      checkLatest: true
+  - task: Npm@1
+    displayName: 'Installing NPM packages'
+    inputs: 
+      command: custom
+      workingDir: expressApp
+      verbose: false
+      customCommand: 'ci'
+  - task: Npm@1
+    displayName: 'Creating DB schema'
+    inputs: 
+      command: custom
+      workingDir: expressApp
+      verbose: false
+      customCommand: 'run db'
+  - task: Npm@1
+    displayName: 'Running E2E tests'
+    inputs: 
+      command: custom
+      workingDir: expressApp
+      verbose: false
+      customCommand: 'run test'

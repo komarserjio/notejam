@@ -51,3 +51,10 @@ bower_components
 
 #.phar archives
 *.phar
+
+# Visual Studio
+.vs/
+
+# Local .terraform directories & files
+**/.terraform/*
+.terraform.lock.hcl
