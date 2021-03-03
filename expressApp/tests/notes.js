@@ -33,7 +33,7 @@ describe('Note', function() {
           .send({name: 'New note', text: 'text', pad_id: 1})
           .end(function(error, res){
             res.redirects.should.eql([config.url('/')]);
-            res.text.should.containEql('Note is successfully created123');
+            res.text.should.containEql('Note is successfully created');
             done();
           });
     });
