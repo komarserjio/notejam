@@ -69,7 +69,7 @@ stages:
     - task: DownloadPipelineArtifact@2
       displayName: 'Downloading terraform files from pipeline'
       inputs:
-        artifact: tfArtifact
+        artifact: terraform
     - task: ExtractFiles@1
       displayName: 'Extracting terraform files'
       inputs:
