@@ -44,7 +44,7 @@ stages:
       - task: CopyFiles@2
         displayName: 'Copy Files to Target Folder'
         inputs:
-          SourceFolder: devops\terraform
+          SourceFolder: devops/terraform
           TargetFolder: $(Build.ArtifactStagingDirectory)\FilesToPublish\terraform
       - task: ArchiveFiles@2
         displayName: 'Archiving app files into artifact'
@@ -54,3 +54,5 @@ stages:
         displayName: 'Publishing artifact'
         inputs:
           artifactName: 'drop'
+
+
