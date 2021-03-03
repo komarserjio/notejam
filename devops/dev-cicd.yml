@@ -66,14 +66,15 @@ stages:
     pool:
       vmImage: $(vmImage)
     steps:
-    - task: DownloadPipelineArtifact@2
+    - task: DownloadBuildArtifacts@0
       displayName: 'Downloading terraform files from pipeline'
       inputs:
-        artifact: terraform
+        downloadType: single
+        artifactName: terraform
     - task: ExtractFiles@1
       displayName: 'Extracting terraform files'
       inputs:
-        archiveFilePatterns: 'tf.zip'
+        archiveFilePatterns: '**/tf.zip'
     - script: |
         # Exit when any command returns a failure status.
         set -e
