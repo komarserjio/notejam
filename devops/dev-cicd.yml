@@ -36,23 +36,15 @@ stages:
           workingDir: expressApp
           verbose: false
           customCommand: 'run db'
-      - task: CopyFiles@2
-        displayName: 'Copy Files to Target Folder'
-        inputs:
-          SourceFolder: expressApp
-          TargetFolder: $(Build.ArtifactStagingDirectory)\FilesToPublish\expressApp
-      - task: CopyFiles@2
-        displayName: 'Copy Files to Target Folder'
-        inputs:
-          SourceFolder: devops/terraform
-          TargetFolder: $(Build.ArtifactStagingDirectory)\FilesToPublish\terraform
-      - task: ArchiveFiles@2
-        displayName: 'Archiving app files into artifact'
-        inputs:
-          rootFolderOrFile: $(Build.ArtifactStagingDirectory)\FilesToPublish
       - task: PublishBuildArtifacts@1
-        displayName: 'Publishing artifact'
+        displayName: 'Publishing expressApp files'
         inputs:
-          artifactName: 'drop'
+          pathToPublish: devops/terraform
+          artifactName: expressApp
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publishing terraform files'
+        inputs:
+          pathToPublish: expressApp
+          artifactName: terraform
 
 
