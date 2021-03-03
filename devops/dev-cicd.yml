@@ -73,7 +73,7 @@ stages:
     - task: ExtractFiles@1
       displayName: 'Extracting terraform files'
       inputs:
-        archiveFilePatterns: 'tfArtifact.zip'
+        archiveFilePatterns: 'tf.zip'
     - script: |
         # Exit when any command returns a failure status.
         set -e
