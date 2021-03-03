@@ -50,6 +50,7 @@ stages:
         displayName: 'Archiving terraform files'
         inputs:
           rootFolderOrFile: devops/terraform
+          includeRootFolder: false
           archiveFile: tfArtifact/tf.zip
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing terraform files'
