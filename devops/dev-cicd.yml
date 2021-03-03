@@ -40,7 +40,7 @@ stages:
         displayName: 'Archiving express app files'
         inputs:
           rootFolderOrFile: expressApp
-          archiveFile: expressApp/artifact/expressApp.zip
+          archiveFile: appArtifact/expressApp.zip
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing expressApp files'
         inputs:
@@ -50,7 +50,7 @@ stages:
         displayName: 'Archiving terraform files'
         inputs:
           rootFolderOrFile: devops/terraform
-          archiveFile: devops/terraform/artifact/tf.zip
+          archiveFile: tfArtifact/artifact/tf.zip
       - task: PublishBuildArtifacts@1
         displayName: 'Publishing terraform files'
         inputs:
