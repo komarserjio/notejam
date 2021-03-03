@@ -66,15 +66,20 @@ stages:
     pool:
       vmImage: $(vmImage)
     steps:
-#    - task: DownloadPipelineArtifact@2
-#      inputs:
-#        artifact: tfArtifact
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Downloading terraform files from pipeline'
+      inputs:
+        artifact: tfArtifact
+    - task: ExtractFiles@1
+      displayName: 'Extracting terraform files'
+      inputs:
+        archiveFilePatterns: 'tfArtifact.zip'
     - script: |
         # Exit when any command returns a failure status.
         set -e
 
         # Initialize Terraform.
-        terraform init -input=false -backend-config="devops/terraform/backend.tfvars"
+        terraform init -input=false -backend-config="backend.tfvars"
         # Apply the Terraform plan.
         terraform apply -input=false -auto-approve
 
