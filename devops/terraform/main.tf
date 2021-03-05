@@ -18,11 +18,6 @@ variable "resource_group_location" {
   description = "The location of the resource group"
 }
 
-variable "app_service_name_prefix" {
-  default = ""
-  description = "The beginning part of your App Service host name"
-}
-
 variable "region_acronym" {
   description = "The acronym defining the region where the resources are hosted"
 }
@@ -43,11 +38,19 @@ locals {
   resource_group_name = join("-", ["RG", var.region_acronym, var.location_acronym, var.environment, var.application])
   app_service_plan_name = join("-", ["ASP", var.region_acronym, var.location_acronym, var.environment, var.application])
   app_service_name = join("-", ["WAS", var.region_acronym, var.location_acronym, var.environment, var.application])
+  app_insights_name = join("-", ["AIN", var.region_acronym, var.location_acronym, var.environment, var.application])
 }
 
 resource "azurerm_resource_group" "rg_notejam" {
   name     = local.resource_group_name
   location = var.resource_group_location
+}
+
+resource "azurerm_application_insights" "ain_notejam" {
+  name                = local.app_insights_name
+  location            = azurerm_resource_group.rg_notejam.location
+  resource_group_name = azurerm_resource_group.rg_notejam.name
+  application_type    = "Node.JS"
 }
 
 resource "azurerm_app_service_plan" "asp_notejam" {
@@ -74,6 +77,10 @@ resource "azurerm_app_service" "was_notejam" {
     http2_enabled    = true
     linux_fx_version = "NODE|14-lts"
     app_command_line = "npm run start"
+  }
+
+  app_settings = {
+    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.ain_notejam.instrumentation_key
   }
 }
 
