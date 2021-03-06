@@ -1,6 +1,8 @@
 # Exit when any command returns a failure status.
 set -e
 
+ls -la
+
 # Initialize Terraform.
 terraform init -input=false -backend-config="terraform/environments/$(environment)/$(environment).backend.tfvars"
 # Apply the Terraform plan.
