@@ -36,9 +36,14 @@ steps:
       workingDir: expressApp
       verbose: false
       customCommand: 'run test'
-  - task: ArchiveFiles@1
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: devops/terraform
+      targetFolder: express/terraform
+  - task: ArchiveFiles@2
     displayName: 'Archiving files'
     inputs: 
+      rootFolderOrFile: expressApp
       includeRootFolder: false
       archiveFile: artifact/drop.zip
       archiveType: zip
