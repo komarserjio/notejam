@@ -38,7 +38,7 @@ steps:
       customCommand: 'run test'
   - task: CopyFiles@2
     inputs:
-      sourceFolder: express
+      sourceFolder: expressApp
       targetFolder: $(Build.ArtifactStagingDirectory)/artifact
   - task: CopyFiles@2
     inputs:
