@@ -94,6 +94,7 @@ stages:
         cleanDestinationFolder: false
     - task: Bash@3
       displayName: 'Running Terraform'
+      name: RunTerraform
       inputs:
         targetType: filePath
         filePath: tf_run.sh
