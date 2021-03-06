@@ -2,7 +2,7 @@
 set -e
 
 # Initialize Terraform.
-terraform init -input=false -backend-config="environments/$(environment)/$(environment).backend.tfvars"
+terraform init -input=false -backend-config="environments/$environment/$environment.backend.tfvars"
 # Apply the Terraform plan.
 terraform apply -input=false -auto-approve
 
