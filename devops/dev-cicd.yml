@@ -55,6 +55,12 @@ stages:
         inputs:
           pathToPublish: appArtifact
           artifactName: expressApp
+      - task: CopyFiles@2
+        displayName: 'Copying script that runs terraform to the sources directory'
+        inputs:
+          sourceFolder: devops/scripts
+          contents: tf_run.sh
+          targetFolder:  $(Build.SourcesDirectory)/devops/terraform
       - task: ArchiveFiles@2
         displayName: 'Archiving terraform files'
         inputs:
@@ -72,7 +78,7 @@ stages:
   dependsOn: Build
   jobs:
   - job: Provision
-    displayName: 'Provision infrastructure'
+    displayName: 'Provisioning infrastructure'
     pool:
       vmImage: $(vmImage)
     steps:
@@ -86,22 +92,14 @@ stages:
       inputs:
         archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/tf.zip'
         cleanDestinationFolder: false
-    - script: |
-        # Exit when any command returns a failure status.
-        set -e
-
-        # Initialize Terraform.
-        terraform init -input=false -backend-config="environments/$(environment)/$(environment).backend.tfvars"
-        # Apply the Terraform plan.
-        terraform apply -input=false -auto-approve
-
-        # Get the App Service name for the environment.
-        WebAppName=$(terraform output appservice_name)
-
-        # Write the WebAppName variable to the pipeline.
-        echo "##vso[task.setvariable variable=WebAppName;isOutput=true]$WebAppName" | tr -d '"'
-      name: 'RunTerraform'
-      displayName: 'Run Terraform'
+    - task: Bash@3
+      displayName: 'Running Terraform'
+      name: RunTerraform
+      inputs:
+        targetType: filePath
+        filePath: tf_run.sh
+        arguments: $(environment)
+        failOnStderr: true
       env:
         ARM_CLIENT_ID: $(ARM_CLIENT_ID)
         ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
@@ -120,9 +118,10 @@ stages:
         deploy:
           steps:
           - download: current
+            displayName: 'Downloading expressApp files from pipeline'
             artifact: expressApp
           - task: AzureWebApp@1
-            displayName: 'Azure App Service Deploy: DEV environment'
+            displayName: 'Deploying DEV environment to Azure App Service'
             inputs:
               azureSubscription: $(serviceConnection)
               appName: '$(WebAppName)'
