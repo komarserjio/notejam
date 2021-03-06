@@ -46,6 +46,12 @@ steps:
     inputs:
       sourceFolder: devops/terraform
       targetFolder: $(Build.ArtifactStagingDirectory)/terraform
+  - task: CopyFiles@2
+    displayName: 'Copying script that runs terraform to the sources directory'
+    inputs:
+      sourceFolder: devops/scripts
+      contents: tf_run.sh
+      targetFolder:  $(Build.ArtifactStagingDirectory)/terraform
   - task: ArchiveFiles@2
     displayName: 'Archiving files'
     inputs: 
