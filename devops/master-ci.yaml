@@ -49,10 +49,10 @@ steps:
     inputs: 
       rootFolderOrFile: $(Build.ArtifactStagingDirectory)/artifact
       includeRootFolder: false
-      archiveFile: $(Build.ArtifactStagingDirectory)/artifact/drop.zip
+      archiveFile: $(Build.ArtifactStagingDirectory)/artifact/data.zip
       archiveType: zip
   - task: PublishBuildArtifacts@1
     displayName: 'Publishing files'
     inputs:
       pathToPublish: $(Build.ArtifactStagingDirectory)/artifact
-      artifactName: drop.zip
+      artifactName: drop
