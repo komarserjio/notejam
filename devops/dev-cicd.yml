@@ -56,7 +56,7 @@ stages:
           pathToPublish: appArtifact
           artifactName: expressApp
       - task: CopyFiles@2
-        displayName: 'Copying terraform execution script to the staging directory'
+        displayName: 'Copying script that runs terraform to the staging directory'
         inputs:
           sourceFolder: devops/scripts
           contents: tf_run.sh
