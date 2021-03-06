@@ -96,7 +96,7 @@ stages:
       displayName: 'Running Terraform'
       inputs:
         targetType: filePath
-        filePath: scripts/tf_run.sh
+        filePath: tf_run.sh
         #arguments: # Optional
         workingDirectory: devops
         failOnStderr: true
