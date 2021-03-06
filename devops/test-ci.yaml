@@ -36,14 +36,25 @@ steps:
       workingDir: expressApp
       verbose: false
       customCommand: 'run test'
-  - task: ArchiveFiles@1
+  - task: CopyFiles@2
+    displayName: 'Copy expressApp folder to the staging directory'
+    inputs:
+      sourceFolder: expressApp
+      targetFolder: $(Build.ArtifactStagingDirectory)
+  - task: CopyFiles@2
+    displayName: 'Copy terraform folder to the staging directory'
+    inputs:
+      sourceFolder: devops/terraform
+      targetFolder: $(Build.ArtifactStagingDirectory)/terraform
+  - task: ArchiveFiles@2
     displayName: 'Archiving files'
     inputs: 
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)
       includeRootFolder: false
-      archiveFile: artifact/drop.zip
+      archiveFile: $(Build.ArtifactStagingDirectory)/artifact/data.zip
       archiveType: zip
   - task: PublishBuildArtifacts@1
     displayName: 'Publishing files'
     inputs:
-      pathToPublish: artifact
-      artifactName: drop.zip
+      pathToPublish: $(Build.ArtifactStagingDirectory)/artifact
+      artifactName: drop
