@@ -83,7 +83,7 @@ stages:
       vmImage: $(vmImage)
     steps:
     - task: DownloadBuildArtifacts@0
-      displayName: 'Downloadinging terraform files from pipeline'
+      displayName: 'Downloading terraform files from pipeline'
       inputs:
         downloadType: single
         artifactName: terraform
@@ -98,7 +98,6 @@ stages:
         targetType: filePath
         filePath: tf_run.sh
         #arguments: # Optional
-        workingDirectory: devops
         failOnStderr: true
       env:
         ARM_CLIENT_ID: $(ARM_CLIENT_ID)
