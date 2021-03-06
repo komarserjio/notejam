@@ -37,12 +37,12 @@ steps:
       verbose: false
       customCommand: 'run test'
   - task: CopyFiles@2
-    displayName: 'Copy expressApp folder to the staging directory'
+    displayName: 'Copying expressApp folder to the staging directory'
     inputs:
       sourceFolder: expressApp
       targetFolder: $(Build.ArtifactStagingDirectory)
   - task: CopyFiles@2
-    displayName: 'Copy terraform folder to the staging directory'
+    displayName: 'Copying terraform folder to the staging directory'
     inputs:
       sourceFolder: devops/terraform
       targetFolder: $(Build.ArtifactStagingDirectory)/terraform

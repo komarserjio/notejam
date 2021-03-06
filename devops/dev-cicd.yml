@@ -72,12 +72,12 @@ stages:
   dependsOn: Build
   jobs:
   - job: Provision
-    displayName: 'Provision infrastructure'
+    displayName: 'Provisioning infrastructure'
     pool:
       vmImage: $(vmImage)
     steps:
     - task: DownloadBuildArtifacts@0
-      displayName: 'Downloading terraform files from pipeline'
+      displayName: 'Downloadinging terraform files from pipeline'
       inputs:
         downloadType: single
         artifactName: terraform
@@ -86,27 +86,19 @@ stages:
       inputs:
         archiveFilePatterns: '$(Build.ArtifactStagingDirectory)/**/tf.zip'
         cleanDestinationFolder: false
-    - script: |
-        # Exit when any command returns a failure status.
-        set -e
-
-        # Initialize Terraform.
-        terraform init -input=false -backend-config="environments/$(environment)/$(environment).backend.tfvars"
-        # Apply the Terraform plan.
-        terraform apply -input=false -auto-approve
-
-        # Get the App Service name for the environment.
-        WebAppName=$(terraform output appservice_name)
-
-        # Write the WebAppName variable to the pipeline.
-        echo "##vso[task.setvariable variable=WebAppName;isOutput=true]$WebAppName" | tr -d '"'
-      name: 'RunTerraform'
-      displayName: 'Run Terraform'
-      env:
-        ARM_CLIENT_ID: $(ARM_CLIENT_ID)
-        ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
-        ARM_TENANT_ID: $(ARM_TENANT_ID)
-        ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+    - task: Bash@3
+      displayName: 'Running Terraform'
+      inputs:
+        targetType: filePath
+        filePath: scripts/tf_run.sh
+        #arguments: # Optional
+        workingDirectory: devops
+        failOnStderr: true
+        env:
+          ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+          ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+          ARM_TENANT_ID: $(ARM_TENANT_ID)
+          ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
   
   - deployment: Deploy
     dependsOn: Provision
@@ -120,9 +112,10 @@ stages:
         deploy:
           steps:
           - download: current
+            displayName: 'Downloadinging expressApp files from pipeline'
             artifact: expressApp
           - task: AzureWebApp@1
-            displayName: 'Azure App Service Deploy: DEV environment'
+            displayName: 'Deploying DEV environment to Azure App Service'
             inputs:
               azureSubscription: $(serviceConnection)
               appName: '$(WebAppName)'
