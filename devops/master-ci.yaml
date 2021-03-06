@@ -39,7 +39,7 @@ steps:
   - task: CopyFiles@2
     inputs:
       sourceFolder: devops/terraform
-      targetFolder: express/terraform
+      targetFolder: $(Build.ArtifactStagingDirectory)/express/terraform
   - task: ArchiveFiles@2
     displayName: 'Archiving files'
     inputs: 
