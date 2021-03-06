@@ -2,7 +2,7 @@
 set -e
 
 # Read arguments
-$environment = $1
+environment = $1
 
 # Initialize Terraform.
 terraform init -input=false -backend-config="environments/$environment/$environment.backend.tfvars"
