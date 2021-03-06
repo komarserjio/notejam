@@ -97,8 +97,7 @@ stages:
       inputs:
         targetType: filePath
         filePath: tf_run.sh
-        arguments:
-          environment: $(environment)
+        arguments: $(environment)
         failOnStderr: true
       env:
         ARM_CLIENT_ID: $(ARM_CLIENT_ID)
