@@ -14,31 +14,12 @@ provider "azurerm" {
   features {}
 }
 
-variable "resource_group_location" {
-  description = "The location of the resource group"
-}
-
-variable "region_acronym" {
-  description = "The acronym defining the region where the resources are hosted"
-}
-
-variable "location_acronym" {
-  description = "The acronym defining the location where the resources are hosted"
-}
-
-variable "environment" {
-  description = "The acronym defining the environment"
-}
-
-variable "application" {
-  description = "The application name"
-}
-
 locals {
-  resource_group_name = join("-", ["RG", var.region_acronym, var.location_acronym, var.environment, var.application])
+  resource_group_name   = join("-", ["RG", var.region_acronym, var.location_acronym, var.environment, var.application])
   app_service_plan_name = join("-", ["ASP", var.region_acronym, var.location_acronym, var.environment, var.application])
-  app_service_name = join("-", ["WAS", var.region_acronym, var.location_acronym, var.environment, var.application])
-  app_insights_name = join("-", ["AIN", var.region_acronym, var.location_acronym, var.environment, var.application])
+  app_service_name      = join("-", ["WAS", var.region_acronym, var.location_acronym, var.environment, var.application])
+  app_insights_name     = join("-", ["AIN", var.region_acronym, var.location_acronym, var.environment, var.application])
+  log_analytics_name    = join("-", ["LAW", var.region_acronym, var.location_acronym, var.environment, var.application])
 }
 
 resource "azurerm_resource_group" "rg_notejam" {
@@ -50,7 +31,7 @@ resource "azurerm_application_insights" "ain_notejam" {
   name                = local.app_insights_name
   location            = azurerm_resource_group.rg_notejam.location
   resource_group_name = azurerm_resource_group.rg_notejam.name
-  application_type    = "Node.JS"
+  application_type    = var.application_type
 }
 
 resource "azurerm_app_service_plan" "asp_notejam" {
@@ -61,8 +42,8 @@ resource "azurerm_app_service_plan" "asp_notejam" {
   reserved            = true
 
   sku {
-    tier = "Basic"
-    size = "B1"
+    tier = var.app_service_plan_tier
+    size = var.app_service_plan_size
   }
 }
 
@@ -75,8 +56,8 @@ resource "azurerm_app_service" "was_notejam" {
   site_config {
     always_on        = true
     http2_enabled    = true
-    linux_fx_version = "NODE|14-lts"
-    app_command_line = "npm run start"
+    linux_fx_version = var.site_config_linux_fx_version
+    app_command_line = var.site_config_app_command_line
   }
 
   app_settings = {
@@ -84,10 +65,19 @@ resource "azurerm_app_service" "was_notejam" {
   }
 }
 
+resource "azurerm_log_analytics_workspace" "law_notejam" {
+  name                = local.log_analytics_name
+  location            = var.resource_group_location
+  resource_group_name = local.resource_group_name
+  sku                 = "PerGB2018"  # default value, can only be changed for subscriptions created before 2018
+  retention_in_days   = var.law_retention_period
+}
+
 output "appservice_name" {
   value       = azurerm_app_service.was_notejam.name
   description = "The App Service name"
 }
+
 output "website_hostname" {
   value       = azurerm_app_service.was_notejam.default_site_hostname
   description = "The hostname of the website"

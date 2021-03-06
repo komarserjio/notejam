@@ -1,0 +1,2 @@
+# Environment vars
+environment = "DEV"
