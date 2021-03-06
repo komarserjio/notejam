@@ -91,15 +91,15 @@ stages:
         set -e
 
         # Initialize Terraform.
-        terraform init -input=false -backend-config="backend.tfvars"
+        terraform init -input=false -backend-config="environments/$(environment)/$(environment).backend.tfvars"
         # Apply the Terraform plan.
         terraform apply -input=false -auto-approve
 
-        # Get the App Service name for the dev environment.
-        WebAppNameDev=$(terraform output appservice_name)
+        # Get the App Service name for the environment.
+        WebAppName=$(terraform output appservice_name)
 
-        # Write the WebAppNameDev variable to the pipeline.
-        echo "##vso[task.setvariable variable=WebAppNameDev;isOutput=true]$WebAppNameDev" | tr -d '"'
+        # Write the WebAppName variable to the pipeline.
+        echo "##vso[task.setvariable variable=WebAppName;isOutput=true]$WebAppName" | tr -d '"'
       name: 'RunTerraform'
       displayName: 'Run Terraform'
       env:
@@ -111,7 +111,7 @@ stages:
   - deployment: Deploy
     dependsOn: Provision
     variables:
-      WebAppNameDev: $[ dependencies.Provision.outputs['RunTerraform.WebAppNameDev'] ]
+      WebAppName: $[ dependencies.Provision.outputs['RunTerraform.WebAppName'] ]
     pool:
       vmImage: $(vmImage)
     environment: dev
@@ -125,5 +125,5 @@ stages:
             displayName: 'Azure App Service Deploy: DEV environment'
             inputs:
               azureSubscription: $(serviceConnection)
-              appName: '$(WebAppNameDev)'
+              appName: '$(WebAppName)'
               package: '$(Pipeline.Workspace)/expressApp/*.zip'
