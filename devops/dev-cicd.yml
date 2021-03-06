@@ -118,7 +118,7 @@ stages:
         deploy:
           steps:
           - download: current
-            displayName: 'Downloadinging expressApp files from pipeline'
+            displayName: 'Downloading expressApp files from pipeline'
             artifact: expressApp
           - task: AzureWebApp@1
             displayName: 'Deploying DEV environment to Azure App Service'
