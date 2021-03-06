@@ -1,4 +1,10 @@
-trigger: master
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
+pr: none
 
 pool:
   vmImage: ubuntu-20.04
