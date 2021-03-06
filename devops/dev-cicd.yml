@@ -60,7 +60,7 @@ stages:
         inputs:
           sourceFolder: devops/scripts
           contents: tf_run.sh
-          targetFolder:  $(Build.SourcesDirectory)/terraform
+          targetFolder:  $(Build.SourcesDirectory)/devops/terraform
       - task: ArchiveFiles@2
         displayName: 'Archiving terraform files'
         inputs:
