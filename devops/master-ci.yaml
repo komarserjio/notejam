@@ -47,7 +47,7 @@ steps:
   - task: ArchiveFiles@2
     displayName: 'Archiving files'
     inputs: 
-      rootFolderOrFile: $(Build.ArtifactStagingDirectory)/artifact/
+      rootFolderOrFile: $(Build.ArtifactStagingDirectory)/artifact
       includeRootFolder: false
       archiveFile: $(Build.ArtifactStagingDirectory)/artifact/drop.zip
       archiveType: zip
