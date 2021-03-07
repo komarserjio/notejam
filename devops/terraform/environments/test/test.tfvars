@@ -1,4 +1,4 @@
 # Environment vars
 environment = "TEST"
-app_service_plan_tier = "PremiumContainer"
-app_service_plan_size = "PC1"
+app_service_plan_tier = "Premium"
+app_service_plan_size = "P1V2"
