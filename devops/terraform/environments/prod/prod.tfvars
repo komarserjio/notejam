@@ -1,5 +1,5 @@
 # Environment vars
-environment = "TEST"
+environment = "PROD"
 
 # Paired Region 2 vars
 # resource_group_location = "northeurope"
