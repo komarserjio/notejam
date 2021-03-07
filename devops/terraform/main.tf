@@ -1,12 +1,12 @@
 terraform {
+  backend "azurerm" { }
+
   required_version = ">= 0.14"
   required_providers {
     azurerm = {
-      version = ">=2.0.0"
+      source  = "hashicorp/azurerm"
+      version = ">=2.50.0"
     }
-  }
-
-  backend "azurerm" {
   }
 }
 
@@ -66,7 +66,7 @@ resource "azurerm_monitor_autoscale_setting" "asp_notejam_autoscale_rule" {
 
     rule {
       metric_trigger {
-        metric_name        = "ScaleOut"
+        metric_name        = "CpuPercentage"
         metric_resource_id = azurerm_app_service_plan.asp_notejam.id
         statistic          = "Average"
         time_window        = "PT10M"
@@ -86,7 +86,7 @@ resource "azurerm_monitor_autoscale_setting" "asp_notejam_autoscale_rule" {
 
     rule {
       metric_trigger {
-        metric_name        = "ScaleIn"
+        metric_name        = "CpuPercentage"
         metric_resource_id = azurerm_app_service_plan.asp_notejam.id
         statistic          = "Average"
         time_window        = "PT10M"
