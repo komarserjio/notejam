@@ -30,6 +30,7 @@ resource "azurerm_monitor_autoscale_setting" "asp_notejam_autoscale_rule" {
   resource_group_name = local.resource_group_name
   location            = var.resource_group_location
   target_resource_id  = azurerm_app_service_plan.asp_notejam.id
+  
   count               = (var.environment == "TEST" || var.environment == "PROD") ? 1 : 0
 
   profile {

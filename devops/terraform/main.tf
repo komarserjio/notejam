@@ -39,5 +39,5 @@ output "westeurope_infrastructure_outputs" {
 }
 
 output "northeurope_infrastructure_outputs" {
-  value = module.northeurope_infrastructure
+  value = (var.environment == "TEST" || var.environment == "PROD") ? module.northeurope_infrastructure : []
 }
