@@ -52,11 +52,11 @@ resource "azurerm_app_service" "was_notejam" {
   location            = azurerm_resource_group.rg_notejam.location
   resource_group_name = azurerm_resource_group.rg_notejam.name
   app_service_plan_id = azurerm_app_service_plan.asp_notejam.id
+  https_only          = true
 
   site_config {
     always_on        = true
     http2_enabled    = true
-    https_only       = true
     min_tls_version  = 1.2
     ftps_state       = "Disabled"
     linux_fx_version = var.site_config_linux_fx_version
