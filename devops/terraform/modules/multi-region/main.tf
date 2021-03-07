@@ -39,7 +39,7 @@ resource "azurerm_monitor_autoscale_setting" "asp_notejam_autoscale_rule" {
     capacity {
       default = 1
       minimum = 1
-      maximum = 20
+      maximum = 10
     }
 
     rule {
