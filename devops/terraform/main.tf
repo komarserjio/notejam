@@ -56,6 +56,9 @@ resource "azurerm_app_service" "was_notejam" {
   site_config {
     always_on        = true
     http2_enabled    = true
+    https_only       = true
+    min_tls_version  = 1.2
+    ftps_state       = "Disabled"
     linux_fx_version = var.site_config_linux_fx_version
     app_command_line = var.site_config_app_command_line
   }
