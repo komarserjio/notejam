@@ -3,6 +3,7 @@ set -e
 
 # Read arguments
 environment=$1
+isProd=$2
 
 # Initialize Terraform.
 terraform init -input=false -backend-config="environments/$environment/$environment.backend.tfvars"
@@ -10,8 +11,17 @@ terraform init -input=false -backend-config="environments/$environment/$environm
 # Apply the Terraform plan.
 terraform apply -input=false -auto-approve -var-file="environments/$environment/$environment.tfvars"
 
-# Get the App Service name for the environment.
-webAppName=$(terraform output appservice_name | tr -d '"')
+# Get the West Europe App Service name for the environment.
+webAppNameWestEurope=$(terraform output -json westeurope_infrastructure_outputs | jq .appservice_name | tr -d '"')
 
-# Write the webAppName variable to the pipeline.
-echo "##vso[task.setvariable variable=WebAppName;isOutput=true]$webAppName"
+# Write the West Europe webAppName variable to the pipeline.
+echo "##vso[task.setvariable variable=webAppNameWestEurope;isOutput=true]$webAppNameWestEurope"
+
+# Get the North Europe App Service name for the environment, in case it is a production like environment.
+if [ $isProd == true ]
+then
+  webAppNameNorthEurope=$(terraform output -json northeurope_infrastructure_outputs | jq .appservice_name | tr -d '"')
+
+  # Write the North Europe webAppName variable to the pipeline.
+  echo "##vso[task.setvariable variable=webAppNameNorthEurope;isOutput=true]$webAppNameNorthEurope"
+fi

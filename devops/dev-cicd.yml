@@ -98,7 +98,7 @@ stages:
       inputs:
         targetType: filePath
         filePath: tf_run.sh
-        arguments: $(environment)
+        arguments: $(environment) $(isProductionLikeEnvironment)
         failOnStderr: true
       env:
         ARM_CLIENT_ID: $(ARM_CLIENT_ID)
@@ -109,7 +109,7 @@ stages:
   - deployment: Deploy
     dependsOn: Provision
     variables:
-      WebAppName: $[ dependencies.Provision.outputs['RunTerraform.WebAppName'] ]
+      WebAppName: $[ dependencies.Provision.outputs['RunTerraform.webAppNameWestEurope'] ]
     pool:
       vmImage: $(vmImage)
     environment: dev
