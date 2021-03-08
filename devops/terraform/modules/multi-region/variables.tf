@@ -1,19 +1,10 @@
 variable "environment" { }
 
-variable "resource_group_location" {
-  description = "The location of the resource group"
-  default     = "westeurope"
-}
+variable "resource_group_location" { }
 
-variable "region_acronym" {
-  description = "The acronym defining the region where the resources are hosted"
-  default     = "EUR"
-}
+variable "region_acronym" { }
 
-variable "location_acronym" {
-  description = "The acronym defining the location where the resources are hosted"
-  default     = "NL"
-}
+variable "location_acronym" { }
 
 variable "application" {
   description = "The application name"

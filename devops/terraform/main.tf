@@ -14,30 +14,18 @@ provider "azurerm" {
   features {}
 }
 
-module "westeurope_infrastructure" {
+module "paired_regions_infrastructure" {
   source                  = "./modules/multi-region"
-  resource_group_location = "westeurope"
-  location_acronym        = "NL"
   environment             = var.environment
-  app_service_plan_tier   = var.app_service_plan_tier
-  app_service_plan_size   = var.app_service_plan_size
-}
-
-module "northeurope_infrastructure" {
-  source                  = "./modules/multi-region"
-  resource_group_location = "northeurope"
-  location_acronym        = "IE"
-  environment             = var.environment
+  resource_group_location = each.value.resource_group_location
+  region_acronym          = each.value.region_acronym
+  location_acronym        = each.value.location_acronym
   app_service_plan_tier   = var.app_service_plan_tier
   app_service_plan_size   = var.app_service_plan_size
 
-  count                   = (var.environment == "TEST" || var.environment == "PROD") ? 1 : 0
+  for_each = (var.environment == "TEST" || var.environment == "PROD") ? var.paired_regions : { region1 = var.paired_regions.region1 }
 }
 
-output "westeurope_infrastructure_outputs" {
-  value = module.westeurope_infrastructure
-}
-
-output "northeurope_infrastructure_outputs" {
-  value = module.northeurope_infrastructure
+output "infrastructure_outputs" {
+  value = module.paired_regions_infrastructure
 }
