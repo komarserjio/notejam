@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    container_name: db
+    environment:
+      POSTGRES_PASSWORD: admin@123
+      POSTGRES_USER: test
+      POSTGRES_DB: test
+    ports:
+      - "5432:5432"
+    networks:
+      - notejam
+    volumes:
+      - db-data:/var/lib/mysql/data
+  web:
+    image: hsalahi/notejam 
+    container_name: web
+    command: bash -c "python manage.py syncdb --noinput && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    networks:
+      - notejam
+    depends_on:
+      - db
+
+networks:
+  notejam:
+
+volumes:
+  db-data:
