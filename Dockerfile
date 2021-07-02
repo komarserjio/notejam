@@ -1,6 +1,6 @@
 FROM python:2.7
 
-LABEL authors="Hossein Salahi"
+LABEL authors="Paul Stagner"
 
 #Environment variables
 ENV PYTHONUNBUFFERED 1
@@ -12,6 +12,5 @@ WORKDIR $APP_HOME
 
 COPY notejam/django/requirements.txt ./
 RUN pip install -r requirements.txt
-RUN pip install psycopg2
 
 EXPOSE 8000
