@@ -55,6 +55,9 @@ bower_components
 # Visual Studio
 .vs/
 
+# VS Code
+.vscode
+
 # Local .terraform directories & files
 **/.terraform/*
 .terraform.lock.hcl
