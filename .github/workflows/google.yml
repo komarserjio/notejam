@@ -13,7 +13,7 @@ jobs:
         name: Setup Gcloud Account
         runs-on: ubuntu-latest
         env:
-          IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
+          IMAGE_NAME: gcr.io/${{ secrets.PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
         steps:
         
         - name: Check Out Repo 
@@ -35,7 +35,7 @@ jobs:
         - name: Build Docker image
 #          run: docker build . -t $IMAGE_NAME
           id: docker_build
-          uses: docker/build-push-action@v2
+          uses: docker/build-action@v2
           with:
             context: ./
             file: ./Dockerfile
@@ -43,5 +43,5 @@ jobs:
         - name: Push Docker image
           run: docker push $IMAGE_NAME
 
-        - name: Deploy Docker image
-          run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed
+   #     - name: Deploy Docker image
+   #       run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed
