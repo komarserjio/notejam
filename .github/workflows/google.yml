@@ -20,7 +20,7 @@ jobs:
           uses: actions/checkout@v2
         
         - name: Login
-          uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+          uses: google-github-actions/setup-gcloud@master
           with:
             project_id: ${{ secrets.PROJECT_ID }}
             service_account_email: ${{ secrets.SERVICE_NAME }}
