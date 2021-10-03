@@ -1,4 +1,4 @@
-name: Docker
+name: Build and push to GCR
 
 on:
   push:
@@ -8,8 +8,6 @@ jobs:
 
     deploy:
     
-
-        
         name: Setup Gcloud Account
         runs-on: ubuntu-latest
         env:
