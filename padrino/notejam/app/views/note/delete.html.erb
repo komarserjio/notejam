@@ -1,9 +1,0 @@
-<% content_for :page_title do %><%= @note.name %><% end %>
-
-<p>Are you sure you want to delete <%= @note.name %>?</p>
-<% form_for :note, url(:note, :delete, :id => @note.id) do |f| %>
-  <%= f.submit "Yes, I want to delete this note", :class => "red" %>
-  <%= link_to "Cancel", url(:note, :view, {:id => @note.id}) %>
-<% end %>
-
-
