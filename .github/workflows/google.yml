@@ -7,7 +7,10 @@ on:
 jobs:
 
     deploy:
-
+    
+        name: Check Out Repo 
+        uses: actions/checkout@v2
+        
         name: Setup Gcloud Account
         runs-on: ubuntu-latest
         env:
