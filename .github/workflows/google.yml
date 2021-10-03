@@ -34,9 +34,6 @@ jobs:
 
         - name: Build Docker image
           run: docker build . -t $IMAGE_NAME
-         with:
-            context: ./
-            file: ./Dockerfile
 
         - name: Push Docker image
           run: docker push $IMAGE_NAME
