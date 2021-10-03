@@ -8,15 +8,17 @@ jobs:
 
     deploy:
     
-        name: Check Out Repo 
-        uses: actions/checkout@v2
+
         
         name: Setup Gcloud Account
         runs-on: ubuntu-latest
         env:
           IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
         steps:
-
+        
+        - name: Check Out Repo 
+          uses: actions/checkout@v2
+        
         - name: Login
           uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
           with:
