@@ -1,8 +1,10 @@
-name: Build and push to GCR Staging branch
+name: Staging
 
 on:
   push:
     branches: [ staging ]
+tab
+ workflow_dispatch:
 
 jobs:
     deploy:
