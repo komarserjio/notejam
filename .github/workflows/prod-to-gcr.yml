@@ -38,38 +38,3 @@ on:
 
    #     - name: Deploy Docker image
    #       run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed
-
-  push:
-    branches: [ staging ]
-
-  jobs:
-
-    deploy:
-    
-        name: Setup Gcloud Account
-        runs-on: ubuntu-latest
-        env:
-          IMAGE_NAME: gcr.io/${{ secrets.PROJECT_ID }}/${{ secrets.GCP_APP_NAME }}
-        steps:
-        
-        - name: Check Out Repo 
-          uses: actions/checkout@v2
-        
-        - name: Login
-          uses: google-github-actions/setup-gcloud@master
-          with:
-            project_id: ${{ secrets.PROJECT_ID }}
-            service_account_email: ${{ secrets.SERVICE_NAME }}
-            service_account_key: ${{ secrets.GCR_KEY }}
-
-        - name: Configure Docker
-          run: gcloud auth configure-docker --quiet
-
-        - name: Checkout repository
-          uses: actions/checkout@v2
-
-        - name: Build Docker image
-          run: docker build . -t $IMAGE_NAME
-
-        - name: Push Docker image
-          run: docker push $IMAGE_NAME
