@@ -28,6 +28,9 @@ jobs:
 
         - name: Checkout repository
           uses: actions/checkout@v2
+          
+        - name: Run Test
+          run: python /app/django/notejam/manage.py
 
         - name: Build Docker image
           run: docker build . -t $IMAGE_NAME
