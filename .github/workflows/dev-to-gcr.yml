@@ -5,7 +5,6 @@ on:
     branches: [ staging ]
 
 jobs:
-
     deploy:
     
         name: Setup Gcloud Account
