@@ -30,7 +30,7 @@ jobs:
           uses: actions/checkout@v2
           
         - name: Run Test
-          run: python /django/notejam/manage.py test
+          run: python django/notejam/manage.py test
 
         - name: Build Docker image
           run: docker build . -t $IMAGE_NAME
