@@ -39,7 +39,6 @@ jobs:
    #     - name: Deploy Docker image
    #       run: gcloud run deploy ${{ secrets.PROJECT_ID }} --image $IMAGE_NAME --region us-central1 --platform managed
 
-on:
   push:
     branches: [ staging ]
 
